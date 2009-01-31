@@ -1,0 +1,14 @@
+#summary 기본 개발 환경 설정
+#labels 개발환경,eclipse
+
+= Introduction =
+
+Eclise + Spring 2.5 + Maven
+
+
+= Details =
+* Ecilpse Plugins
+  * Eclipse 3.4+ JEE 버전
+  * Subversive
+  * M2Eclipse (설치시에 MyLyn 관련된 항목 제외)
+  * Spring IDE
