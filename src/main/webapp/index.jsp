@@ -10,7 +10,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 </head>
 <body>
 <p>
-이제 시작합니다.
+이제 시작합니다.화이팅*ㅁ*
 </p>
 </body>
 </html>
