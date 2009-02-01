@@ -16,14 +16,20 @@
 
 
 == 2주차 (02/02 ~ 02/08) ==
+ * Dependency 추가할 것들
+   * JSTL : taglibs/standard 1.1.2 추가
+   * MySQL JDBC 드라이버
+   * Commons DBCP 커넥션 풀
+   * Log4J 1.2
  * 읽어볼 문서
    * Log4J 설정 : http://kwon37xi.egloos.com/2176487
    * Tomcat 과 한글 http://kwon37xi.egloos.com/1462013
    * [http://kr.geocities.com/kwon37xi/jsp20/WhatsNewJSP20-1.html JSP 2.0 뭐가 바뀌었나]
+   * JSTL 1.1
  * DB 연동(Apache Commons DBCP 이용)
    * MySQL 5.x
    * UTF-8 사용
- * SimpleJdbcTemplate 사용하기
+ * SimpleJdbcTemplate 사용하여 DaoImpl 구현하기
  * 사용자 추가, 수정, 삭제
    * User : 도메인 클래스
    * UserDao/UserDaoJdbcImpl
