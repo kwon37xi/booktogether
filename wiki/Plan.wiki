@@ -26,6 +26,9 @@
    * Tomcat 과 한글 http://kwon37xi.egloos.com/1462013
    * [http://kr.geocities.com/kwon37xi/jsp20/WhatsNewJSP20-1.html JSP 2.0 뭐가 바뀌었나]
    * JSTL 1.1
+----
+ * Log4J 설정하기 : 기본적으로 화면으로만 로그 남기기
+  * 로그 찍을 때는 Commons Logging 사용하기
  * DB 연동(Apache Commons DBCP 이용)
    * MySQL 5.x
    * UTF-8 사용
