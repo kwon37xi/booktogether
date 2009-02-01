@@ -32,7 +32,7 @@
  * DB 연동(Apache Commons DBCP 이용)
    * MySQL 5.x
    * UTF-8 사용
- * SimpleJdbcTemplate 사용하여 DaoImpl 구현하기
+ * SimpleJdbcDaoSupport 사용하여 DaoImpl 구현하기
  * 도메인 클래스용 DB 테이블 설계
    * users
    * books
