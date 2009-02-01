@@ -9,9 +9,6 @@
    * MySQL 설치 : 5.1 설치.
    * Tomcat 6 설치
    * Tomcat 과 애플리케이션 연동 :  : Eclipse와 연동
-   * DB 연동
-   * JNDI 설정 :  [http://kwon37xi.egloos.com/2852803 JNDI Tomcat]
-   * JNDI 연동
    * Hello BookTogether 띄우기
    * Log4J 설정 : http://kwon37xi.egloos.com/2176487
  * Spring MVC와 Service, Dao 개념 이해
@@ -19,3 +16,8 @@
 
 
 == 2주차 (02/02 ~ 02/08) ==
+ * DB 연동
+
+== 이후 할 일들 ==
+ * JNDI 설정 :  [http://kwon37xi.egloos.com/2852803 JNDI Tomcat]
+ * JNDI 연동
