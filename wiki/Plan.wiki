@@ -49,6 +49,9 @@
 
 == 3주차 (02/09 ~ 02/15) ==
 
+ 아직 미정
+
+
 == 이후 할 일들 ==
  * JNDI 설정 :  [http://kwon37xi.egloos.com/2852803 JNDI Tomcat]
  * JNDI 연동
