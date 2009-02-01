@@ -3,14 +3,18 @@
 
 = 개발 진행 경과 =
 
-=== 1주차 ===
+== 1주차 (시작 ~ 2009/02/01) ==
  * 개발 환경 설정
    * Spring Servlet 및 기본 ApplicationContext 설치 : Annotation 방식으로 설정
    * MySQL 설치 : 5.1 설치.
    * Tomcat 6 설치
    * Tomcat 과 애플리케이션 연동 :  : Eclipse와 연동
+   * DB 연동
    * JNDI 설정 :  [http://kwon37xi.egloos.com/2852803 JNDI Tomcat]
    * JNDI 연동
    * Hello BookTogether 띄우기
  * Spring MVC와 Service, Dao 개념 이해
  * 1주차 개발 계획 잡고 할일 나누기
+
+
+== 2주차 (02/02 ~ 02/08) ==
