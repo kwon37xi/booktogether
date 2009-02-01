@@ -37,9 +37,6 @@
 </Context>
 }}}
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= 관련 자료 =
+ * [http://tomcat.apache.org/tomcat-6.0-doc/jndi-resources-howto.html Tomcat 6 JNDI 설정]
+ * [http://tomcat.apache.org/tomcat-6.0-doc/jndi-datasource-examples-howto.html Tomcat 6 DataSource 설정]
