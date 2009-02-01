@@ -36,6 +36,11 @@
 		type="javax.sql.DataSource" />
 </Context>
 }}}
+ * Spring 2.5 ApplicationContext
+{{{
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/BookTogetherDataSource"
+		resource-ref="true" />
+}}}
 
 = 관련 자료 =
  * [http://tomcat.apache.org/tomcat-6.0-doc/jndi-resources-howto.html Tomcat 6 JNDI 설정]
