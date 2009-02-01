@@ -8,11 +8,9 @@
 		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+		
+	<context:annotation-config/>
+	<context:component-scan base-package="com.google.code.booktogether.service.impl"/>
 
-	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" p:alwaysUseFullPath="true"/>
-	
-	<context:component-scan base-package="com.google.code.booktogether.web"/>
-	
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp"/>
-	
+		
 </beans>
