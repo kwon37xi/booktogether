@@ -6,6 +6,18 @@
 	
 	<display-name>책 함께 보기</display-name>
 	
+	<!-- 2009.2.1 controller test -->
+	<servlet>
+		<servlet-name>booktogether</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>booktogether</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<!--  -->
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
