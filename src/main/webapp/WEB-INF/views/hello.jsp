@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-Controller Test End!!!
+Controller Test End!!!<br/>
+${currDate}
+
 </body>
 </html>
