@@ -38,9 +38,20 @@
 </Context>
 }}}
  * Spring 2.5 ApplicationContext
-{{{
+ {{{
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/BookTogetherDataSource"
 		resource-ref="true" />
+}}}
+ * DB 생성 방법
+ {{{
+Database:
+
+(CREATE | ALTER) DATABASE booktogether DEFAULT CHARACTER SET utf8
+
+Table:
+
+(CREATE | ALTER) TABLE user  DEFAULT CHARACTER SET utf8
+
 }}}
 
 = 관련 자료 =
