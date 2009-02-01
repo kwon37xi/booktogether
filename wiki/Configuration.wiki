@@ -5,6 +5,7 @@
 
 == Database ==
  * MySQL 5.1
+ * Database는 UTF-8 인코딩을 사용하도록 한다.
  * Tomcat 6.0 이상
  * server.xml DB Connection Pool 설정
   {{{
