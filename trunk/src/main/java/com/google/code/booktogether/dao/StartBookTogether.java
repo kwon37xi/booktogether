@@ -1,4 +1,4 @@
-package com.google.code.booktogether;
+package com.google.code.booktogether.dao;
 
 public class StartBookTogether {
 
