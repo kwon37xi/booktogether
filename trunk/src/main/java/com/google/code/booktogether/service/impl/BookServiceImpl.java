@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.code.booktogether.service.BookService;
 
-@Service("currentDateService")
+@Service("bookService")
 public class BookServiceImpl implements BookService {
 
 	public Date getCurrentDate(){

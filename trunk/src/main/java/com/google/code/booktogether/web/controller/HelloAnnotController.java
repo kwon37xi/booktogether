@@ -15,7 +15,7 @@ public class HelloAnnotController {
 	CurrentDateService currentDateService;
 	
 
-	@RequestMapping("/test.do")
+	@RequestMapping("/test1.do")
 	public ModelAndView handleHello(){
 		
 		ModelAndView mav=new ModelAndView();

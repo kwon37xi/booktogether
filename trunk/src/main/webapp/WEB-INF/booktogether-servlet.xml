@@ -11,7 +11,7 @@
 
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" p:alwaysUseFullPath="true"/>
 	
-	<context:component-scan base-package="com.google.code.booktogether.web"/>
+	<context:component-scan base-package="com.google.code.booktogether.web.controller"/>
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp"/>
 	
