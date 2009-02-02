@@ -1,9 +1,7 @@
 #labels mysql,guitool,administrator
-#Mysql administrator GUI 설치
+Mysql administrator GUI 설치
 
 = Introduction =
-
-
 
 mysql gui tools URL : http://dev.mysql.com/downloads/gui-tools/5.0.html
 
