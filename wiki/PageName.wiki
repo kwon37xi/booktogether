@@ -1,5 +1,5 @@
 #labels mysql,guitool,administrator
-Mysql administrator GUI 설치
+=Mysql administrator GUI 설치=
 
 = Introduction =
 
