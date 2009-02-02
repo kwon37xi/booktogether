@@ -38,6 +38,7 @@ public class TestController {
 
 	}
 
+	//한글 깨짐 현상 때문에 테스트용
 	public void charSet(String str_kr) throws UnsupportedEncodingException{
 		String charset[] = {"euc-kr", "ksc5601", "iso-8859-1", "8859_1", "ascii", "UTF-8"};
 
