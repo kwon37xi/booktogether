@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-Controller Test End!!!<br/>
-${currDate}
+화이팅!~!!!!<br/>
+테이블에 데이터 삽입 결과 : ${result}
 
 </body>
 </html>
