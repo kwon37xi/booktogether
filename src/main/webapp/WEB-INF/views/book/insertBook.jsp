@@ -15,11 +15,19 @@
 					<input type="text" name="name" size="20"/>
 				</p>
 				<p>
-					<label for="name">지은이 이름</label>
+					<label for="name">지은이 이름1</label>
 					<input type="text" name="author_name" size="20"/>
 				</p>
 				<p>
-					<label for="name">지은이 구분 </label>
+					<label for="name">지은이 구분1 </label>
+					<input type="text" name="author_div" size="20"/>
+				</p>
+				<p>
+					<label for="name">지은이 이름2</label>
+					<input type="text" name="author_name" size="20"/>
+				</p>
+				<p>
+					<label for="name">지은이 구분 2</label>
 					<input type="text" name="author_div" size="20"/>
 				</p>
 				<p>
