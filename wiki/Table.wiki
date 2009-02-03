@@ -1,7 +1,7 @@
 #summary Mysql Book Table
 #labels booktable,authortable,table
 
-= Book 테이블 =
+= *Book* 테이블 =
 
 CREATE TABLE `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -20,7 +20,11 @@ CREATE TABLE `book` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 
-= 지은이 테이블 =
+----
+
+
+
+= *Author* 테이블 =
 
 CREATE TABLE `author` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
