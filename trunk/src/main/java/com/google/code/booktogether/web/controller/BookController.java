@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,8 +20,6 @@ import com.google.code.booktogether.web.util.ParamUtil;
 @Controller
 public class BookController {
 
-	private Logger log=Logger.getLogger(this.getClass());
-
 	//서비스 DI
 	@Resource(name="bookService")
 	BookService bookService;
@@ -31,7 +28,7 @@ public class BookController {
 	@Resource(name="bookDomain")
 	Book book;
 
-	
+
 	//책 등록 화면
 	@RequestMapping("/book/insertBookView.do")
 	public ModelAndView handleInsertBookView(){
@@ -77,11 +74,12 @@ public class BookController {
 		//지은이 정보 세팅,
 		//여러명일경우를 생각하여 배열로 작성
 		Author[] authors=new Author[author_name.length];
-		
+
 		for(int i=0;i<authors.length;i++){
 			Author author=new Author();
 			author.setName(author_name[i]);
 			author.setAuthor_div(Integer.parseInt(author_div[i]));
+			authors[i]=author;
 		}
 
 		book.setAuthors(authors);
@@ -90,7 +88,7 @@ public class BookController {
 		//지은이 등록 메서드안에 포함
 		boolean result=bookService.insertBook(book);
 
-		
+
 		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("book/tempBook");
@@ -181,7 +179,7 @@ public class BookController {
 		String isbn13=ParamUtil.validStringParam(req, "isbn13", "1234567890123");
 		String category=ParamUtil.validStringParam(req, "category", "국내");
 		String content=ParamUtil.validStringParam(req, "content", "설명");
-		int author_id=ParamUtil.validIntegerParam(req, "author_id", 0);
+		String[] author_id=req.getParameterValues("author_id");
 		String[] author_name=req.getParameterValues("author_name");
 		String[] author_div=req.getParameterValues("author_div");
 
@@ -202,11 +200,13 @@ public class BookController {
 		//지은이 정보 세팅,
 		//여러명일경우를 생각하여 배열로 작성
 		Author[] authors=new Author[author_name.length];
-		
+
 		for(int i=0;i<authors.length;i++){
 			Author author=new Author();
+			author.setId(Integer.parseInt(author_id[i]));
 			author.setName(author_name[i]);
 			author.setAuthor_div(Integer.parseInt(author_div[i]));
+			authors[i]=author;
 		}
 
 		book.setAuthors(authors);
@@ -217,17 +217,10 @@ public class BookController {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("book/getBook");
 		mav.addObject("book_info",book);
-
-		if(log.isInfoEnabled()){
-			log.info("종료");
-		}
+		mav.addObject("result",result);
 
 		return mav;
 
 	}
-
-
-
-
 
 }
