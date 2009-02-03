@@ -21,6 +21,11 @@ CREATE TABLE `book` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 }}}
 
+=*Test Data*=
+{{{
+insert  into `book`(`id`,`name`,`page`,`isbn10`,`isbn13`,`publish_comp`,`publish_date`,`price`,`size`,`corver`,`category`,`content`) values (2,'나는 할수 있다.11',203,'2345679642','1597534568520','개철이','2008-09-06',25000,'mm','http://image.aladdin.co.kr/cover/cover/0307269191_1.jpg','외국>베스트셀러','설명11'),(5,'으짜스까이',1000,'1231231','2352131231','사천','2007-12-31',10000,'777*777mm','http://image.aladdin.co.kr/cover/cover/8901091518_1.jpg','국내>사랑해','지은아 사랑해 영원히');
+}}}
+
 ----
 
 
@@ -35,4 +40,10 @@ CREATE TABLE `author` (
   `book_ref` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+}}}
+
+=*Test Data*=
+
+{{{
+insert  into `author`(`id`,`name`,`author_div`,`book_ref`) values (3,'해처리1',0,2),(5,'지은이',1,5);
 }}}
