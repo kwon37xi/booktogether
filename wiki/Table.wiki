@@ -3,7 +3,7 @@
 
 = *Book* 테이블 =
 
-'CREATE TABLE `book` (
+CREATE TABLE `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `page` int(4) NOT NULL,
@@ -17,7 +17,7 @@
   `category` varchar(50) DEFAULT NULL,
   `content` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;'
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 
 ----
@@ -25,11 +25,11 @@
 
 
 = *Author* 테이블 =
-
+{{{
 CREATE TABLE `author` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `author_div` int(1) NOT NULL,
   `book_ref` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;}}}
