@@ -26,6 +26,7 @@ CREATE TABLE `book` (
 
 
 = *Author* 테이블 =
+
 {{{
 CREATE TABLE `author` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
