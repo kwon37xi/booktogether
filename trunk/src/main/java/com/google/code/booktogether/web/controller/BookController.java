@@ -132,6 +132,113 @@ public class BookController {
 		return mav;
 		
 	}
+	
+	
+	@RequestMapping("/book/getBook.do")
+	public ModelAndView handleGetBook(HttpServletRequest req,HttpServletResponse res){
+		
+		if(log.isInfoEnabled()){
+			log.info("시작");
+		}
+		
+		int id=ParamUtil.validIntegerParam(req, "id", 0);
+		
+		Book book=bookService.getBook(id);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("book/getBook");
+		mav.addObject("book_info",book);
+		
+		if(log.isInfoEnabled()){
+			log.info("종료");
+		}
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping("/book/modifyBookView.do")
+	public ModelAndView handleModifyViewBook(HttpServletRequest req,HttpServletResponse res){
+		
+		if(log.isInfoEnabled()){
+			log.info("시작");
+		}
+		
+		int id=ParamUtil.validIntegerParam(req, "id", 0);
+		
+		Book book=bookService.getBook(id);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("book/modifyBook");
+		mav.addObject("book_info",book);
+		
+		if(log.isInfoEnabled()){
+			log.info("종료");
+		}
+		
+		return mav;
+		
+	}
+	
+	
+	@RequestMapping("/book/modifyBook.do")
+	public ModelAndView handleModifyBook(HttpServletRequest req,HttpServletResponse res){
+		
+		if(log.isInfoEnabled()){
+			log.info("시작");
+		}
+		
+		int id=ParamUtil.validIntegerParam(req, "id", 0);
+		String name=ParamUtil.validStringParam(req, "name", "no_title");
+		String size=ParamUtil.validStringParam(req, "size", "mm");
+		String publish_date=ParamUtil.validStringParam(req, "publish_date", "mm");
+		String publish_comp=ParamUtil.validStringParam(req, "publish_comp", "해철1234");
+		int page=ParamUtil.validIntegerParam(req, "page", 0);
+		int price=ParamUtil.validIntegerParam(req, "price", 0);
+		String corver=ParamUtil.validStringParam(req, "corver", "");
+		String isbn10=ParamUtil.validStringParam(req, "isbn10", "1234567890");
+		String isbn13=ParamUtil.validStringParam(req, "isbn13", "1234567890123");
+		String category=ParamUtil.validStringParam(req, "category", "국내");
+		String content=ParamUtil.validStringParam(req, "content", "설명");
+		int author_id=ParamUtil.validIntegerParam(req, "author_id", 0);
+		String author_name=ParamUtil.validStringParam(req, "author_name", "지은이");
+		int author_div=ParamUtil.validIntegerParam(req, "author_div", 0);
+
+
+		book.setId(id);
+		book.setName(name);
+		book.setPage(page);
+		book.setSize(size);
+		book.setPublish_date(publish_date);
+		book.setPublish_comp(publish_comp);
+		book.setPrice(price);
+		book.setCorver(corver);
+		book.setISBN10(isbn10);
+		book.setISBN13(isbn13);
+		book.setCategory(category);
+		book.setContent(new StringBuilder(content));
+
+		Author author=new Author();
+
+		author.setId(author_id);
+		author.setName(author_name);
+		author.setAuthor_div(author_div);
+
+		book.setAuthors(new Author[]{author});
+		
+		boolean result=bookService.modifyBook(book);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("book/getBook");
+		mav.addObject("book_info",book);
+		
+		if(log.isInfoEnabled()){
+			log.info("종료");
+		}
+		
+		return mav;
+		
+	}
 
 
 	
