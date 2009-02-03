@@ -15,6 +15,7 @@
 	<context:annotation-config/>
 	
 	<context:component-scan base-package="com.google.code.booktogether.dao.impl"/>
+	<context:component-scan base-package="com.google.code.booktogether.dao.rowmapper"/>
 	
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/BookTogetherDataSource" resource-ref="true" />
 	
