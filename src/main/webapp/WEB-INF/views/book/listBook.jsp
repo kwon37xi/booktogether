@@ -28,7 +28,7 @@
 					<tr>
 						<td>${book_info.id}</td>
 						<td><img src="${book_info.corver}"/></td>
-						<td>${book_info.name}</td>
+						<td><a href="/book/getBook.do?id=${book_info.id}">${book_info.name}</a></td>
 						<td>
 							<c:forEach begin="0" items="${book_info.authors}" var="author_info">
 								[${author_info.name}/${author_info.author_div}]  

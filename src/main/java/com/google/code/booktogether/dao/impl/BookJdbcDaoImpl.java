@@ -21,9 +21,12 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	
 	private Logger log=Logger.getLogger(this.getClass());
 	private static final String INSERT_BOOK_SQL="INSERT INTO BOOK(name,page, isbn10,isbn13, publish_comp,publish_date, price, size, corver, category, content) VALUES(?, ?, ?, ?, ?, ?, ?, ? ,? , ?, ?)";
+	private static final String MODIFY_BOOK_SQL="UPDATE BOOK SET name=?, page=?, isbn10=?, isbn13=?, publish_comp=?, publish_date=?, price=?, size=?, corver=?, category=?, content=? WHERE id=?";
+	private static final String MODIFY_AUTHOR_SQL="UPDATE AUTHOR SET name=?, author_div=? WHERE id=?";
 	private static final String DBCOUNT_SQL="SELECT count(*) FROM BOOK";
 	private static final String LIST_BOOK_SQL="SELECT * FROM BOOK LIMIT ?,?";
 	private static final String GET_AUTHORS_SQL="SELECT * FROM AUTHOR WHERE BOOK_REF=?";
+	private static final String GET_BOOK_SQL="SELECT * FROM BOOK WHERE ID=?";
 	private static final String INSERT_AUTHOR_SQL="INSERT INTO AUTHOR(name,author_div,book_ref) VALUES(?, ?, LAST_INSERT_ID())";
 
 	@Resource(name="dataSource")
@@ -44,9 +47,11 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	}
 
 	@Override
-	public Book getBook(Book book) {
-		// TODO Auto-generated method stub
-		return null;
+	public Book getBook(int id) {
+		
+		Book book=getSimpleJdbcTemplate().queryForObject(GET_BOOK_SQL, bookRowMapper, new Object[]{id});
+		
+		return book;
 	}
 
 	@Override
@@ -54,23 +59,7 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 		
 		List<Book> booklist=getSimpleJdbcTemplate().query(LIST_BOOK_SQL, bookRowMapper, new Object[]{startRow-1, pageSize});
 		
-		for(int i=0;i<booklist.size();i++){
-			
-			List<Author> authorlist=getSimpleJdbcTemplate().query(GET_AUTHORS_SQL, authorRowMapper, new Object[]{booklist.get(i).getId()});
-			
-			if(authorlist!=null){
-				
-				Author[] authors=new Author[authorlist.size()];
-				
-				int j=0;
-				
-				for(Author author : authorlist){
-					authors[j++]=author;
-				}
-				
-				booklist.get(i).setAuthors(authors);
-			}
-		}
+		
 		
 		return booklist;
 		
@@ -108,8 +97,23 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 
 	@Override
 	public int modifyBook(Book book) {
-		// TODO Auto-generated method stub
-		return 0;
+		int count=getSimpleJdbcTemplate().update(
+				MODIFY_BOOK_SQL,
+					new Object[]{
+						book.getName()
+						,book.getPage()
+						,book.getISBN10()
+						,book.getISBN13()
+						,book.getPublish_comp()
+						,book.getPublish_date()
+						,book.getPrice()
+						,book.getSize()
+						,book.getCorver()
+						,book.getCategory()
+						,book.getContent()
+						,book.getId()
+				});
+		return count;
 	}
 
 	@Override
@@ -129,6 +133,18 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 			count=getSimpleJdbcTemplate().update(INSERT_AUTHOR_SQL, new Object[]{author.getName(), author.getAuthor_div()});
 		}
 		
+		return count;
+	}
+
+	@Override
+	public List<Author> getAuthor(Book book) {
+		List<Author> authorlist=getSimpleJdbcTemplate().query(GET_AUTHORS_SQL, authorRowMapper, new Object[]{book.getId()});
+		return authorlist;
+	}
+
+	@Override
+	public int modifyAuthor(Author author) {
+		int count=getSimpleJdbcTemplate().update(MODIFY_AUTHOR_SQL, new Object[]{author.getName(), author.getAuthor_div(),author.getId()});
 		return count;
 	}
 

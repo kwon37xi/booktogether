@@ -11,9 +11,9 @@ public interface BookService {
 	
 	public boolean modifyBook(Book book);
 	
-	public boolean deleteBook(Book book);
+	public boolean deleteBook(int id);
 	
-	public Book getBook(Book book);
+	public Book getBook(int id);
 	
 	public List<Book> getListBook(PageBean pageBean);
 	

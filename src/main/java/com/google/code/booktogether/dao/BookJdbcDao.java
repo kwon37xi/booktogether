@@ -10,10 +10,14 @@ public interface BookJdbcDao {
 	public int insertBook(Book book);
 
 	public int modifyBook(Book book);
+	
+	public int modifyAuthor(Author author);
 
 	public int deleteBook(Book book);
 
-	public Book getBook(Book book);
+	public Book getBook(int id);
+	
+	public List<Author> getAuthor(Book book);
 
 	public List<Book> getListBook(int startRow, int pageSize);
 	
