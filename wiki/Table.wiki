@@ -1,0 +1,31 @@
+#summary Mysql Book Table
+#labels booktable,authortable,table
+
+= Book 테이블 =
+
+CREATE TABLE `book` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `page` int(4) NOT NULL,
+  `isbn10` varchar(10) NOT NULL,
+  `isbn13` varchar(13) NOT NULL,
+  `publish_comp` varchar(20) NOT NULL,
+  `publish_date` varchar(10) NOT NULL,
+  `price` int(5) DEFAULT NULL,
+  `size` varchar(9) DEFAULT NULL,
+  `corver` varchar(100) DEFAULT NULL,
+  `category` varchar(50) DEFAULT NULL,
+  `content` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+
+= 지은이 테이블 =
+
+CREATE TABLE `author` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `author_div` int(1) NOT NULL,
+  `book_ref` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
