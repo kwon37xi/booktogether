@@ -7,21 +7,22 @@ import com.google.code.booktogether.web.domain.Book;
 
 public interface BookJdbcDao {
 
-	public int insertBook(Book book);
-
-	public int modifyBook(Book book);
 	
-	public int modifyAuthor(Author author);
+	public int insertBook(Book book);	//책 등록
 
-	public int deleteBook(Book book);
+	public int modifyBook(Book book);	//책 수정
+	
+	public int modifyAuthor(Author author);	//지은이 수정
 
-	public Book getBook(int id);
-	
-	public List<Author> getAuthor(Book book);
+	public int deleteBook(Book book);	//책 삭제
 
-	public List<Book> getListBook(int startRow, int pageSize);
+	public Book getBook(int id);	//책조회
 	
-	public int getDbcount();
+	public List<Author> getAuthor(Book book);//책관련 지은이 목록	
+
+	public List<Book> getListBook(int startRow, int pageSize);	//책 목록
 	
-	public int insertAuthor(Author[] authors);
+	public int getDbcount();	//책 전체 갯수
+	
+	public int insertAuthor(Author[] authors);	//지은이 등록
 }
