@@ -23,38 +23,30 @@ public class BookController {
 
 	private Logger log=Logger.getLogger(this.getClass());
 
+	//서비스 DI
 	@Resource(name="bookService")
 	BookService bookService;
 
+	//Book 도메인 DI
 	@Resource(name="bookDomain")
 	Book book;
+
 	
+	//책 등록 화면
 	@RequestMapping("/book/insertBookView.do")
 	public ModelAndView handleInsertBookView(){
-
-		if(log.isInfoEnabled()){
-			log.info("시작");
-		}
 
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("book/insertBook");
 
-		if(log.isInfoEnabled()){
-			log.info("종료");
-		}
-
 		return mav;
-
 	}
-	
 
+	//책 등록
 	@RequestMapping("/book/insertBook.do")
 	public ModelAndView handleInsertBook(HttpServletRequest req,HttpServletResponse res){
 
-		if(log.isInfoEnabled()){
-			log.info("시작");
-		}
-
+		//파라미터 정보 변수에 세팅
 		String name=ParamUtil.validStringParam(req, "name", "no_title");
 		String size=ParamUtil.validStringParam(req, "size", "mm");
 		String publish_date=ParamUtil.validStringParam(req, "publish_date", "mm");
@@ -66,10 +58,10 @@ public class BookController {
 		String isbn13=ParamUtil.validStringParam(req, "isbn13", "1234567890123");
 		String category=ParamUtil.validStringParam(req, "category", "국내");
 		String content=ParamUtil.validStringParam(req, "content", "설명");
-		String author_name=ParamUtil.validStringParam(req, "author_name", "지은이");
-		int author_div=ParamUtil.validIntegerParam(req, "author_div", 0);
+		String[] author_name=req.getParameterValues("author_name");
+		String[] author_div=req.getParameterValues("author_div");
 
-
+		//책 정보 세팅
 		book.setName(name);
 		book.setPage(page);
 		book.setSize(size);
@@ -82,112 +74,101 @@ public class BookController {
 		book.setCategory(category);
 		book.setContent(new StringBuilder(content));
 
-		Author author=new Author();
+		//지은이 정보 세팅,
+		//여러명일경우를 생각하여 배열로 작성
+		Author[] authors=new Author[author_name.length];
+		
+		for(int i=0;i<authors.length;i++){
+			Author author=new Author();
+			author.setName(author_name[i]);
+			author.setAuthor_div(Integer.parseInt(author_div[i]));
+		}
 
-		author.setName(author_name);
-		author.setAuthor_div(author_div);
+		book.setAuthors(authors);
 
-		book.setAuthors(new Author[]{author});
-
-
+		//책 등록
+		//지은이 등록 메서드안에 포함
 		boolean result=bookService.insertBook(book);
 
+		
+		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("book/tempBook");
 		mav.addObject("result",result);
 
-		if(log.isInfoEnabled()){
-			log.info("종료");
-		}
-
 		return mav;
 
 	}
-	
-	
+
+
+	//책목록
 	@RequestMapping("/book/listBook.do")
 	public ModelAndView handleListBook(HttpServletRequest req,HttpServletResponse res){
-		
-		if(log.isInfoEnabled()){
-			log.info("시작");
-		}
-		
+
+		//현재 페이지 
 		int pageNo=ParamUtil.validIntegerParam(req, "pageNo", 0);
-		
+
+		//페이지 클래스에 세팅
 		PageBean pageBean=new PageBean();
 		pageBean.setPageNo(pageNo);
 		pageBean.setPagesize(10);
-		
+
+		//책 목록 가지고 오기
 		List<Book> booklist=bookService.getListBook(pageBean);
-		
+
+		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("book/listBook");
 		mav.addObject("booklist",booklist);
 		mav.addObject("pageBean",pageBean);
-		
-		if(log.isInfoEnabled()){
-			log.info("종료");
-		}
-		
+
 		return mav;
-		
+
 	}
-	
-	
+
+	//책 정보 가지고 오기
 	@RequestMapping("/book/getBook.do")
 	public ModelAndView handleGetBook(HttpServletRequest req,HttpServletResponse res){
-		
-		if(log.isInfoEnabled()){
-			log.info("시작");
-		}
-		
+
+		//책 ID값
 		int id=ParamUtil.validIntegerParam(req, "id", 0);
-		
+
+		//책 정보 가지고 오기
 		Book book=bookService.getBook(id);
-		
+
+		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("book/getBook");
 		mav.addObject("book_info",book);
-		
-		if(log.isInfoEnabled()){
-			log.info("종료");
-		}
-		
+
 		return mav;
-		
+
 	}
-	
+
+	//책 수정화면 보기
 	@RequestMapping("/book/modifyBookView.do")
 	public ModelAndView handleModifyViewBook(HttpServletRequest req,HttpServletResponse res){
-		
-		if(log.isInfoEnabled()){
-			log.info("시작");
-		}
-		
+
+		//책 ID값
 		int id=ParamUtil.validIntegerParam(req, "id", 0);
-		
+
+		//책 정보 가지고 오기
 		Book book=bookService.getBook(id);
-		
+
+		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("book/modifyBook");
 		mav.addObject("book_info",book);
-		
-		if(log.isInfoEnabled()){
-			log.info("종료");
-		}
-		
+
 		return mav;
-		
+
 	}
-	
-	
+
+	//책 수정하기
 	@RequestMapping("/book/modifyBook.do")
 	public ModelAndView handleModifyBook(HttpServletRequest req,HttpServletResponse res){
-		
-		if(log.isInfoEnabled()){
-			log.info("시작");
-		}
-		
+
+		//파라미터 정보 변수  세팅
 		int id=ParamUtil.validIntegerParam(req, "id", 0);
 		String name=ParamUtil.validStringParam(req, "name", "no_title");
 		String size=ParamUtil.validStringParam(req, "size", "mm");
@@ -201,8 +182,8 @@ public class BookController {
 		String category=ParamUtil.validStringParam(req, "category", "국내");
 		String content=ParamUtil.validStringParam(req, "content", "설명");
 		int author_id=ParamUtil.validIntegerParam(req, "author_id", 0);
-		String author_name=ParamUtil.validStringParam(req, "author_name", "지은이");
-		int author_div=ParamUtil.validIntegerParam(req, "author_div", 0);
+		String[] author_name=req.getParameterValues("author_name");
+		String[] author_div=req.getParameterValues("author_div");
 
 
 		book.setId(id);
@@ -218,30 +199,35 @@ public class BookController {
 		book.setCategory(category);
 		book.setContent(new StringBuilder(content));
 
-		Author author=new Author();
-
-		author.setId(author_id);
-		author.setName(author_name);
-		author.setAuthor_div(author_div);
-
-		book.setAuthors(new Author[]{author});
+		//지은이 정보 세팅,
+		//여러명일경우를 생각하여 배열로 작성
+		Author[] authors=new Author[author_name.length];
 		
+		for(int i=0;i<authors.length;i++){
+			Author author=new Author();
+			author.setName(author_name[i]);
+			author.setAuthor_div(Integer.parseInt(author_div[i]));
+		}
+
+		book.setAuthors(authors);
+
+		//책 수정
 		boolean result=bookService.modifyBook(book);
-		
+
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("book/getBook");
 		mav.addObject("book_info",book);
-		
+
 		if(log.isInfoEnabled()){
 			log.info("종료");
 		}
-		
+
 		return mav;
-		
+
 	}
 
 
-	
+
 
 
 }
