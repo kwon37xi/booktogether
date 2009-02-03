@@ -3,6 +3,9 @@ package com.google.code.booktogether.service.impl;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.google.code.booktogether.dao.BookJdbcDao;
 import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.domain.Author;
@@ -56,6 +59,7 @@ public class BookServiceImpl implements BookService {
 
 	//책 등록
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean insertBook(Book book) {
 
 		boolean result=false;
@@ -74,6 +78,7 @@ public class BookServiceImpl implements BookService {
 
 	//책 수정
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean modifyBook(Book book) {
 		
 		boolean result=false;
@@ -93,6 +98,7 @@ public class BookServiceImpl implements BookService {
 
 	//책 삭제
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean deleteBook(int id) {
 		// TODO Auto-generated method stub
 		return false;

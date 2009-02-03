@@ -15,7 +15,7 @@ import com.google.code.booktogether.web.domain.Book;
  *
  */
 @Scope("prototype")
-@Component("bookRowMapper")
+@Component("bookSimpleRowMapper")
 public class BookSimpleRowMapper implements ParameterizedRowMapper<Book>{
 
 	@Override

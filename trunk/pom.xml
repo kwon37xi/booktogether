@@ -96,5 +96,15 @@
 			<artifactId>servlet-api</artifactId>
 			<version>6.0.18</version>
 		</dependency>
+		<dependency>
+			<groupId>springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>1.2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.2</version>
+		</dependency>
 	</dependencies>
 </project>
