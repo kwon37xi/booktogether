@@ -3,7 +3,7 @@
 
 = *Book* 테이블 =
 
-CREATE TABLE `book` (
+{{{CREATE TABLE `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `page` int(4) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE `book` (
   `category` varchar(50) DEFAULT NULL,
   `content` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;}}}
 
 
 ----
