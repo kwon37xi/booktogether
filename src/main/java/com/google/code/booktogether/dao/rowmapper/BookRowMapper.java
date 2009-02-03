@@ -3,11 +3,13 @@ package com.google.code.booktogether.dao.rowmapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.stereotype.Component;
 
 import com.google.code.booktogether.web.domain.Book;
 
+@Scope("prototype")
 @Component("bookRowMapper")
 public class BookRowMapper implements ParameterizedRowMapper<Book>{
 
