@@ -34,4 +34,5 @@ CREATE TABLE `author` (
   `author_div` int(1) NOT NULL,
   `book_ref` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;}}}
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+}}}
