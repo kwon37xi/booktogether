@@ -23,6 +23,9 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	private static final String GET_AUTHORS_SQL="SELECT * FROM AUTHOR WHERE BOOK_REF=?";
 	private static final String GET_BOOK_SQL="SELECT * FROM BOOK WHERE ID=?";
 	private static final String INSERT_AUTHOR_SQL="INSERT INTO AUTHOR(name,author_div,book_ref) VALUES(?, ?, LAST_INSERT_ID())";
+	private static final String DELETE_BOOK_SQL="DELETE FROM BOOK WHERE id=?";
+	private static final String DELETE_AUTHORBOOK_SQL="DELETE FROM AUTHOR WHERE book_ref=?";
+	private static final String DELETE_AUTHOR_SQL="DELETE FROM AUTHOR WHERE id=?";
 
 	@Resource(name="dataSource")
 	public void setJdbcDao(DataSource dataSource){
@@ -40,9 +43,29 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	
 	//책 삭제
 	@Override
-	public int deleteBook(Book book) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteBook(int id) {
+		
+		int count=getSimpleJdbcTemplate().update(DELETE_BOOK_SQL, new Object[]{id});
+		
+		return count;
+	}
+	
+	//책 관련 지은이 삭제
+	@Override
+	public int deleteAuthorBook(int book_ref) {
+		
+		int count=getSimpleJdbcTemplate().update(DELETE_AUTHORBOOK_SQL, new Object[]{book_ref});
+		
+		return count;
+	}
+	
+	//지은이 삭제
+	@Override
+	public int deleteAuthor(int id) {
+		
+		int count=getSimpleJdbcTemplate().update(DELETE_AUTHOR_SQL, new Object[]{id});
+		
+		return count;
 	}
 
 	//책 조회

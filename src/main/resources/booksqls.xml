@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sqls>
+  
+    <sql name="INSERT_BOOK_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             INSERT INTO BOOK
+             			(name,page, isbn10
+             			,isbn13, publish_comp
+             			,publish_date, price, size
+             			, corver, category, content) 
+             VALUES (?, ?, ?, ?, ?, ?, ?, ? ,? , ?, ?)
+            ]]>
+        </query>
+    </sql>
+    
+
+    <sql name="MODIFY_BOOK_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             UPDATE BOOK 
+             SET name=?
+             	, page=?
+             	, isbn10=?
+             	, isbn13=?
+             	, publish_comp=?
+             	, publish_date=?
+             	, price=?
+             	, size=?
+             	, corver=?
+             	, category=?
+             	, content=? 
+             WHERE id=?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="MODIFY_AUTHOR_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             UPDATE AUTHOR  
+             SET name=?
+             	, author_div=? 
+             WHERE id=?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="DBCOUNT_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+            SELECT count(*) 
+            FROM BOOK
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="LIST_BOOK_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+            SELECT * 
+            FROM BOOK 
+            LIMIT ?,?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    
+    <sql name="GET_AUTHORS_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+            SELECT * 
+            FROM AUTHOR 
+            WHERE BOOK_REF=?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    
+    <sql name="GET_BOOK_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             SELECT * 
+             FROM BOOK 
+             WHERE ID=?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="INSERT_AUTHOR_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             INSERT INTO AUTHOR(name,author_div,book_ref) 
+             VALUES(?, ?, LAST_INSERT_ID())
+            ]]>
+        </query>
+    </sql>
+
+
+    <sql name="DELETE_BOOK_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             DELETE FROM BOOK 
+             WHERE id=?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="DELETE_AUTHORBOOK_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             DELETE FROM AUTHOR 
+             WHERE book_ref=?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="DELETE_AUTHOR_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+     	      DELETE FROM AUTHOR 
+     	      WHERE id=?
+            ]]>
+        </query>
+    </sql>
+    
+    
+</sqls>

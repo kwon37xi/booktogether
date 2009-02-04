@@ -14,7 +14,11 @@ public interface BookJdbcDao {
 	
 	public int modifyAuthor(Author author);	//지은이 수정
 
-	public int deleteBook(Book book);	//책 삭제
+	public int deleteBook(int id);	//책 삭제
+	
+	public int deleteAuthorBook(int book_ref);	//책 관련 지은이 삭제
+	
+	public int deleteAuthor(int id);	//책 관련 지은이 삭제
 
 	public Book getBook(int id);	//책조회
 	

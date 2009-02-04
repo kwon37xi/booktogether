@@ -18,7 +18,7 @@ public class BookServiceImpl implements BookService {
 	//책 JDBC DAO DI
 	@Resource(name="bookJdbcDao")
 	private BookJdbcDao bookJdbcDao;
-	
+
 
 	@Override
 	public List<Book> getListBook(PageBean pageBean) {
@@ -35,10 +35,10 @@ public class BookServiceImpl implements BookService {
 		//책 목록 에서 지은이 정보는 빠진상태
 		//한 책당 여러명의 지은이 정보를 가지고 와야 함
 		for(int i=0;i<booklist.size();i++){
-			
+
 			//책에 관련된 지은이정보
 			List<Author> authorlist=bookJdbcDao.getAuthor(booklist.get(i));
-			
+
 			//List<Author> -> Array로 바꾸기
 			if(authorlist!=null){
 
@@ -63,10 +63,10 @@ public class BookServiceImpl implements BookService {
 	public boolean insertBook(Book book) {
 
 		boolean result=false;
-		
+
 		//책정보 등록
 		int count=bookJdbcDao.insertBook(book);
-		
+
 		//지은이 정보등록
 		int count1=bookJdbcDao.insertAuthor(book.getAuthors());
 
@@ -80,19 +80,19 @@ public class BookServiceImpl implements BookService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean modifyBook(Book book) {
-		
+
 		boolean result=false;
 
 		//책 수정
 		int count=bookJdbcDao.modifyBook(book);
-		
+
 		//지은이 정보 수정
 		for(Author author:book.getAuthors()){
 			bookJdbcDao.modifyAuthor(author);
 		}
 
 		result=(count==0) ? false : true;
-		
+
 		return result;
 	}
 
@@ -100,20 +100,28 @@ public class BookServiceImpl implements BookService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean deleteBook(int id) {
-		// TODO Auto-generated method stub
-		return false;
+
+		boolean result=false;
+		
+		int count=bookJdbcDao.deleteBook(id);
+		bookJdbcDao.deleteAuthor(id);
+		
+		result=(count==0) ? false : true;
+
+		return result;
+
 	}
 
 	//책 조회
 	@Override
 	public Book getBook(int id) {
-		
+
 		//책 정보 가지고 오기
 		Book book=bookJdbcDao.getBook(id);
-		
+
 		//해당 책관련 지은이 가지고오기
 		List<Author> authorlist=bookJdbcDao.getAuthor(book);
-		
+
 		//List<Author> -> array로 변환
 		if(authorlist!=null){
 
@@ -127,10 +135,6 @@ public class BookServiceImpl implements BookService {
 
 			book.setAuthors(authors);
 		}
-		
 		return book;
-		
 	}
-
-
 }
