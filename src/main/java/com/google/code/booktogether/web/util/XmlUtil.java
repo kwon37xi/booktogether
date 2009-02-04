@@ -1,12 +1,12 @@
 package com.google.code.booktogether.web.util;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
+import org.springframework.util.ResourceUtils;
 
 /**
  * SQL 관리하는 XML을 파싱하는 유틸
@@ -38,13 +38,10 @@ public class XmlUtil {
 		Document doc;
 		Element root;
 		
-		File file=new File("..");
-		System.out.println(file.getAbsolutePath());
-		
 		builder = new SAXBuilder();
 		doc = null;
 		try	{
-			doc = builder.build("\\WEB-INF\\classes\\booksqls.xml");
+			doc = builder.build(ResourceUtils.getFile("classpath:booksqls.xml"));
 		}catch(Exception ioe){
 			ioe.printStackTrace();
 		}

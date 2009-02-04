@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
 
-public interface BookJdbcDao {
+public interface BookDao {
 
 	/**
 	 * 책 등록

@@ -5,28 +5,16 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
-import com.google.code.booktogether.dao.BookJdbcDao;
+import com.google.code.booktogether.dao.BookDao;
 import com.google.code.booktogether.dao.rowmapper.AuthorRowMapper;
 import com.google.code.booktogether.dao.rowmapper.BookRowMapper;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
+import com.google.code.booktogether.web.util.XmlUtil;
 
 @Repository("bookJdbcDao")
-public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao{
+public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	
-	//쿼리문
-	private static final String INSERT_BOOK_SQL="INSERT INTO BOOK(name,page, isbn10,isbn13, publish_comp,publish_date, price, size, corver, category, content) VALUES(?, ?, ?, ?, ?, ?, ?, ? ,? , ?, ?)";
-	private static final String MODIFY_BOOK_SQL="UPDATE BOOK SET name=?, page=?, isbn10=?, isbn13=?, publish_comp=?, publish_date=?, price=?, size=?, corver=?, category=?, content=? WHERE id=?";
-	private static final String MODIFY_AUTHOR_SQL="UPDATE AUTHOR SET name=?, author_div=? WHERE id=?";
-	private static final String DBCOUNT_SQL="SELECT count(*) FROM BOOK";
-	private static final String LIST_BOOK_SQL="SELECT * FROM BOOK LIMIT ?,?";
-	private static final String GET_AUTHORS_SQL="SELECT * FROM AUTHOR WHERE BOOK_REF=?";
-	private static final String GET_BOOK_SQL="SELECT * FROM BOOK WHERE ID=?";
-	private static final String INSERT_AUTHOR_SQL="INSERT INTO AUTHOR(name,author_div,book_ref) VALUES(?, ?, LAST_INSERT_ID())";
-	private static final String DELETE_BOOK_SQL="DELETE FROM BOOK WHERE id=?";
-	private static final String DELETE_AUTHORBOOK_SQL="DELETE FROM AUTHOR WHERE book_ref=?";
-	private static final String DELETE_AUTHOR_SQL="DELETE FROM AUTHOR WHERE id=?";
-
 	@Resource(name="dataSource")
 	public void setJdbcDao(DataSource dataSource){
 		setDataSource(dataSource);
@@ -45,7 +33,9 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	@Override
 	public int deleteBook(int id) {
 		
-		int count=getSimpleJdbcTemplate().update(DELETE_BOOK_SQL, new Object[]{id});
+		String sql=XmlUtil.getInstance().getSQL("DELETE_BOOK_SQL");
+		
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{id});
 		
 		return count;
 	}
@@ -54,7 +44,9 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	@Override
 	public int deleteAuthorBook(int book_ref) {
 		
-		int count=getSimpleJdbcTemplate().update(DELETE_AUTHORBOOK_SQL, new Object[]{book_ref});
+		String sql=XmlUtil.getInstance().getSQL("DELETE_AUTHORBOOK_SQL");
+		
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{book_ref});
 		
 		return count;
 	}
@@ -63,7 +55,9 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	@Override
 	public int deleteAuthor(int id) {
 		
-		int count=getSimpleJdbcTemplate().update(DELETE_AUTHOR_SQL, new Object[]{id});
+		String sql=XmlUtil.getInstance().getSQL("DELETE_AUTHOR_SQL");
+		
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{id});
 		
 		return count;
 	}
@@ -72,7 +66,9 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	@Override
 	public Book getBook(int id) {
 		
-		Book book=getSimpleJdbcTemplate().queryForObject(GET_BOOK_SQL, bookRowMapper, new Object[]{id});
+		String sql=XmlUtil.getInstance().getSQL("GET_BOOK_SQL");
+		
+		Book book=getSimpleJdbcTemplate().queryForObject(sql, bookRowMapper, new Object[]{id});
 		
 		return book;
 	}
@@ -81,7 +77,9 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	@Override
 	public List<Book> getListBook(int startRow, int pageSize) {
 		
-		List<Book> booklist=getSimpleJdbcTemplate().query(LIST_BOOK_SQL, bookRowMapper, new Object[]{startRow, pageSize});
+		String sql=XmlUtil.getInstance().getSQL("LIST_BOOK_SQL");
+		
+		List<Book> booklist=getSimpleJdbcTemplate().query(sql, bookRowMapper, new Object[]{startRow, pageSize});
 		
 		return booklist;
 		
@@ -91,8 +89,10 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	@Override
 	public int insertBook(Book book) {
 		
+		String sql=XmlUtil.getInstance().getSQL("INSERT_BOOK_SQL");
+		
 		int count=getSimpleJdbcTemplate().update(
-					INSERT_BOOK_SQL,
+					sql,
 					new Object[]{
 						book.getName()
 						,book.getPage()
@@ -113,8 +113,11 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	//책 수정
 	@Override
 	public int modifyBook(Book book) {
+		
+		String sql=XmlUtil.getInstance().getSQL("MODIFY_BOOK_SQL");
+		
 		int count=getSimpleJdbcTemplate().update(
-				MODIFY_BOOK_SQL,
+					sql,
 					new Object[]{
 						book.getName()
 						,book.getPage()
@@ -136,7 +139,9 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	@Override
 	public int getDbcount() {
 		
-		int count=getSimpleJdbcTemplate().queryForInt(DBCOUNT_SQL);
+		String sql=XmlUtil.getInstance().getSQL("DBCOUNT_SQL");
+		
+		int count=getSimpleJdbcTemplate().queryForInt(sql);
 		
 		return count;
 	}
@@ -145,10 +150,12 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	@Override
 	public int insertAuthor(Author[] authors) {
 		
+		String sql=XmlUtil.getInstance().getSQL("INSERT_AUTHOR_SQL");
+		
 		int count=0;
 		
 		for(Author author :authors){
-			count=getSimpleJdbcTemplate().update(INSERT_AUTHOR_SQL, new Object[]{author.getName(), author.getAuthor_div()});
+			count=getSimpleJdbcTemplate().update(sql, new Object[]{author.getName(), author.getAuthor_div()});
 		}
 		
 		return count;
@@ -157,14 +164,20 @@ public class BookJdbcDaoImpl extends SimpleJdbcDaoSupport implements BookJdbcDao
 	//해당책에 관련된 지은이 목록
 	@Override
 	public List<Author> getAuthor(Book book) {
-		List<Author> authorlist=getSimpleJdbcTemplate().query(GET_AUTHORS_SQL, authorRowMapper, new Object[]{book.getId()});
+		
+		String sql=XmlUtil.getInstance().getSQL("GET_AUTHORS_SQL");
+		
+		List<Author> authorlist=getSimpleJdbcTemplate().query(sql, authorRowMapper, new Object[]{book.getId()});
 		return authorlist;
 	}
 
 	//지은이 수정
 	@Override
 	public int modifyAuthor(Author author) {
-		int count=getSimpleJdbcTemplate().update(MODIFY_AUTHOR_SQL, new Object[]{author.getName(), author.getAuthor_div(),author.getId()});
+		
+		String sql=XmlUtil.getInstance().getSQL("MODIFY_AUTHOR_SQL");
+		
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{author.getName(), author.getAuthor_div(),author.getId()});
 		return count;
 	}
 
