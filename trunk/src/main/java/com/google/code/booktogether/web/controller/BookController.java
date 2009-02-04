@@ -284,14 +284,14 @@ public class BookController {
 	 * @param req
 	 * @param res
 	 */
-	@RequestMapping("/book/deleteBook.do")
-	public ModelAndView handleValidBook(HttpServletRequest req,HttpServletResponse res){
+	@RequestMapping("/book/checkBook.do")
+	public ModelAndView handleCheckBook(HttpServletRequest req,HttpServletResponse res){
 		
 		//책 ID값
 		String isbn=ServletRequestUtils.getStringParameter(req, "ISBN", "");
 		
 		//책 정보 가지고 오기
-		Book book=bookService.validBook(isbn);
+		Book book=bookService.checkBook(isbn);
 		
 		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();

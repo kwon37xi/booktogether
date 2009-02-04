@@ -22,32 +22,32 @@ public class Book extends BaseObject{
 	/**
 	 * 책이름
 	 */
-	private String name;
+	private String name="";
 	
 	/**
 	 * 책지은이들
 	 */
-	private Author[] authors;
+	private Author[] authors=null;
 	
 	/**
 	 * ISBN 10자리
 	 */
-	private String ISBN10;
+	private String ISBN10="";
 	
 	/**
 	 * ISBN 13자리
 	 */
-	private String ISBN13;	
+	private String ISBN13="";	
 	
 	/**
 	 * 출판사
 	 */
-	private String publish_comp;
+	private String publish_comp="";
 	
 	/**
 	 * 출판일
 	 */
-	private String publish_date;
+	private String publish_date="";
 	
 	/**
 	 * 책가격
@@ -57,17 +57,17 @@ public class Book extends BaseObject{
 	/**
 	 * 분류
 	 */
-	private String category;
+	private String category="";
 	
 	/**
 	 * 책표지이미지
 	 */
-	private String corver;
+	private String corver="";
 	
 	/**
 	 * 책 설명
 	 */
-	private String description;
+	private String description="";
 	
 	public String getDescription() {
 		return description;

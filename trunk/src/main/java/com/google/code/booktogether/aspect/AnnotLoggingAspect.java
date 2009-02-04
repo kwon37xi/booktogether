@@ -11,7 +11,7 @@ import org.aspectj.lang.annotation.Before;
 @Aspect 
 public class AnnotLoggingAspect {
 	
-	private Logger log = Logger.getLogger(this.getClass());
+	private Logger log = Logger.getLogger(getClass());
 
 	@Before("execution(public * com.google.code.booktogether.service.*.*(..))")
 	public String beforeLogging(JoinPoint joinPoint) {

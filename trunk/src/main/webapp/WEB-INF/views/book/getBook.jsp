@@ -66,6 +66,7 @@
 			<a href="javascript:history.go(-1)">뒤로</a>
 			<a href="/book/modifyBookView.do?id=${book_info.id}">수정</a>
 			<a href="/book/deleteBook.do?id=${book_info.id}">삭제</a>
+			<a href="/book/listBook.do">목록</a>
 		</div>
 		
 	</body>

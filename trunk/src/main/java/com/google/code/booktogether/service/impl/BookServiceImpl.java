@@ -11,6 +11,7 @@ import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.PageBean;
+import com.google.code.booktogether.web.interceptor.UseApiDaumBook;
 
 @Service("bookService")
 public class BookServiceImpl implements BookService {
@@ -40,18 +41,7 @@ public class BookServiceImpl implements BookService {
 			List<Author> authorlist=bookJdbcDao.getAuthor(booklist.get(i));
 
 			//List<Author> -> Array로 바꾸기
-			if(authorlist!=null){
-
-				Author[] authors=new Author[authorlist.size()];
-
-				int j=0;
-
-				for(Author author : authorlist){
-					authors[j++]=author;
-				}
-
-				booklist.get(i).setAuthors(authors);
-			}
+			booklist.get(i).setAuthors(listToArray(authorlist));
 		}
 
 		return booklist;
@@ -66,9 +56,11 @@ public class BookServiceImpl implements BookService {
 
 		//책정보 등록
 		int count=bookJdbcDao.insertBook(book);
+		
+		int id=bookJdbcDao.getLastNumIncrement();
 
 		//지은이 정보등록
-		int count1=bookJdbcDao.insertAuthor(book.getAuthors());
+		int count1=bookJdbcDao.insertAuthor(book.getAuthors(),id);
 
 		//이건 간단히 검증 단계
 		result=(count==0 || count1==0) ? false : true;
@@ -102,10 +94,10 @@ public class BookServiceImpl implements BookService {
 	public boolean deleteBook(int id) {
 
 		boolean result=false;
-		
+
 		int count=bookJdbcDao.deleteBook(id);
 		bookJdbcDao.deleteAuthor(id);
-		
+
 		result=(count==0) ? false : true;
 
 		return result;
@@ -119,36 +111,64 @@ public class BookServiceImpl implements BookService {
 		//책 정보 가지고 오기
 		Book book=bookJdbcDao.getBook(id);
 
-		//해당 책관련 지은이 가지고오기
+		if(book!=null){
+
+			//해당 책관련 지은이 가지고오기
+			List<Author> authorlist=bookJdbcDao.getAuthor(book);
+
+			//List<Author> -> array로 변환
+			book.setAuthors(listToArray(authorlist));
+		}
+
+		return book;
+	}
+
+	@Override
+	public Book checkBook(String isbn) {
+		
+		Book book=bookJdbcDao.getBook(isbn);
+
+		if(book==null){
+
+			//OPEN API로 Book값 세팅
+			book=new UseApiDaumBook().execute(isbn);
+			
+			System.out.println(book.getISBN10());
+			
+			//DB에 넣기
+			this.insertBook(book);
+
+			//ISBN으로 값가지고 오기
+			book=bookJdbcDao.getBook(isbn);
+
+		}
+		
+		//지은이 정보 가지고 오기
 		List<Author> authorlist=bookJdbcDao.getAuthor(book);
 
-		//List<Author> -> array로 변환
+		book.setAuthors(listToArray(authorlist));
+
+		return book;
+	}
+
+	//List -> Array로 변환
+	@Override
+	public Author[] listToArray(List<Author> authorlist) {
+
+		Author[] authors=null;
+
 		if(authorlist!=null){
 
-			Author[] authors=new Author[authorlist.size()];
+			authors=new Author[authorlist.size()];
 
 			int j=0;
 
 			for(Author author : authorlist){
 				authors[j++]=author;
 			}
-
-			book.setAuthors(authors);
 		}
-		return book;
-	}
 
-	@Override
-	public Book validBook(String isbn) {
-		
-		
-		Book book=bookJdbcDao.getBook(isbn);
-		
-		if(book==null){
-			book=new Book();
-			//API를 이용하여 북 정보를 가지고 온다.
-		}
-		
-		return book;
+		return authors;
+
 	}
 }

@@ -6,11 +6,7 @@
         <description></description>
         <query>
             <![CDATA[
-             INSERT INTO BOOK
-             			(name,isbn10
-             			,isbn13, publish_comp
-             			,publish_date, price,
-             			, corver, category, content) 
+             INSERT INTO BOOK(name, isbn10, isbn13, publish_comp, publish_date, price, corver, category, description) 
              VALUES (?, ?, ?, ?, ?, ?, ?, ? ,? )
             ]]>
         </query>
@@ -30,7 +26,7 @@
              	, price=?
              	, corver=?
              	, category=?
-             	, content=? 
+             	, description=? 
              WHERE id=?
             ]]>
         </query>
@@ -86,6 +82,18 @@
     </sql>
     
     
+    <sql name="GET_AUTHOR_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+            SELECT * 
+            FROM AUTHOR 
+            WHERE id=?
+            ]]>
+        </query>
+    </sql>
+    
+    
     
     <sql name="GET_BOOK_ID_SQL">
         <description></description>
@@ -98,30 +106,38 @@
         </query>
     </sql>
     
-    
     <sql name="GET_BOOK_ISBN_SQL">
         <description></description>
         <query>
             <![CDATA[
              SELECT * 
              FROM BOOK 
-             WHERE ISBN10=? OR ISBN13=?
+             WHERE (ISBN10= ? || ISBN13= ?)
             ]]>
         </query>
     </sql>
-    
     
     <sql name="INSERT_AUTHOR_SQL">
         <description></description>
         <query>
             <![CDATA[
              INSERT INTO AUTHOR(name,author_div,book_ref) 
-             VALUES(?, ?, LAST_INSERT_ID())
+             VALUES(?, ?, ?)
             ]]>
         </query>
     </sql>
 
 
+    <sql name="GET_LAST_NUM">
+        <description></description>
+        <query>
+            <![CDATA[
+             SELECT LAST_INSERT_ID() as last_num;
+            ]]>
+        </query>
+    </sql>
+    
+    
     <sql name="DELETE_BOOK_SQL">
         <description></description>
         <query>

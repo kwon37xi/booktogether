@@ -18,11 +18,6 @@
         <level value="WARN"/>
     </logger>
     
- 	<category name="java.sql">
-  		<priority value="debug" />
-  		<appender-ref ref="CONSOLE" />
- 	</category>
-    
     <root>
         <level value="INFO"/>
         <appender-ref ref="CONSOLE"/>

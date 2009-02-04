@@ -36,7 +36,7 @@
 							<c:forEach begin="0" items="${book_info.authors}" var="author_info">
 								id <input type="text" name='author_id' value='${author_info.id}'/><br/>
 								이름 <input type="text" name='author_name' value='${author_info.name}'/><br/>
-								구분 <input type="text" name='authord_div' value='${author_info.author_div}'/><br/>  
+								구분 <input type="text" name='author_div' value='${author_info.author_div}'/><br/>  
 								<br/>
 							</c:forEach>
 						</td>
