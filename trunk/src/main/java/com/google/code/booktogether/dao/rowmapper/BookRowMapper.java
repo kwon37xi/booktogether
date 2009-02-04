@@ -9,6 +9,11 @@ import org.springframework.stereotype.Component;
 
 import com.google.code.booktogether.web.domain.Book;
 
+/**
+ * 책정보 목록화할때 사용
+ * @author ParkHaeCheol
+ *
+ */
 @Scope("prototype")
 @Component("bookRowMapper")
 public class BookRowMapper implements ParameterizedRowMapper<Book>{

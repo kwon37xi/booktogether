@@ -7,15 +7,41 @@ import com.google.code.booktogether.web.domain.PageBean;
 
 public interface BookService {
 
+	/**
+	 * 책 등록
+	 * @param book
+	 * @return
+	 */
+	public boolean insertBook(Book book);
 
-	public boolean insertBook(Book book);		//책 등록
-
-	public boolean modifyBook(Book book);		//책 수정
+	/**
+	 * 책 수정
+	 * @param book
+	 * @return
+	 */
+	public boolean modifyBook(Book book);
 	
-	public boolean deleteBook(int id);			//책 삭제
+	/**
+	 * 책 삭제
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteBook(int id);	
 	
-	public Book getBook(int id);				//책 조회
 	
-	public List<Book> getListBook(PageBean pageBean);	//책 목록
+	/**
+	 * 책 조회
+	 * @param id
+	 * @return
+	 */
+	public Book getBook(int id);		
+	
+	
+	/**
+	 * 책 목록
+	 * @param pageBean
+	 * @return
+	 */
+	public List<Book> getListBook(PageBean pageBean);
 	
 }

@@ -7,14 +7,22 @@ package com.google.code.booktogether.web.domain;
  */
 public class Author extends BaseObject{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * ID
+	 */
 	private int id;
-	private String name;		//이름
-	private int author_div;		//구분, 1: 지은이, 2: 옮김, 3: 원저자
+	
+	/**
+	 * 이름
+	 */
+	private String name;
+	
+	/**
+	 * 구분, 1: 지은이, 2: 옮김, 3: 원저자
+	 */
+	private int author_div;	
 	
 	public int getAuthor_div() {
 		return author_div;

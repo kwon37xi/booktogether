@@ -8,12 +8,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 
+/**
+ * 해당 도메인 클래스의 정보를 출력하기
+ * 기초적인 도메인 클래스를 관리하는 클래스
+ */
 public class BaseObject implements Serializable{
 
-	/**
-	 * 해당 도메인 클래스의 정보를 출력하기
-	 * 기초적인 도메인 클래스를 관리하는 클래스
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public String toString(){

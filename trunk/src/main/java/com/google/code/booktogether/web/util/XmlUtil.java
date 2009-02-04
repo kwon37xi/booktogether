@@ -8,7 +8,11 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
-
+/**
+ * SQL 관리하는 XML을 파싱하는 유틸
+ * @author ParkHaeCheol
+ *
+ */
 public class XmlUtil {
 	
 	private static HashMap<String,String> map = new HashMap<String,String>();
