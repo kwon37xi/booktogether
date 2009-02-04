@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,7 +16,6 @@ import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.PageBean;
-import com.google.code.booktogether.web.util.ParamUtil;
 
 /**
  * Book에 관련된 Controller
@@ -62,19 +62,20 @@ public class BookController {
 	public ModelAndView handleInsertBook(HttpServletRequest req,HttpServletResponse res){
 
 		//파라미터 정보 변수에 세팅
-		String name=ParamUtil.validStringParam(req, "name", "no_title");
-		String size=ParamUtil.validStringParam(req, "size", "mm");
-		String publish_date=ParamUtil.validStringParam(req, "publish_date", "mm");
-		String publish_comp=ParamUtil.validStringParam(req, "publish_comp", "해철");
-		int page=ParamUtil.validIntegerParam(req, "page", 0);
-		int price=ParamUtil.validIntegerParam(req, "price", 0);
-		String corver=ParamUtil.validStringParam(req, "corver", "");
-		String isbn10=ParamUtil.validStringParam(req, "isbn10", "1234567890");
-		String isbn13=ParamUtil.validStringParam(req, "isbn13", "1234567890123");
-		String category=ParamUtil.validStringParam(req, "category", "국내");
-		String content=ParamUtil.validStringParam(req, "content", "설명");
-		String[] author_name=req.getParameterValues("author_name");
-		String[] author_div=req.getParameterValues("author_div");
+		String name=ServletRequestUtils.getStringParameter(req, "name", "no_title");
+		
+		String size=ServletRequestUtils.getStringParameter(req, "size", "mm");
+		String publish_date=ServletRequestUtils.getStringParameter(req, "publish_date", "mm");
+		String publish_comp=ServletRequestUtils.getStringParameter(req, "publish_comp", "해철");
+		int page=ServletRequestUtils.getIntParameter(req, "page", 0);
+		int price=ServletRequestUtils.getIntParameter(req, "price", 0);
+		String corver=ServletRequestUtils.getStringParameter(req, "corver", "");
+		String isbn10=ServletRequestUtils.getStringParameter(req, "isbn10", "1234567890");
+		String isbn13=ServletRequestUtils.getStringParameter(req, "isbn13", "1234567890123");
+		String category=ServletRequestUtils.getStringParameter(req, "category", "국내");
+		String content=ServletRequestUtils.getStringParameter(req, "content", "설명");
+		String[] author_name=ServletRequestUtils.getStringParameters(req,"author_name");
+		String[] author_div=ServletRequestUtils.getStringParameters(req,"author_div");
 
 		//책 정보 세팅
 		book.setName(name);
@@ -127,7 +128,7 @@ public class BookController {
 	public ModelAndView handleListBook(HttpServletRequest req,HttpServletResponse res){
 
 		//현재 페이지 
-		int pageNo=ParamUtil.validIntegerParam(req, "pageNo", 0);
+		int pageNo=ServletRequestUtils.getIntParameter(req, "pageNo", 0);
 
 		//페이지 클래스에 세팅
 		PageBean pageBean=new PageBean();
@@ -157,7 +158,7 @@ public class BookController {
 	public ModelAndView handleGetBook(HttpServletRequest req,HttpServletResponse res){
 
 		//책 ID값
-		int id=ParamUtil.validIntegerParam(req, "id", 0);
+		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 
 		//책 정보 가지고 오기
 		Book book=bookService.getBook(id);
@@ -181,7 +182,7 @@ public class BookController {
 	public ModelAndView handleModifyViewBook(HttpServletRequest req,HttpServletResponse res){
 
 		//책 ID값
-		int id=ParamUtil.validIntegerParam(req, "id", 0);
+		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 
 		//책 정보 가지고 오기
 		Book book=bookService.getBook(id);
@@ -205,18 +206,18 @@ public class BookController {
 	public ModelAndView handleModifyBook(HttpServletRequest req,HttpServletResponse res){
 
 		//파라미터 정보 변수  세팅
-		int id=ParamUtil.validIntegerParam(req, "id", 0);
-		String name=ParamUtil.validStringParam(req, "name", "no_title");
-		String size=ParamUtil.validStringParam(req, "size", "mm");
-		String publish_date=ParamUtil.validStringParam(req, "publish_date", "mm");
-		String publish_comp=ParamUtil.validStringParam(req, "publish_comp", "해철1234");
-		int page=ParamUtil.validIntegerParam(req, "page", 0);
-		int price=ParamUtil.validIntegerParam(req, "price", 0);
-		String corver=ParamUtil.validStringParam(req, "corver", "");
-		String isbn10=ParamUtil.validStringParam(req, "isbn10", "1234567890");
-		String isbn13=ParamUtil.validStringParam(req, "isbn13", "1234567890123");
-		String category=ParamUtil.validStringParam(req, "category", "국내");
-		String content=ParamUtil.validStringParam(req, "content", "설명");
+		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
+		String name=ServletRequestUtils.getStringParameter(req, "name", "no_title");
+		String size=ServletRequestUtils.getStringParameter(req, "size", "mm");
+		String publish_date=ServletRequestUtils.getStringParameter(req, "publish_date", "mm");
+		String publish_comp=ServletRequestUtils.getStringParameter(req, "publish_comp", "해철1234");
+		int page=ServletRequestUtils.getIntParameter(req, "page", 0);
+		int price=ServletRequestUtils.getIntParameter(req, "price", 0);
+		String corver=ServletRequestUtils.getStringParameter(req, "corver", "");
+		String isbn10=ServletRequestUtils.getStringParameter(req, "isbn10", "1234567890");
+		String isbn13=ServletRequestUtils.getStringParameter(req, "isbn13", "1234567890123");
+		String category=ServletRequestUtils.getStringParameter(req, "category", "국내");
+		String content=ServletRequestUtils.getStringParameter(req, "content", "설명");
 		String[] author_id=req.getParameterValues("author_id");
 		String[] author_name=req.getParameterValues("author_name");
 		String[] author_div=req.getParameterValues("author_div");
@@ -271,7 +272,7 @@ public class BookController {
 	public void handleDeleteBook(HttpServletRequest req,HttpServletResponse res){
 
 		//책 ID값
-		int id=ParamUtil.validIntegerParam(req, "id", 0);
+		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 
 		//책 정보 가지고 오기
 		boolean result=bookService.deleteBook(id);
@@ -297,7 +298,7 @@ public class BookController {
 	public ModelAndView handleValidBook(HttpServletRequest req,HttpServletResponse res){
 		
 		//책 ID값
-		String isbn=ParamUtil.validStringParam(req, "ISBN", "");
+		String isbn=ServletRequestUtils.getStringParameter(req, "ISBN", "");
 		
 		//책 정보 가지고 오기
 		Book book=bookService.validBook(isbn);
