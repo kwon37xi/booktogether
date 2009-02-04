@@ -31,10 +31,6 @@
 					<input type="text" name="author_div" size="20"/>
 				</p>
 				<p>
-					<label for="page">페이지수</label>
-					<input type="text" name="page" size="20"/>
-				</p>
-				<p>
 					<label for="isbn10">ISBN(10자리)</label>
 					<input type="text" name="isbn10" size="20"/>
 				</p>
@@ -55,10 +51,6 @@
 					<input type="text" name="price" size="20"/>
 				</p>
 				<p>
-					<label for="size">크기</label>
-					<input type="text" name="size" size="20"/>
-				</p>
-				<p>
 					<label for="corver">이미지</label>
 					<input type="text" name="corver" size="20"/>
 				</p>
@@ -68,7 +60,7 @@
 				</p>
 				<p>
 					<label for="content">책 설명</label>
-					<input type="text" name="content" size="20"/>
+					<input type="text" name="description" size="20"/>
 				</p>
 				<p>
 				<input type="submit" value="등록"/>

@@ -42,10 +42,6 @@
 						</td>
 					</tr>
 					<tr>
-						<td>페이지수</td>
-						<td><input type="text" name='page' value='${book_info.page}'/>쪽</td>
-					</tr>
-					<tr>
 						<td>ISBN</td>
 						<td>
 							ISBN10<input type="text" name='isbn10' value='${book_info.ISBN10}'/><br/>
@@ -69,7 +65,7 @@
 					</tr>
 					<tr>
 						<td>설명</td>
-						<td><input type="text" name='content' value='${book_info.content}'/></td>
+						<td><input type="text" name='description' value='${book_info.description}'/></td>
 					</tr>
 				</tbody>
 				<tfoot></tfoot>

@@ -63,24 +63,19 @@ public class BookController {
 
 		//파라미터 정보 변수에 세팅
 		String name=ServletRequestUtils.getStringParameter(req, "name", "no_title");
-		
-		String size=ServletRequestUtils.getStringParameter(req, "size", "mm");
 		String publish_date=ServletRequestUtils.getStringParameter(req, "publish_date", "mm");
 		String publish_comp=ServletRequestUtils.getStringParameter(req, "publish_comp", "해철");
-		int page=ServletRequestUtils.getIntParameter(req, "page", 0);
 		int price=ServletRequestUtils.getIntParameter(req, "price", 0);
 		String corver=ServletRequestUtils.getStringParameter(req, "corver", "");
 		String isbn10=ServletRequestUtils.getStringParameter(req, "isbn10", "1234567890");
 		String isbn13=ServletRequestUtils.getStringParameter(req, "isbn13", "1234567890123");
 		String category=ServletRequestUtils.getStringParameter(req, "category", "국내");
-		String content=ServletRequestUtils.getStringParameter(req, "content", "설명");
+		String description=ServletRequestUtils.getStringParameter(req, "description", "설명");
 		String[] author_name=ServletRequestUtils.getStringParameters(req,"author_name");
 		String[] author_div=ServletRequestUtils.getStringParameters(req,"author_div");
 
 		//책 정보 세팅
 		book.setName(name);
-		book.setPage(page);
-		book.setSize(size);
 		book.setPublish_date(publish_date);
 		book.setPublish_comp(publish_comp);
 		book.setPrice(price);
@@ -88,7 +83,7 @@ public class BookController {
 		book.setISBN10(isbn10);
 		book.setISBN13(isbn13);
 		book.setCategory(category);
-		book.setContent(new StringBuilder(content));
+		book.setDescription(description);
 
 		//지은이 정보 세팅,
 		//여러명일경우를 생각하여 배열로 작성
@@ -208,16 +203,14 @@ public class BookController {
 		//파라미터 정보 변수  세팅
 		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 		String name=ServletRequestUtils.getStringParameter(req, "name", "no_title");
-		String size=ServletRequestUtils.getStringParameter(req, "size", "mm");
 		String publish_date=ServletRequestUtils.getStringParameter(req, "publish_date", "mm");
 		String publish_comp=ServletRequestUtils.getStringParameter(req, "publish_comp", "해철1234");
-		int page=ServletRequestUtils.getIntParameter(req, "page", 0);
 		int price=ServletRequestUtils.getIntParameter(req, "price", 0);
 		String corver=ServletRequestUtils.getStringParameter(req, "corver", "");
 		String isbn10=ServletRequestUtils.getStringParameter(req, "isbn10", "1234567890");
 		String isbn13=ServletRequestUtils.getStringParameter(req, "isbn13", "1234567890123");
 		String category=ServletRequestUtils.getStringParameter(req, "category", "국내");
-		String content=ServletRequestUtils.getStringParameter(req, "content", "설명");
+		String description=ServletRequestUtils.getStringParameter(req, "content", "설명");
 		String[] author_id=req.getParameterValues("author_id");
 		String[] author_name=req.getParameterValues("author_name");
 		String[] author_div=req.getParameterValues("author_div");
@@ -225,8 +218,6 @@ public class BookController {
 
 		book.setId(id);
 		book.setName(name);
-		book.setPage(page);
-		book.setSize(size);
 		book.setPublish_date(publish_date);
 		book.setPublish_comp(publish_comp);
 		book.setPrice(price);
@@ -234,7 +225,7 @@ public class BookController {
 		book.setISBN10(isbn10);
 		book.setISBN13(isbn13);
 		book.setCategory(category);
-		book.setContent(new StringBuilder(content));
+		book.setDescription(description);
 
 		//지은이 정보 세팅,
 		//여러명일경우를 생각하여 배열로 작성
@@ -261,7 +252,6 @@ public class BookController {
 		return mav;
 
 	}
-	
 	
 	/**
 	 * 책 삭제
@@ -302,8 +292,6 @@ public class BookController {
 		
 		//책 정보 가지고 오기
 		Book book=bookService.validBook(isbn);
-		
-		System.out.println(book);
 		
 		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();

@@ -95,16 +95,14 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 					sql,
 					new Object[]{
 						book.getName()
-						,book.getPage()
 						,book.getISBN10()
 						,book.getISBN13()
 						,book.getPublish_comp()
 						,book.getPublish_date()
 						,book.getPrice()
-						,book.getSize()
 						,book.getCorver()
 						,book.getCategory()
-						,book.getContent()
+						,book.getDescription()
 		});
 		
 		return count;
@@ -120,16 +118,14 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 					sql,
 					new Object[]{
 						book.getName()
-						,book.getPage()
 						,book.getISBN10()
 						,book.getISBN13()
 						,book.getPublish_comp()
 						,book.getPublish_date()
 						,book.getPrice()
-						,book.getSize()
 						,book.getCorver()
 						,book.getCategory()
-						,book.getContent()
+						,book.getDescription()
 						,book.getId()
 				});
 		return count;
