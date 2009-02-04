@@ -137,4 +137,18 @@ public class BookServiceImpl implements BookService {
 		}
 		return book;
 	}
+
+	@Override
+	public Book validBook(String isbn) {
+		
+		
+		Book book=bookJdbcDao.getBook(isbn);
+		
+		if(book==null){
+			book=new Book();
+			//API를 이용하여 북 정보를 가지고 온다.
+		}
+		
+		return book;
+	}
 }

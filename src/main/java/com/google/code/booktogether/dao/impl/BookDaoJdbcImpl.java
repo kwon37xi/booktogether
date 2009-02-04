@@ -66,7 +66,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public Book getBook(int id) {
 		
-		String sql=XmlUtil.getInstance().getSQL("GET_BOOK_SQL");
+		String sql=XmlUtil.getInstance().getSQL("GET_BOOK_ID_SQL");
 		
 		Book book=getSimpleJdbcTemplate().queryForObject(sql, bookRowMapper, new Object[]{id});
 		
@@ -179,6 +179,16 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 		
 		int count=getSimpleJdbcTemplate().update(sql, new Object[]{author.getName(), author.getAuthor_div(),author.getId()});
 		return count;
+	}
+
+	@Override
+	public Book getBook(String isbn) {
+		
+		String sql=XmlUtil.getInstance().getSQL("GET_BOOK_ISBN_SQL");
+		
+		Book book=getSimpleJdbcTemplate().queryForObject(sql, bookRowMapper, new Object[]{isbn,isbn});
+		
+		return book;
 	}
 
 }

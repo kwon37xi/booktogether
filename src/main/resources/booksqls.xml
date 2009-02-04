@@ -89,13 +89,25 @@
     
     
     
-    <sql name="GET_BOOK_SQL">
+    <sql name="GET_BOOK_ID_SQL">
         <description></description>
         <query>
             <![CDATA[
              SELECT * 
              FROM BOOK 
              WHERE ID=?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="GET_BOOK_ISBN_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             SELECT * 
+             FROM BOOK 
+             WHERE ISBN10=? OR ISBN13=?
             ]]>
         </query>
     </sql>

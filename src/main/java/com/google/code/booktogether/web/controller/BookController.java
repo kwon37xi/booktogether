@@ -286,5 +286,32 @@ public class BookController {
 
 	}
 	
+	
+	
+	/**
+	 * 책 검색후 책자세히 보기할때 책 내용이 DB에 있는지 검사
+	 * @param req
+	 * @param res
+	 */
+	@RequestMapping("/book/deleteBook.do")
+	public ModelAndView handleValidBook(HttpServletRequest req,HttpServletResponse res){
+		
+		//책 ID값
+		String isbn=ParamUtil.validStringParam(req, "ISBN", "");
+		
+		//책 정보 가지고 오기
+		Book book=bookService.validBook(isbn);
+		
+		System.out.println(book);
+		
+		//경로 설정 및 Attribute 설정
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("book/getBook");
+		mav.addObject("book_info",book);
+
+		return mav;
+		
+	}
+	
 
 }
