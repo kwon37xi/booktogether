@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.google.code.booktogether.dao.TestJdbcDao;
+import com.google.code.booktogether.dao.TestDao;
 import com.google.code.booktogether.service.TestService;
 import com.google.code.booktogether.web.domain.Test;
 
@@ -14,11 +14,11 @@ public class TestServiceImpl implements TestService {
 
 	private Logger log=Logger.getLogger(this.getClass());
 	
-	private TestJdbcDao testJdbcDao;
+	private TestDao testJdbcDao;
 	
 	
 	@Resource(name="testJdbcDao")
-	public void setTestJdbcDao(TestJdbcDao testJdbcDao) {
+	public void setTestJdbcDao(TestDao testJdbcDao) {
 		this.testJdbcDao = testJdbcDao;
 	}
 

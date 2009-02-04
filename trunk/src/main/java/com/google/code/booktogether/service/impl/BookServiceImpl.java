@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.code.booktogether.dao.BookJdbcDao;
+import com.google.code.booktogether.dao.BookDao;
 import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
@@ -17,7 +17,7 @@ public class BookServiceImpl implements BookService {
 
 	//책 JDBC DAO DI
 	@Resource(name="bookJdbcDao")
-	private BookJdbcDao bookJdbcDao;
+	private BookDao bookJdbcDao;
 
 
 	@Override

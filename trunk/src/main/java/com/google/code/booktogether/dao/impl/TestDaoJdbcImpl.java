@@ -9,11 +9,11 @@ import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import com.google.code.booktogether.dao.TestJdbcDao;
+import com.google.code.booktogether.dao.TestDao;
 import com.google.code.booktogether.web.domain.Test;
 
 @Repository("testJdbcDao")
-public class TestJdbcDaoImpl extends SimpleJdbcDaoSupport implements TestJdbcDao{
+public class TestDaoJdbcImpl extends SimpleJdbcDaoSupport implements TestDao{
 
 	
 	private Logger log=Logger.getLogger(this.getClass());
