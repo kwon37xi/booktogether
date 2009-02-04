@@ -1,5 +1,6 @@
 package com.google.code.booktogether.web.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -222,5 +223,27 @@ public class BookController {
 		return mav;
 
 	}
+	
+	
+	//책 수정화면 보기
+	@RequestMapping("/book/deleteBook.do")
+	public void handleDeleteBook(HttpServletRequest req,HttpServletResponse res){
+
+		//책 ID값
+		int id=ParamUtil.validIntegerParam(req, "id", 0);
+
+		//책 정보 가지고 오기
+		boolean result=bookService.deleteBook(id);
+
+		System.out.println(result);
+		
+		try {
+			res.sendRedirect("/book/listBook.do");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 
 }
