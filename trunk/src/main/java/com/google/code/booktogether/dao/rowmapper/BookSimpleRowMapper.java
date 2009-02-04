@@ -25,13 +25,11 @@ public class BookSimpleRowMapper implements ParameterizedRowMapper<Book>{
 		
 		book.setId(rs.getInt("ID"));
 		book.setName(rs.getString("NAME"));
-		book.setPage(rs.getInt("PAGE"));
 		book.setISBN10(rs.getString("ISBN10"));
 		book.setISBN13(rs.getString("ISBN13"));
 		book.setPublish_comp(rs.getString("PUBLISH_COMP"));
 		book.setPublish_date(rs.getString("PUBLISH_DATE"));
 		book.setPrice(rs.getInt("PRICE"));
-		book.setSize(rs.getString("SIZE"));
 		book.setCorver(rs.getString("Corver"));
 		book.setCategory(rs.getString("CATEGORY"));
 		

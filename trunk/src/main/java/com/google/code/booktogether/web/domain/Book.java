@@ -17,7 +17,7 @@ public class Book extends BaseObject{
 	/**
 	 * id
 	 */
-	private int id;					//id
+	private int id;					
 	
 	/**
 	 * 책이름
@@ -28,11 +28,6 @@ public class Book extends BaseObject{
 	 * 책지은이들
 	 */
 	private Author[] authors;
-	
-	/**
-	 * 페이지수
-	 */
-	private int page;
 	
 	/**
 	 * ISBN 10자리
@@ -65,11 +60,6 @@ public class Book extends BaseObject{
 	private String category;
 	
 	/**
-	 * 책사이즈
-	 */
-	private String size;	
-	
-	/**
 	 * 책표지이미지
 	 */
 	private String corver;
@@ -77,8 +67,14 @@ public class Book extends BaseObject{
 	/**
 	 * 책 설명
 	 */
-	private StringBuilder content;
+	private String description;
 	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public int getId() {
 		return id;
 	}
@@ -90,12 +86,6 @@ public class Book extends BaseObject{
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public int getPage() {
-		return page;
-	}
-	public void setPage(int page) {
-		this.page = page;
 	}
 	public String getISBN10() {
 		return ISBN10;
@@ -133,25 +123,12 @@ public class Book extends BaseObject{
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getSize() {
-		return size;
-	}
-	public void setSize(String size) {
-		this.size = size;
-	}
 	public String getCorver() {
 		return corver;
 	}
 	public void setCorver(String corver) {
 		this.corver = corver;
 	}
-	public StringBuilder getContent() {
-		return content;
-	}
-	public void setContent(StringBuilder content) {
-		this.content = content;
-	}
-	
 	public Author[] getAuthors() {
 		return authors;
 	}

@@ -7,11 +7,11 @@
         <query>
             <![CDATA[
              INSERT INTO BOOK
-             			(name,page, isbn10
+             			(name,isbn10
              			,isbn13, publish_comp
-             			,publish_date, price, size
+             			,publish_date, price,
              			, corver, category, content) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ? ,? , ?, ?)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ? ,? )
             ]]>
         </query>
     </sql>
@@ -23,13 +23,11 @@
             <![CDATA[
              UPDATE BOOK 
              SET name=?
-             	, page=?
              	, isbn10=?
              	, isbn13=?
              	, publish_comp=?
              	, publish_date=?
              	, price=?
-             	, size=?
              	, corver=?
              	, category=?
              	, content=? 

@@ -38,10 +38,6 @@
 					</td>
 				</tr>
 				<tr>
-					<td>페이지수</td>
-					<td>${book_info.page}쪽</td>
-				</tr>
-				<tr>
 					<td>ISBN</td>
 					<td>${book_info.ISBN10}/${book_info.ISBN13}</td>
 				</tr>
@@ -59,7 +55,7 @@
 				</tr>
 				<tr>
 					<td>설명</td>
-					<td>${book_info.content}</td>
+					<td>${book_info.description}</td>
 				</tr>
 			</tbody>
 			<tfoot></tfoot>

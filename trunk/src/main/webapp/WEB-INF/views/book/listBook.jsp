@@ -16,7 +16,6 @@
 					<td>책표지</td>
 					<td>책이름</td>
 					<td>지은이</td>
-					<td>페이지수</td>
 					<td>ISBN</td>
 					<td>출판사/출판일</td>
 					<td>가격</td>
@@ -34,7 +33,6 @@
 								[${author_info.name}/${author_info.author_div}]  
 							</c:forEach>
 						</td>
-						<td>${book_info.page}쪽</td>
 						<td>${book_info.ISBN10}/${book_info.ISBN13}</td>
 						<td>${book_info.publish_comp}/${book_info.publish_date}</td>
 						<td>${book_info.price}</td>
