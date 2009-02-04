@@ -14,3 +14,6 @@
 === 명명 규칙 ===
  * 서비스 인터페이스가 CurrentDateService 라면 구현체는 CurrentDateServiceImpl
  * Dao 인터페이스가 UserDao 라면 구현체는 UserDaoJdbcImpl
+
+=== 파일명 규칙 ===
+ * 디렉토리 구분자는 유닉스 방식으로 "/" 를 사용한다.
