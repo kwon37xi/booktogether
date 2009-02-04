@@ -124,6 +124,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Book checkBook(String isbn) {
 		
 		Book book=bookJdbcDao.getBook(isbn);
@@ -132,8 +133,6 @@ public class BookServiceImpl implements BookService {
 
 			//OPEN API로 Book값 세팅
 			book=new UseApiDaumBook().execute(isbn);
-			
-			System.out.println(book.getISBN10());
 			
 			//DB에 넣기
 			this.insertBook(book);
