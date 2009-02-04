@@ -73,6 +73,13 @@ public interface BookDao {
 	public List<Author> getAuthor(Book book);
 	
 	/**
+	 * 책관련 지은이 목록	
+	 * @param book	책 도메인
+	 * @return
+	 */
+	public Author getAuthor(int id);
+	
+	/**
 	 * 책 목록
 	 * @param startRow	보여줄 시작 줄번호
 	 * @param pageSize	시작줄번호로 부터 몇개
@@ -91,5 +98,13 @@ public interface BookDao {
 	 * @param authors	지은이 도메인
 	 * @return
 	 */
-	public int insertAuthor(Author[] authors);	
+	public int insertAuthor(Author[] authors,int id);
+	
+	
+	/**
+	 * AutoIncrement 값 가지고 오기
+	 * @param authors	지은이 도메인
+	 * @return
+	 */
+	public int getLastNumIncrement();	
 }

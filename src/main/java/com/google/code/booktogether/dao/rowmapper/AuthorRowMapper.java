@@ -1,5 +1,6 @@
 package com.google.code.booktogether.dao.rowmapper;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -16,7 +17,12 @@ import com.google.code.booktogether.web.domain.Author;
  */
 @Scope("prototype")
 @Component("authorRowMapper")
-public class AuthorRowMapper implements ParameterizedRowMapper<Author>{
+public class AuthorRowMapper implements ParameterizedRowMapper<Author>,Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public Author mapRow(ResultSet rs, int rowNum) throws SQLException {

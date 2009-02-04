@@ -11,21 +11,19 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
+import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
 
 
 /**
- * 아직 사용하지 않음
  * API를 위해서 임시 클래스
  * @author ParkHaeCheol
  *
  */
-public class UseApiNaverBook {
+public class UseApiDaumBook {
 
 	/**
 	 * 작성자 : microflower
-	 * 작성일 : 09.01.21
-	 * 수정일 : 
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -44,8 +42,7 @@ public class UseApiNaverBook {
 	 * 주소 요청하고 output에 맞게 받기
 	 * 인코딩 UTF-8
 	 */
-	@SuppressWarnings("unused")
-	private void execute(String isbn){
+	public Book execute(String isbn){
 
 		String params="";
 
@@ -54,7 +51,7 @@ public class UseApiNaverBook {
 		params+="&searchType="+"isbn";
 		params+="&target="+"meta";
 		params+="&output="+"xml";
-		params+="&key="+DAUM_API_KEY;
+		params+="&apikey="+DAUM_API_KEY;
 
 		//URL클래스를 통한 요청과 응답 송수신 변수들
 		BufferedReader in = null;
@@ -74,6 +71,7 @@ public class UseApiNaverBook {
 
 			while ((inputLine = in.readLine()) != null){
 				xmlcontent.append(inputLine);
+				System.out.println(inputLine);
 			}
 
 			in.close();
@@ -91,9 +89,9 @@ public class UseApiNaverBook {
 		xmlParser(xmlcontent);
 
 		//item 파서
-		xmlNaverBookParser();
+		xmlBookParser();
 		
-		
+		return book;
 	}
 
 	private void xmlParser(StringBuffer xmlcontent){
@@ -113,9 +111,9 @@ public class UseApiNaverBook {
 
 	//네이버책
 	@SuppressWarnings("unchecked")
-	private void xmlNaverBookParser(){
+	private void xmlBookParser(){
 
-		List item_list=xmldoc.getRootElement().getChild("channel").getChildren("item");
+		List item_list=xmldoc.getRootElement().getChildren("item");
 		
 		Element item=null;
 		
@@ -126,14 +124,47 @@ public class UseApiNaverBook {
 			item=(Element)item_list.get(i);
 
 			book.setName(item.getChild("title").getText());
-			book.setCorver(item.getChild("image").getText());
-			book.setPrice(Integer.parseInt(item.getChild("price").getText()));
-			book.setPublish_comp(item.getChild("publisher").getText());
-			book.setPublish_date(item.getChild("pubdate").getText());
+			book.setCorver(item.getChild("cover_s_url").getText());
+			book.setPrice(Integer.parseInt(item.getChild("list_price").getText()));
+			book.setPublish_comp(item.getChild("pub_nm").getText());
+			book.setPublish_date(item.getChild("pub_date").getText());
+			book.setDescription(item.getChild("description").getText());
+			book.setCategory(item.getChild("category").getText());
+			
+			String translator_name=item.getChild("translator").getText();
+			String isbn=item.getChild("isbn").getText();
+			
+			if(isbn.indexOf("<b>")!=-1){
+				book.setISBN10(isbn.substring(3,13));
+				book.setISBN13("");
+			}else{
+				book.setISBN10("");
+				book.setISBN13(isbn);
+			}
 			
 			
-			//book.setAuthor(item.getChild("title").getText());
-
+			Author[] authors;
+			Author author=new Author();
+			author.setName(item.getChild("author").getText());
+			author.setAuthor_div(0);
+			
+			
+			if(translator_name!=null){
+				authors=new Author[2];
+				
+				Author translator=new Author();
+				translator.setName(translator_name);
+				translator.setAuthor_div(1);
+				
+				authors[0]=author;
+				authors[1]=translator;
+				
+			}else{
+				authors=new Author[1];
+				authors[0]=author;
+			}
+			
+			book.setAuthors(authors);
 		}
 	}
 

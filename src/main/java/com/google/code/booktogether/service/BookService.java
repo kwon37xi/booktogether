@@ -2,6 +2,7 @@ package com.google.code.booktogether.service;
 
 import java.util.List;
 
+import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.PageBean;
 
@@ -46,10 +47,18 @@ public interface BookService {
 	
 	
 	/**
-	 * 해당 책이 있는지 검증
+	 * 해당 책이 DB에 있는지 체크
 	 * @param isbn
 	 * @return
 	 */
-	public Book validBook(String isbn);
+	public Book checkBook(String isbn);
+	
+	
+	/**
+	 * 지은이 목록 List<Author> -> Author[]로 변환
+	 * @param authorlist
+	 * @return
+	 */
+	public Author[] listToArray(List<Author> authorlist);
 	
 }
