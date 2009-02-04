@@ -2,6 +2,10 @@ package com.google.code.booktogether.web.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 파라미터 관련 유틸 클래스
+ * @author ParkHaeCheol
+ */
 public class ParamUtil {
 
 

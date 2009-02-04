@@ -1,26 +1,71 @@
 package com.google.code.booktogether.web.domain;
 
+/**
+ * 페이징 기법을 위한 클래스.
+ */
 public class PageBean extends BaseObject{
 
-	/**
-	 * 페이징 기법을 위한 클래스.
-	 */
 	private static final long serialVersionUID = 1L;
-	private int numlist;   //리스트 뿌릴때 번호출력
-	private int pageNo=1;	//선택된 페이지
-	private int startRow;	//시작 페이지
-	private int endRow;		//마지막 페이지
-	private int dbcount;	//데이터베이스에 있는 모든 회원수
-	private int pagesize=3;	//보여줄 페이지 갯수
+	
+	/**
+	 * 리스트 뿌릴때 번호출력
+	 */
+	private int numlist;   
+	
+	/**
+	 * 선택된 페이지
+	 */
+	private int pageNo=1;	
+	
+	/**
+	 * 시작 페이지
+	 */
+	private int startRow;
+	
+	/**
+	 * 마지막 페이지
+	 */
+	private int endRow;
+	
+	/**
+	 * 데이터베이스에 있는 모든 회원수
+	 */
+	private int dbcount;
+	
+	/**
+	 * 보여줄 페이지 갯수
+	 */
+	private int pagesize=3;
+	
+	/**
+	 * 총번호 수
+	 */
 	private int pagecount;
-	private int limit=3;	//보여질 페이지 숫자 갯수
+	
+	/**
+	 * 보여질 페이지 숫자 갯수
+	 */
+	private int limit=3;
+	
+	/**
+	 * 시작 페이지
+	 */
 	private int startPage=1;
+	
+	/**
+	 * 끝페이지
+	 */
 	private int endPage;
-	private boolean prepage; //이전 페이지 유무확인
-	private boolean nextpage;  //다음 페이지 유무확인
-
-	private String word="";	//검색단어
-	private String how_search="";	//검색방법
+	
+	/**
+	 * 이전 페이지 유무확인
+	 */
+	private boolean prepage;
+	
+	/**
+	 * 다음 페이지 유무확인
+	 */
+	private boolean nextpage;
 
 	public void setPageNo(int pageNo){
 		this.pageNo=pageNo;
@@ -104,22 +149,6 @@ public class PageBean extends BaseObject{
 
 	public void setNumlist(int numlist) {
 		this.numlist = numlist;
-	}
-
-	public String getHow_search() {
-		return how_search;
-	}
-
-	public void setHow_search(String how_search) {
-		this.how_search = how_search;
-	}
-
-	public String getWord() {
-		return word;
-	}
-
-	public void setWord(String word) {
-		this.word = word;
 	}
 
 }

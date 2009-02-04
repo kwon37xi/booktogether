@@ -17,20 +17,32 @@ import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.util.ParamUtil;
 
-
+/**
+ * Book에 관련된 Controller
+ * 등록화면, 등록, 책목록, 책정보, 수정, 수정화면, 삭제
+ * @author ParkHaeCheol
+ *
+ */
 @Controller
 public class BookController {
 
-	//서비스 DI
+	/**
+	 * BookService
+	 */
 	@Resource(name="bookService")
 	BookService bookService;
 
-	//Book 도메인 DI
+	/**
+	 * Book 도메인 DI
+	 */
 	@Resource(name="bookDomain")
 	Book book;
 
 
-	//책 등록 화면
+	/**
+	 * 책 등록 화면
+	 * @return
+	 */
 	@RequestMapping("/book/insertBookView.do")
 	public ModelAndView handleInsertBookView(){
 
@@ -40,7 +52,12 @@ public class BookController {
 		return mav;
 	}
 
-	//책 등록
+	/**
+	 * 책 등록
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	@RequestMapping("/book/insertBook.do")
 	public ModelAndView handleInsertBook(HttpServletRequest req,HttpServletResponse res){
 
@@ -100,7 +117,12 @@ public class BookController {
 	}
 
 
-	//책목록
+	/**
+	 * 책목록
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	@RequestMapping("/book/listBook.do")
 	public ModelAndView handleListBook(HttpServletRequest req,HttpServletResponse res){
 
@@ -125,7 +147,12 @@ public class BookController {
 
 	}
 
-	//책 정보 가지고 오기
+	/**
+	 * 책 정보 가지고 오기
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	@RequestMapping("/book/getBook.do")
 	public ModelAndView handleGetBook(HttpServletRequest req,HttpServletResponse res){
 
@@ -144,7 +171,12 @@ public class BookController {
 
 	}
 
-	//책 수정화면 보기
+	/**
+	 * 책 수정화면 보기
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	@RequestMapping("/book/modifyBookView.do")
 	public ModelAndView handleModifyViewBook(HttpServletRequest req,HttpServletResponse res){
 
@@ -163,7 +195,12 @@ public class BookController {
 
 	}
 
-	//책 수정하기
+	/**
+	 * 책 수정하기
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	@RequestMapping("/book/modifyBook.do")
 	public ModelAndView handleModifyBook(HttpServletRequest req,HttpServletResponse res){
 
@@ -225,7 +262,11 @@ public class BookController {
 	}
 	
 	
-	//책 수정화면 보기
+	/**
+	 * 책 삭제
+	 * @param req
+	 * @param res
+	 */
 	@RequestMapping("/book/deleteBook.do")
 	public void handleDeleteBook(HttpServletRequest req,HttpServletResponse res){
 

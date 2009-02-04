@@ -9,6 +9,11 @@ import org.springframework.stereotype.Component;
 
 import com.google.code.booktogether.web.domain.Author;
 
+/**
+ * 지은이 정보 목록화 할때 사용
+ * @author ParkHaeCheol
+ *
+ */
 @Scope("prototype")
 @Component("authorRowMapper")
 public class AuthorRowMapper implements ParameterizedRowMapper<Author>{

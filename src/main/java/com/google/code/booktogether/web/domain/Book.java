@@ -8,29 +8,76 @@ import org.springframework.stereotype.Component;
  * @author ParkHaeCheol
  *
  */
-
 @Scope("prototype")
 @Component("bookDomain")
 public class Book extends BaseObject{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * id
+	 */
 	private int id;					//id
-	private String name;			//책이름
-	private Author[] authors;		//책지은이들
-	private int page;				//페이지수
-	private String ISBN10;			//ISBN 10자리
-	private String ISBN13;			//ISBN 13자리
-	private String publish_comp;	//출판사
-	private String publish_date;	//출판일
-	private int price;				//책가격
-	private String category;		//분류
-	private String size;			//책사이즈
-	private String corver;			//책표지이미지
-	private StringBuilder content;	//책 설명
+	
+	/**
+	 * 책이름
+	 */
+	private String name;
+	
+	/**
+	 * 책지은이들
+	 */
+	private Author[] authors;
+	
+	/**
+	 * 페이지수
+	 */
+	private int page;
+	
+	/**
+	 * ISBN 10자리
+	 */
+	private String ISBN10;
+	
+	/**
+	 * ISBN 13자리
+	 */
+	private String ISBN13;	
+	
+	/**
+	 * 출판사
+	 */
+	private String publish_comp;
+	
+	/**
+	 * 출판일
+	 */
+	private String publish_date;
+	
+	/**
+	 * 책가격
+	 */
+	private int price;	
+	
+	/**
+	 * 분류
+	 */
+	private String category;
+	
+	/**
+	 * 책사이즈
+	 */
+	private String size;	
+	
+	/**
+	 * 책표지이미지
+	 */
+	private String corver;
+	
+	/**
+	 * 책 설명
+	 */
+	private StringBuilder content;
 	
 	public int getId() {
 		return id;
