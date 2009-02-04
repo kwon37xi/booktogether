@@ -44,4 +44,12 @@ public interface BookService {
 	 */
 	public List<Book> getListBook(PageBean pageBean);
 	
+	
+	/**
+	 * 해당 책이 있는지 검증
+	 * @param isbn
+	 * @return
+	 */
+	public Book validBook(String isbn);
+	
 }

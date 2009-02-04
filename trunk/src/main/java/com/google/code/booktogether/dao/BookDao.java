@@ -57,6 +57,14 @@ public interface BookDao {
 	 */
 	public Book getBook(int id);
 	
+	
+	/**
+	 * 책조회
+	 * @param id	책 ISBN값
+	 * @return
+	 */
+	public Book getBook(String isbn);
+	
 	/**
 	 * 책관련 지은이 목록	
 	 * @param book	책 도메인
