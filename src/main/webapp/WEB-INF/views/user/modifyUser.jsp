@@ -6,76 +6,37 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>책조회</title>
+		<title>회원수정</title>
 	</head>
 	<body>
-		<form method="POST" name="modifyBook_form" action="/book/modifyBook.do">
-			<table border='1'>
-				<thead>
-					<tr>
-						<td>이름</td>
-						<td>내용</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>ID</td>
-						<td><input type="text" name='id' value='${book_info.id}'/></td>
-					</tr>
-					<tr>
-						<td>책표지</td>
-						<td><input type="text" name='corver' value='${book_info.corver}'/></td>
-					</tr>
-					<tr>
-						<td>책이름</td>
-						<td><input type="text" name='name' value='${book_info.name}'/></td>
-					</tr>
-					<tr>
-						<td>지은이</td>
-						<td>
-							<c:forEach begin="0" items="${book_info.authors}" var="author_info">
-								id <input type="text" name='author_id' value='${author_info.id}'/><br/>
-								이름 <input type="text" name='author_name' value='${author_info.name}'/><br/>
-								구분 <input type="text" name='author_div' value='${author_info.author_div}'/><br/>  
-								<br/>
-							</c:forEach>
-						</td>
-					</tr>
-					<tr>
-						<td>ISBN</td>
-						<td>
-							ISBN10<input type="text" name='isbn10' value='${book_info.ISBN10}'/><br/>
-							ISBN13<input type="text" name='isbn13' value='${book_info.ISBN13}'/>
-						</td>
-					</tr>
-					<tr>
-						<td>출판사/출판일</td>
-						<td>
-							<input type="text" name='publish_comp' value='${book_info.publish_comp}'/><br/>
-							<input type="text" name='publish_date' value='${book_info.publish_date}'/>
-						</td>
-					</tr>
-					<tr>
-						<td>가격</td>
-						<td><input type="text" name='price' value='${book_info.price}'/></td>
-					</tr>
-					<tr>
-						<td>카테고리</td>
-						<td><input type="text" name='category' value='${book_info.category}'/></td>
-					</tr>
-					<tr>
-						<td>설명</td>
-						<td><input type="text" name='description' value='${book_info.description}'/></td>
-					</tr>
-				</tbody>
-				<tfoot></tfoot>
-			</table>
-			<input type="submit" value="수정"/>			
-		</form>
-		
-		<div id=''>
-			<a href="javascript:history.go(-1)">뒤로</a>
+		<div>
+			<form method="post" name="modifyuser_form" action="/user/modifyUser.do">
+				<p>			
+					${user_info.user_id}
+				</p>
+				<p>
+					<label for="pw">PW</label>
+					<input type="text" name="pw" size="20" value="${user_info.pw}"/>
+				</p>
+				<p>
+					<label for="pw_again">PW 다시 확인</label>
+					<input type="text" name="pw_again" size="20" value="${user_info.pw}"/>
+				</p>
+				<p>
+					<label for="email">이메일</label>
+					<input type="text" name="email" size="20" value="${user_info.email}"/>
+				</p>
+				<p>
+					<label for="nickname">별명</label>
+					<input type="text" name="nickname" size="20" value="${user_info.nickname}"/>
+				</p>
+				<p>
+					<label for="name">이름</label>
+					<input type="text" name="name" size="20" value="${user_info.name}"/>
+				</p>
+				<input type="submit" value="등록"/>
+				
+			</form>
 		</div>
-		
 	</body>
 </html>

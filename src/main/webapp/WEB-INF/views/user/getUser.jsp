@@ -6,56 +6,49 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>책조회</title>
+		<title>사용자 조회</title>
 	</head>
 	<body>
 		<table border='1'>
 			<thead>
 				<tr>
-					<td>이름</td>
+					<td>분류</td>
 					<td>내용</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td>ID</td>
-					<td>${book_info.id}</td>
+					<td>일련번호</td>
+					<td>${user_info.id}</td>
+				</tr>
+				
+				<tr>
+					<td>아이디</td>
+					<td>${user_info.id}</td>
 				</tr>
 				<tr>
-					<td>책표지</td>
-					<td><img src="${book_info.corver}"/></td>
+					<td>비밀번호</td>
+					<td>${user_info.pw}</td>
 				</tr>
 				<tr>
-					<td>책이름</td>
-					<td>${book_info.name}</td>
+					<td>이름</td>
+					<td>${user_info.name}</td>
 				</tr>
 				<tr>
-					<td>지은이</td>
-					<td>
-						<c:forEach begin="0" items="${book_info.authors}" var="author_info">
-							[${author_info.name}/${author_info.author_div}]  
-						</c:forEach>
-					</td>
+					<td>닉네임</td>
+					<td>${user_info.nickname}</td>
 				</tr>
 				<tr>
-					<td>ISBN</td>
-					<td>${book_info.ISBN10}/${book_info.ISBN13}</td>
+					<td>이메일</td>
+					<td>${user_info.email}</td>
 				</tr>
 				<tr>
-					<td>출판사/출판일</td>
-					<td>${book_info.publish_comp}/${book_info.publish_date}</td>
+					<td>등록날짜</td>
+					<td>${user_info.input_date}</td>
 				</tr>
 				<tr>
-					<td>가격</td>
-					<td>${book_info.price}</td>
-				</tr>
-				<tr>
-					<td>카테고리</td>
-					<td>${book_info.category}</td>
-				</tr>
-				<tr>
-					<td>설명</td>
-					<td>${book_info.description}</td>
+					<td>탈퇴유무</td>
+					<td>${user_info.delete_y_n}</td>
 				</tr>
 			</tbody>
 			<tfoot></tfoot>
@@ -64,9 +57,9 @@
 		
 		<div id=''>
 			<a href="javascript:history.go(-1)">뒤로</a>
-			<a href="/book/modifyBookView.do?id=${book_info.id}">수정</a>
-			<a href="/book/deleteBook.do?id=${book_info.id}">삭제</a>
-			<a href="/book/listBook.do">목록</a>
+			<a href="/book/modifyUserView.do?id=${user_info.id}">수정</a>
+			<a href="/book/deleteUser.do?id=${user_info.id}">삭제</a>
+			<a href="/book/listUser.do">목록</a>
 		</div>
 		
 	</body>
