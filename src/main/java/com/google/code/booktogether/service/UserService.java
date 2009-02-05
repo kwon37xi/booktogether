@@ -29,6 +29,14 @@ public interface UserService {
 	
 	
 	/**
+	 * 사용자 조회(로그인)
+	 * @param id
+	 * @return 사용자 정보
+	 */
+	public User valiadIdPwUser(String user_id, String pw);
+	
+	
+	/**
 	 * 사용자 조회
 	 * @param id
 	 * @return
