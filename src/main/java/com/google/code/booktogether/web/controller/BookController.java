@@ -264,7 +264,7 @@ public class BookController {
 		//책 ID값
 		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 
-		//책 정보 가지고 오기
+		//책 삭제
 		boolean result=bookService.deleteBook(id);
 
 		System.out.println(result);
