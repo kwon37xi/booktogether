@@ -35,7 +35,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public int deleteBook(int id) {
 
-		String sql=XmlUtil.getInstance().getSQL("DELETE_BOOK_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","DELETE_BOOK_SQL");
 
 		int count=getSimpleJdbcTemplate().update(sql, new Object[]{id});
 
@@ -46,7 +46,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public int deleteAuthorBook(int book_ref) {
 
-		String sql=XmlUtil.getInstance().getSQL("DELETE_AUTHORBOOK_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","DELETE_AUTHORBOOK_SQL");
 
 		int count=getSimpleJdbcTemplate().update(sql, new Object[]{book_ref});
 
@@ -57,7 +57,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public int deleteAuthor(int id) {
 
-		String sql=XmlUtil.getInstance().getSQL("DELETE_AUTHOR_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","DELETE_AUTHOR_SQL");
 
 		int count=getSimpleJdbcTemplate().update(sql, new Object[]{id});
 
@@ -68,7 +68,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public Book getBook(int id) {
 
-		String sql=XmlUtil.getInstance().getSQL("GET_BOOK_ID_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","GET_BOOK_ID_SQL");
 
 		Book book=(Book)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, bookRowMapper, new Object[]{id}));
 
@@ -79,7 +79,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public List<Book> getListBook(int startRow, int pageSize) {
 
-		String sql=XmlUtil.getInstance().getSQL("LIST_BOOK_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","LIST_BOOK_SQL");
 
 		List<Book> booklist=getSimpleJdbcTemplate().query(sql, bookRowMapper, new Object[]{startRow, pageSize});
 
@@ -91,7 +91,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public int insertBook(Book book) {
 		
-		String sql=XmlUtil.getInstance().getSQL("INSERT_BOOK_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","INSERT_BOOK_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql,
@@ -114,7 +114,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public int modifyBook(Book book) {
 
-		String sql=XmlUtil.getInstance().getSQL("MODIFY_BOOK_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","MODIFY_BOOK_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql,
@@ -137,7 +137,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public int getDbcount() {
 
-		String sql=XmlUtil.getInstance().getSQL("DBCOUNT_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","DBCOUNT_SQL");
 
 		int count=getSimpleJdbcTemplate().queryForInt(sql);
 
@@ -148,7 +148,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public int insertAuthor(Author[] authors,int id) {
 
-		String sql=XmlUtil.getInstance().getSQL("INSERT_AUTHOR_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","INSERT_AUTHOR_SQL");
 
 		int count=0;
 
@@ -165,7 +165,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public List<Author> getAuthor(Book book) {
 
-		String sql=XmlUtil.getInstance().getSQL("GET_AUTHORS_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","GET_AUTHORS_SQL");
 
 		List<Author> authorlist=getSimpleJdbcTemplate().query(sql, authorRowMapper, new Object[]{book.getId()});
 		
@@ -178,7 +178,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public int modifyAuthor(Author author) {
 
-		String sql=XmlUtil.getInstance().getSQL("MODIFY_AUTHOR_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","MODIFY_AUTHOR_SQL");
 
 		int count=getSimpleJdbcTemplate().update(sql, new Object[]{author.getName(), author.getAuthor_div(),author.getId()});
 		return count;
@@ -190,7 +190,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public Book getBook(String isbn) {
 
-		String sql=XmlUtil.getInstance().getSQL("GET_BOOK_ISBN_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","GET_BOOK_ISBN_SQL");
 		
 		Book book=(Book)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql,bookRowMapper,new Object[]{isbn,isbn}));
 		
@@ -202,7 +202,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public Author getAuthor(int id) {
 
-		String sql=XmlUtil.getInstance().getSQL("GET_AUTHOR_SQL");
+		String sql=XmlUtil.getInstance().getSQL("book","GET_AUTHOR_SQL");
 
 		Author author=(Author)DataAccessUtils.singleResult(
 									getSimpleJdbcTemplate().query(sql, authorRowMapper, new Object[]{id})
@@ -214,7 +214,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	@Override
 	public int getLastNumIncrement() {
 		
-		String sql=XmlUtil.getInstance().getSQL("GET_LAST_NUM");
+		String sql=XmlUtil.getInstance().getSQL("book","GET_LAST_NUM");
 
 		int last_num=getSimpleJdbcTemplate().queryForInt(sql);
 							 

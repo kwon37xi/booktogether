@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<sqls>
+<sqls name="book">
   
-    <sql name="INSERT_BOOK_SQL">
+     <sql name="INSERT_BOOK_SQL">
         <description></description>
         <query>
             <![CDATA[
@@ -170,5 +170,6 @@
         </query>
     </sql>
     
+
     
 </sqls>
