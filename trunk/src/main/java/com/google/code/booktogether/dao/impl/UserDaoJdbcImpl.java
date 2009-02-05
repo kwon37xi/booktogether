@@ -7,12 +7,15 @@ import javax.sql.DataSource;
 
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import com.google.code.booktogether.dao.UserDao;
 import com.google.code.booktogether.dao.rowmapper.UserRowMapper;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.util.XmlUtil;
 
+
+@Repository("userJdbcDao")
 public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 
@@ -53,11 +56,11 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	}
 
 	@Override
-	public List<User> getListUser(int startRow, int pageSize) {
+	public List<User> getListUser(int startpage, int pageSize) {
 		
 		String sql=XmlUtil.getInstance().getSQL("user","LIST_USER_SQL");
 
-		List<User> userlist=getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{startRow,pageSize});
+		List<User> userlist=getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{startpage,pageSize});
 
 		return userlist;
 	}

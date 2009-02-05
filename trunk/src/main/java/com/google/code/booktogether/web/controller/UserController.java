@@ -81,36 +81,52 @@ public class UserController {
 
 
 	/**
-	 * 사용자 목록
+	 * 로그인 화면 보기
+	 * @param req
+	 * @return 로그인화면
+	 */
+	@RequestMapping("/user/login.do")
+	public ModelAndView handleLoginView(HttpServletRequest req){
+
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("user/login");
+
+		return mav;
+
+	}
+	
+	
+	/**
+	 * 사용자 조회(로그인)
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping("/user/login.do")
-	public ModelAndView handleLoginUser(HttpServletRequest req){
-
+	@RequestMapping("/user/valiadIdPwUser.do")
+	public ModelAndView handleValiadIdPwUser(HttpServletRequest req){
+		
 		//현재 페이지 
 		String user_id=ServletRequestUtils.getStringParameter(req, "user_id", "");
 		String pw=ServletRequestUtils.getStringParameter(req, "pw", "");
-
+		
 		//사용자 아이디, 비밀번호 일치 되는치 검사
 		User user=userService.valiadIdPwUser(user_id, pw);
-
+		
 		String message="";
 		String viewname="";
 		ModelAndView mav=new ModelAndView();
-
+		
 		//성공시
 		if(user!= null) {
 			
 			viewname="user/tempUser";
-
+			
 			req.getSession().setAttribute("id", user.getId());
 			req.getSession().setAttribute("nickname", user.getNickname());
 			req.getSession().setAttribute("name", user.getName());
 			req.getSession().setAttribute("user_id", user.getUser_id());
 			
 			System.out.println("로그인 성공");
-
+			
 		}else{		//실패시 
 			
 			viewname="user/login";
@@ -120,12 +136,12 @@ public class UserController {
 			System.out.println("로그인 실패");
 			
 		}
-
+		
 		//경로 설정 및 Attribute 설정
 		mav.setViewName(viewname);
-
+		
 		return mav;
-
+		
 	}
 
 
@@ -226,6 +242,8 @@ public class UserController {
 		user.setPw(pw);
 
 		boolean result=userService.modifyUser(user);
+		
+		user=userService.getUser(id);
 
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("user/getUser");

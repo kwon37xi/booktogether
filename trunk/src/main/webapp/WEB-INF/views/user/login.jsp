@@ -8,7 +8,7 @@
 		<title>로그인</title>
 	</head>
 	<body>
-		<form name="loginform" method="post" action="/user/login.do">
+		<form name="loginform" method="post" action="/user/valiadIdPwUser.do">
 			<table>
 				<thead>
 					<tr>

@@ -24,7 +24,7 @@
 				
 				<tr>
 					<td>아이디</td>
-					<td>${user_info.id}</td>
+					<td>${user_info.user_id}</td>
 				</tr>
 				<tr>
 					<td>비밀번호</td>
@@ -57,9 +57,9 @@
 		
 		<div id=''>
 			<a href="javascript:history.go(-1)">뒤로</a>
-			<a href="/book/modifyUserView.do?id=${user_info.id}">수정</a>
-			<a href="/book/deleteUser.do?id=${user_info.id}">삭제</a>
-			<a href="/book/listUser.do">목록</a>
+			<a href="/user/modifyUserView.do?id=${user_info.id}">수정</a>
+			<a href="/user/deleteUser.do?id=${user_info.id}">삭제</a>
+			<a href="/user/listUser.do">목록</a>
 		</div>
 		
 	</body>
