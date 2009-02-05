@@ -1,11 +1,9 @@
 package com.google.code.booktogether.web.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -68,14 +66,63 @@ public class UserController {
 		user.setNickname(nickname);
 		user.setName(name);
 		user.setPw(pw);
-		
+
 		boolean result=userService.insertUser(user);
 
-		
+
 		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("user/joinResult");
 		mav.addObject("result",result);
+
+		return mav;
+
+	}
+
+
+	/**
+	 * 사용자 목록
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/user/login.do")
+	public ModelAndView handleLoginUser(HttpServletRequest req){
+
+		//현재 페이지 
+		String user_id=ServletRequestUtils.getStringParameter(req, "user_id", "");
+		String pw=ServletRequestUtils.getStringParameter(req, "pw", "");
+
+		//사용자 아이디, 비밀번호 일치 되는치 검사
+		User user=userService.valiadIdPwUser(user_id, pw);
+
+		String message="";
+		String viewname="";
+		ModelAndView mav=new ModelAndView();
+
+		//성공시
+		if(user!= null) {
+			
+			viewname="user/tempUser";
+
+			req.getSession().setAttribute("id", user.getId());
+			req.getSession().setAttribute("nickname", user.getNickname());
+			req.getSession().setAttribute("name", user.getName());
+			req.getSession().setAttribute("user_id", user.getUser_id());
+			
+			System.out.println("로그인 성공");
+
+		}else{		//실패시 
+			
+			viewname="user/login";
+			message="아이디가 없거나 비밀번호가 일치 하지 않습니다.";
+			mav.addObject("message",message);
+			
+			System.out.println("로그인 실패");
+			
+		}
+
+		//경로 설정 및 Attribute 설정
+		mav.setViewName(viewname);
 
 		return mav;
 
@@ -160,8 +207,7 @@ public class UserController {
 	/**
 	 * 사용자 수정하기
 	 * @param req
-	 * @param res
-	 * @return
+	 * @return 사용자 조회화면
 	 */
 	@RequestMapping("/user/modifyUser.do")
 	public ModelAndView handleModifyUser(HttpServletRequest req){
@@ -172,13 +218,13 @@ public class UserController {
 		String nickname=ServletRequestUtils.getStringParameter(req, "nickname", "");
 		String name=ServletRequestUtils.getStringParameter(req, "name", "");
 		String pw=ServletRequestUtils.getStringParameter(req, "pw", "");
-		
+
 		user.setId(id);
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setName(name);
 		user.setPw(pw);
-		
+
 		boolean result=userService.modifyUser(user);
 
 		ModelAndView mav=new ModelAndView();
@@ -189,30 +235,27 @@ public class UserController {
 		return mav;
 
 	}
-	
+
 	/**
-	 * 책 삭제
+	 * 사용자 탈퇴
 	 * @param req
-	 * @param res
 	 */
 	@RequestMapping("/user/deleteUser.do")
-	public void handleDeleteUser(HttpServletRequest req,HttpServletResponse res){
+	public ModelAndView handleDeleteUser(HttpServletRequest req){
 
 		//사용자 ID값
 		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 
-		//책 정보 가지고 오기
+		//사용자 탈퇴
 		boolean result=userService.deleteUser(id);
 
-		try {
-			res.sendRedirect("/user/listUser.do");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("user/tempUser");
+		mav.addObject("result",result);
+
+		return mav;
 
 	}
-	
-	
-	
+
 
 }

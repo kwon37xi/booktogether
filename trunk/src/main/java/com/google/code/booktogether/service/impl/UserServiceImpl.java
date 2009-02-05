@@ -24,14 +24,26 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean deleteUser(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		boolean result=false;
+		
+		int count=userJdbcDao.deleteUser(id);
+
+		result=(count==0) ? false : true;
+
+		return result;
 	}
 
 	@Override
 	public List<User> getListUser(PageBean pageBean) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		int dbcount=userJdbcDao.getDbcount();
+		
+		pageBean.setDbcount(dbcount);
+		
+		List<User> userlist=userJdbcDao.getListUser(pageBean.getStartRow()-1, pageBean.getPagesize());
+		
+		return userlist;
 	}
 
 	@Override
@@ -66,6 +78,14 @@ public class UserServiceImpl implements UserService {
 		result=(count==0) ? false : true;
 		
 		return result;
+	}
+
+	@Override
+	public User valiadIdPwUser(String user_id, String pw) {
+		
+		User user=userJdbcDao.valiadIdPwUser(user_id, pw);
+		
+		return user;
 	}
 
 

@@ -27,14 +27,23 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	
 	@Override
 	public int deleteUser(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		String sql=XmlUtil.getInstance().getSQL("user","DELETE_USER_SQL");
+
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{id});
+
+		return count;
 	}
 
 	@Override
 	public int getDbcount() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		String sql=XmlUtil.getInstance().getSQL("user","DBCOUNT_USER_SQL");
+
+		int dbcount=getSimpleJdbcTemplate().queryForInt(sql);
+
+		return dbcount;
+		
 	}
 
 	@Override
@@ -45,8 +54,12 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 	@Override
 	public List<User> getListUser(int startRow, int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String sql=XmlUtil.getInstance().getSQL("user","LIST_USER_SQL");
+
+		List<User> userlist=getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{startRow,pageSize});
+
+		return userlist;
 	}
 
 	@Override
@@ -80,6 +93,16 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 		return count;
 		
+	}
+
+	@Override
+	public User valiadIdPwUser(String user_id, String pw) {
+		
+		String sql=XmlUtil.getInstance().getSQL("user","VALID_IDPW_USER_SQL");
+
+		User user=(User)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{user_id, pw}));
+
+		return user;
 	}
 
 }

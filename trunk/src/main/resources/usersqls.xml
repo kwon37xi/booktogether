@@ -39,4 +39,51 @@
     </sql>
     
     
+	<sql name="VALID_IDPW_USER_SQL">
+        <description>사용자 정보(로그인)</description>
+        <query>
+            <![CDATA[
+             SELECT id, user_id, email, nickname, name, pw, delete_y_n, input_date  
+             FROM USER 
+             WHERE user_id= ? AND pw= ? AND delete_y_n=0
+            ]]>
+        </query>
+    </sql>
+    
+    
+	<sql name="DELETE_USER_SQL">
+        <description>회원탈퇴</description>
+        <query>
+            <![CDATA[
+             UPDATE USER 
+             SET delete_y_n=1  
+             WHERE id= ? 
+            ]]>
+        </query>
+    </sql>
+    
+    
+	<sql name="DBCOUNT_USER_SQL">
+        <description>사용자 총 갯수</description>
+        <query>
+            <![CDATA[
+             SELECT count(*) 
+             FROM USER 
+            ]]>
+        </query>
+    </sql>
+    
+    
+	<sql name="LIST_USER_SQL">
+        <description>사용자 목록</description>
+        <query>
+            <![CDATA[
+             SELECT id, user_id, email, nickname, name, pw, delete_y_n, input_date 
+             FROM USER 
+             LIMIT ?, ?
+            ]]>
+        </query>
+    </sql>
+    
+    
 </sqls>

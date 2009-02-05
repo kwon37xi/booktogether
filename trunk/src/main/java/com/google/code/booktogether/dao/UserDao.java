@@ -55,5 +55,12 @@ public interface UserDao {
 	 * AutoIncrement 값 가지고 오기
 	 * @return
 	 */
-	public int getLastNumIncrement();	
+	public int getLastNumIncrement();
+	
+	
+	/**
+	 * 사용자 정보(로그인)
+	 * @return 사용자 정보
+	 */
+	public User valiadIdPwUser(String user_id, String pw);	
 }
