@@ -12,31 +12,27 @@
 		<table border='1'>
 			<thead>
 				<tr>
+					<td>번호</td>
 					<td>ID</td>
-					<td>책표지</td>
-					<td>책이름</td>
-					<td>지은이</td>
-					<td>ISBN</td>
-					<td>출판사/출판일</td>
-					<td>가격</td>
-					<td>카테고리</td>
+					<td>이름</td>
+					<td>닉네임</td>
+					<td>이메일</td>
+					<td>비밀번호</td>
+					<td>탈퇴여부</td>
+					<td>등록일</td>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach begin="0" items="${booklist}" var="book_info" varStatus="status">
+				<c:forEach begin="0" items="${userlist}" var="user_info" varStatus="status">
 					<tr>
-						<td>${book_info.id}</td>
-						<td><img src="${book_info.corver}"/></td>
-						<td><a href="/book/getBook.do?id=${book_info.id}">${book_info.name}</a></td>
-						<td>
-							<c:forEach begin="0" items="${book_info.authors}" var="author_info">
-								[${author_info.name}/${author_info.author_div}]  
-							</c:forEach>
-						</td>
-						<td>${book_info.ISBN10}/${book_info.ISBN13}</td>
-						<td>${book_info.publish_comp}/${book_info.publish_date}</td>
-						<td>${book_info.price}</td>
-						<td>${book_info.category}</td>
+						<td>${user_info.id}</td>
+						<td><a href="/user/getUser.do?id=${user_info.id}">${user_info.user_id}</a></td>
+						<td>${user_info.name}</td>
+						<td>${user_info.nickname}</td>
+						<td>${user_info.email}</td>
+						<td>${user_info.pw}</td>
+						<td>${user_info.delete_y_n}</td>
+						<td>${user_info.input_date}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
