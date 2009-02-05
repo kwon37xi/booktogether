@@ -103,7 +103,6 @@ public interface BookDao {
 	
 	/**
 	 * AutoIncrement 값 가지고 오기
-	 * @param authors	지은이 도메인
 	 * @return
 	 */
 	public int getLastNumIncrement();	

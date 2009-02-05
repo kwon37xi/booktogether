@@ -15,7 +15,8 @@ import org.springframework.util.ResourceUtils;
  */
 public class XmlUtil {
 	
-	private static HashMap<String,String> map = new HashMap<String,String>();
+	private static HashMap<String,HashMap<String,String>> xml = new HashMap<String,HashMap<String,String>>();
+	
 
 	public static XmlUtil instance = null;
 	public static XmlUtil getInstance(){
@@ -32,34 +33,53 @@ public class XmlUtil {
 	@SuppressWarnings("unchecked")
 	private void load(){
 		
-		map.clear();
 		
-		SAXBuilder builder;
-		Document doc;
-		Element root;
+		SAXBuilder builder= new SAXBuilder();
 		
-		builder = new SAXBuilder();
-		doc = null;
-		try	{
-			doc = builder.build(ResourceUtils.getFile("classpath:booksqls.xml"));
-		}catch(Exception ioe){
-			ioe.printStackTrace();
-		}
+		String[] sqlXmlFilenames={"booksqls.xml","usersqls.xml"};
+		
+		for(String filename : sqlXmlFilenames){
 			
-		root = doc.getRootElement();
-		
-		List<Element> sqlElement = root.getChildren("sql");
-		for(int i = 0; i < sqlElement.size(); i++) {
-			Element e = sqlElement.get(i);
-			map.put(e.getAttributeValue("name"), e.getChildText("query"));
+			Document doc = null;
+			Element root =null;
+			HashMap<String,String> map =null;
+			String rootName="";
+			
+			map = new HashMap<String,String>();
+			map.clear();
+			
+			try	{
+				doc = builder.build(ResourceUtils.getFile("classpath:"+filename));
+			}catch(Exception ioe){
+				ioe.printStackTrace();
+			}
+			
+			root = doc.getRootElement();
+			rootName=root.getAttributeValue("name");
+			
+			List<Element> sqlElement = root.getChildren("sql");
+			
+			for(int i = 0; i < sqlElement.size(); i++) {
+				Element e = sqlElement.get(i);
+				map.put(e.getAttributeValue("name"), e.getChildText("query"));
+			}
+			
+			xml.put(rootName, map);
+			
 		}
 	}
 
-	public String getSQL(String sqlKey)	{
+	public String getSQL(String xmlname,String sqlKey)	{
 		String sql = "";
-		if( map.containsKey(sqlKey) ){
-			sql = (String)map.get(sqlKey);
+		if(xml.containsKey(xmlname)){
+			
+			HashMap<String,String> map =xml.get(xmlname);
+			
+			if( map.containsKey(sqlKey) ){
+				sql = (String)map.get(sqlKey);
+			}
 		}
+		
 		return sql;
 	}
 	

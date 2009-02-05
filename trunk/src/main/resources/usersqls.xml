@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sqls name="user">
+
+	<sql name="INSERT_USER_SQL">
+        <description>사용자 등록</description>
+        <query>
+            <![CDATA[
+             INSERT INTO USER(user_id, email, nickname, name, pw, delete_y_n, input_date) 
+             VALUES (?, ?, ?, ?, ?, 0, now())
+            ]]>
+        </query>
+    </sql>
+    
+    
+	<sql name="GET_USER_SQL">
+        <description>사용자 정보 조회</description>
+        <query>
+            <![CDATA[
+             SELECT id, user_id, email, nickname, name, pw, delete_y_n, input_date 
+             FROM USER 
+             WHERE ID=? 
+            ]]>
+        </query>
+    </sql>
+    
+	<sql name="MODIFY_USER_SQL">
+        <description>사용자 정보 수정</description>
+        <query>
+            <![CDATA[
+             UPDATE USER 
+             SET email=? 
+	             ,nickname=? 
+	             ,name=? 
+	             ,pw=? 
+	         WHERE id=? 
+            ]]>
+        </query>
+    </sql>
+    
+    
+</sqls>
