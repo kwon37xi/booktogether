@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 		
 		pageBean.setDbcount(dbcount);
 		
-		List<User> userlist=userJdbcDao.getListUser(pageBean.getStartRow()-1, pageBean.getPagesize());
+		List<User> userlist=userJdbcDao.getListUser(pageBean.getStartPage()-1, pageBean.getPagesize());
 		
 		return userlist;
 	}

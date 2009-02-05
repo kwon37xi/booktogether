@@ -77,11 +77,11 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 
 	//책 목록
 	@Override
-	public List<Book> getListBook(int startRow, int pageSize) {
+	public List<Book> getListBook(int startpage, int pageSize) {
 
 		String sql=XmlUtil.getInstance().getSQL("book","LIST_BOOK_SQL");
 
-		List<Book> booklist=getSimpleJdbcTemplate().query(sql, bookRowMapper, new Object[]{startRow, pageSize});
+		List<Book> booklist=getSimpleJdbcTemplate().query(sql, bookRowMapper, new Object[]{startpage, pageSize});
 
 		return booklist;
 

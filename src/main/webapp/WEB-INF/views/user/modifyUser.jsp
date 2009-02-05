@@ -11,6 +11,9 @@
 	<body>
 		<div>
 			<form method="post" name="modifyuser_form" action="/user/modifyUser.do">
+			
+				<input type="hidden" name="id" value="${user_info.id}"/>
+				
 				<p>			
 					${user_info.user_id}
 				</p>

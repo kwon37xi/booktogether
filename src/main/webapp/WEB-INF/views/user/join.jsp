@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div>
-			<form method="post" name="insertuser_form" action="/book/insertUser.do">
+			<form method="post" name="insertuser_form" action="/user/insertUser.do">
 				<p>			
 					<label for="user_id">ID</label>
 					<input type="text" name="user_id" size="20"/>

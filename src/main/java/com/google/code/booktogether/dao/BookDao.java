@@ -81,11 +81,11 @@ public interface BookDao {
 	
 	/**
 	 * 책 목록
-	 * @param startRow	보여줄 시작 줄번호
+	 * @param startpage	보여줄 시작 줄번호
 	 * @param pageSize	시작줄번호로 부터 몇개
 	 * @return
 	 */
-	public List<Book> getListBook(int startRow, int pageSize);	
+	public List<Book> getListBook(int startpage, int pageSize);	
 	
 	/**
 	 * 책 전체 갯수
