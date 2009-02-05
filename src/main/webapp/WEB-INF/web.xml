@@ -6,8 +6,6 @@
 	
 	<display-name>책 함께 보기</display-name>
 	
-	<!-- 2009.2.1 controller test -->
-	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>
