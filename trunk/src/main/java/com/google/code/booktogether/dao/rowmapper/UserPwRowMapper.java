@@ -30,7 +30,7 @@ public class UserPwRowMapper implements ParameterizedRowMapper<UserPw>,Serializa
 		UserPw userPw=new UserPw();
 		
 		userPw.setUser_id(rs.getInt("USER_ID"));
-		userPw.setDigest(rs.getBytes("DIGEST"));
+		userPw.setDigest(rs.getBytes("PW"));
 		userPw.setSalt(rs.getBytes("SALT"));
 		
 		return userPw;

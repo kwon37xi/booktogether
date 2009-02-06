@@ -114,13 +114,10 @@ public class UserController {
 		User user=userService.valiadIdPwUser(user_id, pw);
 		
 		String message="";
-		String viewname="";
 		ModelAndView mav=new ModelAndView();
 		
 		//성공시
 		if(user!= null) {
-			
-			viewname="user/tempUser";
 			
 			req.getSession().setAttribute("id", user.getId());
 			req.getSession().setAttribute("nickname", user.getNickname());
@@ -131,7 +128,6 @@ public class UserController {
 			
 		}else{		//실패시 
 			
-			viewname="user/login";
 			message="아이디가 없거나 비밀번호가 일치 하지 않습니다.";
 			mav.addObject("message",message);
 			
@@ -140,7 +136,7 @@ public class UserController {
 		}
 		
 		//경로 설정 및 Attribute 설정
-		mav.setViewName(viewname);
+		mav.setViewName("user/login");
 		
 		return mav;
 		

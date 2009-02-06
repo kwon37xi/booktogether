@@ -38,7 +38,7 @@
         <description>사용자 암호 조회</description>
         <query>
             <![CDATA[
-             SELECT user_id, salt, digest 
+             SELECT user_id, salt, pw 
              FROM USER_PW 
              WHERE user_id=?
             ]]>
