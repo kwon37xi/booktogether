@@ -27,11 +27,6 @@ public class User extends BaseObject{
 	private String user_id;
 	
 	/**
-	 * 비밀번호
-	 */
-	private String pw;
-	
-	/**
 	 * 이메일
 	 */
 	private String email;
@@ -68,12 +63,6 @@ public class User extends BaseObject{
 	}
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
-	}
-	public String getPw() {
-		return pw;
-	}
-	public void setPw(String pw) {
-		this.pw = pw;
 	}
 	public String getEmail() {
 		return email;

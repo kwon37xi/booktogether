@@ -3,6 +3,7 @@ package com.google.code.booktogether.service;
 import java.util.List;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.PageBean;
+import com.google.code.booktogether.web.domain.UserPw;
 
 public interface UserService {
 
@@ -11,14 +12,14 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
-	public boolean insertUser(User user);
+	public boolean insertUser(User user,UserPw userPw);
 
 	/**
 	 * 사용자 수정
 	 * @param user
 	 * @return
 	 */
-	public boolean modifyUser(User user);
+	public boolean modifyUser(User user,UserPw userPw);
 	
 	/**
 	 * 사용자 삭제

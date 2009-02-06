@@ -6,20 +6,52 @@
         <description>사용자 등록</description>
         <query>
             <![CDATA[
-             INSERT INTO USER(user_id, email, nickname, name, pw, delete_y_n, input_date) 
-             VALUES (?, ?, ?, ?, ?, 0, now())
+             INSERT INTO USER(user_id, email, nickname, name, delete_y_n, input_date) 
+             VALUES (?, ?, ?, ?, 0, now())
+            ]]>
+        </query>
+    </sql>
+    
+	<sql name="INSERT_USERPW_SQL">
+        <description>사용자 비밀번호 인증키 등록(SALT)</description>
+        <query>
+            <![CDATA[
+             INSERT INTO USER_PW(user_id, pw, salt) 
+             VALUES(?, ?, ?) 
             ]]>
         </query>
     </sql>
     
     
 	<sql name="GET_USER_SQL">
-        <description>사용자 정보 조회</description>
+        <description>사용자 정보 조회(삭제된사람 포함)</description>
         <query>
             <![CDATA[
-             SELECT id, user_id, email, nickname, name, pw, delete_y_n, input_date 
+             SELECT id, user_id, email, nickname, name, delete_y_n, input_date 
              FROM USER 
              WHERE ID=? 
+            ]]>
+        </query>
+    </sql>
+    
+	<sql name="GET_USERPW_SQL">
+        <description>사용자 암호 조회</description>
+        <query>
+            <![CDATA[
+             SELECT user_id, salt, digest 
+             FROM USER_PW 
+             WHERE user_id=?
+            ]]>
+        </query>
+    </sql>
+    
+	<sql name="EXIST_USER_SQL">
+        <description>사용자 정보 조회(삭제 된사람 포함하지 않음)</description>
+        <query>
+            <![CDATA[
+             SELECT id, user_id, email, nickname, name, delete_y_n, input_date 
+             FROM USER  
+             WHERE user_id=? AND delete_y_n=0
             ]]>
         </query>
     </sql>
@@ -32,20 +64,19 @@
              SET email=? 
 	             ,nickname=? 
 	             ,name=? 
-	             ,pw=? 
 	         WHERE id=? 
             ]]>
         </query>
     </sql>
     
-    
-	<sql name="VALID_IDPW_USER_SQL">
-        <description>사용자 정보(로그인)</description>
+	<sql name="MODIFY_USERPW_SQL">
+        <description>사용자 인증 정보 수정</description>
         <query>
             <![CDATA[
-             SELECT id, user_id, email, nickname, name, pw, delete_y_n, input_date  
-             FROM USER 
-             WHERE user_id= ? AND pw= ? AND delete_y_n=0
+             UPDATE USER_PW 
+             SET digest=?  
+	             ,salt=?  
+	         WHERE user_id=? 
             ]]>
         </query>
     </sql>
@@ -78,9 +109,18 @@
         <description>사용자 목록</description>
         <query>
             <![CDATA[
-             SELECT id, user_id, email, nickname, name, pw, delete_y_n, input_date 
+             SELECT id, user_id, email, nickname, name, delete_y_n, input_date 
              FROM USER 
              LIMIT ?, ?
+            ]]>
+        </query>
+    </sql>
+    
+    <sql name="GET_LAST_NUM">
+        <description></description>
+        <query>
+            <![CDATA[
+             SELECT LAST_INSERT_ID() as last_num;
             ]]>
         </query>
     </sql>

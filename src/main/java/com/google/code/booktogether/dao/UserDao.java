@@ -3,6 +3,7 @@ package com.google.code.booktogether.dao;
 import java.util.List;
 
 import com.google.code.booktogether.web.domain.User;
+import com.google.code.booktogether.web.domain.UserPw;
 
 public interface UserDao {
 
@@ -59,8 +60,29 @@ public interface UserDao {
 	
 	
 	/**
-	 * 사용자 정보(로그인)
-	 * @return 사용자 정보
+	 * 사용자 존재여부(탈퇴된사람 제외)
+	 * @return 사용자 도메인
 	 */
-	public User valiadIdPwUser(String user_id, String pw);	
+	public User isExistUser(String user_id);
+	
+	
+	/**
+	 * 사용자 인증번호 조회
+	 * @return 사용자 id
+	 */
+	public UserPw getUserPw(int id);	
+	
+	/**
+	 * 사용자 인증 번호 등록
+	 * @param userPw
+	 * @return
+	 */
+	public int insertUserPw(UserPw userPw);
+	
+	/**
+	 * 사용자 인증 번호 수정
+	 * @param userPw
+	 * @return
+	 */
+	public int modifyUserPw(UserPw userPw);
 }
