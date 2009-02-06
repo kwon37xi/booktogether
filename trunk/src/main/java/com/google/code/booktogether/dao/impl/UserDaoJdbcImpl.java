@@ -10,8 +10,10 @@ import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.google.code.booktogether.dao.UserDao;
+import com.google.code.booktogether.dao.rowmapper.UserPwRowMapper;
 import com.google.code.booktogether.dao.rowmapper.UserRowMapper;
 import com.google.code.booktogether.web.domain.User;
+import com.google.code.booktogether.web.domain.UserPw;
 import com.google.code.booktogether.web.util.XmlUtil;
 
 
@@ -24,9 +26,13 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 		setDataSource(dataSource);
 	}
 
-	//책 목록에 쓰일 RowMapper
+	//사용자 RowMapper
 	@Resource(name="userRowMapper")
 	UserRowMapper userRowMapper;
+	
+	//사용자 비밀번호  RowMapper
+	@Resource(name="userPWRowMapper")
+	UserPwRowMapper userPwRowMapper;
 	
 	@Override
 	public int deleteUser(int id) {
@@ -51,8 +57,12 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 	@Override
 	public int getLastNumIncrement() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		String sql=XmlUtil.getInstance().getSQL("user","GET_LAST_NUM");
+		
+		int last_increment=getSimpleJdbcTemplate().queryForInt(sql);
+		
+		return last_increment;
 	}
 
 	@Override
@@ -81,7 +91,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 		
 		String sql=XmlUtil.getInstance().getSQL("user","INSERT_USER_SQL");
 
-		int count=getSimpleJdbcTemplate().update(sql, new Object[]{user.getUser_id(),user.getEmail(),user.getNickname(),user.getName(),user.getPw()});
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{user.getUser_id(),user.getEmail(),user.getNickname(),user.getName()});
 
 		return count;
 		
@@ -92,19 +102,50 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 		
 		String sql=XmlUtil.getInstance().getSQL("user","MODIFY_USER_SQL");
 
-		int count=getSimpleJdbcTemplate().update(sql, new Object[]{user.getEmail(),user.getNickname(),user.getName(),user.getPw(),user.getId()});
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{user.getEmail(),user.getNickname(),user.getName(),user.getId()});
 
+		return count;
+		
+	}
+	
+	@Override
+	public int modifyUserPw(UserPw userpw) {
+		
+		String sql=XmlUtil.getInstance().getSQL("user","MODIFY_USERPW_SQL");
+		
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{userpw.getDigest(), userpw.getSalt(), userpw.getUser_id()});
+		
 		return count;
 		
 	}
 
 	@Override
-	public User valiadIdPwUser(String user_id, String pw) {
+	public int insertUserPw(UserPw userPw) {
 		
-		String sql=XmlUtil.getInstance().getSQL("user","VALID_IDPW_USER_SQL");
+		String sql=XmlUtil.getInstance().getSQL("user","INSERT_USERPW_SQL");
 
-		User user=(User)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{user_id, pw}));
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{userPw.getUser_id(), userPw.getDigest(), userPw.getSalt()});
+		
+		return count;
+	}
 
+	@Override
+	public UserPw getUserPw(int id) {
+		
+		String sql=XmlUtil.getInstance().getSQL("user","GET_USERPW_SQL");
+
+		UserPw userPw=(UserPw)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, userPwRowMapper, new Object[]{id}));
+		
+		return userPw;
+	}
+
+	@Override
+	public User isExistUser(String user_id) {
+		
+		String sql=XmlUtil.getInstance().getSQL("user","EXIST_USER_SQL");
+
+		User user=(User)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{user_id}));
+		
 		return user;
 	}
 

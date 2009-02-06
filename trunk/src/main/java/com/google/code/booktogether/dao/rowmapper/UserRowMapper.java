@@ -34,7 +34,6 @@ public class UserRowMapper implements ParameterizedRowMapper<User>,Serializable{
 		user.setEmail(rs.getString("EMAIL"));
 		user.setNickname(rs.getString("NICKNAME"));
 		user.setName(rs.getString("NAME"));
-		user.setPw(rs.getString("PW"));
 		user.setDelete_y_n(rs.getInt("DELETE_Y_N"));
 		user.setInput_date(rs.getDate("INPUT_DATE"));
 		

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.code.booktogether.service.UserService;
 import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.User;
+import com.google.code.booktogether.web.domain.UserPw;
 
 /**
  * User에 관련된 Controller
@@ -28,12 +29,11 @@ public class UserController {
 	UserService userService;
 
 	/**
-	 * Book 도메인 DI
+	 * User 도메인 DI
 	 */
 	@Resource(name="userDomain")
 	User user;
-
-
+	
 	/**
 	 * 사용자 등록 화면
 	 * @return
@@ -65,9 +65,11 @@ public class UserController {
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setName(name);
-		user.setPw(pw);
-
-		boolean result=userService.insertUser(user);
+		
+		UserPw userPw=new UserPw();
+		userPw.setPw(pw);
+		
+		boolean result=userService.insertUser(user,userPw);
 
 
 		//경로 설정 및 Attribute 설정
@@ -239,9 +241,15 @@ public class UserController {
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setName(name);
-		user.setPw(pw);
+		
+		UserPw userPw=null;
+		
+		if(!pw.equals("")){
+			userPw=new UserPw();
+			userPw.setPw(pw);
+		}
 
-		boolean result=userService.modifyUser(user);
+		boolean result=userService.modifyUser(user,userPw);
 		
 		user=userService.getUser(id);
 
