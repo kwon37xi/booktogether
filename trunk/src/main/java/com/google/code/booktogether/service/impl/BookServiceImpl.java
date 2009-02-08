@@ -190,7 +190,7 @@ public class BookServiceImpl implements BookService {
 		if(book==null){
 
 			//OPEN API로 Book값 세팅
-			book=new UseApiDaumBook().execute(isbn);
+			book=new UseApiDaumBook().viewBook(isbn);
 
 			//DB에 넣기
 			this.insertBook(book);
@@ -227,5 +227,13 @@ public class BookServiceImpl implements BookService {
 
 		return authors;
 
+	}
+
+	@Override
+	public List<Book> searchBook(String query, String searchType, int pageno) {
+		
+		List<Book> booklist=new UseApiDaumBook().searchBook(query, searchType, pageno);
+		
+		return booklist;
 	}
 }

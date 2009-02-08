@@ -15,9 +15,10 @@ public class AnnotLoggingAspect {
 
 	@Before("execution(public * com.google.code.booktogether.service.*.*(..))")
 	public String beforeLogging(JoinPoint joinPoint) {
+		String className = joinPoint.getTarget().getClass().getSimpleName();
 		String methodName = joinPoint.getSignature().getName();
 		if (log.isInfoEnabled())
-			log.info("calling: " + methodName);
+			log.info("ClassName="+className+":::: calling: " + methodName);
 		return methodName;
 	}
 
@@ -25,7 +26,7 @@ public class AnnotLoggingAspect {
 	public void returningLogging(JoinPoint joinPoint, Object ret) {
 		String methodName = joinPoint.getSignature().getName();
 		if (log.isInfoEnabled())
-			log.info("called successfully: " + methodName + " returns " + ret);
+			log.info("called successfully: " + methodName);
 	}
 
 	@AfterThrowing(pointcut = "execution(public * com.google.code.booktogether.service.*.*(..))", throwing = "ex")
@@ -38,8 +39,9 @@ public class AnnotLoggingAspect {
 
 	@After("execution(public * com.google.code.booktogether.service.*.*(..))")
 	public void afterLogging(JoinPoint joinPoint) {
+		String className = joinPoint.getTarget().getClass().getSimpleName();
 		String methodName = joinPoint.getSignature().getName();
 		if (log.isInfoEnabled())
-			log.info("finish call: " + methodName);
+			log.info("ClassName="+className+"::::: finish call: " + methodName);
 	}
 }

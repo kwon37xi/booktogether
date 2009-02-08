@@ -4,7 +4,10 @@ package com.google.code.booktogether.web.interceptor;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom.Document;
@@ -36,28 +39,63 @@ public class UseApiDaumBook {
 	private SAXBuilder builder=null;
 	private StringReader stringxml=null;
 	private Document xmldoc=null;
-	private Book book=null;
+	private StringBuffer xmlcontent=null;
 
 	/**
 	 * 주소 요청하고 output에 맞게 받기
 	 * 인코딩 UTF-8
 	 */
-	public Book execute(String isbn){
+	public Book viewBook(String isbn){
+
+		ConnectURL(isbn,"isbn",1);
+
+		//네이버 XML파서
+		xmlParser(xmlcontent);
+
+		//item 파서
+		Book book=xmlBookParser();
+
+		return book;
+	}
+
+	public List<Book> searchBook(String query, String searchType,int pageno){
+
+		try {
+			query=URLEncoder.encode(query, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		
+		ConnectURL(query, searchType,pageno);
+
+		//네이버 XML파서
+		xmlParser(xmlcontent);
+
+		//item 파서
+		List<Book> booklist=xmlBookListParser();
+
+		return booklist;
+	}
+
+	private void ConnectURL(String query,String searchType,int pageno){
 
 		String params="";
 
 		//네이버
-		params="?q="+isbn;
-		params+="&searchType="+"isbn";
+		params="?q="+query;
+		params+="&searchType="+searchType;
 		params+="&target="+"meta";
+		params+="&pageno="+"meta";
+		params+="&result="+20;
+		params+="&sort="+"accu";
+		params+="&pageno="+pageno;
 		params+="&output="+"xml";
 		params+="&apikey="+DAUM_API_KEY;
 
 		//URL클래스를 통한 요청과 응답 송수신 변수들
 		BufferedReader in = null;
 		String inputLine="";
-		StringBuffer xmlcontent=null;
-
+		
 		try{
 
 			URL openapi=null;
@@ -83,15 +121,6 @@ public class UseApiDaumBook {
 		}finally {
 			in=null;
 		}
-
-		//네이버
-		//XML파서
-		xmlParser(xmlcontent);
-
-		//item 파서
-		xmlBookParser();
-		
-		return book;
 	}
 
 	private void xmlParser(StringBuffer xmlcontent){
@@ -109,16 +138,16 @@ public class UseApiDaumBook {
 	}
 
 
-	//네이버책
+	//네이버책(조회시)
 	@SuppressWarnings("unchecked")
-	private void xmlBookParser(){
+	private Book xmlBookParser(){
 
 		List item_list=xmldoc.getRootElement().getChildren("item");
-		
+
 		Element item=null;
-		
-		book=new Book();
-		
+
+		Book book=new Book();
+
 		for(int i=0;i<item_list.size();i++){
 
 			item=(Element)item_list.get(i);
@@ -130,10 +159,10 @@ public class UseApiDaumBook {
 			book.setPublish_date(item.getChild("pub_date").getText());
 			book.setDescription(item.getChild("description").getText());
 			book.setCategory(item.getChild("category").getText());
-			
+
 			String translator_name=item.getChild("translator").getText();
 			String isbn=item.getChild("isbn").getText();
-			
+
 			if(isbn.indexOf("<b>")!=-1){
 				book.setISBN10(isbn.substring(3,13));
 				book.setISBN13("");
@@ -141,31 +170,72 @@ public class UseApiDaumBook {
 				book.setISBN10("");
 				book.setISBN13(isbn);
 			}
-			
-			
+
+
 			Author[] authors;
 			Author author=new Author();
 			author.setName(item.getChild("author").getText());
 			author.setAuthor_div(0);
-			
-			
+
+
 			if(translator_name!=null){
 				authors=new Author[2];
-				
+
 				Author translator=new Author();
 				translator.setName(translator_name);
 				translator.setAuthor_div(1);
-				
+
 				authors[0]=author;
 				authors[1]=translator;
-				
+
 			}else{
 				authors=new Author[1];
 				authors[0]=author;
 			}
-			
+
 			book.setAuthors(authors);
 		}
+		return book;
+	}
+
+	//네이버책(검색시)
+	@SuppressWarnings("unchecked")
+	private List<Book> xmlBookListParser(){
+
+		List item_list=xmldoc.getRootElement().getChildren("item");
+
+		Element item=null;
+		
+		List<Book> booklist=new ArrayList<Book>();
+
+		for(int i=0;i<item_list.size();i++){
+			
+			Book book=new Book();
+
+			item=(Element)item_list.get(i);
+
+			book.setName(item.getChild("title").getText());
+			book.setCorver(item.getChild("cover_s_url").getText());
+			book.setPublish_comp(item.getChild("pub_nm").getText());
+
+			String isbn=item.getChild("isbn").getText();
+			book.setISBN10(isbn);
+
+
+			Author[] authors=new Author[1];
+			
+			Author author=new Author();
+			author.setName(item.getChild("author").getText());
+			author.setAuthor_div(0);
+			authors[0]=author;
+
+			book.setAuthors(authors);
+			
+			booklist.add(book);
+		}
+		
+		return booklist;
+		
 	}
 
 

@@ -273,6 +273,38 @@ public class BookController {
 	
 	
 	/**
+	 * 책 검색
+	 * @param req
+	 */
+	@RequestMapping("/book/searchBook.do")
+	public ModelAndView handleSearchBook(HttpServletRequest req){
+		
+		//책 ID값
+		String query=ServletRequestUtils.getStringParameter(req, "query", "");
+		String searchType=ServletRequestUtils.getStringParameter(req, "searchType", "all");
+		int pageno=ServletRequestUtils.getIntParameter(req, "pageno", 1);
+		
+		System.out.println(query);
+		System.out.println(searchType);
+		System.out.println(pageno);
+		
+		//책검색 목록 가지고 오기
+		List<Book> booklist=null;
+		
+		if(!query.equals("")){
+			booklist=bookService.searchBook(query,searchType,pageno);
+		}
+		
+		//경로 설정 및 Attribute 설정
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("book/searchBook");
+		mav.addObject("book_list",booklist);
+		
+		return mav;
+		
+	}
+	
+	/**
 	 * 책 검색후 책자세히 보기할때 책 내용이 DB에 있는지 검사
 	 * @param req
 	 */
