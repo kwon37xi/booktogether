@@ -61,4 +61,14 @@ public interface BookService {
 	 */
 	public Author[] listToArray(List<Author> authorlist);
 	
+	
+	/**
+	 * 책 검색
+	 * @param query : 검색 단어
+	 * @param searchType : 검색 방법
+	 * @param pageno : 페이지 번호
+	 * @return 책목록
+	 */
+	public List<Book> searchBook(String query, String searchType, int pageno);
+	
 }

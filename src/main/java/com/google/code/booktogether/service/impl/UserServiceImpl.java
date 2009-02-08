@@ -220,7 +220,7 @@ public class UserServiceImpl implements UserService {
 		if(user!=null){
 
 			//임시 비밀번호 맘들기
-			String temp_pw=RandomStringUtils.random(7,true,true);
+			String temp_pw=RandomStringUtils.random(8,true,true);
 
 			byte[] salt=PasswordAuthenticator.generatorSalt();
 			byte[] digest=null;
@@ -255,11 +255,10 @@ public class UserServiceImpl implements UserService {
 			}
 
 			//이메일로 전송 알고리즘 구현 해야됨
-
+			
 			message="성공적으로 전송되었습니다.";
 
 		}else{
-
 			message="해당 사용자가 존재하지 않습니다.";
 		}
 

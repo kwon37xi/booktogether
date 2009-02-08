@@ -24,6 +24,8 @@ public class Author extends BaseObject{
 	 */
 	private int author_div;	
 	
+	
+	
 	public int getAuthor_div() {
 		return author_div;
 	}
