@@ -5,13 +5,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.code.booktogether.dao.UserDao;
 import com.google.code.booktogether.service.UserService;
-import com.google.code.booktogether.service.util.GenerateTempPassword;
 import com.google.code.booktogether.service.util.PasswordAuthenticator;
 import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.User;
@@ -219,7 +219,8 @@ public class UserServiceImpl implements UserService {
 
 		if(user!=null){
 
-			String temp_pw=GenerateTempPassword.generatePassword();
+			//임시 비밀번호 맘들기
+			String temp_pw=RandomStringUtils.random(7,true,true);
 
 			byte[] salt=PasswordAuthenticator.generatorSalt();
 			byte[] digest=null;
