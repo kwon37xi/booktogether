@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.code.booktogether.dao.UserDao;
 import com.google.code.booktogether.service.UserService;
+import com.google.code.booktogether.service.util.GenerateTempPassword;
 import com.google.code.booktogether.service.util.PasswordAuthenticator;
 import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.User;
@@ -218,9 +219,7 @@ public class UserServiceImpl implements UserService {
 
 		if(user!=null){
 
-			//임시 비번 발급
-			//발급 알고리즘 구현해야 되는데 아직 안함
-			String temp_pw="ABJJ@*#";
+			String temp_pw=GenerateTempPassword.generatePassword();
 
 			byte[] salt=PasswordAuthenticator.generatorSalt();
 			byte[] digest=null;
