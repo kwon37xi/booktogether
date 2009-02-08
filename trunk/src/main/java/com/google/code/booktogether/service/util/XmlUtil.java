@@ -1,4 +1,4 @@
-package com.google.code.booktogether.web.util;
+package com.google.code.booktogether.service.util;
 
 import java.util.HashMap;
 import java.util.List;

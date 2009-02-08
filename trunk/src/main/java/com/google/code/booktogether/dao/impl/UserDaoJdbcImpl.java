@@ -12,9 +12,9 @@ import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.UserDao;
 import com.google.code.booktogether.dao.rowmapper.UserPwRowMapper;
 import com.google.code.booktogether.dao.rowmapper.UserRowMapper;
+import com.google.code.booktogether.service.util.XmlUtil;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserPw;
-import com.google.code.booktogether.web.util.XmlUtil;
 
 
 @Repository("userJdbcDao")
