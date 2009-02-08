@@ -49,11 +49,10 @@ public class BookController {
 	/**
 	 * 책 등록
 	 * @param req
-	 * @param res
 	 * @return
 	 */
 	@RequestMapping("/book/insertBook.do")
-	public ModelAndView handleInsertBook(HttpServletRequest req,HttpServletResponse res){
+	public ModelAndView handleInsertBook(HttpServletRequest req){
 
 		//파라미터 정보 변수에 세팅
 		String name=ServletRequestUtils.getStringParameter(req, "name", "no_title");
@@ -112,11 +111,10 @@ public class BookController {
 	/**
 	 * 책목록
 	 * @param req
-	 * @param res
 	 * @return
 	 */
 	@RequestMapping("/book/listBook.do")
-	public ModelAndView handleListBook(HttpServletRequest req,HttpServletResponse res){
+	public ModelAndView handleListBook(HttpServletRequest req){
 
 		//현재 페이지 
 		int pageNo=ServletRequestUtils.getIntParameter(req, "pageNo", 0);
@@ -142,11 +140,10 @@ public class BookController {
 	/**
 	 * 책 정보 가지고 오기
 	 * @param req
-	 * @param res
 	 * @return
 	 */
 	@RequestMapping("/book/getBook.do")
-	public ModelAndView handleGetBook(HttpServletRequest req,HttpServletResponse res){
+	public ModelAndView handleGetBook(HttpServletRequest req){
 
 		//책 ID값
 		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
@@ -166,11 +163,10 @@ public class BookController {
 	/**
 	 * 책 수정화면 보기
 	 * @param req
-	 * @param res
 	 * @return
 	 */
 	@RequestMapping("/book/modifyBookView.do")
-	public ModelAndView handleModifyViewBook(HttpServletRequest req,HttpServletResponse res){
+	public ModelAndView handleModifyViewBook(HttpServletRequest req){
 
 		//책 ID값
 		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
@@ -190,11 +186,10 @@ public class BookController {
 	/**
 	 * 책 수정하기
 	 * @param req
-	 * @param res
 	 * @return
 	 */
 	@RequestMapping("/book/modifyBook.do")
-	public ModelAndView handleModifyBook(HttpServletRequest req,HttpServletResponse res){
+	public ModelAndView handleModifyBook(HttpServletRequest req){
 		
 
 		//파라미터 정보 변수  세팅
@@ -280,10 +275,9 @@ public class BookController {
 	/**
 	 * 책 검색후 책자세히 보기할때 책 내용이 DB에 있는지 검사
 	 * @param req
-	 * @param res
 	 */
 	@RequestMapping("/book/checkBook.do")
-	public ModelAndView handleCheckBook(HttpServletRequest req,HttpServletResponse res){
+	public ModelAndView handleCheckBook(HttpServletRequest req){
 		
 		//책 ID값
 		String isbn=ServletRequestUtils.getStringParameter(req, "ISBN", "");

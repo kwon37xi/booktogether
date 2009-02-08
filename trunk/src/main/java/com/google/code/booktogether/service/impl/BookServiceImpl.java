@@ -49,56 +49,114 @@ public class BookServiceImpl implements BookService {
 
 	//책 등록
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public boolean insertBook(Book book) {
 
 		boolean result=false;
 
-		//책정보 등록
-		int count=bookJdbcDao.insertBook(book);
-		
-		int id=bookJdbcDao.getLastNumIncrement();
+		try{
 
-		//지은이 정보등록
-		int count1=bookJdbcDao.insertAuthor(book.getAuthors(),id);
+			//책정보 등록
+			int count=bookJdbcDao.insertBook(book);
 
-		//이건 간단히 검증 단계
-		result=(count==0 || count1==0) ? false : true;
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
+				throw new Exception();
+			}
+
+			int id=bookJdbcDao.getLastNumIncrement();
+
+			//지은이 정보등록
+			count=bookJdbcDao.insertAuthor(book.getAuthors(),id);
+
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
+				throw new Exception();
+			}else{
+				result=true;
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 
 		return result;
 	}
 
 	//책 수정
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public boolean modifyBook(Book book) {
 
 		boolean result=false;
 
-		//책 수정
-		int count=bookJdbcDao.modifyBook(book);
+		try{
 
-		//지은이 정보 수정
-		for(Author author:book.getAuthors()){
-			bookJdbcDao.modifyAuthor(author);
+			//책 수정
+			int count=bookJdbcDao.modifyBook(book);
+
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
+				throw new Exception();
+			}
+
+			//지은이 정보 수정
+			for(Author author:book.getAuthors()){
+				count=bookJdbcDao.modifyAuthor(author);
+			}
+
+			//책 수정
+			count=bookJdbcDao.modifyBook(book);
+
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
+				throw new Exception();
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
 		}
-
-		result=(count==0) ? false : true;
 
 		return result;
 	}
 
 	//책 삭제
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public boolean deleteBook(int id) {
 
 		boolean result=false;
+		
+		try{
 
-		int count=bookJdbcDao.deleteBook(id);
-		bookJdbcDao.deleteAuthor(id);
+			int count=bookJdbcDao.deleteBook(id);
+			
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
+				throw new Exception();
+			}
+			
+			count=bookJdbcDao.deleteAuthor(id);
+			
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
+				throw new Exception();
+			}else{
+				result=true;
+			}
 
-		result=(count==0) ? false : true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 
 		return result;
 
@@ -124,16 +182,16 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public Book checkBook(String isbn) {
-		
+
 		Book book=bookJdbcDao.getBook(isbn);
 
 		if(book==null){
 
 			//OPEN API로 Book값 세팅
 			book=new UseApiDaumBook().execute(isbn);
-			
+
 			//DB에 넣기
 			this.insertBook(book);
 
@@ -141,7 +199,7 @@ public class BookServiceImpl implements BookService {
 			book=bookJdbcDao.getBook(isbn);
 
 		}
-		
+
 		//지은이 정보 가지고 오기
 		List<Author> authorlist=bookJdbcDao.getAuthor(book);
 
