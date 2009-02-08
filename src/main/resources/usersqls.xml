@@ -74,7 +74,7 @@
         <query>
             <![CDATA[
              UPDATE USER_PW 
-             SET digest=?  
+             SET pw=?  
 	             ,salt=?  
 	         WHERE user_id=? 
             ]]>
@@ -140,7 +140,7 @@
     </sql>
     
     
-    <sql name="FIND_USER_ID_SQL">
+    <sql name="FIND_USER_PW_SQL">
         <description>사용자 PW찾기</description>
         <query>
             <![CDATA[

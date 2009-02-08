@@ -13,6 +13,9 @@
 		
 		${message}
 		
+		<br/><br/>
+		
+		<a href="/user/login.do">로그인하기</a>
 	
 	</body>
 </html>

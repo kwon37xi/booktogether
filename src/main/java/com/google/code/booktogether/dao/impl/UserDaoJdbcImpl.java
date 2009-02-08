@@ -157,6 +157,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 		user=(User)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{user.getName(), user.getEmail()}));
 		
 		return user.getUser_id();
+		
 	}
 
 	@Override
@@ -166,7 +167,8 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 		user=(User)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{user.getUser_id(), user.getName(), user.getEmail()}));
 		
-		return null;
+		return user;
+		
 	}
 
 }

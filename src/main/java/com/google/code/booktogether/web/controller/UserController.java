@@ -442,4 +442,19 @@ public class UserController {
 		return mav;
 		
 	}
+	
+	
+	/**
+	 * 사용자 PW찾기 화면 
+	 * @param req
+	 */
+	@RequestMapping("/user/modifyUserPWView.do")
+	public ModelAndView handleModifyUserPWView(HttpServletRequest req){
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("user/modifyPWView");
+		
+		return mav;
+		
+	}
 }
