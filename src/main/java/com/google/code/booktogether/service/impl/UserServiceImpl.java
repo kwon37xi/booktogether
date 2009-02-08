@@ -169,5 +169,54 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	
+	@Override
+	public String findID(User user) {
+		String id=userJdbcDao.findID(user);
+		return id;
+	}
+
+	
+	@Override
+	public String findPW(User user) {
+		
+		String message="";
+		
+		user=userJdbcDao.findPW(user);
+		
+		if(user!=null){
+			//임시 비번 발급
+			//발급 알고리즘 구현해야 되는데 아직 안함
+			String temp_pw="ABJJ@*#";
+			
+			
+			byte[] salt=PasswordAuthenticator.generatorSalt();
+			byte[] digest=null;
+			
+			try {
+				digest = PasswordAuthenticator.createPasswordDigest(temp_pw, salt);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			UserPw userPw=new UserPw();
+			userPw.setDigest(digest);
+			userPw.setSalt(salt);
+			userPw.setUser_id(user.getId());
+			
+			userJdbcDao.modifyUserPw(userPw);
+			
+			//이메일로 전송 알고리즘 구현 해야됨
+			
+			message="성공적으로 전송되었습니다.";
+			
+		}else{
+			
+			message="해당 사용자가 존재하지 않습니다.";
+		}
+		
+		return message;
+	}
+
 
 }

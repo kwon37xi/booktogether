@@ -85,4 +85,18 @@ public interface UserDao {
 	 * @return
 	 */
 	public int modifyUserPw(UserPw userPw);
+	
+	/**
+	 * 사용자 ID찾기
+	 * @param user 찾고자 하는 사용자 정보
+	 * @return 사용자 ID
+	 */
+	public String findID(User user);
+	
+	/**
+	 * 사용자 비밀번호 찾기
+	 * @param user 찾고자 하는 사용자 정보
+	 * @return 사용자 정보
+	 */
+	public User findPW(User user);
 }

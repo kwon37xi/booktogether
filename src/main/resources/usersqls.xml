@@ -12,7 +12,7 @@
         </query>
     </sql>
     
-	<sql name="INSERT_USERPW_SQL">
+	<sql name="INSERT_USER_PW_SQL">
         <description>사용자 비밀번호 인증키 등록(SALT)</description>
         <query>
             <![CDATA[
@@ -34,7 +34,7 @@
         </query>
     </sql>
     
-	<sql name="GET_USERPW_SQL">
+	<sql name="GET_USER_PW_SQL">
         <description>사용자 암호 조회</description>
         <query>
             <![CDATA[
@@ -69,7 +69,7 @@
         </query>
     </sql>
     
-	<sql name="MODIFY_USERPW_SQL">
+	<sql name="MODIFY_USER_PW_SQL">
         <description>사용자 인증 정보 수정</description>
         <query>
             <![CDATA[
@@ -121,6 +121,35 @@
         <query>
             <![CDATA[
              SELECT LAST_INSERT_ID() as last_num;
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="FIND_USER_ID_SQL">
+        <description>사용자 ID찾기</description>
+        <query>
+            <![CDATA[
+             SELECT id, user_id, email, nickname, name, delete_y_n, input_date 
+             FROM USER 
+             WHERE name=?
+               AND email=? 
+               AND delete_y_n=0 
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="FIND_USER_ID_SQL">
+        <description>사용자 PW찾기</description>
+        <query>
+            <![CDATA[
+             SELECT id, user_id, email, nickname, name, delete_y_n, input_date  
+             FROM USER 
+             WHERE user_id = ? 
+               AND name = ? 
+               AND email = ? 
+               AND delete_y_n = 0 
             ]]>
         </query>
     </sql>

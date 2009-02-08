@@ -56,6 +56,9 @@
 							<tr>
 								<td colspan="2" align="center"><input type="submit" value="로그인"/></td>
 							</tr>
+							<tr>
+								<td colspan="2" align="center"><a href="/user/findIDView.do">아이디 찾기</a> / <a href="/user/findPWView.do">비밀번호 찾기</a></td>
+							</tr>
 						</tfoot>
 					</table>
 				</form>

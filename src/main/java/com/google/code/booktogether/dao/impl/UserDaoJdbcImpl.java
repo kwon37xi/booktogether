@@ -111,7 +111,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int modifyUserPw(UserPw userpw) {
 		
-		String sql=XmlUtil.getInstance().getSQL("user","MODIFY_USERPW_SQL");
+		String sql=XmlUtil.getInstance().getSQL("user","MODIFY_USER_PW_SQL");
 		
 		int count=getSimpleJdbcTemplate().update(sql, new Object[]{userpw.getDigest(), userpw.getSalt(), userpw.getUser_id()});
 		
@@ -122,7 +122,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int insertUserPw(UserPw userPw) {
 		
-		String sql=XmlUtil.getInstance().getSQL("user","INSERT_USERPW_SQL");
+		String sql=XmlUtil.getInstance().getSQL("user","INSERT_USER_PW_SQL");
 
 		int count=getSimpleJdbcTemplate().update(sql, new Object[]{userPw.getUser_id(), userPw.getDigest(), userPw.getSalt()});
 		
@@ -132,7 +132,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public UserPw getUserPw(int id) {
 		
-		String sql=XmlUtil.getInstance().getSQL("user","GET_USERPW_SQL");
+		String sql=XmlUtil.getInstance().getSQL("user","GET_USER_PW_SQL");
 
 		UserPw userPw=(UserPw)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, userPwRowMapper, new Object[]{id}));
 		
@@ -147,6 +147,26 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 		User user=(User)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{user_id}));
 		
 		return user;
+	}
+
+	@Override
+	public String findID(User user) {
+		
+		String sql=XmlUtil.getInstance().getSQL("user","FIND_USER_ID_SQL");
+		
+		user=(User)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{user.getName(), user.getEmail()}));
+		
+		return user.getUser_id();
+	}
+
+	@Override
+	public User findPW(User user) {
+		
+		String sql=XmlUtil.getInstance().getSQL("user","FIND_USER_PW_SQL");
+
+		user=(User)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{user.getUser_id(), user.getName(), user.getEmail()}));
+		
+		return null;
 	}
 
 }
