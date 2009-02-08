@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.UserService;
@@ -28,12 +30,6 @@ public class UserController {
 	@Resource(name="userService")
 	UserService userService;
 
-	/**
-	 * User 도메인 DI
-	 */
-	@Resource(name="userDomain")
-	User user;
-	
 	/**
 	 * 사용자 등록 화면
 	 * @return
@@ -61,14 +57,16 @@ public class UserController {
 		String name=ServletRequestUtils.getStringParameter(req, "name", "");
 		String pw=ServletRequestUtils.getStringParameter(req, "pw", "");
 
+		User user=new User();
+		
 		user.setUser_id(user_id);
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setName(name);
-		
+
 		UserPw userPw=new UserPw();
 		userPw.setPw(pw);
-		
+
 		boolean result=userService.insertUser(user,userPw);
 
 
@@ -98,6 +96,26 @@ public class UserController {
 	}
 	
 	
+	
+	/**
+	 * 로그아웃
+	 * @param req
+	 * @return 로그인화면
+	 */
+	@RequestMapping("/user/logout.do")
+	public ModelAndView handleLogout(HttpServletRequest req){
+		
+		//세션 삭제
+		req.getSession().invalidate();
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("user/login");
+		
+		return mav;
+		
+	}
+
+
 	/**
 	 * 사용자 조회(로그인)
 	 * @param req
@@ -105,41 +123,43 @@ public class UserController {
 	 */
 	@RequestMapping("/user/valiadIdPwUser.do")
 	public ModelAndView handleValiadIdPwUser(HttpServletRequest req){
-		
+
 		//현재 페이지 
 		String user_id=ServletRequestUtils.getStringParameter(req, "user_id", "");
 		String pw=ServletRequestUtils.getStringParameter(req, "pw", "");
-		
+
 		//사용자 아이디, 비밀번호 일치 되는치 검사
 		User user=userService.valiadIdPwUser(user_id, pw);
-		
+
 		String message="";
 		ModelAndView mav=new ModelAndView();
-		
+
 		//성공시
 		if(user!= null) {
-			
-			req.getSession().setAttribute("id", user.getId());
-			req.getSession().setAttribute("nickname", user.getNickname());
-			req.getSession().setAttribute("name", user.getName());
-			req.getSession().setAttribute("user_id", user.getUser_id());
-			
+
+			ServletRequestAttributes sra=new ServletRequestAttributes(req);
+
+			sra.setAttribute("id", user.getId(), RequestAttributes.SCOPE_SESSION);
+			sra.setAttribute("nickname", user.getNickname(), RequestAttributes.SCOPE_SESSION);
+			sra.setAttribute("name", user.getName(), RequestAttributes.SCOPE_SESSION);
+			sra.setAttribute("user_id", user.getUser_id(), RequestAttributes.SCOPE_SESSION);
+
 			System.out.println("로그인 성공");
-			
+
 		}else{		//실패시 
-			
+
 			message="아이디가 없거나 비밀번호가 일치 하지 않습니다.";
 			mav.addObject("message",message);
-			
+
 			System.out.println("로그인 실패");
-			
+
 		}
-		
+
 		//경로 설정 및 Attribute 설정
 		mav.setViewName("user/login");
-		
+
 		return mav;
-		
+
 	}
 
 
@@ -180,11 +200,21 @@ public class UserController {
 	@RequestMapping("/user/getUser.do")
 	public ModelAndView handleGetUser(HttpServletRequest req){
 
+		ServletRequestAttributes sra=new ServletRequestAttributes(req);
+		
 		//사용자 ID값
-		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
+		int p_id=ServletRequestUtils.getIntParameter(req, "id",0);
+		Integer s_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
+		
+		boolean isSession=(p_id==0 && s_id!=null)?true:false;
+		
+		User user=new User();
 
-		//책 정보 가지고 오기
-		User user=userService.getUser(id);
+		if(isSession){
+			user=userService.getUser(s_id);
+		}else{
+			user=userService.getUser(p_id);
+		}
 
 		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
@@ -203,11 +233,21 @@ public class UserController {
 	@RequestMapping("/user/modifyUserView.do")
 	public ModelAndView handleModifyUserView(HttpServletRequest req){
 
+		ServletRequestAttributes sra=new ServletRequestAttributes(req);
+		
 		//사용자 ID값
-		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
+		int p_id=ServletRequestUtils.getIntParameter(req, "id",0);
+		Integer s_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
+		
+		boolean isSession=(p_id==0 && s_id!=null)?true:false;
+		
+		User user=new User();
 
-		//책 정보 가지고 오기
-		User user=userService.getUser(id);
+		if(isSession){
+			user=userService.getUser(s_id);
+		}else{
+			user=userService.getUser(p_id);
+		}
 
 		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
@@ -226,28 +266,54 @@ public class UserController {
 	@RequestMapping("/user/modifyUser.do")
 	public ModelAndView handleModifyUser(HttpServletRequest req){
 
+		ServletRequestAttributes sra=new ServletRequestAttributes(req);
+		
+		//사용자 ID값
+		int p_id=ServletRequestUtils.getIntParameter(req, "id",0);
+		Integer s_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
+		
+		boolean isSession=(p_id==0 && s_id!=null)?true:false;
+		
+		User user=new User();
+
+		if(isSession){
+			isSession=true;
+			user.setId(s_id);
+		}else{
+			isSession=false;
+			user.setId(p_id);
+		}
+
 		//파라미터 정보 변수  세팅
-		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 		String email=ServletRequestUtils.getStringParameter(req, "email", "");
 		String nickname=ServletRequestUtils.getStringParameter(req, "nickname", "");
 		String name=ServletRequestUtils.getStringParameter(req, "name", "");
-		String pw=ServletRequestUtils.getStringParameter(req, "pw", "");
+		boolean pw_c=ServletRequestUtils.getBooleanParameter(req, "pw_c", false);
 
-		user.setId(id);
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setName(name);
-		
+
 		UserPw userPw=null;
 		
-		if(!pw.equals("")){
-			userPw=new UserPw();
-			userPw.setPw(pw);
+		if(pw_c){
+			
+			String pw=ServletRequestUtils.getStringParameter(req, "pw", "");
+
+			if(!pw.equals("")){
+				userPw=new UserPw();
+				userPw.setPw(pw);
+			}
+			
 		}
 
 		boolean result=userService.modifyUser(user,userPw);
-		
-		user=userService.getUser(id);
+
+		if(isSession){
+			user=userService.getUser(s_id);
+		}else{
+			user=userService.getUser(p_id);
+		}
 
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("user/getUser");
@@ -265,11 +331,23 @@ public class UserController {
 	@RequestMapping("/user/deleteUser.do")
 	public ModelAndView handleDeleteUser(HttpServletRequest req){
 
+		ServletRequestAttributes sra=new ServletRequestAttributes(req);
+
 		//사용자 ID값
-		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
+		int p_id=ServletRequestUtils.getIntParameter(req, "id",0);
+		
+		Integer s_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
+		
+		boolean isSession=(p_id==0 && s_id!=null)?true:false;
+		
+		boolean result=false;
 
 		//사용자 탈퇴
-		boolean result=userService.deleteUser(id);
+		if(isSession){
+			result=userService.deleteUser(s_id);
+		}else{
+			result=userService.deleteUser(p_id);
+		}
 
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("user/tempUser");
@@ -278,6 +356,90 @@ public class UserController {
 		return mav;
 
 	}
-
-
+	
+	
+	/**
+	 * 사용자 ID찾기 화면
+	 * @param req
+	 */
+	@RequestMapping("/user/findIDView.do")
+	public ModelAndView handleFindUserIDView(HttpServletRequest req){
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("user/findIDView");
+		
+		return mav;
+		
+	}
+	
+	/**
+	 * 사용자 ID찾기
+	 * @param req
+	 */
+	@RequestMapping("/user/findID.do")
+	public ModelAndView handleFindUserID(HttpServletRequest req){
+		
+		String name=ServletRequestUtils.getStringParameter(req, "name","");
+		String email=ServletRequestUtils.getStringParameter(req, "email","");
+		
+		User user=new User();
+		
+		user.setName(name);
+		user.setEmail(email);
+		
+		String id= userService.findID(user);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("user/findIDResult");
+		mav.addObject("name",name);
+		mav.addObject("email",email);
+		mav.addObject("id",id);
+		
+		return mav;
+		
+	}
+	
+	
+	/**
+	 * 사용자 PW찾기 화면 
+	 * @param req
+	 */
+	@RequestMapping("/user/findPWView.do")
+	public ModelAndView handleFindUserPWView(HttpServletRequest req){
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("user/findPWView");
+		
+		return mav;
+		
+	}
+	
+	/**
+	 * 사용자 PW찾기
+	 * @param req 
+	 */
+	@RequestMapping("/user/findPW.do")
+	public ModelAndView handleFindUserPW(HttpServletRequest req){
+		
+		String user_id=ServletRequestUtils.getStringParameter(req, "user_id","");
+		String name=ServletRequestUtils.getStringParameter(req, "name","");
+		String email=ServletRequestUtils.getStringParameter(req, "email","");
+		
+		User user=new User();
+		
+		user.setUser_id(user_id);
+		user.setName(name);
+		user.setEmail(email);
+		
+		String message= userService.findPW(user);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("user/findPWResult");
+		mav.addObject("user_id",user_id);
+		mav.addObject("name",name);
+		mav.addObject("message",message);
+		
+		return mav;
+		
+	}
 }

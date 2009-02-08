@@ -32,12 +32,6 @@ public class BookController {
 	@Resource(name="bookService")
 	BookService bookService;
 
-	/**
-	 * Book 도메인 DI
-	 */
-	@Resource(name="bookDomain")
-	Book book;
-
 
 	/**
 	 * 책 등록 화면
@@ -73,6 +67,8 @@ public class BookController {
 		String description=ServletRequestUtils.getStringParameter(req, "description", "설명");
 		String[] author_name=ServletRequestUtils.getStringParameters(req,"author_name");
 		String[] author_div=ServletRequestUtils.getStringParameters(req,"author_div");
+		
+		Book book=new Book();
 
 		//책 정보 세팅
 		book.setName(name);
@@ -199,6 +195,7 @@ public class BookController {
 	 */
 	@RequestMapping("/book/modifyBook.do")
 	public ModelAndView handleModifyBook(HttpServletRequest req,HttpServletResponse res){
+		
 
 		//파라미터 정보 변수  세팅
 		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
@@ -216,6 +213,7 @@ public class BookController {
 		String[] author_div=req.getParameterValues("author_div");
 
 
+		Book book=new Book();
 		book.setId(id);
 		book.setName(name);
 		book.setPublish_date(publish_date);

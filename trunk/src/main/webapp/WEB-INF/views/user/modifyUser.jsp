@@ -13,22 +13,17 @@
 		<div>
 			<form method="post" name="modifyuser_form" action="/user/modifyUser.do">
 			
-				<input type="hidden" name="id" value="${user_info.id}"/>
-				
 				<p>			
 					${user_info.user_id}
 				</p>
 				<p>
-					<label for="pw">PW</label>
-					<input type="text" name="pw" size="20" value="${user_info.pw}"/>
+					<input type="checkbox" name="pw"/>비밀번호 수정함 
 				</p>
 				<p>
-					<label for="pw_again">PW 다시 확인</label>
-					<input type="text" name="pw_again" size="20" value="${user_info.pw}"/>
+					<label for="pw">비밀번호 수정시 입력 :</label> <input type="text" name="pw_c" size="20" disabled="disabled"/>
 				</p>
 				<p>
-					<label for="email">이메일</label>
-					<input type="text" name="email" size="20" value="${user_info.email}"/>
+					<label for="pw_again">비밀번호 수정시 다시입력 :</label> <input type="text" name="pw_again" size="20" disabled="disabled"/>
 				</p>
 				<p>
 					<label for="nickname">별명</label>
@@ -38,8 +33,11 @@
 					<label for="name">이름</label>
 					<input type="text" name="name" size="20" value="${user_info.name}"/>
 				</p>
-				<input type="submit" value="등록"/>
-				
+				<p>
+					<label for="name">이메일</label>
+					<input type="text" name="email" size="20" value="${user_info.email}"/>
+				</p>
+				<input type="submit" value="수정"/>
 			</form>
 		</div>
 	</body>

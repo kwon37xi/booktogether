@@ -53,4 +53,17 @@ public interface UserService {
 	public List<User> getListUser(PageBean pageBean);
 	
 	
+	/**
+	 * 사용자 ID찾기
+	 * @param user
+	 * @return 아이디
+	 */
+	public String findID(User user);
+	
+	/**
+	 * 사용자 PW찾기
+	 * @param user
+	 * @return 사용자 정보
+	 */
+	public String findPW(User user);
 }

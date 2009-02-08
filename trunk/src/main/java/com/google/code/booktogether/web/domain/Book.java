@@ -1,15 +1,11 @@
 package com.google.code.booktogether.web.domain;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 /**
  * 책 도메인
  * @author ParkHaeCheol
  *
  */
-@Scope("prototype")
-@Component("bookDomain")
 public class Book extends BaseObject{
 	
 	private static final long serialVersionUID = 1L;

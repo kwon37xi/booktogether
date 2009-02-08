@@ -2,16 +2,11 @@ package com.google.code.booktogether.web.domain;
 
 import java.util.Date;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 /**
  * 사용자 도메인
  * @author ParkHaeCheol
  */
 
-@Scope("prototype")
-@Component("userDomain")
 public class User extends BaseObject{
 	
 	private static final long serialVersionUID = 1L;
