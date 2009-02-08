@@ -1,4 +1,4 @@
-package com.google.code.booktogether.web.util;
+package com.google.code.booktogether.service.util;
 
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;

@@ -11,9 +11,9 @@
 	</head>
 	<body>
 	
-		<c:if test="${message!=''}">
+		<c:if test="${message!=null}">
 			<script>
-				alert(${message});
+				alert('${message}');
 			</script>
 		</c:if>
 	

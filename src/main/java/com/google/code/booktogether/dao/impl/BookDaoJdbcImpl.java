@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.BookDao;
 import com.google.code.booktogether.dao.rowmapper.AuthorRowMapper;
 import com.google.code.booktogether.dao.rowmapper.BookRowMapper;
+import com.google.code.booktogether.service.util.XmlUtil;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
-import com.google.code.booktogether.web.util.XmlUtil;
 
 @Repository("bookJdbcDao")
 public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
