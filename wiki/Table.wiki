@@ -1,4 +1,4 @@
-#summary Mysql Book Table
+#summary Book,User Table
 #labels booktable,authortable,table
 
 = *Book* 테이블 =
@@ -21,13 +21,7 @@ CREATE TABLE `book` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 }}}
 
-=*Test Data*=
-{{{
-}}}
-
 ----
-
-
 
 = *Author* 테이블 =
 
@@ -41,8 +35,35 @@ CREATE TABLE `author` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 }}}
 
-=*Test Data*=
+----
+= *USER* 테이블 =
 
 {{{
-insert  into `author`(`id`,`name`,`author_div`,`book_ref`) values (3,'해처리1',0,2),(5,'지은이',1,5);
+CREATE TABLE `user` (                                  
+          `id` int(11) NOT NULL AUTO_INCREMENT,                
+          `user_id` varchar(15) NOT NULL,                      
+          `email` varchar(30) NOT NULL,                        
+          `nickname` varchar(20) NOT NULL,                     
+          `name` varchar(20) NOT NULL,                         
+          `delete_y_n` int(1) NOT NULL,                        
+          `input_date` datetime NOT NULL,                      
+          PRIMARY KEY (`id`)                                   
+        ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 
+}}}
+
+
+----
+
+
+
+= *USER_PW* 테이블 =
+
+{{{
+CREATE TABLE `user_pw` (                               
+           `id` int(11) NOT NULL AUTO_INCREMENT,                
+           `user_id` int(11) NOT NULL,                          
+           `pw` varbinary(50) NOT NULL,                         
+           `salt` varbinary(50) NOT NULL,                       
+           PRIMARY KEY (`id`)                                   
+         ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
 }}}
