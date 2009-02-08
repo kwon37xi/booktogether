@@ -34,7 +34,7 @@ public interface UserService {
 	 * @param id
 	 * @return 사용자 정보
 	 */
-	public User valiadIdPwUser(String user_id, String pw);
+	public User validIdPwUser(String user_id, String pw);
 	
 	
 	/**
@@ -66,4 +66,12 @@ public interface UserService {
 	 * @return 사용자 정보
 	 */
 	public String findPW(User user);
+	
+	
+	/**
+	 * 비밀번호 변경
+	 * @param User user,String newPw
+	 * @return 변경 결과
+	 */
+	public boolean modifyPW(User user,String newPw);
 }

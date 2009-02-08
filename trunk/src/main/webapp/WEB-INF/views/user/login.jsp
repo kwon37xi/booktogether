@@ -10,6 +10,13 @@
 		<title>로그인</title>
 	</head>
 	<body>
+	
+		<c:if test="${message!=''}">
+			<script>
+				alert(${message});
+			</script>
+		</c:if>
+	
 		<c:choose>
 			<c:when test="${sessionScope.id!=null}">
 				<table border="1">
@@ -49,7 +56,7 @@
 							</tr>
 							<tr>
 								<td><label for="pw">비밀번호</label></td>
-								<td><input type="text" name="pw" size="20"/></td>
+								<td><input type="password" name="pw" size="20"/></td>
 							</tr>
 						</tbody>
 						<tfoot>

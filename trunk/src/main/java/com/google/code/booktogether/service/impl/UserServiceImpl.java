@@ -30,9 +30,22 @@ public class UserServiceImpl implements UserService {
 
 		boolean result=false;
 
-		int count=userJdbcDao.deleteUser(id);
+		try{
 
-		result=(count==0) ? false : true;
+			int count=userJdbcDao.deleteUser(id);
+
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
+				throw new Exception();
+			}else{
+				result=true;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 
 		return result;
 	}
@@ -70,6 +83,7 @@ public class UserServiceImpl implements UserService {
 			digest=PasswordAuthenticator.createPasswordDigest(userPw.getPw(), salt);
 		} catch (Exception e1) {
 			e1.printStackTrace();
+			return false;
 		}
 
 		int count=userJdbcDao.insertUser(user);
@@ -79,17 +93,24 @@ public class UserServiceImpl implements UserService {
 			try {
 
 				int id=userJdbcDao.getLastNumIncrement();
-				
+
 				userPw.setUser_id(id);
 				userPw.setDigest(digest);
 				userPw.setSalt(salt);
-				
+
 				count=userJdbcDao.insertUserPw(userPw);
 
-				result=(count==0) ? false : true;
+				if(count==0){
+					throw new Exception();
+				}else if(count!=1){
+					throw new Exception();
+				}else{
+					result=true;
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
+				return false;
 			}
 		}
 
@@ -103,11 +124,11 @@ public class UserServiceImpl implements UserService {
 		boolean result=false;
 
 		int count=userJdbcDao.modifyUser(user);
-		
+
 		if(count!=0){
 
 			if(userPw!=null){
-				
+
 				byte[] salt=PasswordAuthenticator.generatorSalt();
 				byte[] digest=null;
 
@@ -115,107 +136,174 @@ public class UserServiceImpl implements UserService {
 					digest=PasswordAuthenticator.createPasswordDigest(userPw.getPw(), salt);
 				} catch (Exception e1) {
 					e1.printStackTrace();
+					return false;
 				}
-				
+
 				try {
-					
+
 					userPw.setUser_id(user.getId());
 					userPw.setDigest(digest);
 					userPw.setSalt(salt);
-					
+
 					count=userJdbcDao.modifyUserPw(userPw);
-					
+
+					if(count==0){
+						throw new Exception();
+					}else if(count!=1){
+						throw new Exception();
+					}else{
+						result=true;
+					}
+
 				} catch (Exception e) {
 					e.printStackTrace();
+					return false;
 				}
-				
+
 			}
-			
-			result=(count==0) ? false : true;
-			
+
 		}
 
 		return result;
 	}
 
 	@Override
-	public User valiadIdPwUser(String user_id, String pw) {
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	public User validIdPwUser(String user_id, String pw) {
 
 		User user=userJdbcDao.isExistUser(user_id);
-		
+
 		if(user!=null){
-			
+
 			UserPw userPw=userJdbcDao.getUserPw(user.getId());
-			
+
 			byte[] salt=userPw.getSalt();
 			byte[] hashedDigest=userPw.getDigest();
 			byte[] digest=null;
-			
+
 			try {
 				digest=PasswordAuthenticator.createPasswordDigest(pw, salt);
 			} catch (Exception e1) {
 				e1.printStackTrace();
+				return null;
 			}
-			
+
 			if(Arrays.equals(digest, hashedDigest)){
 				System.out.println("일치한다.");
 			}else{
 				System.out.println("일치하지 않는다.");
 				user=null;
 			}
-			
+
 		}
 
 		return user;
 	}
 
-	
+
 	@Override
 	public String findID(User user) {
 		String id=userJdbcDao.findID(user);
 		return id;
 	}
 
-	
+
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public String findPW(User user) {
-		
+
 		String message="";
-		
+
 		user=userJdbcDao.findPW(user);
-		
+
 		if(user!=null){
-			
+
 			//임시 비번 발급
 			//발급 알고리즘 구현해야 되는데 아직 안함
 			String temp_pw="ABJJ@*#";
-			
+
 			byte[] salt=PasswordAuthenticator.generatorSalt();
 			byte[] digest=null;
-			
+
 			try {
 				digest = PasswordAuthenticator.createPasswordDigest(temp_pw, salt);
 			} catch (Exception e) {
 				e.printStackTrace();
+				message="시스템에 문제가 발생하여 비밀번호 전송이 실패 하였습니다.";	
+				return message;
 			}
-			
+
 			UserPw userPw=new UserPw();
 			userPw.setDigest(digest);
 			userPw.setSalt(salt);
 			userPw.setUser_id(user.getId());
-			
-			userJdbcDao.modifyUserPw(userPw);
-			
+
+			try{
+
+				int count=userJdbcDao.modifyUserPw(userPw);
+
+				if(count==0){
+					throw new Exception();
+				}else if(count!=1){
+					throw new Exception();
+				}
+
+			}catch(Exception e){
+				e.printStackTrace();
+				message="시스템에 문제가 발생하여 비밀번호 전송이 실패 하였습니다.";	
+				return message;
+			}
+
 			//이메일로 전송 알고리즘 구현 해야됨
-			
+
 			message="성공적으로 전송되었습니다.";
-			
+
 		}else{
-			
+
 			message="해당 사용자가 존재하지 않습니다.";
 		}
-		
+
 		return message;
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	public boolean modifyPW(User user, String newPw) {
+
+		boolean result=false;
+
+		byte[] salt=PasswordAuthenticator.generatorSalt();
+		byte[] digest=null;
+
+		try {
+			digest = PasswordAuthenticator.createPasswordDigest(newPw, salt);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		UserPw userPw=new UserPw();
+		userPw.setDigest(digest);
+		userPw.setSalt(salt);
+		userPw.setUser_id(user.getId());
+
+		try{
+
+			int count=userJdbcDao.modifyUserPw(userPw);
+
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
+				throw new Exception();
+			}else{
+				result=true;
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 
 
