@@ -185,10 +185,10 @@ public class UserServiceImpl implements UserService {
 		user=userJdbcDao.findPW(user);
 		
 		if(user!=null){
+			
 			//임시 비번 발급
 			//발급 알고리즘 구현해야 되는데 아직 안함
 			String temp_pw="ABJJ@*#";
-			
 			
 			byte[] salt=PasswordAuthenticator.generatorSalt();
 			byte[] digest=null;

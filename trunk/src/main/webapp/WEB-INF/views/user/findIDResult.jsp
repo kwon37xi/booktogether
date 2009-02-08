@@ -16,5 +16,7 @@
 			<c:when test="${id==''}">해당 아이디가 존재하지 않습니다.</c:when>
 			<c:otherwise>요청하신 아이디는 <b>${id}</b>입니다.</c:otherwise>
 		</c:choose>
+		<br/><br/>
+		<a href="/user/login.do">로그인하기</a>
 	</body>
 </html>

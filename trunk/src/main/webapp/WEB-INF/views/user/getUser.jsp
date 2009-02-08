@@ -52,6 +52,7 @@
 		
 		<div id=''>
 			<a href="javascript:history.go(-1)">뒤로</a>
+			<a href="/user/modifyUserPWView.do">비밀번호수정</a>
 			<a href="/user/modifyUserView.do">수정</a>
 			<a href="/user/deleteUser.do">탈퇴</a>
 			<a href="/user/listUser.do">목록</a>
