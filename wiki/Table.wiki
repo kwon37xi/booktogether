@@ -1,5 +1,5 @@
 #summary Book,User Table
-#labels booktable,authortable,table
+#labels booktable,authortable,table,usertable,user_pwtable
 
 = *Book* 테이블 =
 
