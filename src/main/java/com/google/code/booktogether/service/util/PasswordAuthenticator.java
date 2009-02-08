@@ -1,4 +1,4 @@
-package com.google.code.booktogether.service.crypto;
+package com.google.code.booktogether.service.util;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;

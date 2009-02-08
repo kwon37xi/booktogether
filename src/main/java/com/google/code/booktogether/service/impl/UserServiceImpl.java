@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.code.booktogether.dao.UserDao;
 import com.google.code.booktogether.service.UserService;
-import com.google.code.booktogether.service.crypto.PasswordAuthenticator;
+import com.google.code.booktogether.service.util.PasswordAuthenticator;
 import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserPw;
