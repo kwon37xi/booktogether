@@ -186,7 +186,7 @@ public class UseApiDaumBook {
 			author.setAuthor_div(0);
 
 
-			if(translator_name!=null){
+			if(translator_name!=null && !translator_name.equals("")){
 				authors=new Author[2];
 
 				Author translator=new Author();

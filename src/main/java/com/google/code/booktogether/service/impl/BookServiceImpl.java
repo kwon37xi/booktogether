@@ -185,8 +185,10 @@ public class BookServiceImpl implements BookService {
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public Book checkBook(String isbn) {
 
+		//해당 책 있는지 체크
 		Book book=bookJdbcDao.getBook(isbn);
 
+		//해당책이 없을시
 		if(book==null){
 
 			//OPEN API로 Book값 세팅

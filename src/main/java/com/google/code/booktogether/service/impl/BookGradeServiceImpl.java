@@ -16,7 +16,7 @@ import com.google.code.booktogether.web.domain.BookGrade;
 @Service("bookGradeService")
 public class BookGradeServiceImpl implements BookGradeService {
 
-	
+
 	@Resource(name="bookGradeJdbcDao")
 	private BookGradeDao bookGradeJdbcDao;
 
@@ -47,18 +47,18 @@ public class BookGradeServiceImpl implements BookGradeService {
 		return result;
 
 	}
-	
-	
+
+
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public boolean modifyGrade(BookGrade bookGrade) {
-		
+
 		boolean result=false;
-		
+
 		try{
-			
+
 			int count=bookGradeJdbcDao.modifyGrade(bookGrade);
-			
+
 			if(count==0){
 				throw new Exception();
 			}else if(count!=1){
@@ -66,26 +66,26 @@ public class BookGradeServiceImpl implements BookGradeService {
 			}else{
 				result=true;
 			}
-			
+
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		return result;
-		
+
 	}
-	
+
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
-	public boolean deleteGrade(int id) {
-		
+	public boolean deleteGrade(BookGrade bookGrade) {
+
 		boolean result=false;
-		
+
 		try{
-			
-			int count=bookGradeJdbcDao.deleteGrade(id);
-			
+
+			int count=bookGradeJdbcDao.deleteGrade(bookGrade);
+
 			if(count==0){
 				throw new Exception();
 			}else if(count!=1){
@@ -93,14 +93,14 @@ public class BookGradeServiceImpl implements BookGradeService {
 			}else{
 				result=true;
 			}
-			
+
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		return result;
-		
+
 	}
 
 
@@ -115,15 +115,25 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 	@Override
 	public List<BookGrade> getListMyBookGrade(int user_id, int startPage,int endPage) {
-		
+
 		List<BookGrade> mybookgradelist=bookGradeJdbcDao.getListMyBookGrade(user_id, startPage, endPage);
 
 		return mybookgradelist;
-		
+
 	}
 
 
+	@Override
+	public boolean isExistGrade(int book_id, int user_id) {
 
+		int count=bookGradeJdbcDao.isExistGrade(book_id,user_id);
 
+		if(count==0){
+			return false;
+		}else {
+			return true;
+		}
+		
+	}
 
 }
