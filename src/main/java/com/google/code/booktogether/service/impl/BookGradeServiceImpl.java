@@ -16,13 +16,9 @@ import com.google.code.booktogether.web.domain.BookGrade;
 @Service("bookGradeService")
 public class BookGradeServiceImpl implements BookGradeService {
 
-	private BookGradeDao gradeReviewJdbcDao;
-
-
-	@Resource(name="gradeReviewJdbcDao")
-	public void setGradeReviewJdbcDao(BookGradeDao gradeReviewJdbcDao) {
-		this.gradeReviewJdbcDao = gradeReviewJdbcDao;
-	}
+	
+	@Resource(name="bookGradeJdbcDao")
+	private BookGradeDao bookGradeJdbcDao;
 
 
 	@Override
@@ -33,7 +29,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 		try{
 
-			int count=gradeReviewJdbcDao.insertGrade(bookGrade);
+			int count=bookGradeJdbcDao.insertGrade(bookGrade);
 
 			if(count==0){
 				throw new Exception();
@@ -51,12 +47,67 @@ public class BookGradeServiceImpl implements BookGradeService {
 		return result;
 
 	}
+	
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	public boolean modifyGrade(BookGrade bookGrade) {
+		
+		boolean result=false;
+		
+		try{
+			
+			int count=bookGradeJdbcDao.modifyGrade(bookGrade);
+			
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
+				throw new Exception();
+			}else{
+				result=true;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		
+		return result;
+		
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	public boolean deleteGrade(int id) {
+		
+		boolean result=false;
+		
+		try{
+			
+			int count=bookGradeJdbcDao.deleteGrade(id);
+			
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
+				throw new Exception();
+			}else{
+				result=true;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		
+		return result;
+		
+	}
 
 
 	@Override
 	public List<BookGrade> getListBookGrade(int book_id, int startPage, int endPage) {
 
-		List<BookGrade> bookgradelist=gradeReviewJdbcDao.getListBookGrade(book_id,startPage, endPage);
+		List<BookGrade> bookgradelist=bookGradeJdbcDao.getListBookGrade(book_id,startPage, endPage);
 
 		return bookgradelist;
 	}
@@ -65,7 +116,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 	@Override
 	public List<BookGrade> getListMyBookGrade(int user_id, int startPage,int endPage) {
 		
-		List<BookGrade> mybookgradelist=gradeReviewJdbcDao.getListMyBookGrade(user_id, startPage, endPage);
+		List<BookGrade> mybookgradelist=bookGradeJdbcDao.getListMyBookGrade(user_id, startPage, endPage);
 
 		return mybookgradelist;
 		

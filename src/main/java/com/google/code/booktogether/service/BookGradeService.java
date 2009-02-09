@@ -13,6 +13,21 @@ public interface BookGradeService {
 	 */
 	public boolean insertGrade(BookGrade bookGrade);
 	
+	
+	/**
+	 * 별점 수정
+	 * @param gradeReview
+	 * @return
+	 */
+	public boolean modifyGrade(BookGrade bookGrade);
+	
+	/**
+	 * 별점 삭제
+	 * @param gradeReview
+	 * @return
+	 */
+	public boolean deleteGrade(int id);
+	
 	/**
 	 * 별점 목록(책 조회시)
 	 * @param bookGrade

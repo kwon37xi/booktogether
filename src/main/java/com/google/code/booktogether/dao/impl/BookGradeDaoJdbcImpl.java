@@ -36,10 +36,31 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 
 	@Override
 	public int insertGrade(BookGrade bookGrade) {
+		
 		String sql=XmlUtil.getInstance().getSQL("bookgrade","INSERT_BOOKGRADE_SQL");
 
 		int count=getSimpleJdbcTemplate().update(sql, new Object[]{bookGrade.getBook().getId(),bookGrade.getUser().getId(),bookGrade.getGrade()});
 
+		return count;
+	}
+	
+	@Override
+	public int modifyGrade(BookGrade bookGrade) {
+		
+		String sql=XmlUtil.getInstance().getSQL("bookgrade","MODIFY_BOOKGRADE_SQL");
+		
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{bookGrade.getGrade(),bookGrade.getId()});
+		
+		return count;
+	}
+	
+	@Override
+	public int deleteGrade(int id) {
+		
+		String sql=XmlUtil.getInstance().getSQL("bookgrade","DELETE_BOOKGRADE_SQL");
+		
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{id});
+		
 		return count;
 	}
 
