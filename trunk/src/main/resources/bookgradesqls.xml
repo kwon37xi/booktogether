@@ -29,6 +29,8 @@
             <![CDATA[
              DELETE FROM BOOKGRADE 
              WHERE id=? 
+               AND book_id=? 
+               AND user_id=? 
             ]]>
         </query>
      </sql>
@@ -67,6 +69,21 @@
                AND BG.book_id=B.id  
                AND U.delete_y_n=0 
              LIMIT ?,? 
+            ]]>
+        </query>
+    </sql>
+    
+    
+     <sql name="EXIST_MYBOOKGRADE_SQL">
+        <description>내가 매긴 책 별점이 있는지 체크</description>
+        <query>
+            <![CDATA[
+             SELECT count(BG.id) as count
+             FROM BOOKGRADE BG, USER U 
+             WHERE BG.book_id = ? 
+               AND BG.user_id = ? 
+               AND BG.user_id=U.id 
+               AND U.delete_y_n=0  
             ]]>
         </query>
     </sql>

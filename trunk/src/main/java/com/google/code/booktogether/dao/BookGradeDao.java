@@ -25,7 +25,7 @@ public interface BookGradeDao {
 	 * @param id
 	 * @return
 	 */
-	public int deleteGrade(int id);
+	public int deleteGrade(BookGrade bookGrade);
 	
 	/**
 	 * 별점 목록(책 조회시)
@@ -45,4 +45,11 @@ public interface BookGradeDao {
 	 */
 	public List<BookGrade> getListMyBookGrade(int user_id,int startPage, int endPage);
 	
+	/**
+	 * 내가 매긴 별점이 있는지 체크
+	 * @param book_id
+	 * @param user_id
+	 * @return
+	 */
+	public int isExistGrade(int book_id,int user_id);
 }

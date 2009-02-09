@@ -30,7 +30,7 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 	
 	
 	//내가 매긴 별점 RowMapper
-	@Resource(name="mybookGradeRowMapper")
+	@Resource(name="myBookGradeRowMapper")
 	MyBookGradeRowMapper myBookGradeRowMapper;
 
 
@@ -55,11 +55,11 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 	}
 	
 	@Override
-	public int deleteGrade(int id) {
+	public int deleteGrade(BookGrade bookGrade) {
 		
 		String sql=XmlUtil.getInstance().getSQL("bookgrade","DELETE_BOOKGRADE_SQL");
 		
-		int count=getSimpleJdbcTemplate().update(sql, new Object[]{id});
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{bookGrade.getId(),bookGrade.getBook().getId(),bookGrade.getUser().getId()});
 		
 		return count;
 	}
@@ -83,6 +83,16 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 		List<BookGrade> mybookgradelist=getSimpleJdbcTemplate().query(sql, myBookGradeRowMapper, new Object[]{user_id,startPage, endPage});
 
 		return mybookgradelist;
+	}
+
+	@Override
+	public int isExistGrade(int book_id, int user_id) {
+		
+		String sql=XmlUtil.getInstance().getSQL("bookgrade","EXIST_MYBOOKGRADE_SQL");
+
+		int count=getSimpleJdbcTemplate().queryForInt(sql, new Object[]{book_id,user_id});
+
+		return count;
 	}
 
 
