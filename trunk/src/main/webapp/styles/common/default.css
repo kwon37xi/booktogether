@@ -1,0 +1,14 @@
+body{
+	position: relative;
+	width:770px;
+	margin:0 auto;
+	text-align:left;
+	font:12px ±¼¸²;
+}
+
+html,body {height:100%;}
+
+img {border:none;}
+label {cursor:pointer;}
+.img_button { cursor: pointer;}
+

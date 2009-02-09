@@ -5,6 +5,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="../../scripts/common/common.js"></script>
 		<title>회원가입</title>
 	</head>
 	<body>
@@ -16,11 +18,11 @@
 				</p>
 				<p>
 					<label for="pw">PW</label>
-					<input type="text" name="pw" size="20"/>
+					<input type="password" name="pw" size="20"/>
 				</p>
 				<p>
 					<label for="pw_again">PW 다시 확인</label>
-					<input type="text" name="pw_again" size="20"/>
+					<input type="password" name="pw_again" size="20"/>
 				</p>
 				<p>
 					<label for="email">이메일</label>
@@ -35,6 +37,7 @@
 					<input type="text" name="name" size="20"/>
 				</p>
 				<input type="submit" value="등록"/>
+				<input type="button" value="뒤로" onclick="go_back()"/>
 				
 			</form>
 		</div>

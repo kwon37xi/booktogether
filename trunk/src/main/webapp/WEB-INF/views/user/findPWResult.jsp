@@ -3,6 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
 		<title>비밀번호 찾기</title>
 	</head>
 	<body>

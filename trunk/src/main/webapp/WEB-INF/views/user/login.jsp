@@ -7,6 +7,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="../../scripts/user/user.js"></script>
 		<title>로그인</title>
 	</head>
 	<body>
@@ -61,7 +63,10 @@
 						</tbody>
 						<tfoot>
 							<tr>
-								<td colspan="2" align="center"><input type="submit" value="로그인"/></td>
+								<td colspan="2" align="center">
+									<input type="submit" value="로그인"/>
+									<input type="button" value="회원가입" onclick="join()"/>
+								</td>
 							</tr>
 							<tr>
 								<td colspan="2" align="center"><a href="/user/findIDView.do">아이디 찾기</a> / <a href="/user/findPWView.do">비밀번호 찾기</a></td>
