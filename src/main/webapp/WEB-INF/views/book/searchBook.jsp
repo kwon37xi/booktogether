@@ -7,10 +7,12 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<title>책 검색</title>
+		<script type="text/javascript" charset="utf-8" src="../../scripts/book/book.js"></script>
 	</head>
 	<body>
 	
 		<form name="searchBookform" action="/book/searchBook.do" method="post">
+			<input type="hidden" name="pageno" value="1"/>
 			<select name="searchType">
 				<option value="all">전체</option>
 				<option value="title" ${param.searchType=='title' ? 'selected' : ''}>제목</option>
@@ -41,10 +43,11 @@
 									<td>
 										<c:if test="${a_index>book_list_length}">&nbsp;</c:if>
 										<c:if test="${a_index<book_list_length}">
-											<img src="${booklist[a_index].corver}"/><br/>
-											${booklist[a_index].name}<br/>
+											<img src="${booklist[a_index].corver}" width="72" height="102"/><br/>
+											<a href="/book/checkBook.do?ISBN=${booklist[a_index].ISBN10}">
+												${booklist[a_index].name}
+											</a><br/>
 											${booklist[a_index].authors[0].name}<br/>
-											${booklist[a_index].ISBN10}
 										</c:if>
 									</td>
 									<c:set var="a_index" value="${a_index+1}"/>
@@ -61,5 +64,19 @@
 			</tbody>
 			<tfoot></tfoot>
 		</table>	
+		
+		<div id='page_div'>
+			<c:if test="${pageBean.prepage}">
+				<a href="javascript:go_page_search('${pageBean.startPage-pageBean.limit}')">이전</a>
+			</c:if>
+			
+			<c:forEach begin="${pageBean.startPage}" end="${pageBean.endPage}" var='i'>
+				<a href="javascript:go_page_search('${i}')">[ ${i} ]</a>
+			</c:forEach>
+				
+			<c:if test="${pageBean.nextpage}">
+				<a href="javascript:go_page_search('${pageBean.startPage+pageBean.limit}')">다음</a>
+			</c:if>
+		</div>
 	</body>
 </html>

@@ -66,9 +66,9 @@ public interface BookService {
 	 * 책 검색
 	 * @param query : 검색 단어
 	 * @param searchType : 검색 방법
-	 * @param pageno : 페이지 번호
+	 * @param pageBean : 페이지 정보
 	 * @return 책목록
 	 */
-	public List<Book> searchBook(String query, String searchType, int pageno);
+	public List<Book> searchBook(String query, String searchType, PageBean pageBean);
 	
 }

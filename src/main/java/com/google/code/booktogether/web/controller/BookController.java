@@ -19,7 +19,6 @@ import com.google.code.booktogether.web.domain.PageBean;
 
 /**
  * Book에 관련된 Controller
- * 등록화면, 등록, 책목록, 책정보, 수정, 수정화면, 삭제
  * @author ParkHaeCheol
  *
  */
@@ -284,21 +283,24 @@ public class BookController {
 		String searchType=ServletRequestUtils.getStringParameter(req, "searchType", "all");
 		int pageno=ServletRequestUtils.getIntParameter(req, "pageno", 1);
 		
-		System.out.println(query);
-		System.out.println(searchType);
-		System.out.println(pageno);
-		
 		//책검색 목록 가지고 오기
 		List<Book> booklist=null;
+		PageBean pageBean=new PageBean();
+		pageBean.setPageNo(pageno);
+		pageBean.setLimit(5);
+		pageBean.setPagesize(20);
 		
 		if(!query.equals("")){
-			booklist=bookService.searchBook(query,searchType,pageno);
+			booklist=bookService.searchBook(query,searchType,pageBean);
 		}
 		
 		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("book/searchBook");
 		mav.addObject("book_list",booklist);
+		mav.addObject("pageBean",pageBean);
+		
+		System.out.println(pageBean);
 		
 		return mav;
 		

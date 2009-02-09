@@ -230,9 +230,13 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<Book> searchBook(String query, String searchType, int pageno) {
+	public List<Book> searchBook(String query, String searchType, PageBean pageBean) {
 		
-		List<Book> booklist=new UseApiDaumBook().searchBook(query, searchType, pageno);
+		UseApiDaumBook uadb=new UseApiDaumBook();
+		
+		List<Book> booklist=uadb.searchBook(query, searchType, pageBean.getPageNo());
+		
+		pageBean.setDbcount(uadb.getTotalCount());
 		
 		return booklist;
 	}
