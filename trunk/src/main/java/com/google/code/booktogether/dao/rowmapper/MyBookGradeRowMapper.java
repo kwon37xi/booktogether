@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-import org.springframework.stereotype.Component;
 
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookGrade;
@@ -16,8 +14,6 @@ import com.google.code.booktogether.web.domain.BookGrade;
  * @author ParkHaeCheol
  *
  */
-@Scope("prototype")
-@Component("myBookGradeRowMapper")
 public class MyBookGradeRowMapper implements ParameterizedRowMapper<BookGrade>,Serializable{
 
 	/**

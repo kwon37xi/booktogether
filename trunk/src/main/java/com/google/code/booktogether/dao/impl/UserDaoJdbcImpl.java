@@ -27,12 +27,10 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	}
 
 	//사용자 RowMapper
-	@Resource(name="userRowMapper")
-	UserRowMapper userRowMapper;
+	
 	
 	//사용자 비밀번호  RowMapper
-	@Resource(name="userPWRowMapper")
-	UserPwRowMapper userPwRowMapper;
+	
 	
 	@Override
 	public int deleteUser(int id) {
@@ -68,6 +66,8 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public List<User> getListUser(int startpage, int pageSize) {
 		
+		UserRowMapper userRowMapper=new UserRowMapper();
+		
 		String sql=XmlUtil.getInstance().getSQL("user","LIST_USER_SQL");
 
 		List<User> userlist=getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{startpage,pageSize});
@@ -77,6 +77,8 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 	@Override
 	public User getUser(int id) {
+		
+		UserRowMapper userRowMapper=new UserRowMapper();
 		
 		String sql=XmlUtil.getInstance().getSQL("user","GET_USER_SQL");
 
@@ -132,6 +134,8 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public UserPw getUserPw(int id) {
 		
+		UserPwRowMapper userPwRowMapper=new UserPwRowMapper();
+		
 		String sql=XmlUtil.getInstance().getSQL("user","GET_USER_PW_SQL");
 
 		UserPw userPw=(UserPw)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, userPwRowMapper, new Object[]{id}));
@@ -141,6 +145,8 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 	@Override
 	public User isExistUser(String user_id) {
+		
+		UserRowMapper userRowMapper=new UserRowMapper();
 		
 		String sql=XmlUtil.getInstance().getSQL("user","EXIST_USER_SQL");
 
@@ -152,6 +158,8 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public String findID(User user) {
 		
+		UserRowMapper userRowMapper=new UserRowMapper();
+		
 		String sql=XmlUtil.getInstance().getSQL("user","FIND_USER_ID_SQL");
 		
 		user=(User)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, userRowMapper, new Object[]{user.getName(), user.getEmail()}));
@@ -162,6 +170,8 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 	@Override
 	public User findPW(User user) {
+		
+		UserRowMapper userRowMapper=new UserRowMapper();
 		
 		String sql=XmlUtil.getInstance().getSQL("user","FIND_USER_PW_SQL");
 

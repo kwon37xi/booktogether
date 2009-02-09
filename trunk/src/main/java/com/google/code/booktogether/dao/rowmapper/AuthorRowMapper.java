@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-import org.springframework.stereotype.Component;
 
 import com.google.code.booktogether.web.domain.Author;
 
@@ -15,8 +13,6 @@ import com.google.code.booktogether.web.domain.Author;
  * @author ParkHaeCheol
  *
  */
-@Scope("prototype")
-@Component("authorRowMapper")
 public class AuthorRowMapper implements ParameterizedRowMapper<Author>,Serializable{
 
 	/**

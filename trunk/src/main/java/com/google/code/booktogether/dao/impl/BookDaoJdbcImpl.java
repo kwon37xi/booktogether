@@ -23,12 +23,10 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	}
 
 	//책 목록에 쓰일 RowMapper
-	@Resource(name="bookRowMapper")
-	BookRowMapper bookRowMapper;
+	
 
 	//지은이 목록에 쓰일 RowMapper
-	@Resource(name="authorRowMapper")
-	AuthorRowMapper authorRowMapper;
+	
 
 
 	//책 삭제
@@ -67,6 +65,8 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	//책 조회
 	@Override
 	public Book getBook(int id) {
+		
+		BookRowMapper bookRowMapper=new BookRowMapper();
 
 		String sql=XmlUtil.getInstance().getSQL("book","GET_BOOK_ID_SQL");
 
@@ -78,6 +78,8 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	//책 목록
 	@Override
 	public List<Book> getListBook(int startpage, int pageSize) {
+		
+		BookRowMapper bookRowMapper=new BookRowMapper();
 
 		String sql=XmlUtil.getInstance().getSQL("book","LIST_BOOK_SQL");
 
@@ -164,6 +166,8 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	//해당책에 관련된 지은이 목록
 	@Override
 	public List<Author> getAuthor(Book book) {
+		
+		AuthorRowMapper authorRowMapper=new AuthorRowMapper();
 
 		String sql=XmlUtil.getInstance().getSQL("book","GET_AUTHORS_SQL");
 
@@ -189,6 +193,8 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	//책조회 isbn
 	@Override
 	public Book getBook(String isbn) {
+		
+		BookRowMapper bookRowMapper=new BookRowMapper();
 
 		String sql=XmlUtil.getInstance().getSQL("book","GET_BOOK_ISBN_SQL");
 		
@@ -201,6 +207,8 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao{
 	
 	@Override
 	public Author getAuthor(int id) {
+		
+		AuthorRowMapper authorRowMapper=new AuthorRowMapper();
 
 		String sql=XmlUtil.getInstance().getSQL("book","GET_AUTHOR_SQL");
 
