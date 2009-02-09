@@ -41,6 +41,7 @@ public class UseApiDaumBook {
 	private Document xmldoc=null;
 	private StringBuffer xmlcontent=null;
 
+	private int totalcount;
 	/**
 	 * 주소 요청하고 output에 맞게 받기
 	 * 인코딩 UTF-8
@@ -57,6 +58,10 @@ public class UseApiDaumBook {
 
 		return book;
 	}
+	
+	public int getTotalCount(){
+		return totalcount;
+	}
 
 	public List<Book> searchBook(String query, String searchType,int pageno){
 
@@ -66,11 +71,14 @@ public class UseApiDaumBook {
 			e1.printStackTrace();
 		}
 		
-		ConnectURL(query, searchType,pageno);
+		ConnectURL(query, searchType, pageno);
 
 		//네이버 XML파서
 		xmlParser(xmlcontent);
-
+		
+		//header파서(총갯수)
+		xmlBookHeaderParse();
+		
 		//item 파서
 		List<Book> booklist=xmlBookListParser();
 
@@ -213,8 +221,15 @@ public class UseApiDaumBook {
 			Book book=new Book();
 
 			item=(Element)item_list.get(i);
+			
+			String title=item.getChild("title").getText();
+			
+			if(title.length()>13){
+				book.setName(title.substring(0,14)+"...");
+			}else{
+				book.setName(title);
+			}
 
-			book.setName(item.getChild("title").getText());
 			book.setCorver(item.getChild("cover_s_url").getText());
 			book.setPublish_comp(item.getChild("pub_nm").getText());
 
@@ -236,6 +251,16 @@ public class UseApiDaumBook {
 		
 		return booklist;
 		
+	}
+	
+	private void xmlBookHeaderParse(){
+		Element child=xmldoc.getRootElement();
+
+		//title=child.getChildText("title");
+		totalcount=Integer.parseInt(child.getChildText("totalCount"));
+		//int result=child.getChildText("result");
+		//sort=ParamUtil.parseInt(child.getChildText("sort"),0);
+		//pageno=ParamUtil.parseInt(child.getChildText("pageno"),0);
 	}
 
 
