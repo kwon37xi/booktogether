@@ -6,8 +6,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<title>책 검색</title>
+		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" charset="utf-8" src="../../scripts/book/book.js"></script>
+		<title>책 검색</title>
 	</head>
 	<body>
 	
@@ -43,8 +44,8 @@
 									<td>
 										<c:if test="${a_index>book_list_length}">&nbsp;</c:if>
 										<c:if test="${a_index<book_list_length}">
-											<img src="${booklist[a_index].corver}" width="72" height="102"/><br/>
-											<a href="/book/checkBook.do?ISBN=${booklist[a_index].ISBN10}">
+											<img src="${booklist[a_index].corver}" width="72" height="102" onclick="checkBook('${booklist[a_index].ISBN10}')"/><br/>
+											<a href="javascript:checkBook('${booklist[a_index].ISBN10}')">
 												${booklist[a_index].name}
 											</a><br/>
 											${booklist[a_index].authors[0].name}<br/>

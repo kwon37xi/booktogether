@@ -7,6 +7,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="../../scripts/common/common.js"></script>
 		<title>회원수정</title>
 	</head>
 	<body>
@@ -15,15 +17,6 @@
 			
 				<p>			
 					${user_info.user_id}
-				</p>
-				<p>
-					<input type="checkbox" name="pw"/>비밀번호 수정함 
-				</p>
-				<p>
-					<label for="pw">비밀번호 수정시 입력 :</label> <input type="text" name="pw_c" size="20" disabled="disabled"/>
-				</p>
-				<p>
-					<label for="pw_again">비밀번호 수정시 다시입력 :</label> <input type="text" name="pw_again" size="20" disabled="disabled"/>
 				</p>
 				<p>
 					<label for="nickname">별명</label>
@@ -38,6 +31,7 @@
 					<input type="text" name="email" size="20" value="${user_info.email}"/>
 				</p>
 				<input type="submit" value="수정"/>
+				<input type="button" value="뒤로" onclick="go_back()"/>
 			</form>
 		</div>
 	</body>

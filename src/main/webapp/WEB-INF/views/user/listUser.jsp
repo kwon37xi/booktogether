@@ -6,6 +6,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
 		<title>책목록</title>
 	</head>
 	<body>

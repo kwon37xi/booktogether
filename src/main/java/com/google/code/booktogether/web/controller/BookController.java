@@ -308,7 +308,7 @@ public class BookController {
 	public ModelAndView handleSearchBook(HttpServletRequest req){
 		
 		//책 ID값
-		String query=ServletRequestUtils.getStringParameter(req, "query", "");
+		String query=ServletRequestUtils.getStringParameter(req, "query", "스프링");
 		String searchType=ServletRequestUtils.getStringParameter(req, "searchType", "all");
 		int pageno=ServletRequestUtils.getIntParameter(req, "pageno", 1);
 		
