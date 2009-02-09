@@ -25,13 +25,10 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 	}
 
 	//별점 RowMapper
-	@Resource(name="bookGradeRowMapper")
-	BookGradeRowMapper bookGradeRowMapper;
 	
 	
 	//내가 매긴 별점 RowMapper
-	@Resource(name="myBookGradeRowMapper")
-	MyBookGradeRowMapper myBookGradeRowMapper;
+	
 
 
 	@Override
@@ -67,6 +64,8 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 
 	@Override
 	public List<BookGrade> getListBookGrade(int book_id,int startPage, int endPage) {
+		
+		BookGradeRowMapper bookGradeRowMapper=new BookGradeRowMapper();
 
 		String sql=XmlUtil.getInstance().getSQL("bookgrade","LIST_BOOKGRADE_SQL");
 
@@ -78,6 +77,9 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 
 	@Override
 	public List<BookGrade> getListMyBookGrade(int user_id, int startPage, int endPage) {
+		
+		MyBookGradeRowMapper myBookGradeRowMapper=new MyBookGradeRowMapper();
+		
 		String sql=XmlUtil.getInstance().getSQL("bookgrade","LIST_MYBOOKGRADE_SQL");
 
 		List<BookGrade> mybookgradelist=getSimpleJdbcTemplate().query(sql, myBookGradeRowMapper, new Object[]{user_id,startPage, endPage});
