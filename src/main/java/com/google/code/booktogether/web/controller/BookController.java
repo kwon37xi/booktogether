@@ -15,10 +15,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.BookGradeService;
+import com.google.code.booktogether.service.BookReviewService;
 import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookGrade;
+import com.google.code.booktogether.web.domain.BookReview;
 import com.google.code.booktogether.web.domain.PageBean;
 
 /**
@@ -41,6 +43,13 @@ public class BookController {
 	 */
 	@Resource(name="bookGradeService")
 	BookGradeService bookGradeService;
+	
+	
+	/**
+	 * BookReviewService
+	 */
+	@Resource(name="bookReviewService")
+	BookReviewService bookReviewService;
 
 
 	/**
@@ -164,10 +173,14 @@ public class BookController {
 		Book book=bookService.getBook(id);
 		
 		List<BookGrade> bookgradelist=bookGradeService.getListBookGrade(book.getId(), 0, 5);
+		List<BookReview> bookreviewlist=bookReviewService.getListBookReview(book.getId(), 0, 5);
 		
 		
 		//자기가 입력한 별점이 있는지 체크
 		boolean existGrade=false;
+		
+		//자기가 입력한 리뷰가 있는지 체크
+		boolean existReview=false;
 		
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 
@@ -175,6 +188,7 @@ public class BookController {
 		
 		if(isExistId){
 			existGrade=bookGradeService.isExistGrade(book.getId(),user_id);
+			existReview=bookReviewService.isExistReview(book.getId(),user_id);
 		}
 		
 		//경로 설정 및 Attribute 설정
@@ -182,7 +196,9 @@ public class BookController {
 		mav.setViewName("book/getBook");
 		mav.addObject("book_info",book);
 		mav.addObject("bookgradelist",bookgradelist);
+		mav.addObject("bookreviewlist",bookreviewlist);
 		mav.addObject("existGrade",existGrade);
+		mav.addObject("existReview",existReview);
 
 		return mav;
 

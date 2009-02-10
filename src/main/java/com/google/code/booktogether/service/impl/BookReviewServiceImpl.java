@@ -17,7 +17,7 @@ import com.google.code.booktogether.web.domain.BookReview;
 public class BookReviewServiceImpl implements BookReviewService {
 
 
-	@Resource(name="bookReviewdbcDao")
+	@Resource(name="bookReviewJdbcDao")
 	private BookReviewDao bookReviewJdbcDao;
 
 

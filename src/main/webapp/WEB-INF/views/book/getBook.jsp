@@ -2,12 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"   "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="../../scripts/book/book.js"></script>
 		<title>책조회</title>
 	</head>
 	<body>
@@ -129,6 +132,57 @@
 				</table>
 			</form>
 		</c:if>
+		
+		
+		<br/><br/>
+		<table border="1">
+			<thead>
+				<tr>
+					<td colspan="3">리뷰 테이블</td>
+				</tr>
+			</thead>
+			<tbody>
+				<c:choose>
+					<c:when test="${fn:length(bookreviewlist)!=0}">
+						<c:forEach begin="0" items="${bookreviewlist}" var="review_info" varStatus="status">
+							<tr>
+								<td>${review_info.title}</td>
+								<td>${review_info.user.user_id}(${review_info.user.nickname})</td>
+								<td>추천수 : ${review_info.recommend}</td>
+							</tr>	
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<tr>
+							<td colspan="3">리뷰가 없습니다.</td>
+						</tr>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+			<tfoot></tfoot>
+		</table>
+		
+		
+		<c:choose>
+			<c:when test="${sessionScope.id!=null && !existReview}">
+				내가 작성한 리뷰 정보
+				<form name="myreviewform" method="post">
+					<input type="hidden" name="book_id" value="${book_info.id}"/> 
+					<input type="button" value="조회" onclick="getReviewView()"/>
+					<input type="button" value="수정" onclick="modifyReviewView()"/>
+				</form>
+			</c:when>
+			
+			<c:when test="${sessionScope.id!=null && existReview}">
+				내가 작성한 리뷰 정보
+				<form name="myreviewform" method="post">
+					<input type="hidden" name="book_id" value="${book_info.id}"/> 
+					<input type="button" value="등록" onclick="insertReviewView()"/>
+				</form>
+			</c:when>
+		</c:choose>
+		
+		
 		<div id=''>
 			<a href="javascript:history.go(-1)">뒤로</a>
 			<a href="/book/searchBook.do">목록</a>

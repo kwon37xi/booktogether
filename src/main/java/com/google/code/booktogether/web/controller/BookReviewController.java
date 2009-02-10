@@ -188,7 +188,6 @@ public class BookReviewController {
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 		
 		//파라미터 정보 변수에 세팅
-		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
 		
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
@@ -200,7 +199,6 @@ public class BookReviewController {
 		if(isExistId){
 			
 			bookReview=new BookReview();
-			bookReview.setId(id);
 			bookReview.setBook(new Book());
 			bookReview.setUser(new User());
 			bookReview.getBook().setId(book_id);
@@ -215,6 +213,7 @@ public class BookReviewController {
 		}
 		
 		bookReview=bookReviewService.getReview(bookReview);
+		
 		bookReview.setReview(bookReview.getReview().replaceAll("\n\r", "<br/>"));
 		
 		Book book=bookService.getBook(book_id);
@@ -265,7 +264,6 @@ public class BookReviewController {
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
 		//파라미터 정보 변수에 세팅
-		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
 
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
@@ -277,7 +275,6 @@ public class BookReviewController {
 		if(isExistId){
 
 			bookReview=new BookReview();
-			bookReview.setId(id);
 			bookReview.setBook(new Book());
 			bookReview.setUser(new User());
 			bookReview.getBook().setId(book_id);
