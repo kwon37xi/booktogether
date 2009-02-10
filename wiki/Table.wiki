@@ -103,7 +103,7 @@ CREATE TABLE `bookreview` (
 ----
 
 
-= *RECOMMEND *=
+= *RECOMMEND* 테이블 =
 {{{
 CREATE TABLE `recommend` (                                  
    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',  
