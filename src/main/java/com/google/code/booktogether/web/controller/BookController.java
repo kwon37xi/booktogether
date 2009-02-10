@@ -358,37 +358,13 @@ public class BookController {
 	@RequestMapping("/book/checkBook.do")
 	public ModelAndView handleCheckBook(HttpServletRequest req){
 		
-		ServletRequestAttributes sra=new ServletRequestAttributes(req);
-		
 		//책 ID값
 		String isbn=ServletRequestUtils.getStringParameter(req, "ISBN", "");
 		
 		//책 정보 가지고 오기
 		Book book=bookService.checkBook(isbn);
 		
-		List<BookGrade> bookgradelist=bookGradeService.getListBookGrade(book.getId(), 0, 5);
-		
-		
-		//자기가 입력한 별점이 있는지 체크
-		boolean existGrade=false;
-		
-		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
-
-		boolean isExistId=(user_id!=null) ? true : false;
-		
-		if(isExistId){
-			existGrade=bookGradeService.isExistGrade(book.getId(),user_id);
-		}
-		
-		
-		//경로 설정 및 Attribute 설정
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("book/getBook");
-		mav.addObject("book_info",book);
-		mav.addObject("bookgradelist",bookgradelist);
-		mav.addObject("existGrade",existGrade);
-
-		return mav;
+		return new ModelAndView("redirect:/book/getBook.do?id="+book.getId());
 		
 	}
 	

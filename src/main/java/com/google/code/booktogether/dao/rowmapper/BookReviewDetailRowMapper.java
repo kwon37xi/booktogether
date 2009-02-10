@@ -42,7 +42,6 @@ public class BookReviewDetailRowMapper implements ParameterizedRowMapper<BookRev
 		
 		bookReview.getBook().setId(rs.getInt("BID"));
 		
-		
 		return bookReview;
 	}
 

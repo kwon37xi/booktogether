@@ -17,9 +17,14 @@ function modifyReviewView(){
 	
 }
 
-function getReviewView(){
+function getReviewView(id){
+	document.myreviewform.action="/book/getMyReview.do?id"+id;
+	document.myreviewform.submit();
+}
+
+function getMyReviewView(){
 	
-	document.myreviewform.action="/book/getReview.do";
+	document.myreviewform.action="/book/getMyReview.do";
 	document.myreviewform.submit();
 	
 }
@@ -27,7 +32,16 @@ function getReviewView(){
 
 function insertReviewView(){
 	
-	document.myreviewform.action="/book/insertReviewView.do";
+	document.myreviewform.action="/book/insertBookReviewView.do";
 	document.myreviewform.submit();
 	
+}
+
+
+function deleteReviewView(){
+	
+	if(confirm("삭제하시겠습니까?")){
+		document.myreviewform.action="/book/deleteBookReview.do";
+		document.myreviewform.submit();
+	}
 }

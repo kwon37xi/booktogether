@@ -52,6 +52,8 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 						bookReview.getTitle()
 						,bookReview.getReview()
 						,bookReview.getId()
+						,bookReview.getUser().getId()
+						,bookReview.getBook().getId()
 				}
 		);
 
@@ -66,8 +68,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 		int count=getSimpleJdbcTemplate().update(
 				sql,
 				new Object[]{
-						bookReview.getId()
-						,bookReview.getBook().getId()
+						bookReview.getBook().getId()
 						,bookReview.getUser().getId()
 				}
 		);
@@ -147,7 +148,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 						, bookReviewDetailRowMapper
 						, new Object[]{
 								bookReview.getBook().getId()
-								, bookReview.getUser().getUser_id()
+								, bookReview.getUser().getId()
 						}
 				)
 		);

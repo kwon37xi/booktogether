@@ -64,17 +64,17 @@
 		
 		<div>
 			<form method="post" name="modifyreview_form" action="/book/modifyBookReview.do">
+				<input type="hidden" name="id" value="${bookReview_info.id}"/>
+				<input type="hidden" name="book_id" value="${book_info.id}"/>
 				<p>			
 					<label for="name">제목</label>
 					<input type="text" name="title" size="30" value="${bookReview_info.title}"/>
 				</p>
 				<p>
 					<label for="name">내용</label>
-					<textarea rows="60" cols="20" name="review">
-						<c:out value="${bookReview_info}" escapeXml="true"/> 
-					</textarea>
+					<textarea rows="20" cols="60" name="review"><c:out value="${bookReview_info.review}" escapeXml="true"/></textarea>
 				</p>
-				<input type="submit" value="등록"/>
+				<input type="submit" value="수정"/>
 			</form>
 		</div>
 		

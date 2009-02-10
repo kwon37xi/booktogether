@@ -63,13 +63,14 @@
 		
 		<div>
 			<form method="post" name="insertreview_form" action="/book/insertBookReview.do">
+				<input type="hidden" name="book_id" value="${book_info.id}"/>
 				<p>			
 					<label for="name">제목</label>
 					<input type="text" name="title" size="30"/>
 				</p>
 				<p>
 					<label for="name">내용</label>
-					<textarea rows="60" cols="20" name="review"></textarea>
+					<textarea rows="20" cols="60" name="review"></textarea>
 				</p>
 				<input type="submit" value="등록"/>
 			</form>

@@ -146,7 +146,7 @@
 					<c:when test="${fn:length(bookreviewlist)!=0}">
 						<c:forEach begin="0" items="${bookreviewlist}" var="review_info" varStatus="status">
 							<tr>
-								<td>${review_info.title}</td>
+								<td><a href="/book/getReview.do?id=${review_info.id}">${review_info.title}</a></td>
 								<td>${review_info.user.user_id}(${review_info.user.nickname})</td>
 								<td>추천수 : ${review_info.recommend}</td>
 							</tr>	
@@ -164,16 +164,18 @@
 		
 		
 		<c:choose>
-			<c:when test="${sessionScope.id!=null && !existReview}">
+			<c:when test="${sessionScope.id!=null && existReview}">
 				내가 작성한 리뷰 정보
 				<form name="myreviewform" method="post">
 					<input type="hidden" name="book_id" value="${book_info.id}"/> 
-					<input type="button" value="조회" onclick="getReviewView()"/>
+					
+					<input type="button" value="조회" onclick="getMyReviewView()"/>
 					<input type="button" value="수정" onclick="modifyReviewView()"/>
+					<input type="button" value="삭제" onclick="deleteReviewView()"/>
 				</form>
 			</c:when>
 			
-			<c:when test="${sessionScope.id!=null && existReview}">
+			<c:when test="${sessionScope.id!=null && !existReview}">
 				내가 작성한 리뷰 정보
 				<form name="myreviewform" method="post">
 					<input type="hidden" name="book_id" value="${book_info.id}"/> 

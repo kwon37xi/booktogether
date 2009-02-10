@@ -70,7 +70,7 @@ public class BookReviewController {
 		}
 
 		ModelAndView mav=new ModelAndView();
-		mav.setViewName("book/review/insertReview");
+		mav.setViewName("review/insertReview");
 		mav.addObject("book_info",book);
 		return mav;
 
@@ -140,7 +140,6 @@ public class BookReviewController {
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
 		//파라미터 정보 변수에 세팅
-		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
 
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
@@ -152,7 +151,6 @@ public class BookReviewController {
 		if(isExistId){
 
 			bookReview=new BookReview();
-			bookReview.setId(id);
 			bookReview.setBook(new Book());
 			bookReview.setUser(new User());
 			bookReview.getBook().setId(book_id);
@@ -184,26 +182,26 @@ public class BookReviewController {
 	 */
 	@RequestMapping("/book/modifyBookReviewView.do")
 	public ModelAndView handleModifyBookReviewView(HttpServletRequest req,HttpServletResponse res){
-		
+
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
-		
+
 		//파라미터 정보 변수에 세팅
 		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
-		
+
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
-		
+
 		boolean isExistId=(user_id!=null) ? true : false;
-		
+
 		BookReview bookReview=null;
-		
+
 		if(isExistId){
-			
+
 			bookReview=new BookReview();
 			bookReview.setBook(new Book());
 			bookReview.setUser(new User());
 			bookReview.getBook().setId(book_id);
 			bookReview.getUser().setId(user_id);
-			
+
 		}else{
 			//경로 설정 및 Attribute 설정
 			ModelAndView mav=new ModelAndView();
@@ -212,47 +210,95 @@ public class BookReviewController {
 			return mav;
 		}
 		
+
 		bookReview=bookReviewService.getReview(bookReview);
 		
-		bookReview.setReview(bookReview.getReview().replaceAll("\n\r", "<br/>"));
-		
 		Book book=bookService.getBook(book_id);
-		
+
 		ModelAndView mav=new ModelAndView();
-		mav.setViewName("book/review/modifyReview");
+		mav.setViewName("review/modifyReview");
 		mav.addObject("book_info",book);
 		mav.addObject("bookReview_info",bookReview);
-		
+
 		return mav;
-		
+
 	}
-	
-	
+
+
 	/**
-	 * 리뷰 조회
+	 * 리뷰 조회(모든 회원)
 	 * @param req
 	 * @return
 	 */
 	@RequestMapping("/book/getReview.do")
 	public ModelAndView handleGetReview(HttpServletRequest req,HttpServletResponse res){
-		
+
 		//파라미터 정보 변수에 세팅
 		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
-		
+
 		BookReview bookReview=bookReviewService.getReview(id);
-		
+
 		Book book=bookService.getBook(bookReview.getBook().getId());
-		
+
 		ModelAndView mav=new ModelAndView();
-		mav.setViewName("book/review/getReview");
+		mav.setViewName("review/getReview");
 		mav.addObject("book_info",book);
 		mav.addObject("bookReview_info",bookReview);
-		
+
 		return mav;
-		
+
 	}
-	
-	
+
+
+	/**
+	 * 리뷰 조회(내가 작성한 리뷰)-조회화면
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/book/getMyReview.do")
+	public ModelAndView handleGetMyReview(HttpServletRequest req,HttpServletResponse res){
+
+		ServletRequestAttributes sra=new ServletRequestAttributes(req);
+		
+		//파라미터 정보 변수에 세팅
+		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
+
+		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
+
+		boolean isExistId=(user_id!=null) ? true : false;
+
+		BookReview bookReview=null;
+
+		if(isExistId){
+
+			bookReview=new BookReview();
+			bookReview.setBook(new Book());
+			bookReview.setUser(new User());
+			bookReview.getBook().setId(book_id);
+			bookReview.getUser().setId(user_id);
+
+		}else{
+			//경로 설정 및 Attribute 설정
+			ModelAndView mav=new ModelAndView();
+			mav.setViewName("user/login");
+			mav.addObject("message","로그아웃 되었습니다.");
+			return mav;
+		}
+
+		bookReview=bookReviewService.getReview(bookReview);
+
+		Book book=bookService.getBook(book_id);
+
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("review/getReview");
+		mav.addObject("book_info",book);
+		mav.addObject("bookReview_info",bookReview);
+
+		return mav;
+
+	}
+
+
 	/**
 	 * 리뷰 수정
 	 * @param req
@@ -264,7 +310,10 @@ public class BookReviewController {
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
 		//파라미터 정보 변수에 세팅
+		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
+		String title=ServletRequestUtils.getStringParameter(req, "title", "");
+		String review=ServletRequestUtils.getStringParameter(req, "review", "");
 
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 
@@ -279,6 +328,9 @@ public class BookReviewController {
 			bookReview.setUser(new User());
 			bookReview.getBook().setId(book_id);
 			bookReview.getUser().setId(user_id);
+			bookReview.setId(id);
+			bookReview.setTitle(title);
+			bookReview.setReview(review);
 
 		}else{
 			//경로 설정 및 Attribute 설정
