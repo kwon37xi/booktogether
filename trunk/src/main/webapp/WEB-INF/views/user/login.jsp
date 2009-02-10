@@ -13,10 +13,11 @@
 	</head>
 	<body>
 	
-		<c:if test="${message!=null}">
+		<c:if test="${sessionScope.message!=null}">
 			<script>
-				alert('${message}');
+				alert('${sessionScope.message}');
 			</script>
+			<c:remove scope="session" var="message"/>
 		</c:if>
 	
 		<c:choose>

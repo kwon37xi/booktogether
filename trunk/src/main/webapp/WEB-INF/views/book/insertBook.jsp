@@ -65,7 +65,7 @@
 				</p>
 				<p>
 				<input type="submit" value="등록"/>
-				
+				</p>
 			</form>
 		</div>
 	</body>

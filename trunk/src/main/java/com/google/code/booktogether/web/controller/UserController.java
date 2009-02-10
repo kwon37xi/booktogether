@@ -69,13 +69,19 @@ public class UserController {
 
 		boolean result=userService.insertUser(user,userPw);
 
+		String message="";
 
-		//경로 설정 및 Attribute 설정
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("user/joinResult");
-		mav.addObject("result",result);
+		if(result){
+			message="가입성공";
+		}else{
+			message="가입실패";
+		}
+		
+		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
-		return mav;
+		sra.setAttribute("message",message,RequestAttributes.SCOPE_SESSION);
+
+		return new ModelAndView("redirect:/user/login.do");
 
 	}
 
@@ -124,6 +130,8 @@ public class UserController {
 	@RequestMapping("/user/valiadIdPwUser.do")
 	public ModelAndView handleValiadIdPwUser(HttpServletRequest req){
 
+		ServletRequestAttributes sra=new ServletRequestAttributes(req);
+
 		//현재 페이지 
 		String user_id=ServletRequestUtils.getStringParameter(req, "user_id", "");
 		String pw=ServletRequestUtils.getStringParameter(req, "pw", "");
@@ -131,34 +139,23 @@ public class UserController {
 		//사용자 아이디, 비밀번호 일치 되는치 검사
 		User user=userService.validIdPwUser(user_id, pw);
 
-		String message="";
-		ModelAndView mav=new ModelAndView();
-
 		//성공시
 		if(user!= null) {
-
-			ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
 			sra.setAttribute("id", user.getId(), RequestAttributes.SCOPE_SESSION);
 			sra.setAttribute("nickname", user.getNickname(), RequestAttributes.SCOPE_SESSION);
 			sra.setAttribute("name", user.getName(), RequestAttributes.SCOPE_SESSION);
 			sra.setAttribute("user_id", user.getUser_id(), RequestAttributes.SCOPE_SESSION);
 
-			System.out.println("로그인 성공");
-
 		}else{		//실패시 
-
-			message="아이디가 없거나 비밀번호가 일치 하지 않습니다.";
-			mav.addObject("message",message);
-
-			System.out.println("로그인 실패");
-
+			
+			sra.setAttribute("message", "아이디가 없거나 비밀번호가 일치 하지 않습니다.", RequestAttributes.SCOPE_SESSION);
+			
 		}
 
-		//경로 설정 및 Attribute 설정
-		mav.setViewName("user/login");
 
-		return mav;
+		//경로 설정 및 Attribute 설정
+		return new ModelAndView("redirect:/user/login.do");
 
 	}
 
@@ -220,7 +217,7 @@ public class UserController {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("user/getUser");
 		mav.addObject("user_info",user);
-
+	
 		return mav;
 
 	}
@@ -288,39 +285,32 @@ public class UserController {
 		String email=ServletRequestUtils.getStringParameter(req, "email", "");
 		String nickname=ServletRequestUtils.getStringParameter(req, "nickname", "");
 		String name=ServletRequestUtils.getStringParameter(req, "name", "");
-		boolean pw_c=ServletRequestUtils.getBooleanParameter(req, "pw_c", false);
 
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setName(name);
 
-		UserPw userPw=null;
+		boolean result=userService.modifyUser(user);
 
-		if(pw_c){
-
-			String pw=ServletRequestUtils.getStringParameter(req, "pw", "");
-
-			if(!pw.equals("")){
-				userPw=new UserPw();
-				userPw.setPw(pw);
-			}
-
-		}
-
-		boolean result=userService.modifyUser(user,userPw);
+		int id=0;
 
 		if(isSession){
-			user=userService.getUser(s_id);
+			id=s_id;
 		}else{
-			user=userService.getUser(p_id);
+			id=p_id;
 		}
 
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("user/getUser");
-		mav.addObject("user_info",user);
-		mav.addObject("result",result);
+		String message="";
 
-		return mav;
+		if(result){
+			message="수정성공";
+		}else{
+			message="수정실패";
+		}
+
+		sra.setAttribute("message",message,RequestAttributes.SCOPE_SESSION);
+
+		return new ModelAndView("redirect:/user/getUser.do?id="+id);
 
 	}
 
@@ -349,11 +339,17 @@ public class UserController {
 			result=userService.deleteUser(p_id);
 		}
 
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("user/tempUser");
-		mav.addObject("result",result);
+		String message="";
 
-		return mav;
+		if(result){
+			message="탈퇴성공";
+		}else{
+			message="탈퇴실패";
+		}
+
+		sra.setAttribute("message",message,RequestAttributes.SCOPE_SESSION);
+
+		return new ModelAndView("redirect:/user/login.do");
 
 	}
 
@@ -442,7 +438,7 @@ public class UserController {
 		return mav;
 
 	}
-	
+
 	/**
 	 * 사용자 PW변경 화면
 	 * @param req
@@ -455,8 +451,8 @@ public class UserController {
 
 		return mav;
 	}
-	
-	
+
+
 	/**
 	 * 사용자 PW 변경하기
 	 * @param req 
@@ -473,11 +469,11 @@ public class UserController {
 		String message="";
 
 		User user=userService.validIdPwUser(user_id, pw);
-		
+
 		if(user!=null){
-			
+
 			boolean result=userService.modifyPW(user,newPw);
-			
+
 			if(result){
 				message="변경되었습니다.";
 			}else{
@@ -487,11 +483,9 @@ public class UserController {
 			message="입력하신 비밀번호가 일치 하지 않습니다.";
 		}
 
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("user/login");
-		mav.addObject("message",message);
+		sra.setAttribute("message",message,RequestAttributes.SCOPE_SESSION);
 
-		return mav;
+		return new ModelAndView("redirect:/user/login.do");
 
 	}
 

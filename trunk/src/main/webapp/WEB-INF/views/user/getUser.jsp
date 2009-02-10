@@ -10,6 +10,14 @@
 		<title>사용자 조회</title>
 	</head>
 	<body>
+	
+		<c:if test="${sessionScope.message!=null}">
+			<script>
+				alert('${sessionScope.message}');
+			</script>
+			<c:remove scope="session" var="message"/>
+		</c:if>
+		
 		<table border='1'>
 			<thead></thead>
 			<tbody>

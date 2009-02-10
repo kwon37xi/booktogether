@@ -29,7 +29,7 @@ public class BookGradeController {
 	 */
 	@Resource(name="bookGradeService")
 	BookGradeService bookGradeService;
-	
+
 	/**
 	 * 별점 등록
 	 * @param req
@@ -39,43 +39,50 @@ public class BookGradeController {
 	public ModelAndView handleInsertBookGrade(HttpServletRequest req,HttpServletResponse res){
 
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
-		
+
 		//파라미터 정보 변수에 세팅
 		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
 		int grade=ServletRequestUtils.getIntParameter(req, "grade", 0);
-		
+
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 
 		boolean isExistId=(user_id!=null) ? true : false;
 
 		BookGrade bookGrade=null;
-		
+
 		if(isExistId){
-			
+
 			bookGrade=new BookGrade();
 			bookGrade.setBook(new Book());
 			bookGrade.setUser(new User());
 			bookGrade.getBook().setId(book_id);
 			bookGrade.getUser().setId(user_id);
 			bookGrade.setGrade(grade);
-			
+
+
 		}else{
-			//경로 설정 및 Attribute 설정
-			ModelAndView mav=new ModelAndView();
-			mav.setViewName("user/login");
-			mav.addObject("message","로그아웃 되었습니다.");
-			return mav;
+
+			sra.setAttribute("message","로그아웃되었습니다.",RequestAttributes.SCOPE_SESSION);
+
+			return new ModelAndView("redirect:/user/login.do");
+
 		}
-		
-		
+
+
 		//별점 등록
-		bookGradeService.insertGrade(bookGrade);
-		
+		boolean result=bookGradeService.insertGrade(bookGrade);
+
+		if(result){
+			sra.setAttribute("message","별점 등록성공",RequestAttributes.SCOPE_SESSION);
+		}else{
+			sra.setAttribute("message","별점 등록실패",RequestAttributes.SCOPE_SESSION);
+		}
+
 		return new ModelAndView("redirect:/book/getBook.do?id="+book_id);
 
 	}
-	
-	
+
+
 	/**
 	 * 별점 등록
 	 * @param req
@@ -83,44 +90,43 @@ public class BookGradeController {
 	 */
 	@RequestMapping("/book/deleteBookGrade.do")
 	public ModelAndView handleDeleteBookGrade(HttpServletRequest req,HttpServletResponse res){
-		
+
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
-		
+
 		//파라미터 정보 변수에 세팅
 		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
-		
+
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
-		
+
 		boolean isExistId=(user_id!=null) ? true : false;
-		
+
 		BookGrade bookGrade=null;
-		
+
 		if(isExistId){
-			
+
 			bookGrade=new BookGrade();
 			bookGrade.setId(id);
 			bookGrade.setBook(new Book());
 			bookGrade.setUser(new User());
 			bookGrade.getBook().setId(book_id);
 			bookGrade.getUser().setId(user_id);
-			
+
 		}else{
-			//경로 설정 및 Attribute 설정
-			ModelAndView mav=new ModelAndView();
-			mav.setViewName("user/login");
-			mav.addObject("message","로그아웃 되었습니다.");
-			return mav;
+
+			sra.setAttribute("message","로그아웃되었습니다.",RequestAttributes.SCOPE_SESSION);
+
+			return new ModelAndView("redirect:/user/login.do");
 		}
-		
-		
+
+
 		//별점 등록
 		boolean result=bookGradeService.deleteGrade(bookGrade);
-		
+
 		System.out.println(result);
-		
+
 		return new ModelAndView("redirect:/book/getBook.do?id="+book_id);
-		
+
 	}
 
 }

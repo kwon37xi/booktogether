@@ -67,4 +67,26 @@ public interface BookReviewDao {
 	 * @return
 	 */
 	public int isExistReview(int book_id,int user_id);
+	
+	/**
+	 * 추천수 올리기
+	 * @param bookReview
+	 * @return
+	 */
+	public int modifyReviewRecommend(BookReview bookReview);
+	
+	/**
+	 * 추천인 등록
+	 * @param bookReview
+	 * @return
+	 */
+	public int insertRecommend(BookReview bookReview);
+	
+	/**
+	 * 기존에 추천기록이 있는지
+	 * @param bookReview
+	 * @return
+	 */
+	public int isExistRecommend(BookReview bookReview);
+	
 }
