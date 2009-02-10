@@ -81,7 +81,7 @@
     
     
      <sql name="GET_MY_BOOKREVIEW_SQL">
-        <description>책 리뷰(내가쓴 리뷰)- 수정화면</description>
+        <description>책 리뷰(내가쓴 리뷰)</description>
         <query>
             <![CDATA[
              SELECT U.id as uid
@@ -93,8 +93,7 @@
              	    ,BR.review as review 
              	    ,BR.title as title 
              FROM USER U, BOOKREVIEW BR  
-             WHERE BR.id = ? 
-               AND BR.book_id = ? 
+             WHERE BR.book_id = ? 
                AND BR.user_id = U.id 
                AND U.user_id = ?  
                AND U.delete_y_n = 0  
@@ -138,8 +137,4 @@
             ]]>
         </query>
     </sql>
-    
-
-
-    
 </sqls>

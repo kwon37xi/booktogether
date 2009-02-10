@@ -146,8 +146,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 						sql
 						, bookReviewDetailRowMapper
 						, new Object[]{
-								bookReview.getId()
-								, bookReview.getBook().getId()
+								bookReview.getBook().getId()
 								, bookReview.getUser().getUser_id()
 						}
 				)

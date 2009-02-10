@@ -14,7 +14,7 @@ public interface BookReviewDao {
 	public int insertReview(BookReview bookReview);
 	
 	/**
-	 * 리뷰 조회(내가쓴 리뷰)-수정화면
+	 * 리뷰 조회(내가쓴 리뷰)-조회화면, 수정화면
 	 * @param bookReview
 	 * @return
 	 */

@@ -15,7 +15,7 @@ public interface BookReviewService {
 	
 	
 	/**
-	 * 리뷰 조회(내가 쓴 리뷰)-수정화면할때
+	 * 리뷰 조회(내가 쓴 리뷰)-수정화면,조회화면
 	 * @param bookReview
 	 * @return
 	 */
