@@ -1,5 +1,5 @@
-#summary Book,User Table
-#labels booktable,authortable,table,usertable,user_pwtable
+#summary Book,User,Author,Bookgrade, Bookreview Table
+#labels book,author,table,user,user_pw,review,grade
 
 = *Book* 테이블 =
 
@@ -18,7 +18,7 @@ CREATE TABLE `book` (
   `category` varchar(50) DEFAULT NULL,
   `description` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 }}}
 
 ----
@@ -32,7 +32,7 @@ CREATE TABLE `author` (
   `author_div` int(1) NOT NULL,
   `book_ref` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 }}}
 
 ----
@@ -48,7 +48,7 @@ CREATE TABLE `user` (
           `delete_y_n` int(1) NOT NULL,                        
           `input_date` datetime NOT NULL,                      
           PRIMARY KEY (`id`)                                   
-        ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 
+        ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 
 }}}
 
 
@@ -65,5 +65,37 @@ CREATE TABLE `user_pw` (
            `pw` varbinary(50) NOT NULL,                         
            `salt` varbinary(50) NOT NULL,                       
            PRIMARY KEY (`id`)                                   
-         ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
+         ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
+}}}
+
+
+----
+
+= *BOOKGRADE* 테이블 =
+
+{{{
+CREATE TABLE `bookgrade` (                                  
+             `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',  
+             `book_id` int(11) NOT NULL COMMENT '책',                  
+             `user_id` int(11) NOT NULL COMMENT '사용자',              
+             `grade` int(1) NOT NULL COMMENT '별점',                   
+             PRIMARY KEY (`id`)                                        
+           ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
+}}}
+
+
+----
+
+= *BOOKREVIEW* 테이블 =
+
+{{{
+CREATE TABLE `bookreview` (                                 
+              `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',  
+              `book_id` int(11) NOT NULL COMMENT '책',                  
+              `user_id` int(11) NOT NULL COMMENT '사용자',              
+              `recommend` int(11) DEFAULT NULL COMMENT '추천수',        
+              `title` varchar(50) NOT NULL COMMENT '제목',              
+              `review` text COMMENT '내용',                             
+              PRIMARY KEY (`id`)                                        
+            ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
 }}}
