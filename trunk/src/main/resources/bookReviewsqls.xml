@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sqls name="bookReview">
+  
+     <sql name="INSERT_BOOKGRADE_SQL">
+        <description>책 별점 주기</description>
+        <query>
+            <![CDATA[
+             INSERT INTO BOOKGRADE(book_id, user_id, grade)  
+             VALUES (?, ?, ?)
+            ]]>
+        </query>
+     </sql>
+    
+     <sql name="MODIFY_BOOKGRADE_SQL">
+        <description>책 별점 수정하기</description>
+        <query>
+            <![CDATA[
+             UPDATE BOOKGRADE 
+             	SET grade=?
+              WHERE id=?
+            ]]>
+        </query>
+     </sql>
+     
+     <sql name="DELETE_BOOKGRADE_SQL">
+        <description>책 별점 삭제</description>
+        <query>
+            <![CDATA[
+             DELETE FROM BOOKGRADE 
+             WHERE id=? 
+               AND book_id=? 
+               AND user_id=? 
+            ]]>
+        </query>
+     </sql>
+    
+    
+     <sql name="LIST_BOOKGRADE_SQL">
+        <description>책 별점 목록</description>
+        <query>
+            <![CDATA[
+             SELECT U.id as uid
+             	    ,U.user_id as user_id 
+             	    ,U.nickname as user_nickname
+             	    ,BG.grade as grade
+             	    ,BG.id as id 
+             FROM USER U, BOOKGRADE BG  
+             WHERE BG.book_id=? 
+               AND BG.user_id=U.id 
+               AND U.delete_y_n=0 
+             LIMIT ?,? 
+            ]]>
+        </query>
+     </sql>
+    
+    
+     <sql name="LIST_MYBOOKGRADE_SQL">
+        <description>내가 매긴 책 별점 목록</description>
+        <query>
+            <![CDATA[
+             SELECT BG.grade as grade
+             	    ,BG.id as id
+             	    ,B.name as book_name
+             	    ,B.isbn10 as isbn
+             FROM BOOK B, USER U, BOOKGRADE BG  
+             WHERE BG.user_id = ?  
+               AND BG.user_id=U.id 
+               AND BG.book_id=B.id  
+               AND U.delete_y_n=0 
+             LIMIT ?,? 
+            ]]>
+        </query>
+    </sql>
+    
+    
+     <sql name="EXIST_MYBOOKGRADE_SQL">
+        <description>내가 매긴 책 별점이 있는지 체크</description>
+        <query>
+            <![CDATA[
+             SELECT count(BG.id) as count
+             FROM BOOKGRADE BG, USER U 
+             WHERE BG.book_id = ? 
+               AND BG.user_id = ? 
+               AND BG.user_id=U.id 
+               AND U.delete_y_n=0  
+            ]]>
+        </query>
+    </sql>
+    
+
+
+    
+</sqls>
