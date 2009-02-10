@@ -69,3 +69,11 @@ CREATE TABLE `user_pw` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+/* 추천 */
+CREATE TABLE `recommend` (                                  
+   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',  
+   `user_id` int(11) NOT NULL COMMENT '사용자일련번호',      
+   `review_id` int(11) NOT NULL COMMENT '리뷰일련번호',      
+   PRIMARY KEY (`id`)                                        
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

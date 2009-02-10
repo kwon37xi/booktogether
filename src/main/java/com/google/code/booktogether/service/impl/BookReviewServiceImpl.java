@@ -133,25 +133,67 @@ public class BookReviewServiceImpl implements BookReviewService {
 		}else {
 			return true;
 		}
-		
+
 	}
 
 
 	@Override
 	public BookReview getReview(BookReview bookReview) {
-		
+
 		bookReview=bookReviewJdbcDao.getReview(bookReview);
-		
+
 		return bookReview;
 	}
 
 
 	@Override
 	public BookReview getReview(int id) {
-		
+
 		BookReview bookReview=bookReviewJdbcDao.getReview(id);
-		
+
 		return bookReview;
+	}
+
+
+	@Override
+	public String modifyReviewRecommend(BookReview bookReview) {
+		
+		System.out.println(bookReview);
+
+		String message="추천등록을 실패하였습니다.";
+		
+		try{
+
+			int count=bookReviewJdbcDao.isExistRecommend(bookReview);
+
+			if(count==0){
+
+				count=bookReviewJdbcDao.modifyReviewRecommend(bookReview);
+
+				if(count==0){
+					throw new Exception();
+				}else if(count!=1){
+					throw new Exception();
+				}
+
+				count=bookReviewJdbcDao.insertRecommend(bookReview);
+
+				if(count==0){
+					throw new Exception();
+				}else if(count!=1){
+					throw new Exception();
+				}else{
+					message="추천등록완료";
+				}
+			}else{
+				message="이미 추천하셨습니다.";
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return message;
 	}
 
 }

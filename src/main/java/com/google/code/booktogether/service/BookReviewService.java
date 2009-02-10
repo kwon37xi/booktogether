@@ -69,4 +69,18 @@ public interface BookReviewService {
 	  * @return  true : 리뷰가 있다. false : 리뷰가 없다.
 	  */
 	 public boolean isExistReview(int book_id,int user_id);
+	 
+	 
+	 /**
+	  * 추천수 올리기
+	  * @param bookReview
+	  * @return
+	  */
+	 public String modifyReviewRecommend(BookReview bookReview);
+	 
+	 
+	 
+	 
+	 
+	 
 }

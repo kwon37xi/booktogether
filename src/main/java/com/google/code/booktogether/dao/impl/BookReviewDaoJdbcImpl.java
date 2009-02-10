@@ -180,4 +180,52 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 	}
 
 
+	@Override
+	public int insertRecommend(BookReview bookReview) {
+
+		String sql=XmlUtil.getInstance().getSQL("bookReview","INSERT_RECOMMEND_SQL");
+
+		int count=getSimpleJdbcTemplate().update(
+				sql
+				, new Object[]{
+						bookReview.getUser().getId()
+						,bookReview.getId()
+				}
+		);
+		return count;
+	}
+
+
+	@Override
+	public int modifyReviewRecommend(BookReview bookReview) {
+		
+		String sql=XmlUtil.getInstance().getSQL("bookReview","MODIFY_REVIEWRECOMMEND_SQL");
+
+		int count=getSimpleJdbcTemplate().update(
+				sql
+				, new Object[]{
+						bookReview.getId()
+						,bookReview.getBook().getId()
+				}
+		);
+		return count;
+	}
+
+
+	@Override
+	public int isExistRecommend(BookReview bookReview) {
+		
+		String sql=XmlUtil.getInstance().getSQL("bookReview","EXIST_RECOMMEND_SQL");
+
+		int count=getSimpleJdbcTemplate().queryForInt(
+				sql
+				, new Object[]{
+						bookReview.getId()
+						,bookReview.getUser().getId()
+				}
+		);
+		return count;
+	}
+
+
 }

@@ -2,15 +2,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"   "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="../../scripts/book/book.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../../scripts/common/common.js"></script>
 		<title>책조회</title>
 	</head>
 	<body>
+		<c:if test="${sessionScope.message!=null}">
+			<script>
+				alert('${sessionScope.message}');
+			</script>
+			<c:remove scope="session" var="message"/>
+		</c:if>
 		<table border='1'>
 			<thead></thead>
 			<tbody>
@@ -73,7 +82,17 @@
 				<c:if test="${bookReview_info.user.id==sessionScope.id}">
 					<input type="submit" value="수정"/>
 				</c:if>
+				
 			</form>
+		</div>
+		
+		<div>
+			<a href="javascript:go_bookView('${book_info.id}')">뒤로</a>
+			
+			<c:if test="${sessionScope.id!=null && bookReview_info.user.id!=sessionScope.id}">
+				<input type="button" value="추천하기" onclick="recommend('${book_info.id}','${bookReview_info.id}')"/>
+			</c:if>
+			
 		</div>
 		
 	</body>

@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 			}else{
 				result=true;
 			}
-			
+
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
@@ -120,49 +120,24 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
-	public boolean modifyUser(User user,UserPw userPw) {
+	public boolean modifyUser(User user) {
 
 		boolean result=false;
 
-		int count=userJdbcDao.modifyUser(user);
+		try{
+			int count=userJdbcDao.modifyUser(user);
 
-		if(count!=0){
-
-			if(userPw!=null){
-
-				byte[] salt=PasswordAuthenticator.generatorSalt();
-				byte[] digest=null;
-
-				try {
-					digest=PasswordAuthenticator.createPasswordDigest(userPw.getPw(), salt);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					return false;
-				}
-
-				try {
-
-					userPw.setUser_id(user.getId());
-					userPw.setDigest(digest);
-					userPw.setSalt(salt);
-
-					count=userJdbcDao.modifyUserPw(userPw);
-
-					if(count==0){
-						throw new Exception();
-					}else if(count!=1){
-						throw new Exception();
-					}else{
-						result=true;
-					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
-					return false;
-				}
-
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
+				throw new Exception();
+			}else{
+				result=true;
 			}
 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 
 		return result;
@@ -255,7 +230,7 @@ public class UserServiceImpl implements UserService {
 			}
 
 			//이메일로 전송 알고리즘 구현 해야됨
-			
+
 			message="성공적으로 전송되었습니다.";
 
 		}else{

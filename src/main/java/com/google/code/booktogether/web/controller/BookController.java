@@ -53,7 +53,7 @@ public class BookController {
 
 
 	/**
-	 * 책 등록 화면
+	 * 책 등록 화면(지금 안씀)
 	 * @return
 	 */
 	@RequestMapping("/book/insertBookView.do")
@@ -66,7 +66,7 @@ public class BookController {
 	}
 
 	/**
-	 * 책 등록
+	 * 책 등록(지금 안씀)
 	 * @param req
 	 * @return
 	 */
@@ -128,7 +128,7 @@ public class BookController {
 
 
 	/**
-	 * 책목록
+	 * 책목록(지금 안씀)
 	 * @param req
 	 * @return
 	 */
@@ -228,7 +228,7 @@ public class BookController {
 	}
 
 	/**
-	 * 책 수정하기
+	 * 책 수정하기(지금 안씀)
 	 * @param req
 	 * @return
 	 */
@@ -291,7 +291,7 @@ public class BookController {
 	}
 	
 	/**
-	 * 책 삭제
+	 * 책 삭제(지금 안씀)
 	 * @param req
 	 * @param res
 	 */
@@ -344,8 +344,6 @@ public class BookController {
 		mav.setViewName("book/searchBook");
 		mav.addObject("book_list",booklist);
 		mav.addObject("pageBean",pageBean);
-		
-		System.out.println(pageBean);
 		
 		return mav;
 		

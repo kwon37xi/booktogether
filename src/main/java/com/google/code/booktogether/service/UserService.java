@@ -19,7 +19,7 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
-	public boolean modifyUser(User user,UserPw userPw);
+	public boolean modifyUser(User user);
 	
 	/**
 	 * 사용자 삭제

@@ -11,6 +11,17 @@
             ]]>
         </query>
      </sql>
+     
+     
+     <sql name="INSERT_RECOMMEND_SQL">
+        <description>추천인 등록</description>
+        <query>
+            <![CDATA[
+             INSERT INTO RECOMMEND(user_id, review_id)   
+             VALUES (?, ?)
+            ]]>
+        </query>
+     </sql>
     
      <sql name="MODIFY_BOOKREVIEW_SQL">
         <description>책 리뷰 수정하기</description>
@@ -21,6 +32,18 @@
              	    ,REVIEW = ?
               WHERE id=?
                 AND user_id=? 
+                AND book_id=?
+            ]]>
+        </query>
+     </sql>
+     
+     <sql name="MODIFY_REVIEWRECOMMEND_SQL">
+        <description>책 리뷰 추천수 증가</description>
+        <query>
+            <![CDATA[
+             UPDATE BOOKREVIEW 
+             	SET recommend=recommend+1 
+              WHERE id=? 
                 AND book_id=?
             ]]>
         </query>
@@ -78,7 +101,7 @@
              LIMIT ?,? 
             ]]>
         </query>
-    </sql>
+     </sql>
     
     
      <sql name="GET_MY_BOOKREVIEW_SQL">
@@ -101,7 +124,7 @@
                AND U.delete_y_n = 0  
             ]]>
         </query>
-    </sql>
+     </sql>
     
      <sql name="GET_BOOKREVIEW_SQL">
         <description>책 리뷰</description>
@@ -123,7 +146,7 @@
                AND U.delete_y_n = 0    
             ]]>
         </query>
-    </sql>
+     </sql>
     
     
      <sql name="EXIST_MYBOOKREVIEW_SQL">
@@ -136,6 +159,19 @@
                AND BR.user_id = ? 
                AND BR.user_id=U.id 
                AND U.delete_y_n=0  
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="EXIST_RECOMMEND_SQL">
+        <description>내가 추천한 기록이 있는지 체크</description>
+        <query>
+            <![CDATA[
+             SELECT count(*) as count 
+             FROM RECOMMEND 
+             WHERE review_id = ? 
+               AND user_id = ? 
             ]]>
         </query>
     </sql>
