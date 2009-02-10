@@ -8,7 +8,7 @@ public interface BookGradeService {
 
 	/**
 	 * 별점 등록
-	 * @param gradeReview
+	 * @param bookGrade
 	 * @return
 	 */
 	public boolean insertGrade(BookGrade bookGrade);
@@ -16,28 +16,32 @@ public interface BookGradeService {
 	
 	/**
 	 * 별점 수정
-	 * @param gradeReview
+	 * @param bookGrade
 	 * @return
 	 */
 	public boolean modifyGrade(BookGrade bookGrade);
 	
 	/**
 	 * 별점 삭제
-	 * @param gradeReview
+	 * @param bookGrade
 	 * @return
 	 */
 	public boolean deleteGrade(BookGrade bookGrade);
 	
 	/**
 	 * 별점 목록(책 조회시)
-	 * @param bookGrade
+	 * @param book_id
+	 * @param startPage
+	 * @param endPage
 	 * @return
 	 */
 	public List<BookGrade> getListBookGrade(int book_id, int startPage, int endPage);
 	
 	/**
 	 * 내가 입력한 별점 목록
-	 * @param bookGrade
+	 * @param user_id
+	 * @param startPage
+	 * @param endPage
 	 * @return
 	 */
 	public List<BookGrade> getListMyBookGrade(int user_id, int startPage, int endPage);

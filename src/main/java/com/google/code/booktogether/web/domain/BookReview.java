@@ -10,19 +10,25 @@ public class BookReview extends BaseObject{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * 사용자 일련번호
+	 * 일련번호
 	 */
 	private int id;
 	
 	/**
-	 * 사용자 일련번호
+	 * 사용자 정보
 	 */
-	private int user_id;
+	private User user=null;
+	
+
+	/**
+	 * 책 정보
+	 */
+	private Book book=null;
 	
 	/**
-	 * 책 일련번호
+	 * 추천수
 	 */
-	private int book_id;
+	private int recommend=0;
 	
 	
 	/**
@@ -36,6 +42,18 @@ public class BookReview extends BaseObject{
 	 * @return
 	 */
 	private String review;
+	
+	
+	
+	
+	
+	public int getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(int recommend) {
+		this.recommend = recommend;
+	}
 	
 	
 	public String getTitle() {
@@ -68,23 +86,23 @@ public class BookReview extends BaseObject{
 	}
 
 
-	public int getUser_id() {
-		return user_id;
+	public User getUser() {
+		return user;
 	}
 
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 
-	public int getBook_id() {
-		return book_id;
+	public Book getBook() {
+		return book;
 	}
 
 
-	public void setBook_id(int book_id) {
-		this.book_id = book_id;
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 }
