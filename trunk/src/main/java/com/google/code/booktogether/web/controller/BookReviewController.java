@@ -12,10 +12,8 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.code.booktogether.service.BookGradeService;
 import com.google.code.booktogether.service.BookReviewService;
 import com.google.code.booktogether.web.domain.Book;
-import com.google.code.booktogether.web.domain.BookGrade;
 import com.google.code.booktogether.web.domain.BookReview;
 import com.google.code.booktogether.web.domain.User;
 

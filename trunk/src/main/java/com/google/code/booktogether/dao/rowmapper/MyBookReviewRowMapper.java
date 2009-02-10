@@ -6,15 +6,15 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
+import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookReview;
-import com.google.code.booktogether.web.domain.User;
 
 /**
- * 리뷰 정보 목록화할때 사용
+ * 별점 정보 목록화할때 사용
  * @author ParkHaeCheol
  *
  */
-public class BookReviewRowMapper implements ParameterizedRowMapper<BookReview>,Serializable{
+public class MyBookReviewRowMapper implements ParameterizedRowMapper<BookReview>,Serializable{
 
 	/**
 	 * 
@@ -25,17 +25,17 @@ public class BookReviewRowMapper implements ParameterizedRowMapper<BookReview>,S
 	public BookReview mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
 		BookReview bookReview=new BookReview();
- 	    
-		bookReview.setUser(new User());
+
+		bookReview.setBook(new Book());
 		
 		bookReview.setId(rs.getInt("ID"));
 		bookReview.setRecommend(rs.getInt("RECOMMEND"));
 		bookReview.setTitle(rs.getString("TITLE"));
 		
-		bookReview.getUser().setId(rs.getInt("UID"));
-		bookReview.getUser().setUser_id(rs.getString("USER_ID"));
-		bookReview.getUser().setName(rs.getString("USER_NAME"));
-		bookReview.getUser().setNickname(rs.getString("USER_NICKNAME"));
+		bookReview.getBook().setId(rs.getInt("BID"));
+		bookReview.getBook().setName(rs.getString("BNAME"));
+		bookReview.getBook().setISBN10(rs.getString("BISBN"));
+		bookReview.getBook().setPublish_comp(rs.getString("BCOMP"));
 		
 		return bookReview;
 	}

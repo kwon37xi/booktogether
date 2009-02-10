@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.BookReviewDao;
 import com.google.code.booktogether.dao.rowmapper.BookReviewDetailRowMapper;
 import com.google.code.booktogether.dao.rowmapper.BookReviewRowMapper;
+import com.google.code.booktogether.dao.rowmapper.MyBookReviewRowMapper;
 import com.google.code.booktogether.service.util.XmlUtil;
 import com.google.code.booktogether.web.domain.BookReview;
 
@@ -25,19 +26,13 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 		setDataSource(dataSource);
 	}
 
-	//별점 RowMapper
-	
-	
-	//내가 매긴 별점 RowMapper
-	
-
 
 	@Override
 	public int insertReview(BookReview bookReview) {
 		
 		String sql=XmlUtil.getInstance().getSQL("bookReview","INSERT_BOOKREVIEW_SQL");
 
-		int count=getSimpleJdbcTemplate().update(sql, new Object[]{bookReview.getBook().getId(),bookReview.getUser().getId(),bookReview.getReview()});
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{bookReview.getBook().getId(),bookReview.getUser().getId(),bookReview.getRecommend(),bookReview.getTitle(),bookReview.getReview()});
 
 		return count;
 	}
@@ -47,7 +42,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 		
 		String sql=XmlUtil.getInstance().getSQL("bookReview","MODIFY_BOOKREVIEW_SQL");
 		
-		int count=getSimpleJdbcTemplate().update(sql, new Object[]{bookReview.getReview(),bookReview.getId()});
+		int count=getSimpleJdbcTemplate().update(sql, new Object[]{bookReview.getTitle(),bookReview.getReview(),bookReview.getId()});
 		
 		return count;
 	}
@@ -79,7 +74,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 	@Override
 	public List<BookReview> getListMyBookReview(int user_id, int startPage, int endPage) {
 		
-		BookReviewRowMapper myBookReviewRowMapper=new BookReviewRowMapper();
+		MyBookReviewRowMapper myBookReviewRowMapper=new MyBookReviewRowMapper();
 		
 		String sql=XmlUtil.getInstance().getSQL("bookReview","LIST_MYBOOKREVIEW_SQL");
 
@@ -105,7 +100,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 		
 		String sql=XmlUtil.getInstance().getSQL("bookReview","GET_BOOKREVIEW_SQL");
 
-		bookReview=(BookReview)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, bookReviewDetailRowMapper, new Object[]{book_id,user_id}));
+		bookReview=(BookReview)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, bookReviewDetailRowMapper, new Object[]{bookReview.getBook().getId(), bookReview.getUser().getUser_id()}));
 
 		return bookReview;
 		

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<sqls name="bookgrade">
+<sqls name="bookGrade">
   
      <sql name="INSERT_BOOKGRADE_SQL">
         <description>책 별점 주기</description>

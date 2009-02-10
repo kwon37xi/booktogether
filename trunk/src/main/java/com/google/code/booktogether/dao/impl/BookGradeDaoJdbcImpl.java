@@ -34,7 +34,7 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 	@Override
 	public int insertGrade(BookGrade bookGrade) {
 		
-		String sql=XmlUtil.getInstance().getSQL("bookgrade","INSERT_BOOKGRADE_SQL");
+		String sql=XmlUtil.getInstance().getSQL("bookGrade","INSERT_BOOKGRADE_SQL");
 
 		int count=getSimpleJdbcTemplate().update(sql, new Object[]{bookGrade.getBook().getId(),bookGrade.getUser().getId(),bookGrade.getGrade()});
 
@@ -44,7 +44,7 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 	@Override
 	public int modifyGrade(BookGrade bookGrade) {
 		
-		String sql=XmlUtil.getInstance().getSQL("bookgrade","MODIFY_BOOKGRADE_SQL");
+		String sql=XmlUtil.getInstance().getSQL("bookgGade","MODIFY_BOOKGRADE_SQL");
 		
 		int count=getSimpleJdbcTemplate().update(sql, new Object[]{bookGrade.getGrade(),bookGrade.getId()});
 		
@@ -54,7 +54,7 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 	@Override
 	public int deleteGrade(BookGrade bookGrade) {
 		
-		String sql=XmlUtil.getInstance().getSQL("bookgrade","DELETE_BOOKGRADE_SQL");
+		String sql=XmlUtil.getInstance().getSQL("bookGrade","DELETE_BOOKGRADE_SQL");
 		
 		int count=getSimpleJdbcTemplate().update(sql, new Object[]{bookGrade.getId(),bookGrade.getBook().getId(),bookGrade.getUser().getId()});
 		
@@ -67,7 +67,7 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 		
 		BookGradeRowMapper bookGradeRowMapper=new BookGradeRowMapper();
 
-		String sql=XmlUtil.getInstance().getSQL("bookgrade","LIST_BOOKGRADE_SQL");
+		String sql=XmlUtil.getInstance().getSQL("bookGrade","LIST_BOOKGRADE_SQL");
 
 		List<BookGrade> bookgradelist=getSimpleJdbcTemplate().query(sql, bookGradeRowMapper, new Object[]{book_id,startPage, endPage});
 
@@ -80,7 +80,7 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 		
 		MyBookGradeRowMapper myBookGradeRowMapper=new MyBookGradeRowMapper();
 		
-		String sql=XmlUtil.getInstance().getSQL("bookgrade","LIST_MYBOOKGRADE_SQL");
+		String sql=XmlUtil.getInstance().getSQL("bookGrade","LIST_MYBOOKGRADE_SQL");
 
 		List<BookGrade> mybookgradelist=getSimpleJdbcTemplate().query(sql, myBookGradeRowMapper, new Object[]{user_id,startPage, endPage});
 
@@ -90,7 +90,7 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookGr
 	@Override
 	public int isExistGrade(int book_id, int user_id) {
 		
-		String sql=XmlUtil.getInstance().getSQL("bookgrade","EXIST_MYBOOKGRADE_SQL");
+		String sql=XmlUtil.getInstance().getSQL("bookGrade","EXIST_MYBOOKGRADE_SQL");
 
 		int count=getSimpleJdbcTemplate().queryForInt(sql, new Object[]{book_id,user_id});
 
