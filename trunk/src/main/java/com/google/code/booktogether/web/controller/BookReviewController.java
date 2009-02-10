@@ -13,6 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.BookReviewService;
+import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookReview;
 import com.google.code.booktogether.web.domain.User;
@@ -29,7 +30,55 @@ public class BookReviewController {
 	 */
 	@Resource(name="bookReviewService")
 	BookReviewService bookReviewService;
-	
+
+
+	/**
+	 * BookService
+	 */
+	@Resource(name="bookService")
+	BookService bookService;
+
+	/**
+	 * 리뷰 등록 화면
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/book/insertBookReviewView.do")
+	public ModelAndView handleInsertBookReviewView(HttpServletRequest req,HttpServletResponse res){
+
+		ServletRequestAttributes sra=new ServletRequestAttributes(req);
+
+		//파라미터 정보 변수에 세팅
+		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
+
+		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
+
+		boolean isExistId=(user_id!=null) ? true : false;
+
+		Book book=null;
+
+		if(isExistId){
+
+			book=bookService.getBook(book_id);
+
+		}else{
+			//경로 설정 및 Attribute 설정
+			ModelAndView mav=new ModelAndView();
+			mav.setViewName("user/login");
+			mav.addObject("message","로그아웃 되었습니다.");
+			return mav;
+		}
+
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("book/review/insertReview");
+		mav.addObject("book_info",book);
+		return mav;
+
+
+	}
+
+
+
 	/**
 	 * 리뷰 등록
 	 * @param req
@@ -39,20 +88,20 @@ public class BookReviewController {
 	public ModelAndView handleInsertBookReview(HttpServletRequest req,HttpServletResponse res){
 
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
-		
+
 		//파라미터 정보 변수에 세팅
 		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
 		String title=ServletRequestUtils.getStringParameter(req, "title", "");
 		String review=ServletRequestUtils.getStringParameter(req, "review", "");
-		
+
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 
 		boolean isExistId=(user_id!=null) ? true : false;
 
 		BookReview bookReview=null;
-		
+
 		if(isExistId){
-			
+
 			bookReview=new BookReview();
 			bookReview.setBook(new Book());
 			bookReview.setUser(new User());
@@ -61,7 +110,7 @@ public class BookReviewController {
 			bookReview.setRecommend(0);
 			bookReview.setTitle(title);
 			bookReview.setReview(review);
-			
+
 		}else{
 			//경로 설정 및 Attribute 설정
 			ModelAndView mav=new ModelAndView();
@@ -69,17 +118,17 @@ public class BookReviewController {
 			mav.addObject("message","로그아웃 되었습니다.");
 			return mav;
 		}
-		
+
 		//별점 등록
 		boolean result = bookReviewService.insertReview(bookReview);
-		
+
 		System.out.println(result);
-		
+
 		return new ModelAndView("redirect:/book/getBook.do?id="+book_id);
 
 	}
-	
-	
+
+
 	/**
 	 * 리뷰 삭제
 	 * @param req
@@ -87,6 +136,54 @@ public class BookReviewController {
 	 */
 	@RequestMapping("/book/deleteBookReview.do")
 	public ModelAndView handleDeleteBookGrade(HttpServletRequest req,HttpServletResponse res){
+
+		ServletRequestAttributes sra=new ServletRequestAttributes(req);
+
+		//파라미터 정보 변수에 세팅
+		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
+		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
+
+		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
+
+		boolean isExistId=(user_id!=null) ? true : false;
+
+		BookReview bookReview=null;
+
+		if(isExistId){
+
+			bookReview=new BookReview();
+			bookReview.setId(id);
+			bookReview.setBook(new Book());
+			bookReview.setUser(new User());
+			bookReview.getBook().setId(book_id);
+			bookReview.getUser().setId(user_id);
+
+		}else{
+			//경로 설정 및 Attribute 설정
+			ModelAndView mav=new ModelAndView();
+			mav.setViewName("user/login");
+			mav.addObject("message","로그아웃 되었습니다.");
+			return mav;
+		}
+
+
+		//별점 등록
+		boolean result=bookReviewService.deleteReview(bookReview);
+
+		System.out.println(result);
+
+		return new ModelAndView("redirect:/book/getBook.do?id="+book_id);
+
+	}
+
+
+	/**
+	 * 리뷰 수정 화면
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/book/modifyBookReviewView.do")
+	public ModelAndView handleModifyBookReviewView(HttpServletRequest req,HttpServletResponse res){
 		
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 		
@@ -117,13 +214,42 @@ public class BookReviewController {
 			return mav;
 		}
 		
+		bookReview=bookReviewService.getReview(bookReview);
+		bookReview.setReview(bookReview.getReview().replaceAll("\n\r", "<br/>"));
 		
-		//별점 등록
-		boolean result=bookReviewService.deleteReview(bookReview);
+		Book book=bookService.getBook(book_id);
 		
-		System.out.println(result);
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("book/review/modifyReview");
+		mav.addObject("book_info",book);
+		mav.addObject("bookReview_info",bookReview);
 		
-		return new ModelAndView("redirect:/book/getBook.do?id="+book_id);
+		return mav;
+		
+	}
+	
+	
+	/**
+	 * 리뷰 조회
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/book/getReview.do")
+	public ModelAndView handleGetReview(HttpServletRequest req,HttpServletResponse res){
+		
+		//파라미터 정보 변수에 세팅
+		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
+		
+		BookReview bookReview=bookReviewService.getReview(id);
+		
+		Book book=bookService.getBook(bookReview.getBook().getId());
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("book/review/getReview");
+		mav.addObject("book_info",book);
+		mav.addObject("bookReview_info",bookReview);
+		
+		return mav;
 		
 	}
 	
@@ -134,29 +260,29 @@ public class BookReviewController {
 	 * @return
 	 */
 	@RequestMapping("/book/modifyBookReview.do")
-	public ModelAndView handleModifyBookGrade(HttpServletRequest req,HttpServletResponse res){
-		
+	public ModelAndView handleModifyBookReview(HttpServletRequest req,HttpServletResponse res){
+
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
-		
+
 		//파라미터 정보 변수에 세팅
 		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
-		
+
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
-		
+
 		boolean isExistId=(user_id!=null) ? true : false;
-		
+
 		BookReview bookReview=null;
-		
+
 		if(isExistId){
-			
+
 			bookReview=new BookReview();
 			bookReview.setId(id);
 			bookReview.setBook(new Book());
 			bookReview.setUser(new User());
 			bookReview.getBook().setId(book_id);
 			bookReview.getUser().setId(user_id);
-			
+
 		}else{
 			//경로 설정 및 Attribute 설정
 			ModelAndView mav=new ModelAndView();
@@ -164,15 +290,15 @@ public class BookReviewController {
 			mav.addObject("message","로그아웃 되었습니다.");
 			return mav;
 		}
-		
-		
+
+
 		//별점 등록
 		boolean result=bookReviewService.modifyReview(bookReview);
-		
+
 		System.out.println(result);
-		
+
 		return new ModelAndView("redirect:/book/getBook.do?id="+book_id);
-		
+
 	}
 
 }

@@ -15,11 +15,18 @@ public interface BookReviewService {
 	
 	
 	/**
-	 * 리뷰 조회
+	 * 리뷰 조회(내가 쓴 리뷰)-수정화면할때
 	 * @param bookReview
 	 * @return
 	 */
 	public BookReview getReview(BookReview bookReview);
+	
+	/**
+	 * 리뷰 조회(모든 회원들이)
+	 * @param id : 리뷰 일련번호
+	 * @return
+	 */
+	public BookReview getReview(int id);
 	
 	
 	/**

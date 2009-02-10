@@ -80,8 +80,8 @@
     </sql>
     
     
-     <sql name="GET_BOOKREVIEW_SQL">
-        <description>책 리뷰</description>
+     <sql name="GET_MY_BOOKREVIEW_SQL">
+        <description>책 리뷰(내가쓴 리뷰)- 수정화면</description>
         <query>
             <![CDATA[
              SELECT U.id as uid
@@ -93,10 +93,33 @@
              	    ,BR.review as review 
              	    ,BR.title as title 
              FROM USER U, BOOKREVIEW BR  
-             WHERE BR.book_id = ? 
+             WHERE BR.id = ? 
+               AND BR.book_id = ? 
                AND BR.user_id = U.id 
                AND U.user_id = ?  
                AND U.delete_y_n = 0  
+            ]]>
+        </query>
+    </sql>
+    
+     <sql name="GET_BOOKREVIEW_SQL">
+        <description>책 리뷰</description>
+        <query>
+            <![CDATA[
+             SELECT U.id as uid
+             	    ,U.user_id as user_id 
+             	    ,U.name as user_name 
+             	    ,U.nickname as user_nickname
+             	    ,BR.id as id 
+             	    ,BR.recommend as recommend
+             	    ,BR.review as review 
+             	    ,BR.title as title
+             	    ,B.id as bid
+             FROM USER U, BOOKREVIEW BR, BOOK B  
+             WHERE BR.id = ? 
+               AND BR.user_id = U.id 
+               AND BR.book_id=B.id  
+               AND U.delete_y_n = 0    
             ]]>
         </query>
     </sql>

@@ -145,4 +145,13 @@ public class BookReviewServiceImpl implements BookReviewService {
 		return bookReview;
 	}
 
+
+	@Override
+	public BookReview getReview(int id) {
+		
+		BookReview bookReview=bookReviewJdbcDao.getReview(id);
+		
+		return bookReview;
+	}
+
 }
