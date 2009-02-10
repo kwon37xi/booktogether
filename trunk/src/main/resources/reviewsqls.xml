@@ -18,8 +18,10 @@
             <![CDATA[
              UPDATE BOOKREVIEW 
              	SET TITLE = ? 
-             	    REVIEW = ?
+             	    ,REVIEW = ?
               WHERE id=?
+                AND user_id=? 
+                AND book_id=?
             ]]>
         </query>
      </sql>
@@ -29,8 +31,7 @@
         <query>
             <![CDATA[
              DELETE FROM BOOKREVIEW 
-             WHERE id=? 
-               AND book_id=? 
+             WHERE book_id=? 
                AND user_id=? 
             ]]>
         </query>
@@ -92,10 +93,11 @@
              	    ,BR.recommend as recommend
              	    ,BR.review as review 
              	    ,BR.title as title 
+             	    ,BR.book_id as bid 
              FROM USER U, BOOKREVIEW BR  
              WHERE BR.book_id = ? 
+               AND BR.user_id = ?  
                AND BR.user_id = U.id 
-               AND U.user_id = ?  
                AND U.delete_y_n = 0  
             ]]>
         </query>
@@ -128,8 +130,8 @@
         <description>내가 작성한 책 리뷰가 있는지 체크</description>
         <query>
             <![CDATA[
-             SELECT count(BG.id) as count
-             FROM BOOKREVIEW BR USER U 
+             SELECT count(BR.id) as count 
+             FROM BOOKREVIEW BR, USER U 
              WHERE BR.book_id = ? 
                AND BR.user_id = ? 
                AND BR.user_id=U.id 

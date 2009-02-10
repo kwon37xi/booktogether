@@ -62,15 +62,15 @@
 		</table>
 		
 		<div>
-			<form method="post" name="review_form" action="/book/modifyBookReview.do">
-				<input type="hidden" name="id" value=" ${bookReview_info.id"/>
+			<form method="post" name="review_form" action="/book/modifyBookReviewView.do">
+				<input type="hidden" name="book_id" value="${book_info.id}"/>
 				<p>			
 					제목 : ${bookReview_info.title}
 				</p>
 				<p>
-					<c:out value="${bookReview_info}" escapeXml="true"/> 
+					<c:out value="${bookReview_info.review}" escapeXml="true"/> 
 				</p>
-				<c:if test="${bookReview_info.user.id==sessionScope.id">
+				<c:if test="${bookReview_info.user.id==sessionScope.id}">
 					<input type="submit" value="수정"/>
 				</c:if>
 			</form>
