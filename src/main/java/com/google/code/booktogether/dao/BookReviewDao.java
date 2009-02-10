@@ -14,11 +14,19 @@ public interface BookReviewDao {
 	public int insertReview(BookReview bookReview);
 	
 	/**
-	 * 리뷰 조회
+	 * 리뷰 조회(내가쓴 리뷰)-수정화면
 	 * @param bookReview
 	 * @return
 	 */
 	public BookReview getReview(BookReview bookReview);
+	
+	
+	/**
+	 * 리뷰 조회(모든 회원조회)
+	 * @param id
+	 * @return
+	 */
+	public BookReview getReview(int id);
 	
 	/**
 	 * 리뷰 수정
