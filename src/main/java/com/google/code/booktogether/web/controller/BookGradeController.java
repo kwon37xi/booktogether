@@ -84,7 +84,7 @@ public class BookGradeController {
 
 
 	/**
-	 * 별점 등록
+	 * 별점 삭제
 	 * @param req
 	 * @return
 	 */
@@ -123,7 +123,11 @@ public class BookGradeController {
 		//별점 등록
 		boolean result=bookGradeService.deleteGrade(bookGrade);
 
-		System.out.println(result);
+		if(result){
+			sra.setAttribute("message","별점 삭제성공",RequestAttributes.SCOPE_SESSION);
+		}else{
+			sra.setAttribute("message","별점 삭제실패",RequestAttributes.SCOPE_SESSION);
+		}
 
 		return new ModelAndView("redirect:/book/getBook.do?id="+book_id);
 

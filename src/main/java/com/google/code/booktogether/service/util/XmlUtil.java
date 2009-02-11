@@ -36,7 +36,7 @@ public class XmlUtil {
 		
 		SAXBuilder builder= new SAXBuilder();
 		
-		String[] sqlXmlFilenames={"booksqls.xml","usersqls.xml","gradesqls.xml","reviewsqls.xml"};
+		String[] sqlXmlFilenames={"booksqls.xml","usersqls.xml","gradesqls.xml","reviewsqls.xml","bookmarksqls.xml"};
 		
 		for(String filename : sqlXmlFilenames){
 			

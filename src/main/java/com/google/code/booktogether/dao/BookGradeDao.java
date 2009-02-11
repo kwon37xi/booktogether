@@ -22,7 +22,7 @@ public interface BookGradeDao {
 	
 	/**
 	 * 별점 삭제
-	 * @param id
+	 * @param bookGrade
 	 * @return
 	 */
 	public int deleteGrade(BookGrade bookGrade);

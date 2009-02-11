@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sqls name="bookMark">
+  
+     <sql name="INSERT_BOOKMARK_SQL">
+        <description>인용구 넣기</description>
+        <query>
+            <![CDATA[
+             INSERT INTO BOOKMARK(user_id, book_id, vibe_num, page, input_date, content)  
+             VALUES (?, ?, ?, ?, ?, ?)
+            ]]>
+        </query>
+     </sql>
+    
+     <sql name="MODIFY_BOOKMARK_SQL">
+        <description>인용구 수정하기</description>
+        <query>
+            <![CDATA[
+             UPDATE BOOKMARK 
+             	SET page=?
+             	    ,input_date=now()
+             	    ,content=?
+              WHERE id=?
+                AND user_id = ? 
+                AND book_id = ?
+            ]]>
+        </query>
+     </sql>
+     
+     <sql name="DELETE_BOOKMARK_SQL">
+        <description>인용구 삭제</description>
+        <query>
+            <![CDATA[
+             DELETE FROM BOOKMARK 
+             WHERE id=? 
+               AND book_id=? 
+               AND user_id=? 
+            ]]>
+        </query>
+     </sql>
+    
+    
+     <sql name="LIST_BOOKMARK_SQL">
+        <description>인용구 목록(책조회시)</description>
+        <query>
+            <![CDATA[
+             SELECT BM.id as id
+                    ,BM.user_id as uid
+                    ,BM.book_id as bid
+                    ,BM.page as page
+                    ,BM.input_date as input_date
+                    ,BM.content as content 
+                    ,BM.vibe_num as vibe_num
+                    ,U.user_id as user_id 
+                    ,U.name as user_name 
+                    ,U.nickname as user_nickname 
+               FROM BOOKMARK BM, USER U 
+              WHERE BM.user_id=U.id
+                AND BM.book_id = ? 
+                AND U.delete_y_n = 0 
+              LIMIT ?,? 
+            ]]>
+        </query>
+     </sql>
+    
+    
+     <sql name="LIST_MYBOOKMARK_SQL">
+        <description>내가 작성한 인용구 목록</description>
+        <query>
+            <![CDATA[
+             SELECT BM.id as id
+                    ,BM.user_id as uid
+                    ,BM.book_id as bid
+                    ,BM.page as page
+                    ,BM.input_date as input_date
+                    ,BM.content as content 
+                    ,BM.vibe_num as vibe_num
+                    ,B.name as book_name
+                    ,B.publish_comp as book_comp
+               FROM BOOKMARK BM, BOOK B  
+              WHERE BM.user_id = ?
+                AND BM.book_id = B.id
+                AND BM.user_id = U.id   
+                AND U.delete_y_n = 0 
+              LIMIT ?,? 
+            ]]>
+        </query>
+    </sql>
+    
+    
+     <sql name="EXIST_MYVIBE_SQL">
+        <description>내가 매긴 공감이 있는지 체크</description>
+        <query>
+            <![CDATA[
+             SELECT count(BM.id) as count
+             FROM BOOKMARK BM, USER U 
+             WHERE BM.id = ? 
+               AND BM.user_id = ? 
+               AND BM.user_id=U.id 
+               AND U.delete_y_n=0  
+            ]]>
+        </query>
+    </sql>
+    
+
+
+    
+</sqls>
