@@ -124,16 +124,41 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public String modifyVibe(BookMark bookMark) {
-
-		int count=bookMarkJdbcDao.isExistVibe(bookMark.getId(),bookMark.getUser().getId());
-
-		if(count==0){
-			return "";
-		}else {
-			return "";
-		}
 		
+		try{
+
+			int count=bookMarkJdbcDao.isExistVibe(bookMark.getId(),bookMark.getUser().getId());
+			
+			System.out.println(count);
+
+			if(count==0){
+
+				count=bookMarkJdbcDao.modifyVibeBookMark(bookMark);
+
+				if(count==1){
+
+					count=bookMarkJdbcDao.insertVibe(bookMark.getId(),bookMark.getUser().getId());
+
+					if(count==1){
+						return "공감등록 성공";
+					}else{
+						throw new Exception();
+					}
+				}else{
+					throw new Exception();
+				}
+
+			}else {
+				return "이미 공감을 하셨습니다.";
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return "공감등록 실패";
+		}
+
 	}
 
 }

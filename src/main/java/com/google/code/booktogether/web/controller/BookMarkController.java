@@ -196,13 +196,13 @@ public class BookMarkController {
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping("/book/modifyVibeBookMark.do")
+	@RequestMapping("/book/modifyVibe.do")
 	public ModelAndView handleModifyVibeBookMark(HttpServletRequest req,HttpServletResponse res){
 		
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 		
 		//파라미터 정보 변수에 세팅
-		int bookmark_id=ServletRequestUtils.getIntParameter(req, "bookmark_id", 0);
+		int bookmark_id=ServletRequestUtils.getIntParameter(req, "id", 0);
 		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
 		
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
@@ -215,22 +215,20 @@ public class BookMarkController {
 			
 			bookMark=new BookMark();
 			bookMark.setUser(new User());
+			bookMark.setBook(new Book());
 			bookMark.getUser().setId(user_id);
+			bookMark.getBook().setId(book_id);
 			bookMark.setId(bookmark_id);
 			
 		}else{
-			
 			sra.setAttribute("message","로그아웃되었습니다.",RequestAttributes.SCOPE_SESSION);
-			
 			return new ModelAndView("redirect:/user/login.do");
-			
 		}
 		
 		//인용구 수정
 		String message=bookMarkService.modifyVibe(bookMark);
 		
-		System.out.println(message);
-		
+		sra.setAttribute("message",message,RequestAttributes.SCOPE_SESSION);
 		
 		return new ModelAndView("redirect:/book/getBook.do?id="+book_id);
 		

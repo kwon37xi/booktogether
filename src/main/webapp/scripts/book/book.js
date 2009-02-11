@@ -65,11 +65,22 @@ function recommend(book_id,review_id){
 	
 }
 
+
 //인용구 삭제
 function deleteBookMark(bookmark_id,book_id){
 	
 	if(confirm("삭제하시겠습니까?")){
 		location.href="/book/deleteBookMark.do?id="+bookmark_id+"&book_id="+book_id;
+	}
+	
+}
+
+
+//인용구 삭제
+function modifyVibe(bookmark_id,book_id){
+	
+	if(confirm("공감하시겠습니까?")){
+		location.href="/book/modifyVibe.do?id="+bookmark_id+"&book_id="+book_id;
 	}
 	
 }
