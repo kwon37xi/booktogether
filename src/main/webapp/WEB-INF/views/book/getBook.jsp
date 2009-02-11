@@ -207,7 +207,9 @@
 					<c:when test="${fn:length(bookmarklist)!=0}">
 						<c:forEach begin="0" items="${bookmarklist}" var="bookmark_info" varStatus="status">
 							<tr>
-								<td>(p.${bookmark_info.page})${bookmark_info.content}</td>
+								<td>(p.${bookmark_info.page})${bookmark_info.content}/
+									<fmt:formatDate value="${bookmark_info.input_date}" pattern="yyyy. MM. dd"/>
+								</td>
 								<td>
 									${bookmark_info.user.user_id}(${bookmark_info.user.nickname})
 									<c:if test="${sessionScope.id!=null && bookmark_info.user.user_id!=sessionScope.id}">
