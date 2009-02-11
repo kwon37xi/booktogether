@@ -1,5 +1,5 @@
 #summary Book,User,Author,Bookgrade, Bookreview Table
-#labels book,author,table,user,user_pw,review,grade,recommend
+#labels table
 
 = *Book* 테이블 =
 
@@ -111,4 +111,35 @@ CREATE TABLE `recommend` (
    `review_id` int(11) NOT NULL COMMENT '리뷰일련번호',      
    PRIMARY KEY (`id`)                                        
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+}}}
+
+----
+
+
+= *BOOKMARK* 테이블 =
+{{{
+CREATE TABLE `bookmark` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
+  `user_id` int(11) NOT NULL COMMENT '사용자 일련번호',
+  `book_id` int(11) NOT NULL COMMENT '책 일련번호',
+  `vibe_num` int(11) NOT NULL COMMENT '공감수',
+  `page` int(11) DEFAULT NULL COMMENT '페이지',
+  `input_date` datetime NOT NULL COMMENT '등록날짜',
+  `content` varchar(200) NOT NULL COMMENT '인용구',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+}}}
+
+----
+
+
+= *VIBE* 테이블 =
+
+{{{
+CREATE TABLE `vibe` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
+  `user_id` int(11) NOT NULL COMMENT '사용자일련번호',
+  `bookmark_id` int(11) NOT NULL COMMENT '북마크일련번호',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 }}}
