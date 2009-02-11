@@ -31,7 +31,6 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookMar
 						,bookMark.getBook().getId()
 						,bookMark.getVibeNum()
 						,bookMark.getPage()
-						,bookMark.getInput_date()
 						,bookMark.getContent()
 				}
 		);

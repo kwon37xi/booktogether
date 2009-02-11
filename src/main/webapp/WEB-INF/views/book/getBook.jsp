@@ -193,6 +193,78 @@
 			</c:when>
 		</c:choose>
 		
+		<br/>
+		<br/>
+		
+		<table border="1">
+			<thead>
+				<tr>
+					<td colspan="3">인용구 테이블</td>
+				</tr>
+			</thead>
+			<tbody>
+				<c:choose>
+					<c:when test="${fn:length(bookmarklist)!=0}">
+						<c:forEach begin="0" items="${bookmarklist}" var="bookmark_info" varStatus="status">
+							<tr>
+								<td>(p.${bookmark_info.page})${bookmark_info.content}</td>
+								<td>
+									${bookmark_info.user.user_id}(${bookmark_info.user.nickname})
+									<c:if test="${sessionScope.id!=null && bookmark_info.user.user_id!=sessionScope.id}">
+										<input type="button" value="삭제" onclick="deleteBookMark('${bookmark_info.id}','${book_info.id}')"/>
+									</c:if>
+								</td>
+								<td>공감수 : ${bookmark_info.vibeNum}</td>
+							</tr>	
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<tr>
+							<td colspan="3">인용구가 없습니다.</td>
+						</tr>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+			<tfoot></tfoot>
+		</table>
+		
+		<br/>
+		<br/>
+		
+		<c:if test="${sessionScope.id!=null}">
+			<form action="/book/insertBookMark.do" method="post" name="insertbookmarkform">
+				<input type="hidden" name="book_id" value="${book_info.id}"/>
+				<table>
+					<thead>
+						<tr>
+							<td colspan="2">인용구 작성</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>페이지</td>
+							<td>p.<input type="text" name="page" size="4"/></td>
+						</tr>
+						<tr>
+							<td>인용구</td>
+							<td>
+								<textarea rows="3" cols="50" name="content"></textarea>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="2">
+								<input type="submit" value="등록"/>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</form>
+		</c:if>
+		
+		
+		
 		
 		<div id=''>
 			<a href="javascript:history.go(-1)">뒤로</a>
