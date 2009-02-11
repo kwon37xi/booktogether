@@ -199,7 +199,7 @@
 		<table border="1">
 			<thead>
 				<tr>
-					<td colspan="3">인용구 테이블</td>
+					<td colspan="4">인용구 테이블</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -215,12 +215,13 @@
 									</c:if>
 								</td>
 								<td>공감수 : ${bookmark_info.vibeNum}</td>
+								<td><input type="button" value="공감하기" onclick="modifyVibe('${bookmark_info.id}','${book_info.id}')"/></td>
 							</tr>	
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
 						<tr>
-							<td colspan="3">인용구가 없습니다.</td>
+							<td colspan="4">인용구가 없습니다.</td>
 						</tr>
 					</c:otherwise>
 				</c:choose>

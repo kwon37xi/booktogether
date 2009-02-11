@@ -132,6 +132,38 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookMar
 		return count;
 	}
 
+	@Override
+	public int insertVibe(int bookmark_id, int user_id) {
+		
+		String sql=XmlUtil.getInstance().getSQL("bookMark","INSERT_VIBE_SQL");
+
+		int count=getSimpleJdbcTemplate().update(
+				sql
+				, new Object[]{
+						user_id
+						,bookmark_id
+				}
+		);
+
+		return count;
+	}
+
+	@Override
+	public int modifyVibeBookMark(BookMark bookMark) {
+		
+		String sql=XmlUtil.getInstance().getSQL("bookMark","MODIFY_VIBE_BOOKMARK_SQL");
+
+		int count=getSimpleJdbcTemplate().update(
+				sql
+				, new Object[]{
+						bookMark.getId()
+						,bookMark.getBook().getId()
+				}
+		);
+
+		return count;
+	}
+
 
 
 }

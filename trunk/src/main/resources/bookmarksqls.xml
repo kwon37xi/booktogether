@@ -11,6 +11,17 @@
             ]]>
         </query>
      </sql>
+     
+     
+     <sql name="INSERT_VIBE_SQL">
+        <description>공감 등록</description>
+        <query>
+            <![CDATA[
+             INSERT INTO VIBE(user_id, bookmark_id)  
+             VALUES (?, ?)
+            ]]>
+        </query>
+     </sql>
     
      <sql name="MODIFY_BOOKMARK_SQL">
         <description>인용구 수정하기</description>
@@ -22,6 +33,18 @@
              	    ,content=?
               WHERE id=?
                 AND user_id = ? 
+                AND book_id = ?
+            ]]>
+        </query>
+     </sql>
+     
+     <sql name="MODIFY_VIBE_BOOKMARK_SQL">
+        <description>공감 올리기</description>
+        <query>
+            <![CDATA[
+             UPDATE BOOKMARK 
+             	SET vibe_num=vibe_num+1
+              WHERE id=? 
                 AND book_id = ?
             ]]>
         </query>
@@ -85,22 +108,20 @@
               LIMIT ?,? 
             ]]>
         </query>
-    </sql>
+     </sql>
     
     
      <sql name="EXIST_MYVIBE_SQL">
         <description>내가 매긴 공감이 있는지 체크</description>
         <query>
             <![CDATA[
-             SELECT count(BM.id) as count
-             FROM BOOKMARK BM, USER U 
-             WHERE BM.id = ? 
-               AND BM.user_id = ? 
-               AND BM.user_id=U.id 
-               AND U.delete_y_n=0  
+             SELECT count(*) 
+             FROM VIBE 
+             WHERE bookmark_id = ? 
+               AND user_id = ? 
             ]]>
         </query>
-    </sql>
+     </sql>
     
 
 
