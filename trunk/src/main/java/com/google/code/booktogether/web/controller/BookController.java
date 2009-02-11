@@ -15,11 +15,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.BookGradeService;
+import com.google.code.booktogether.service.BookMarkService;
 import com.google.code.booktogether.service.BookReviewService;
 import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookGrade;
+import com.google.code.booktogether.web.domain.BookMark;
 import com.google.code.booktogether.web.domain.BookReview;
 import com.google.code.booktogether.web.domain.PageBean;
 
@@ -36,20 +38,27 @@ public class BookController {
 	 */
 	@Resource(name="bookService")
 	BookService bookService;
-	
-	
+
+
 	/**
 	 * BookGradeService
 	 */
 	@Resource(name="bookGradeService")
 	BookGradeService bookGradeService;
-	
-	
+
+
 	/**
 	 * BookReviewService
 	 */
 	@Resource(name="bookReviewService")
 	BookReviewService bookReviewService;
+
+
+	/**
+	 * BookMarkService
+	 */
+	@Resource(name="bookMarkService")
+	BookMarkService bookMarkService;
 
 
 	/**
@@ -85,7 +94,7 @@ public class BookController {
 		String description=ServletRequestUtils.getStringParameter(req, "description", "설명");
 		String[] author_name=ServletRequestUtils.getStringParameters(req,"author_name");
 		String[] author_div=ServletRequestUtils.getStringParameters(req,"author_div");
-		
+
 		Book book=new Book();
 
 		//책 정보 세팅
@@ -165,43 +174,52 @@ public class BookController {
 	public ModelAndView handleGetBook(HttpServletRequest req){
 
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
-		
+
 		//책 ID값
 		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 
 		//책 정보 가지고 오기
 		Book book=bookService.getBook(id);
-		
-		List<BookGrade> bookgradelist=bookGradeService.getListBookGrade(book.getId(), 0, 5);
-		List<BookReview> bookreviewlist=bookReviewService.getListBookReview(book.getId(), 0, 5);
-		
-		
-		//자기가 입력한 별점이 있는지 체크
-		boolean existGrade=false;
-		
-		//자기가 입력한 리뷰가 있는지 체크
-		boolean existReview=false;
-		
-		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 
-		boolean isExistId=(user_id!=null) ? true : false;
-		
-		if(isExistId){
-			existGrade=bookGradeService.isExistGrade(book.getId(),user_id);
-			existReview=bookReviewService.isExistReview(book.getId(),user_id);
+		if(book==null){
+			
+			//return new ModelAndView("redirect:/book/getBook.do?id="+book.getId());
+			return null;
+			
+		}else{
+			
+			List<BookGrade> bookgradelist=bookGradeService.getListBookGrade(book.getId(), 0, 5);
+			List<BookReview> bookreviewlist=bookReviewService.getListBookReview(book.getId(), 0, 5);
+			List<BookMark> bookmarklist=bookMarkService.getListBookMark(book.getId(), 0, 5);
+
+
+			//자기가 입력한 별점이 있는지 체크
+			boolean existGrade=false;
+
+			//자기가 입력한 리뷰가 있는지 체크
+			boolean existReview=false;
+
+			Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
+
+			boolean isExistId=(user_id!=null) ? true : false;
+
+			if(isExistId){
+				existGrade=bookGradeService.isExistGrade(book.getId(),user_id);
+				existReview=bookReviewService.isExistReview(book.getId(),user_id);
+			}
+
+			//경로 설정 및 Attribute 설정
+			ModelAndView mav=new ModelAndView();
+			mav.setViewName("book/getBook");
+			mav.addObject("book_info",book);
+			mav.addObject("bookgradelist",bookgradelist);
+			mav.addObject("bookreviewlist",bookreviewlist);
+			mav.addObject("bookmarklist",bookmarklist);
+			mav.addObject("existGrade",existGrade);
+			mav.addObject("existReview",existReview);
+
+			return mav;
 		}
-		
-		//경로 설정 및 Attribute 설정
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("book/getBook");
-		mav.addObject("book_info",book);
-		mav.addObject("bookgradelist",bookgradelist);
-		mav.addObject("bookreviewlist",bookreviewlist);
-		mav.addObject("existGrade",existGrade);
-		mav.addObject("existReview",existReview);
-
-		return mav;
-
 	}
 
 	/**
@@ -234,7 +252,7 @@ public class BookController {
 	 */
 	@RequestMapping("/book/modifyBook.do")
 	public ModelAndView handleModifyBook(HttpServletRequest req){
-		
+
 
 		//파라미터 정보 변수  세팅
 		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
@@ -289,7 +307,7 @@ public class BookController {
 		return mav;
 
 	}
-	
+
 	/**
 	 * 책 삭제(지금 안씀)
 	 * @param req
@@ -305,7 +323,7 @@ public class BookController {
 		boolean result=bookService.deleteBook(id);
 
 		System.out.println(result);
-		
+
 		try {
 			res.sendRedirect("/book/listBook.do");
 		} catch (IOException e) {
@@ -313,58 +331,58 @@ public class BookController {
 		}
 
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 책 검색
 	 * @param req
 	 */
 	@RequestMapping("/book/searchBook.do")
 	public ModelAndView handleSearchBook(HttpServletRequest req){
-		
+
 		//책 ID값
 		String query=ServletRequestUtils.getStringParameter(req, "query", "스프링");
 		String searchType=ServletRequestUtils.getStringParameter(req, "searchType", "all");
 		int pageno=ServletRequestUtils.getIntParameter(req, "pageno", 1);
-		
+
 		//책검색 목록 가지고 오기
 		List<Book> booklist=null;
 		PageBean pageBean=new PageBean();
 		pageBean.setPageNo(pageno);
 		pageBean.setLimit(5);
 		pageBean.setPagesize(20);
-		
+
 		if(!query.equals("")){
 			booklist=bookService.searchBook(query,searchType,pageBean);
 		}
-		
+
 		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("book/searchBook");
 		mav.addObject("book_list",booklist);
 		mav.addObject("pageBean",pageBean);
-		
+
 		return mav;
-		
+
 	}
-	
+
 	/**
 	 * 책 검색후 책자세히 보기할때 책 내용이 DB에 있는지 검사
 	 * @param req
 	 */
 	@RequestMapping("/book/checkBook.do")
 	public ModelAndView handleCheckBook(HttpServletRequest req){
-		
+
 		//책 ID값
 		String isbn=ServletRequestUtils.getStringParameter(req, "ISBN", "");
-		
+
 		//책 정보 가지고 오기
 		Book book=bookService.checkBook(isbn);
-		
+
 		return new ModelAndView("redirect:/book/getBook.do?id="+book.getId());
-		
+
 	}
-	
+
 
 }

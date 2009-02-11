@@ -7,7 +7,7 @@
         <query>
             <![CDATA[
              INSERT INTO BOOKMARK(user_id, book_id, vibe_num, page, input_date, content)  
-             VALUES (?, ?, ?, ?, ?, ?)
+             VALUES (?, ?, ?, ?, now(), ?)
             ]]>
         </query>
      </sql>

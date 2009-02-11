@@ -35,7 +35,7 @@ public class BookMarkRowMapper implements ParameterizedRowMapper<BookMark>,Seria
 		bookMark.setUser(new User());
 		bookMark.getUser().setId(rs.getInt("UID"));
 		bookMark.getUser().setUser_id(rs.getString("USER_ID"));
-		bookMark.getUser().setName(rs.getString("NAME"));
+		bookMark.getUser().setName(rs.getString("USER_NAME"));
 		bookMark.getUser().setNickname(rs.getString("USER_NICKNAME"));
 		
 		return bookMark;
