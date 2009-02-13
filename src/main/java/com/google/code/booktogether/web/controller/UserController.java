@@ -58,11 +58,10 @@ public class UserController {
 
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)req;
 
-
+		//썸네일 이미지 저장 경로
 		String realPath=multipartRequest.getSession().getServletContext().getRealPath("/images/user/thumnail/");
 
-		//request의 "file"을 찾아 file객체에 세팅한다.
-
+		//파라미터 세팅
 		String user_id=ServletRequestUtils.getStringParameter(multipartRequest, "user_id", "");
 		String email=ServletRequestUtils.getStringParameter(multipartRequest, "email", "");
 		String nickname=ServletRequestUtils.getStringParameter(multipartRequest, "nickname", "");
@@ -70,14 +69,18 @@ public class UserController {
 		String pw=ServletRequestUtils.getStringParameter(multipartRequest, "pw", "");
 		String blog=ServletRequestUtils.getStringParameter(multipartRequest, "blog", "");
 
+		//request의 "file"을 찾아 file객체에 세팅한다.
 		MultipartFile file = multipartRequest.getFile("thumnail");
 
+		//임의의 파일명  현재 시간+기존파일명
 		String filename = System.currentTimeMillis()+file.getOriginalFilename();
 
+		//이미지 만들기
 		boolean result=userService.createImageResize(file, realPath, filename);
 
 		System.out.println(result);
 
+		//지역명 세팅하기 
 		String zoneNames[]=ServletRequestUtils.getStringParameters(multipartRequest, "zone");
 
 		Zone[] zones=new Zone[zoneNames.length];
@@ -88,6 +91,7 @@ public class UserController {
 
 				Zone zone=new Zone();
 
+				//지역명은 숫자다.(일련번호)
 				zone.setZone(Integer.parseInt(zoneNames[i]));
 
 				zones[i]=zone;
@@ -95,13 +99,13 @@ public class UserController {
 
 		}
 
+		//추가정보 빈에 세팅
 		UserAddInfo userAddInfo=new UserAddInfo();
 		userAddInfo.setBlog(blog);
 		userAddInfo.setThumnail(filename);
 
-
+		//사용자 기본정보 세팅
 		User user=new User();
-
 		user.setUser_id(user_id);
 		user.setEmail(email);
 		user.setNickname(nickname);
@@ -109,22 +113,20 @@ public class UserController {
 		user.setZones(zones);
 		user.setUserAddInfo(userAddInfo);
 
+		//비밀번호 세팅
 		UserPw userPw=new UserPw();
 		userPw.setPw(pw);
 
+		//**************
+		//사용자 저장하기
+		//**************
 		result=userService.insertUser(user,userPw);
 
-		String message="";
+		//메세지 세팅
+		String message=(result) ? "가입성공" : "가입실패";
 
-		if(result){
-			message="가입성공";
-		}else{
-			message="가입실패";
-		}
-
-		ServletRequestAttributes sra=new ServletRequestAttributes(req);
-
-		sra.setAttribute("message",message,RequestAttributes.SCOPE_SESSION);
+		//메세지 세션에 담기
+		new ServletRequestAttributes(req).setAttribute("message",message,RequestAttributes.SCOPE_SESSION);
 
 		return new ModelAndView("redirect:/user/login.do");
 
@@ -156,7 +158,7 @@ public class UserController {
 	@RequestMapping("/user/logout.do")
 	public ModelAndView handleLogout(HttpServletRequest req){
 
-		//세션 삭제
+		//세션 삭제-전부
 		req.getSession().invalidate();
 
 		ModelAndView mav=new ModelAndView();
@@ -198,8 +200,7 @@ public class UserController {
 
 		}
 
-
-		//경로 설정 및 Attribute 설정
+		//경로 설정
 		return new ModelAndView("redirect:/user/login.do");
 
 	}
@@ -245,18 +246,10 @@ public class UserController {
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
 		//사용자 ID값
-		int p_id=ServletRequestUtils.getIntParameter(req, "id",0);
-		Integer s_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
-
-		boolean isSession=(p_id==0 && s_id!=null)?true:false;
+		int id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 
 		User user=new User();
-
-		if(isSession){
-			user=userService.getUserDetail(s_id);
-		}else{
-			user=userService.getUserDetail(p_id);
-		}
+		user=userService.getUserDetail(id);
 
 		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
@@ -278,18 +271,10 @@ public class UserController {
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
 		//사용자 ID값
-		int p_id=ServletRequestUtils.getIntParameter(req, "id",0);
-		Integer s_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
-
-		boolean isSession=(p_id==0 && s_id!=null)?true:false;
+		int id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 
 		User user=new User();
-
-		if(isSession){
-			user=userService.getUserDetail(s_id);
-		}else{
-			user=userService.getUserDetail(p_id);
-		}
+		user=userService.getUserDetail(id);
 
 		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
@@ -310,15 +295,18 @@ public class UserController {
 	@RequestMapping("/user/modifyUser.do")
 	public ModelAndView handleModifyUser(HttpServletRequest req){
 
+		//파일 업로드시작
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)req;
 
 		ServletRequestAttributes sra=new ServletRequestAttributes(multipartRequest);
 
+		//썸네일 이미지 저장 경로
 		String realPath=multipartRequest.getSession().getServletContext().getRealPath("/images/user/thumnail/");
 
 		//사용자 ID값
 		int id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 
+		
 		//파라미터 정보 변수  세팅
 		String email=ServletRequestUtils.getStringParameter(multipartRequest, "email", "");
 		String nickname=ServletRequestUtils.getStringParameter(multipartRequest, "nickname", "");
@@ -328,31 +316,35 @@ public class UserController {
 		int userAddinfo_id=ServletRequestUtils.getIntParameter(multipartRequest, "userAddInfo_id", 0);
 
 		User user=new User();
-
 		user.setId(id);
 
-
+		//썸네일 파일정보
 		MultipartFile file = multipartRequest.getFile("thumnail");
 
 		String filename="";
 
+		//썸네일 이미지 변경할시
 		if(file!=null){
 
+			//기본의 이미지 파일 삭제
 			boolean result=userService.deleteThumnail(realPath,curr_thumnail);
 
 			System.out.println(result);
 
+			//새로운 이미지명 생성
 			filename = System.currentTimeMillis()+file.getOriginalFilename();
 
+			//이미지 저장
 			result=userService.createImageResize(file, realPath, filename);
 
 			System.out.println(result);
 
 		}else{
+			//변경 안할시 이전의 썸네일 이미지 파일명 사용
 			filename=curr_thumnail;
 		}
 
-
+		//지역명 가지고 오기
 		String zoneNames[]=ServletRequestUtils.getStringParameters(multipartRequest, "zone");
 
 		Zone[] zones=new Zone[zoneNames.length];
@@ -370,29 +362,25 @@ public class UserController {
 
 		}
 
+		//사용자 추가 정보 
 		UserAddInfo userAddInfo=new UserAddInfo();
 		userAddInfo.setId(userAddinfo_id);
 		userAddInfo.setUser_id(id);
 		userAddInfo.setBlog(blog);
 		userAddInfo.setThumnail(filename);
 
-
+		
+		//사용자 기본 정보
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setName(name);
-		user.setZones(zones);
-		user.setUserAddInfo(userAddInfo);
+		user.setZones(zones);//지역명
+		user.setUserAddInfo(userAddInfo);//추가정보
 
 
 		boolean result=userService.modifyUser(user);
 
-		String message="";
-
-		if(result){
-			message="수정성공";
-		}else{
-			message="수정실패";
-		}
+		String message=(result) ?"수정성공" : "수정실패";
 
 		sra.setAttribute("message",message,RequestAttributes.SCOPE_SESSION);
 
@@ -410,28 +398,14 @@ public class UserController {
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
 		//사용자 ID값
-		int p_id=ServletRequestUtils.getIntParameter(req, "id",0);
-
-		Integer s_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
-
-		boolean isSession=(p_id==0 && s_id!=null)?true:false;
+		int id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 
 		boolean result=false;
 
 		//사용자 탈퇴
-		if(isSession){
-			result=userService.deleteUser(s_id);
-		}else{
-			result=userService.deleteUser(p_id);
-		}
+		result=userService.deleteUser(id);
 
-		String message="";
-
-		if(result){
-			message="탈퇴성공";
-		}else{
-			message="탈퇴실패";
-		}
+		String message=(result)? "탈퇴성공" : "탈퇴실패";
 
 		sra.setAttribute("message",message,RequestAttributes.SCOPE_SESSION);
 
@@ -464,11 +438,12 @@ public class UserController {
 		String name=ServletRequestUtils.getStringParameter(req, "name","");
 		String email=ServletRequestUtils.getStringParameter(req, "email","");
 
+		//사용자 세팅
 		User user=new User();
-
 		user.setName(name);
 		user.setEmail(email);
 
+		//사용자 아이디 찾기
 		String id= userService.findID(user);
 
 		ModelAndView mav=new ModelAndView();
@@ -513,6 +488,7 @@ public class UserController {
 		user.setName(name);
 		user.setEmail(email);
 
+		//사용자 PW찾기
 		String message= userService.findPW(user);
 
 		ModelAndView mav=new ModelAndView();
@@ -556,6 +532,7 @@ public class UserController {
 
 		User user=userService.validIdPwUser(user_id, pw);
 
+		//사용자 인증이 되었다면
 		if(user!=null){
 
 			boolean result=userService.modifyPW(user,newPw);
@@ -589,15 +566,10 @@ public class UserController {
 		int id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 		int zone_id=ServletRequestUtils.getIntParameter(req, "zone_id",0);
 
-		String message="";
 
 		boolean result=userService.deleteZone(zone_id, id);
 
-		if(result){
-			message="삭제 되었습니다.";
-		}else{
-			message="삭제를 실패하였습니다.";
-		}
+		String message=(result) ? "삭제 되었습니다." : "삭제를 실패하였습니다.";
 
 		sra.setAttribute("message",message,RequestAttributes.SCOPE_SESSION);
 
@@ -663,6 +635,7 @@ public class UserController {
 	@RequestMapping("/user/findAddrView.do")
 	public ModelAndView handleFindAddrView(HttpServletRequest req){
 
+		//주소 선택시 값을 가입창의 input태그에 옮겨야 할때 식별자
 		int ele_seq=ServletRequestUtils.getIntParameter(req, "ele_seq", 0);
 
 		ModelAndView mav=new ModelAndView();
@@ -686,9 +659,8 @@ public class UserController {
 
 		String addr=ServletRequestUtils.getStringParameter(req, "addr", "");
 
-
+		//우편정보목록
 		List<Zipcode> zipcodelist=userService.getListAddr(addr);
-
 
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("user/findAddr");

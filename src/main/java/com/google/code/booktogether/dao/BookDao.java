@@ -28,7 +28,6 @@ public interface BookDao {
 	 */
 	public int modifyAuthor(Author author);
 	
-	
 	/**
 	 * 책 삭제
 	 * @param id	책 ID값

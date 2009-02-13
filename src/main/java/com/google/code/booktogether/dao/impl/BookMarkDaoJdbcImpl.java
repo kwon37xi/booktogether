@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.BookMarkDao;
 import com.google.code.booktogether.dao.rowmapper.BookMarkRowMapper;
 import com.google.code.booktogether.dao.rowmapper.MyBookMarkRowMapper;
-import com.google.code.booktogether.service.util.XmlUtil;
+import com.google.code.booktogether.dao.util.XmlUtil;
 import com.google.code.booktogether.web.domain.BookMark;
 
 @Repository("bookMarkJdbcDao")
@@ -18,11 +18,14 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookMar
 	public void setJdbcDao(DataSource dataSource){
 		setDataSource(dataSource);
 	}
+	
+	@Resource(name="XmlUtil")
+	XmlUtil xmlUtil;
 
 	@Override
 	public int insertBookMark(BookMark bookMark) {
 
-		String sql=XmlUtil.getInstance().getSQL("bookMark","INSERT_BOOKMARK_SQL");
+		String sql=xmlUtil.getSQL("bookMark","INSERT_BOOKMARK_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -41,7 +44,7 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookMar
 	@Override
 	public int modifyBookMark(BookMark bookMark) {
 
-		String sql=XmlUtil.getInstance().getSQL("bookMark","MODIFY_BOOKMARK_SQL");
+		String sql=xmlUtil.getSQL("bookMark","MODIFY_BOOKMARK_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -60,7 +63,7 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookMar
 	@Override
 	public int deleteBookMark(BookMark bookMark) {
 
-		String sql=XmlUtil.getInstance().getSQL("bookMark","DELETE_BOOKMARK_SQL");
+		String sql=xmlUtil.getSQL("bookMark","DELETE_BOOKMARK_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -80,7 +83,7 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookMar
 
 		BookMarkRowMapper bookMarkRowMapper=new BookMarkRowMapper();
 
-		String sql=XmlUtil.getInstance().getSQL("bookMark","LIST_BOOKMARK_SQL");
+		String sql=xmlUtil.getSQL("bookMark","LIST_BOOKMARK_SQL");
 
 		List<BookMark> bookmarklist=getSimpleJdbcTemplate().query(
 				sql
@@ -101,7 +104,7 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookMar
 
 		MyBookMarkRowMapper myBookMarkRowMapper=new MyBookMarkRowMapper();
 
-		String sql=XmlUtil.getInstance().getSQL("bookMark","LIST_MYBOOKMARK_SQL");
+		String sql=xmlUtil.getSQL("bookMark","LIST_MYBOOKMARK_SQL");
 
 		List<BookMark> mybookmarklist=getSimpleJdbcTemplate().query(
 				sql
@@ -119,7 +122,7 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookMar
 	@Override
 	public int isExistVibe(int id, int user_id) {
 
-		String sql=XmlUtil.getInstance().getSQL("bookMark","EXIST_MYVIBE_SQL");
+		String sql=xmlUtil.getSQL("bookMark","EXIST_MYVIBE_SQL");
 
 		int count=getSimpleJdbcTemplate().queryForInt(
 				sql
@@ -135,7 +138,7 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookMar
 	@Override
 	public int insertVibe(int bookmark_id, int user_id) {
 		
-		String sql=XmlUtil.getInstance().getSQL("bookMark","INSERT_VIBE_SQL");
+		String sql=xmlUtil.getSQL("bookMark","INSERT_VIBE_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -151,7 +154,7 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookMar
 	@Override
 	public int modifyVibeBookMark(BookMark bookMark) {
 		
-		String sql=XmlUtil.getInstance().getSQL("bookMark","MODIFY_VIBE_BOOKMARK_SQL");
+		String sql=xmlUtil.getSQL("bookMark","MODIFY_VIBE_BOOKMARK_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
