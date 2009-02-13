@@ -1,6 +1,9 @@
 package com.google.code.booktogether.service;
 
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.UserPw;
@@ -26,7 +29,15 @@ public interface UserService {
 	 * @param id
 	 * @return
 	 */
-	public boolean deleteUser(int id);	
+	public boolean deleteUser(int id);
+	
+	
+	/**
+	 * 지역명 삭제
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteZone(int zone_id,int user_id);	
 	
 	
 	/**
@@ -42,7 +53,15 @@ public interface UserService {
 	 * @param id
 	 * @return
 	 */
-	public User getUser(int id);		
+	public User getUser(int id);
+	
+	
+	/**
+	 * 사용자 조회(상세)
+	 * @param id
+	 * @return
+	 */
+	public User getUserDetail(int id);		
 	
 	
 	/**
@@ -74,4 +93,31 @@ public interface UserService {
 	 * @return 변경 결과
 	 */
 	public boolean modifyPW(User user,String newPw);
+	
+	/**
+	 * 썸네일 파일 저장
+	 * @param realPath
+	 * @param filename
+	 * @return
+	 */
+	public boolean createImageResize(MultipartFile file,String realPath,String filename);
+	
+	
+	/**
+	 * 썸네일 파일 삭제
+	 * @param realPath
+	 * @param filename
+	 * @return
+	 */
+	public boolean deleteThumnail(String realPath,String filename);
+	
+	
+	/**
+	 * 아이디 중복 확인
+	 * @param user_id
+	 * @return
+	 */
+	public boolean duplicateUser_id(String user_id);
+	
+	
 }

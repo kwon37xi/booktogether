@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<div>
-			<form method="post" name="insertuser_form" action="/user/insertUser.do">
+			<form enctype="multipart/form-data" method="post" name="insertuser_form" action="/user/insertUser.do">
 				<p>			
 					<label for="user_id">ID</label>
 					<input type="text" name="user_id" size="20"/>
@@ -36,6 +36,30 @@
 					<label for="name">이름</label>
 					<input type="text" name="name" size="20"/>
 				</p>
+				
+				<hr/>
+				추가정보
+				<p>
+					<label for="blog">Blog 주소</label>
+					<input type="text" name="blog" size="20"/>
+				</p>
+				<p>
+					<label for="thumnail">이미지</label>
+					<input type="file" name="thumnail" size="20"/>
+				</p>
+				<p>
+					<label for="zone">생활반경1</label>
+					<input type="text" name="zone" size="20"/>
+				</p>
+				<p>
+					<label for="zone">생활반경2</label>
+					<input type="text" name="zone" size="20"/>
+				</p>
+				<p>
+					<label for="zone">생활반경3</label>
+					<input type="text" name="zone" size="20"/>
+				</p>
+				
 				<input type="submit" value="등록"/>
 				<input type="button" value="뒤로" onclick="go_back()"/>
 				

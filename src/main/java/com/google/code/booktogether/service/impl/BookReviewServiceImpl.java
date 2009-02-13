@@ -31,9 +31,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 			int count=bookReviewJdbcDao.insertReview(bookReview);
 
-			if(count==0){
-				throw new Exception();
-			}else if(count!=1){
+			if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -59,9 +57,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 			int count=bookReviewJdbcDao.modifyReview(bookReview);
 
-			if(count==0){
-				throw new Exception();
-			}else if(count!=1){
+			if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -86,9 +82,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 			int count=bookReviewJdbcDao.deleteReview(bookReview);
 
-			if(count==0){
-				throw new Exception();
-			}else if(count!=1){
+			if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -170,17 +164,13 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 				count=bookReviewJdbcDao.modifyReviewRecommend(bookReview);
 
-				if(count==0){
-					throw new Exception();
-				}else if(count!=1){
+				if(count!=1){
 					throw new Exception();
 				}
 
 				count=bookReviewJdbcDao.insertRecommend(bookReview);
 
-				if(count==0){
-					throw new Exception();
-				}else if(count!=1){
+				if(count!=1){
 					throw new Exception();
 				}else{
 					message="추천등록완료";

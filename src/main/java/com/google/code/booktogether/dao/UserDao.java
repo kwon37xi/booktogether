@@ -3,7 +3,9 @@ package com.google.code.booktogether.dao;
 import java.util.List;
 
 import com.google.code.booktogether.web.domain.User;
+import com.google.code.booktogether.web.domain.UserAddInfo;
 import com.google.code.booktogether.web.domain.UserPw;
+import com.google.code.booktogether.web.domain.Zone;
 
 public interface UserDao {
 
@@ -15,11 +17,19 @@ public interface UserDao {
 	public int insertUser(User user);
 	
 	/**
-	 * 사용자 수정
+	 * 사용자 기본 수정
 	 * @param user 수정할 사용자 도메인
 	 * @return
 	 */
 	public int modifyUser(User user);
+	
+	
+	/**
+	 * 사용자 추가정보 수정
+	 * @param user 수정할 사용자 추가정보 도메인
+	 * @return
+	 */
+	public int modifyUserAddInfo(UserAddInfo userAddInfo);
 	
 	
 	/**
@@ -29,6 +39,15 @@ public interface UserDao {
 	 */
 	public int deleteUser(int id);
 	
+
+	/**
+	 * 지역명 삭제
+	 * @param zone_id
+	 * @param id
+	 * @return
+	 */
+	public int deleteZone(int zone_id, int id);
+	
 	
 	/**
 	 * 사용자조회
@@ -36,6 +55,15 @@ public interface UserDao {
 	 * @return
 	 */
 	public User getUser(int id);
+	
+	
+	/**
+	 * 지역명 가지고 오기
+	 * @param id
+	 * @return
+	 */
+	public List<Zone> getZones(int id);
+	
 	
 	
 	/**
@@ -70,7 +98,8 @@ public interface UserDao {
 	 * 사용자 인증번호 조회
 	 * @return 사용자 id
 	 */
-	public UserPw getUserPw(int id);	
+	public UserPw getUserPw(int id);
+	
 	
 	/**
 	 * 사용자 인증 번호 등록
@@ -99,4 +128,28 @@ public interface UserDao {
 	 * @return 사용자 정보
 	 */
 	public User findPW(User user);
+	
+	
+	/**
+	 * 사용자 추가정보 
+	 * @param userAddInfo
+	 * @return
+	 */
+	public int insertUserAddInfo(UserAddInfo userAddInfo);
+	
+	
+	
+	/**
+	 * 사용자 생활 반경 등록
+	 * @param zone
+	 * @return
+	 */
+	public int insertZone(Zone zone);
+	
+	/**
+	 * 사용자 중복 확인
+	 * @param user_id
+	 * @return
+	 */
+	public int duplicateUser_id(String user_id);
 }

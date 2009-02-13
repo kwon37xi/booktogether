@@ -47,6 +47,29 @@ public class User extends BaseObject{
 	 */
 	private int delete_y_n;
 	
+	/**
+	 * 사용자 추가정보 클래스
+	 */
+	private UserAddInfo userAddInfo;
+	
+	/**
+	 * 내 생활 반경
+	 */
+	private Zone[] zones;
+	
+	
+	public Zone[] getZones() {
+		return zones;
+	}
+	public void setZones(Zone[] zones) {
+		this.zones = zones;
+	}
+	public UserAddInfo getUserAddInfo() {
+		return userAddInfo;
+	}
+	public void setUserAddInfo(UserAddInfo userAddInfo) {
+		this.userAddInfo = userAddInfo;
+	}
 	public int getId() {
 		return id;
 	}
