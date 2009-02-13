@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.UserPw;
+import com.google.code.booktogether.web.domain.Zipcode;
 
 public interface UserService {
 
@@ -120,4 +121,10 @@ public interface UserService {
 	public boolean duplicateUser_id(String user_id);
 	
 	
+	/**
+	 * 주소찾기
+	 * @param addr
+	 * @return
+	 */
+	public List<Zipcode> getListAddr(String addr);
 }

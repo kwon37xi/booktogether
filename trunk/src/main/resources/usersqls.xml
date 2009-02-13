@@ -209,6 +209,23 @@
         </query>
     </sql>
     
+    
+	<sql name="LIST_ZIPCODE_SQL">
+        <description>주소찾기</description>
+        <query>
+            <![CDATA[
+             SELECT seq
+             	    ,sido
+             	    ,gugun
+             	    ,dong
+               FROM ZIPCODE
+              WHERE sido  LIKE ?
+                 OR gugun LIKE ?
+                 OR dong  LIKE ?
+            ]]>
+        </query>
+    </sql>
+    
     <sql name="GET_LAST_NUM">
         <description></description>
         <query>

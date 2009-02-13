@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserAddInfo;
 import com.google.code.booktogether.web.domain.UserPw;
+import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
 
 public interface UserDao {
@@ -152,4 +153,13 @@ public interface UserDao {
 	 * @return
 	 */
 	public int duplicateUser_id(String user_id);
+
+	
+	/**
+	 * 주소찾기
+	 * @param addr
+	 * @return
+	 */
+	public List<Zipcode> getLisZipcode(String addr);
+	
 }

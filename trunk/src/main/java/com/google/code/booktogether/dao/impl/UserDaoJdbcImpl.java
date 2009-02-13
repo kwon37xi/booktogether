@@ -12,11 +12,13 @@ import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.UserDao;
 import com.google.code.booktogether.dao.rowmapper.UserPwRowMapper;
 import com.google.code.booktogether.dao.rowmapper.UserRowMapper;
+import com.google.code.booktogether.dao.rowmapper.ZipcodeRowMapper;
 import com.google.code.booktogether.dao.rowmapper.ZoneRowMapper;
 import com.google.code.booktogether.service.util.XmlUtil;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserAddInfo;
 import com.google.code.booktogether.web.domain.UserPw;
+import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
 
 
@@ -28,11 +30,6 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	public void setJdbcDao(DataSource dataSource){
 		setDataSource(dataSource);
 	}
-
-	//사용자 RowMapper
-
-
-	//사용자 비밀번호  RowMapper
 
 
 	@Override
@@ -368,6 +365,27 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 		);
 
 		return count;
+	}
+
+	@Override
+	public List<Zipcode> getLisZipcode(String addr) {
+		
+		
+		ZipcodeRowMapper zipcodeRowMapper=new ZipcodeRowMapper();
+
+		String sql=XmlUtil.getInstance().getSQL("user","LIST_ZIPCODE_SQL");
+
+		List<Zipcode> zipcodelist=getSimpleJdbcTemplate().query(
+				sql
+				,zipcodeRowMapper
+				,new Object[]{
+					"%"+addr+"%"
+					,"%"+addr+"%"
+					,"%"+addr+"%"
+				}
+		);
+
+		return zipcodelist;
 	}
 
 

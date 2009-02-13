@@ -19,6 +19,7 @@ import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserAddInfo;
 import com.google.code.booktogether.web.domain.UserPw;
+import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
 
 /**
@@ -74,7 +75,7 @@ public class UserController {
 		String filename = System.currentTimeMillis()+file.getOriginalFilename();
 
 		boolean result=userService.createImageResize(file, realPath, filename);
-		
+
 		System.out.println(result);
 
 		String zoneNames[]=ServletRequestUtils.getStringParameters(multipartRequest, "zone");
@@ -83,14 +84,17 @@ public class UserController {
 
 		for(int i=0;i<zoneNames.length;i++){
 
-			Zone zone=new Zone();
+			if(zoneNames[i]!=null && !zoneNames[i].equals("")){
 
-			zone.setZone(zoneNames[i]);
+				Zone zone=new Zone();
 
-			zones[i]=zone;
+				zone.setZone(Integer.parseInt(zoneNames[i]));
+
+				zones[i]=zone;
+			}
 
 		}
-		
+
 		UserAddInfo userAddInfo=new UserAddInfo();
 		userAddInfo.setBlog(blog);
 		userAddInfo.setThumnail(filename);
@@ -335,15 +339,15 @@ public class UserController {
 		if(file!=null){
 
 			boolean result=userService.deleteThumnail(realPath,curr_thumnail);
-			
+
 			System.out.println(result);
 
 			filename = System.currentTimeMillis()+file.getOriginalFilename();
 
 			result=userService.createImageResize(file, realPath, filename);
-			
+
 			System.out.println(result);
-			
+
 		}else{
 			filename=curr_thumnail;
 		}
@@ -355,12 +359,14 @@ public class UserController {
 
 		for(int i=0;i<zoneNames.length;i++){
 
-			Zone zone=new Zone();
+			if(zoneNames[i]!=null && !zoneNames[i].equals("")){
 
-			zone.setUser_id(id);
-			zone.setZone(zoneNames[i]);
+				Zone zone=new Zone();
 
-			zones[i]=zone;
+				zone.setZone(Integer.parseInt(zoneNames[i]));
+
+				zones[i]=zone;
+			}
 
 		}
 
@@ -598,38 +604,38 @@ public class UserController {
 		return new ModelAndView("redirect:/user/modifyUserView.do");
 
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 아이디 중복 확인 화면
 	 * @param req 
 	 */
 	@RequestMapping("/user/duplicateUserIdView.do")
 	public ModelAndView handleDuplicateUserIdView(HttpServletRequest req){
-		
+
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("user/duplicateUserId");
 
 		return mav;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * 아이디 중복 확인
 	 * @param req 
 	 */
 	@RequestMapping("/user/duplicateUserId.do")
 	public ModelAndView handleDuplicateUserId(HttpServletRequest req){
-		
+
 		String user_id=ServletRequestUtils.getStringParameter(req, "user_id", "");
-		
+
 		boolean result=userService.duplicateUser_id(user_id);
-		
+
 		String message="";
 		int result_div=0;
-		
+
 		if(result){
 			message="사용 가능합니다.";
 			result_div=1;
@@ -637,15 +643,61 @@ public class UserController {
 			message="아이디 중복입니다.";
 			result_div=0;
 		}
-		
-		
+
+
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("user/duplicateUserId");
 		mav.addObject("message",message);
 		mav.addObject("result_div",result_div);
-		
+		mav.addObject("user_id",user_id);
+
 		return mav;
-		
+
+	}
+
+
+	/**
+	 * 주소 찾기 화면
+	 * @param req 
+	 */
+	@RequestMapping("/user/findAddrView.do")
+	public ModelAndView handleFindAddrView(HttpServletRequest req){
+
+		int ele_seq=ServletRequestUtils.getIntParameter(req, "ele_seq", 0);
+
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("user/findAddr");
+		mav.addObject("ele_seq",ele_seq);
+
+		return mav;
+
+	}
+
+
+
+	/**
+	 * 주소 찾기
+	 * @param req 
+	 */
+	@RequestMapping("/user/findAddr.do")
+	public ModelAndView handleFindAddr(HttpServletRequest req){
+
+		int ele_seq=ServletRequestUtils.getIntParameter(req, "ele_seq", 0);
+
+		String addr=ServletRequestUtils.getStringParameter(req, "addr", "");
+
+
+		List<Zipcode> zipcodelist=userService.getListAddr(addr);
+
+
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("user/findAddr");
+		mav.addObject("ele_seq",ele_seq);
+		mav.addObject("addr",addr);
+		mav.addObject("zipcodelist",zipcodelist);
+
+		return mav;
+
 	}
 
 }
