@@ -1,4 +1,4 @@
-#summary Book,User,Author,Bookgrade, Bookreview Table
+#summary Table Infomation
 #labels table
 
 = *Book* 테이블 =
@@ -141,5 +141,44 @@ CREATE TABLE `vibe` (
   `user_id` int(11) NOT NULL COMMENT '사용자일련번호',
   `bookmark_id` int(11) NOT NULL COMMENT '북마크일련번호',
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+}}}
+
+
+= *USERADDINFO* 테이블 =
+
+{{{
+CREATE TABLE `useraddinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
+  `user_id` int(11) NOT NULL COMMENT '사용자 일련번호',
+  `blog` varchar(50) DEFAULT NULL COMMENT '블로그주소',
+  `thumnail` varchar(50) DEFAULT NULL COMMENT '썸네일이미지',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+}}}
+
+
+----
+
+= *ZONE* 테이블 =
+{{{
+CREATE TABLE `zone` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
+  `user_id` int(11) NOT NULL COMMENT '사용자 일련번호',
+  `zone` varchar(100) NOT NULL COMMENT '지역명',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+}}}
+
+----
+
+= *ZIPCODE* 테이블 =
+{{{
+CREATE TABLE `zipcode` (
+  `seq` int(11) NOT NULL COMMENT '일련번호',
+  `sido` varchar(5) DEFAULT NULL COMMENT '특별시,광역시,도',
+  `gugun` varchar(15) DEFAULT NULL COMMENT '시,군,구',
+  `dong` varchar(52) DEFAULT NULL COMMENT '읍,면,동,리,건물명',
+  PRIMARY KEY (`seq`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 }}}
