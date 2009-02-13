@@ -1,4 +1,4 @@
-package com.google.code.booktogether.service.util;
+package com.google.code.booktogether.dao.util;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
 /**
@@ -13,20 +14,13 @@ import org.springframework.util.ResourceUtils;
  * @author ParkHaeCheol
  *
  */
+@Component("XmlUtil")
 public class XmlUtil {
 	
 	private static HashMap<String,HashMap<String,String>> xml = new HashMap<String,HashMap<String,String>>();
 	
 
-	public static XmlUtil instance = null;
-	public static XmlUtil getInstance(){
-		if( instance == null ){
-			instance = new XmlUtil();
-		}
-		return instance;
-	}
-	
-	private XmlUtil(){
+	public XmlUtil(){
 		load();
 	}
 	

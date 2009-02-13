@@ -12,6 +12,11 @@ import org.springframework.stereotype.Component;
 
 import com.google.code.booktogether.web.domain.MailInfo;
 
+/**
+ * 이메일 보내기
+ * @author ParkHaeCheol
+ *
+ */
 @Component("sendEmailTo")
 public class MimeMail{ 
 

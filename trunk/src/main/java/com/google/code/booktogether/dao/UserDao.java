@@ -66,7 +66,6 @@ public interface UserDao {
 	public List<Zone> getZones(int id);
 	
 	
-	
 	/**
 	 * 사용자 목록
 	 * @param startpage	보여줄 시작 줄번호
@@ -109,6 +108,7 @@ public interface UserDao {
 	 */
 	public int insertUserPw(UserPw userPw);
 	
+	
 	/**
 	 * 사용자 인증 번호 수정
 	 * @param userPw
@@ -122,6 +122,7 @@ public interface UserDao {
 	 * @return 사용자 ID
 	 */
 	public String findID(User user);
+	
 	
 	/**
 	 * 사용자 비밀번호 찾기
@@ -146,6 +147,7 @@ public interface UserDao {
 	 * @return
 	 */
 	public int insertZone(Zone zone);
+	
 	
 	/**
 	 * 사용자 중복 확인

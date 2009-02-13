@@ -13,7 +13,13 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 public class ImageResize {
 
-	//이미지저장(축소시켜서)
+	/**
+	 * 이미지 축소 시키고 저장하기(JEPG코덱 사용)
+	 * @param source 파일원본소스
+	 * @param target 저장 위치
+	 * @param targetW 이미지 가로크기(크기에 맞게 세로크기자동)
+	 * @throws Exception
+	 */
 	public static void createImageResize(InputStream source,String target,int targetW) throws Exception{	//파일경로,저장위치,크기
 		
 		byte[] image=new byte[source.available()];
