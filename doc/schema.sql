@@ -1,5 +1,5 @@
 
-/* 지은이  */
+/* 1.지은이  */
 CREATE TABLE `author` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
   `name` varchar(20) NOT NULL COMMENT '지은이이름',
@@ -9,7 +9,7 @@ CREATE TABLE `author` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-/* 책 */
+/* 2.책 */
 CREATE TABLE `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
   `name` varchar(100) NOT NULL COMMENT '책이름',
@@ -25,7 +25,7 @@ CREATE TABLE `book` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-/* 별점 */
+/* 3.별점 */
 CREATE TABLE `bookgrade` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
   `book_id` int(11) NOT NULL COMMENT '책',
@@ -35,7 +35,7 @@ CREATE TABLE `bookgrade` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-/* 리뷰 */
+/* 4.리뷰 */
 CREATE TABLE `bookreview` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
   `book_id` int(11) NOT NULL COMMENT '책',
@@ -47,7 +47,7 @@ CREATE TABLE `bookreview` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-/* 사용자 */
+/* 5.사용자 */
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
   `user_id` varchar(15) NOT NULL COMMENT '사용자ID',
@@ -60,7 +60,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-/* 사용자 비밀번호 */
+/* 6.사용자 비밀번호 */
 CREATE TABLE `user_pw` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
   `user_id` int(11) NOT NULL COMMENT '사용자 일련번호 ',
@@ -70,7 +70,7 @@ CREATE TABLE `user_pw` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-/* 추천 */
+/* 7.추천 */
 CREATE TABLE `recommend` (                                  
    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',  
    `user_id` int(11) NOT NULL COMMENT '사용자일련번호',      
@@ -79,7 +79,7 @@ CREATE TABLE `recommend` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 
-/* 인용구 */
+/* 8.인용구 */
 CREATE TABLE `bookmark` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
   `user_id` int(11) NOT NULL COMMENT '사용자 일련번호',
@@ -92,7 +92,7 @@ CREATE TABLE `bookmark` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-/* 공감 */
+/* 9.공감 */
 CREATE TABLE `vibe` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
   `user_id` int(11) NOT NULL COMMENT '사용자일련번호',
@@ -100,3 +100,25 @@ CREATE TABLE `vibe` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
+/* 10.사용자 추가정보 */
+
+CREATE TABLE `useraddinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
+  `user_id` int(11) NOT NULL COMMENT '사용자 일련번호',
+  `blog` varchar(50) DEFAULT NULL COMMENT '블로그주소',
+  `thumnail` varchar(50) DEFAULT NULL COMMENT '썸네일이미지',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+
+
+/* 11.생활반경 */
+
+CREATE TABLE `zone` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
+  `user_id` int(11) NOT NULL COMMENT '사용자 일련번호',
+  `zone` varchar(100) NOT NULL COMMENT '지역명',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
