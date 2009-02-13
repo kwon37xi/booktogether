@@ -144,6 +144,7 @@ CREATE TABLE `vibe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 }}}
 
+----
 
 = *USERADDINFO* 테이블 =
 
