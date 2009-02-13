@@ -22,14 +22,59 @@
         </query>
     </sql>
     
+	<sql name="INSERT_USERADDINFO_SQL">
+        <description>사용자 추가정보 등록</description>
+        <query>
+            <![CDATA[
+             INSERT INTO USERADDINFO(user_id, blog, thumnail) 
+             VALUES(?, ?, ?) 
+            ]]>
+        </query>
+    </sql>
+    
+	<sql name="INSERT_ZONE_SQL">
+        <description>사용자 생활반경</description>
+        <query>
+            <![CDATA[
+             INSERT INTO ZONE(user_id, zone) 
+             VALUES(?, ?) 
+            ]]>
+        </query>
+    </sql>
+    
     
 	<sql name="GET_USER_SQL">
         <description>사용자 정보 조회(삭제된사람 포함)</description>
         <query>
             <![CDATA[
-             SELECT id, user_id, email, nickname, name, delete_y_n, input_date 
-             FROM USER 
-             WHERE ID=? 
+             SELECT U.id
+                    ,U.user_id as user_id 
+                    ,U.email as email 
+                    ,U.nickname as nickname 
+                    ,U.name as name
+                    ,U.delete_y_n as delete_y_n 
+                    ,U.input_date as input_date
+                    ,UAI.id as uai_id 
+                    ,UAI.blog as blog 
+                    ,UAI.thumnail as thumnail 
+             FROM USER U, USERADDINFO UAI 
+             WHERE U.id=UAI.user_id  
+               AND U.id=? 
+               AND U.delete_y_n=0
+            ]]>
+        </query>
+    </sql>
+    
+    
+	<sql name="GET_ZONE_SQL">
+        <description>지역명 가지고 오기</description>
+        <query>
+            <![CDATA[
+             SELECT id 
+             		,user_id 
+             		,zone 
+             FROM ZONE 
+             WHERE user_id=? 
             ]]>
         </query>
     </sql>
@@ -46,12 +91,35 @@
     </sql>
     
 	<sql name="EXIST_USER_SQL">
-        <description>사용자 정보 조회(삭제 된사람 포함하지 않음)</description>
+        <description>해당 사용자가 있는지 조회</description>
         <query>
             <![CDATA[
-             SELECT id, user_id, email, nickname, name, delete_y_n, input_date 
-             FROM USER  
-             WHERE user_id=? AND delete_y_n=0
+             SELECT U.id
+                    ,U.user_id as user_id 
+                    ,U.email as email 
+                    ,U.nickname as nickname 
+                    ,U.name as name
+                    ,U.delete_y_n as delete_y_n 
+                    ,U.input_date as input_date
+                    ,UAI.id as uai_id 
+                    ,UAI.blog as blog 
+                    ,UAI.thumnail as thumnail 
+             FROM USER U, USERADDINFO UAI 
+             WHERE U.id=UAI.user_id  
+               AND U.user_id=? 
+            ]]>
+        </query>
+    </sql>
+    
+    
+	<sql name="DUPLICATE_USER_ID_SQL">
+        <description>아이디 중복확인</description>
+        <query>
+            <![CDATA[
+             SELECT count(*)  
+               FROM USER 
+              WHERE delete_y_n=0 
+                AND user_id=? 
             ]]>
         </query>
     </sql>
@@ -64,6 +132,19 @@
              SET email=? 
 	             ,nickname=? 
 	             ,name=? 
+	         WHERE id=? 
+            ]]>
+        </query>
+    </sql>
+    
+    
+	<sql name="MODIFY_USERADDINFO_SQL">
+        <description>사용자 기본 정보 수정</description>
+        <query>
+            <![CDATA[
+             UPDATE USERADDINFO 
+             SET blog=? 
+	             ,thumnail=? 
 	         WHERE id=? 
             ]]>
         </query>
@@ -89,6 +170,18 @@
              UPDATE USER 
              SET delete_y_n=1  
              WHERE id= ? 
+            ]]>
+        </query>
+    </sql>
+    
+    
+	<sql name="DELETE_ZONE_SQL">
+        <description>지역명 삭제</description>
+        <query>
+            <![CDATA[
+            DELETE FROM ZONE 
+            WHERE id = ?
+              AND user_id = ?
             ]]>
         </query>
     </sql>

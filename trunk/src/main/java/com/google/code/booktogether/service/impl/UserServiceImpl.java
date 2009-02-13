@@ -1,5 +1,6 @@
 package com.google.code.booktogether.service.impl;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,13 +10,16 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.code.booktogether.dao.UserDao;
 import com.google.code.booktogether.service.UserService;
+import com.google.code.booktogether.service.util.ImageResize;
 import com.google.code.booktogether.service.util.PasswordAuthenticator;
 import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserPw;
+import com.google.code.booktogether.web.domain.Zone;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -35,9 +39,7 @@ public class UserServiceImpl implements UserService {
 
 			int count=userJdbcDao.deleteUser(id);
 
-			if(count==0){
-				throw new Exception();
-			}else if(count!=1){
+			if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -67,6 +69,27 @@ public class UserServiceImpl implements UserService {
 	public User getUser(int id) {
 
 		User user=userJdbcDao.getUser(id);
+
+		return user;
+	}
+
+
+	@Override
+	public User getUserDetail(int id) {
+
+		User user=userJdbcDao.getUser(id);
+
+		List<Zone> zonelist=userJdbcDao.getZones(id);
+
+		Zone[] zones=new Zone[zonelist.size()];
+
+		int i=0;
+
+		for(Zone zone:zonelist){
+			zones[i++]=zone;
+		}
+
+		user.setZones(zones);
 
 		return user;
 	}
@@ -101,19 +124,40 @@ public class UserServiceImpl implements UserService {
 
 				count=userJdbcDao.insertUserPw(userPw);
 
-				if(count==0){
+				if(count!=1){
 					throw new Exception();
-				}else if(count!=1){
-					throw new Exception();
-				}else{
-					result=true;
 				}
+
+				user.getUserAddInfo().setUser_id(id);
+
+				count=userJdbcDao.insertUserAddInfo(user.getUserAddInfo());
+
+				if(count!=1){
+					throw new Exception();
+				}
+
+				for(Zone zone: user.getZones()){
+
+					if(zone.getZone()!= null && !zone.getZone().equals("")){
+						zone.setUser_id(id);
+						count=userJdbcDao.insertZone(zone);
+
+						if(count!=1){
+							throw new Exception();
+						}
+					}
+
+				}
+
+				result=true;
 
 			} catch (Exception e) {
 				e.printStackTrace();
 				return false;
 			}
 		}
+
+
 
 		return result;
 	}
@@ -127,13 +171,30 @@ public class UserServiceImpl implements UserService {
 		try{
 			int count=userJdbcDao.modifyUser(user);
 
-			if(count==0){
+			if(count!=1){
 				throw new Exception();
-			}else if(count!=1){
-				throw new Exception();
-			}else{
-				result=true;
 			}
+
+			count=userJdbcDao.modifyUserAddInfo(user.getUserAddInfo());
+
+			if(count!=1){
+				throw new Exception();
+			}
+
+			for(Zone zone: user.getZones()){
+
+				if(zone.getZone()!= null && !zone.getZone().equals("")){
+
+					count=userJdbcDao.insertZone(zone);
+
+					if(count!=1){
+						throw new Exception();
+					}
+				}
+
+			}
+
+			result=true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -171,6 +232,8 @@ public class UserServiceImpl implements UserService {
 				user=null;
 			}
 
+		}else{
+			System.out.println("아이디가 없다.");
 		}
 
 		return user;
@@ -217,9 +280,7 @@ public class UserServiceImpl implements UserService {
 
 				int count=userJdbcDao.modifyUserPw(userPw);
 
-				if(count==0){
-					throw new Exception();
-				}else if(count!=1){
+				if(count!=1){
 					throw new Exception();
 				}
 
@@ -265,9 +326,7 @@ public class UserServiceImpl implements UserService {
 
 			int count=userJdbcDao.modifyUserPw(userPw);
 
-			if(count==0){
-				throw new Exception();
-			}else if(count!=1){
+			if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -277,6 +336,81 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 
+		return result;
+	}
+
+	@Override
+	public boolean deleteZone(int zone_id, int user_id) {
+
+		int count=userJdbcDao.deleteZone(zone_id,user_id);
+
+		try{
+			if(count!=1){
+				throw new Exception();
+			}else{
+				return true;
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean createImageResize(MultipartFile file, String realPath, String filename) {
+
+		boolean result=false;
+
+		try {
+
+			ImageResize.createImageResize(file.getInputStream(),realPath+File.separatorChar+filename,100);
+
+			result=true;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+		return result;
+	}
+
+	@Override
+	public boolean deleteThumnail(String realPath, String filename) {
+
+		boolean result=false;
+		
+		try{
+			File file=new File(realPath+File.separatorChar+filename);
+
+			file.delete();
+			
+			result=true;
+			
+		}catch(Exception e){
+			
+			e.printStackTrace();
+			
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean duplicateUser_id(String user_id) {
+		
+		boolean result=false;
+		
+		try{
+			int count=userJdbcDao.duplicateUser_id(user_id);
+			
+			result=(count==0) ?  true : false;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 

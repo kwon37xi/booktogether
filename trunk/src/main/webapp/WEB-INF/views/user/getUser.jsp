@@ -18,6 +18,7 @@
 			<c:remove scope="session" var="message"/>
 		</c:if>
 		
+		기본정보
 		<table border='1'>
 			<thead></thead>
 			<tbody>
@@ -41,6 +42,30 @@
 					<td>가입일</td>
 					<td>${user_info.input_date}</td>
 				</tr>
+			</tbody>
+			<tfoot></tfoot>
+		</table>
+		
+		
+		추가정보
+		<table border='1'>
+			<thead></thead>
+			<tbody>
+				<tr>
+					<td>블로그</td>
+					<td>${user_info.userAddInfo.blog}</td>
+				</tr>
+				<tr>
+					<td>썸네일</td>
+					<td><img src="../../images/user/thumnail/${user_info.userAddInfo.thumnail}"/></td>
+				</tr>
+				
+				<c:forEach begin="0" items="${user_info.zones}" var="zone_info" varStatus="status">
+					<tr>
+						<td>생활 반경</td>
+						<td>${zone_info.zone}</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 			<tfoot></tfoot>
 		</table>

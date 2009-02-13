@@ -10,12 +10,16 @@ import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.UserService;
 import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.User;
+import com.google.code.booktogether.web.domain.UserAddInfo;
 import com.google.code.booktogether.web.domain.UserPw;
+import com.google.code.booktogether.web.domain.Zone;
 
 /**
  * User에 관련된 Controller
@@ -51,11 +55,46 @@ public class UserController {
 	@RequestMapping("/user/insertUser.do")
 	public ModelAndView handleInsertUser(HttpServletRequest req){
 
-		String user_id=ServletRequestUtils.getStringParameter(req, "user_id", "");
-		String email=ServletRequestUtils.getStringParameter(req, "email", "");
-		String nickname=ServletRequestUtils.getStringParameter(req, "nickname", "");
-		String name=ServletRequestUtils.getStringParameter(req, "name", "");
-		String pw=ServletRequestUtils.getStringParameter(req, "pw", "");
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)req;
+
+
+		String realPath=multipartRequest.getSession().getServletContext().getRealPath("/images/user/thumnail/");
+
+		//request의 "file"을 찾아 file객체에 세팅한다.
+
+		String user_id=ServletRequestUtils.getStringParameter(multipartRequest, "user_id", "");
+		String email=ServletRequestUtils.getStringParameter(multipartRequest, "email", "");
+		String nickname=ServletRequestUtils.getStringParameter(multipartRequest, "nickname", "");
+		String name=ServletRequestUtils.getStringParameter(multipartRequest, "name", "");
+		String pw=ServletRequestUtils.getStringParameter(multipartRequest, "pw", "");
+		String blog=ServletRequestUtils.getStringParameter(multipartRequest, "blog", "");
+
+		MultipartFile file = multipartRequest.getFile("thumnail");
+
+		String filename = System.currentTimeMillis()+file.getOriginalFilename();
+
+		boolean result=userService.createImageResize(file, realPath, filename);
+		
+		System.out.println(result);
+
+		String zoneNames[]=ServletRequestUtils.getStringParameters(multipartRequest, "zone");
+
+		Zone[] zones=new Zone[zoneNames.length];
+
+		for(int i=0;i<zoneNames.length;i++){
+
+			Zone zone=new Zone();
+
+			zone.setZone(zoneNames[i]);
+
+			zones[i]=zone;
+
+		}
+		
+		UserAddInfo userAddInfo=new UserAddInfo();
+		userAddInfo.setBlog(blog);
+		userAddInfo.setThumnail(filename);
+
 
 		User user=new User();
 
@@ -63,11 +102,13 @@ public class UserController {
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setName(name);
+		user.setZones(zones);
+		user.setUserAddInfo(userAddInfo);
 
 		UserPw userPw=new UserPw();
 		userPw.setPw(pw);
 
-		boolean result=userService.insertUser(user,userPw);
+		result=userService.insertUser(user,userPw);
 
 		String message="";
 
@@ -76,7 +117,7 @@ public class UserController {
 		}else{
 			message="가입실패";
 		}
-		
+
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
 		sra.setAttribute("message",message,RequestAttributes.SCOPE_SESSION);
@@ -148,9 +189,9 @@ public class UserController {
 			sra.setAttribute("user_id", user.getUser_id(), RequestAttributes.SCOPE_SESSION);
 
 		}else{		//실패시 
-			
+
 			sra.setAttribute("message", "아이디가 없거나 비밀번호가 일치 하지 않습니다.", RequestAttributes.SCOPE_SESSION);
-			
+
 		}
 
 
@@ -208,16 +249,16 @@ public class UserController {
 		User user=new User();
 
 		if(isSession){
-			user=userService.getUser(s_id);
+			user=userService.getUserDetail(s_id);
 		}else{
-			user=userService.getUser(p_id);
+			user=userService.getUserDetail(p_id);
 		}
 
 		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("user/getUser");
 		mav.addObject("user_info",user);
-	
+
 		return mav;
 
 	}
@@ -241,9 +282,9 @@ public class UserController {
 		User user=new User();
 
 		if(isSession){
-			user=userService.getUser(s_id);
+			user=userService.getUserDetail(s_id);
 		}else{
-			user=userService.getUser(p_id);
+			user=userService.getUserDetail(p_id);
 		}
 
 		//경로 설정 및 Attribute 설정
@@ -255,6 +296,8 @@ public class UserController {
 
 	}
 
+
+
 	/**
 	 * 사용자 수정하기
 	 * @param req
@@ -263,42 +306,79 @@ public class UserController {
 	@RequestMapping("/user/modifyUser.do")
 	public ModelAndView handleModifyUser(HttpServletRequest req){
 
-		ServletRequestAttributes sra=new ServletRequestAttributes(req);
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)req;
+
+		ServletRequestAttributes sra=new ServletRequestAttributes(multipartRequest);
+
+		String realPath=multipartRequest.getSession().getServletContext().getRealPath("/images/user/thumnail/");
 
 		//사용자 ID값
-		int p_id=ServletRequestUtils.getIntParameter(req, "id",0);
-		Integer s_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
+		int id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 
-		boolean isSession=(p_id==0 && s_id!=null)?true:false;
+		//파라미터 정보 변수  세팅
+		String email=ServletRequestUtils.getStringParameter(multipartRequest, "email", "");
+		String nickname=ServletRequestUtils.getStringParameter(multipartRequest, "nickname", "");
+		String name=ServletRequestUtils.getStringParameter(multipartRequest, "name", "");
+		String blog=ServletRequestUtils.getStringParameter(multipartRequest, "blog", "");
+		String curr_thumnail=ServletRequestUtils.getStringParameter(multipartRequest, "curr_thumnail", "");
+		int userAddinfo_id=ServletRequestUtils.getIntParameter(multipartRequest, "userAddInfo_id", 0);
 
 		User user=new User();
 
-		if(isSession){
-			isSession=true;
-			user.setId(s_id);
+		user.setId(id);
+
+
+		MultipartFile file = multipartRequest.getFile("thumnail");
+
+		String filename="";
+
+		if(file!=null){
+
+			boolean result=userService.deleteThumnail(realPath,curr_thumnail);
+			
+			System.out.println(result);
+
+			filename = System.currentTimeMillis()+file.getOriginalFilename();
+
+			result=userService.createImageResize(file, realPath, filename);
+			
+			System.out.println(result);
+			
 		}else{
-			isSession=false;
-			user.setId(p_id);
+			filename=curr_thumnail;
 		}
 
-		//파라미터 정보 변수  세팅
-		String email=ServletRequestUtils.getStringParameter(req, "email", "");
-		String nickname=ServletRequestUtils.getStringParameter(req, "nickname", "");
-		String name=ServletRequestUtils.getStringParameter(req, "name", "");
+
+		String zoneNames[]=ServletRequestUtils.getStringParameters(multipartRequest, "zone");
+
+		Zone[] zones=new Zone[zoneNames.length];
+
+		for(int i=0;i<zoneNames.length;i++){
+
+			Zone zone=new Zone();
+
+			zone.setUser_id(id);
+			zone.setZone(zoneNames[i]);
+
+			zones[i]=zone;
+
+		}
+
+		UserAddInfo userAddInfo=new UserAddInfo();
+		userAddInfo.setId(userAddinfo_id);
+		userAddInfo.setUser_id(id);
+		userAddInfo.setBlog(blog);
+		userAddInfo.setThumnail(filename);
+
 
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setName(name);
+		user.setZones(zones);
+		user.setUserAddInfo(userAddInfo);
+
 
 		boolean result=userService.modifyUser(user);
-
-		int id=0;
-
-		if(isSession){
-			id=s_id;
-		}else{
-			id=p_id;
-		}
 
 		String message="";
 
@@ -487,6 +567,85 @@ public class UserController {
 
 		return new ModelAndView("redirect:/user/login.do");
 
+	}
+
+
+	/**
+	 * 지역명 삭제
+	 * @param req 
+	 */
+	@RequestMapping("/user/deleteZone.do")
+	public ModelAndView handleDeleteZone(HttpServletRequest req){
+
+		ServletRequestAttributes sra=new ServletRequestAttributes(req);
+
+		//사용자 user_ID값
+		int id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
+		int zone_id=ServletRequestUtils.getIntParameter(req, "zone_id",0);
+
+		String message="";
+
+		boolean result=userService.deleteZone(zone_id, id);
+
+		if(result){
+			message="삭제 되었습니다.";
+		}else{
+			message="삭제를 실패하였습니다.";
+		}
+
+		sra.setAttribute("message",message,RequestAttributes.SCOPE_SESSION);
+
+		return new ModelAndView("redirect:/user/modifyUserView.do");
+
+	}
+	
+	
+	
+	/**
+	 * 아이디 중복 확인 화면
+	 * @param req 
+	 */
+	@RequestMapping("/user/duplicateUserIdView.do")
+	public ModelAndView handleDuplicateUserIdView(HttpServletRequest req){
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("user/duplicateUserId");
+
+		return mav;
+		
+	}
+	
+	
+	/**
+	 * 아이디 중복 확인
+	 * @param req 
+	 */
+	@RequestMapping("/user/duplicateUserId.do")
+	public ModelAndView handleDuplicateUserId(HttpServletRequest req){
+		
+		String user_id=ServletRequestUtils.getStringParameter(req, "user_id", "");
+		
+		boolean result=userService.duplicateUser_id(user_id);
+		
+		String message="";
+		int result_div=0;
+		
+		if(result){
+			message="사용 가능합니다.";
+			result_div=1;
+		}else{
+			message="아이디 중복입니다.";
+			result_div=0;
+		}
+		
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("user/duplicateUserId");
+		mav.addObject("message",message);
+		mav.addObject("result_div",result_div);
+		
+		return mav;
+		
 	}
 
 }
