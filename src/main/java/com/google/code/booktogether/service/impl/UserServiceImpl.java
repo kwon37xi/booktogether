@@ -19,6 +19,7 @@ import com.google.code.booktogether.service.util.PasswordAuthenticator;
 import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserPw;
+import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
 
 @Service("userService")
@@ -138,13 +139,11 @@ public class UserServiceImpl implements UserService {
 
 				for(Zone zone: user.getZones()){
 
-					if(zone.getZone()!= null && !zone.getZone().equals("")){
-						zone.setUser_id(id);
-						count=userJdbcDao.insertZone(zone);
+					zone.setUser_id(id);
+					count=userJdbcDao.insertZone(zone);
 
-						if(count!=1){
-							throw new Exception();
-						}
+					if(count!=1){
+						throw new Exception();
 					}
 
 				}
@@ -183,13 +182,10 @@ public class UserServiceImpl implements UserService {
 
 			for(Zone zone: user.getZones()){
 
-				if(zone.getZone()!= null && !zone.getZone().equals("")){
+				count=userJdbcDao.insertZone(zone);
 
-					count=userJdbcDao.insertZone(zone);
-
-					if(count!=1){
-						throw new Exception();
-					}
+				if(count!=1){
+					throw new Exception();
 				}
 
 			}
@@ -380,18 +376,18 @@ public class UserServiceImpl implements UserService {
 	public boolean deleteThumnail(String realPath, String filename) {
 
 		boolean result=false;
-		
+
 		try{
 			File file=new File(realPath+File.separatorChar+filename);
 
 			file.delete();
-			
+
 			result=true;
-			
+
 		}catch(Exception e){
-			
+
 			e.printStackTrace();
-			
+
 		}
 
 		return result;
@@ -399,19 +395,27 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean duplicateUser_id(String user_id) {
-		
+
 		boolean result=false;
-		
+
 		try{
 			int count=userJdbcDao.duplicateUser_id(user_id);
-			
+
 			result=(count==0) ?  true : false;
-			
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
+
 		return result;
+	}
+
+	@Override
+	public List<Zipcode> getListAddr(String addr) {
+
+		List<Zipcode> zipcodelist=userJdbcDao.getLisZipcode(addr);
+
+		return zipcodelist;
 	}
 
 

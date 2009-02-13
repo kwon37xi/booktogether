@@ -21,7 +21,7 @@
 				<tbody>
 					<tr>
 						<td>
-							<input type="text" name="user_id" size="20"/>
+							<input type="text" name="user_id" id="user_id" size="20" value="${requestScope.user_id}"/>
 							<input type="submit" value="중복조회"/>
 						</td>
 					</tr>
@@ -42,7 +42,7 @@
 								<c:when test="${requestScope.result_div==1}">
 									<b>${requestScope.message}</b>
 									<br/>
-									<input type="button" value="사용하기"/>
+									<input type="button" value="사용하기" onclick="useId('${requestScope.user_id}')"/>
 								</c:when>
 								<c:otherwise>
 									<b>${requestScope.message}</b>

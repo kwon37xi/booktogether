@@ -119,6 +119,18 @@ CREATE TABLE `useraddinfo` (
 CREATE TABLE `zone` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
   `user_id` int(11) NOT NULL COMMENT '사용자 일련번호',
-  `zone` varchar(100) NOT NULL COMMENT '지역명',
+  `zone` int(11) NOT NULL COMMENT '주소일련번호',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+
+/* 12.주소 */
+CREATE TABLE `zipcode` (
+  `seq` int(11) NOT NULL COMMENT '일련번호',
+  `sido` varchar(5) DEFAULT NULL COMMENT '특별시,광역시,도',
+  `gugun` varchar(15) DEFAULT NULL COMMENT '시,군,구',
+  `dong` varchar(52) DEFAULT NULL COMMENT '읍,면,동,리,건물명',
+  PRIMARY KEY (`seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
