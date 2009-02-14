@@ -35,7 +35,7 @@ public interface BookGradeService {
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookGrade> getListBookGrade(int book_id, int startPage, int endPage);
+	public List<BookGrade> getListBookGrade(String book_id, int startPage, int endPage);
 	
 	/**
 	 * 내가 입력한 별점 목록
@@ -52,5 +52,5 @@ public interface BookGradeService {
 	 * @param user_id
 	 * @return true : 별점이 있다. false : 별점이 없다.
 	 */
-	public boolean isExistGrade(int book_id,int user_id);
+	public boolean isExistGrade(String book_id, int user_id);
 }

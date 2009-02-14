@@ -35,7 +35,7 @@ public interface BookService {
 	 * @param id
 	 * @return
 	 */
-	public Book getBook(int id);		
+	public Book getBook(String id);		
 	
 	
 	/**

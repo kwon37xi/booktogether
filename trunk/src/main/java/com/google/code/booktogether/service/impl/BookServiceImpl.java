@@ -59,7 +59,9 @@ public class BookServiceImpl implements BookService {
 			//책정보 등록
 			int count=bookJdbcDao.insertBook(book);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}
 
@@ -68,7 +70,9 @@ public class BookServiceImpl implements BookService {
 			//지은이 정보등록
 			count=bookJdbcDao.insertAuthor(book.getAuthors(),id);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -94,7 +98,9 @@ public class BookServiceImpl implements BookService {
 			//책 수정
 			int count=bookJdbcDao.modifyBook(book);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}
 
@@ -106,7 +112,9 @@ public class BookServiceImpl implements BookService {
 			//책 수정
 			count=bookJdbcDao.modifyBook(book);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}
 
@@ -129,13 +137,17 @@ public class BookServiceImpl implements BookService {
 
 			int count=bookJdbcDao.deleteBook(id);
 			
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}
 			
 			count=bookJdbcDao.deleteAuthor(id);
 			
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -152,7 +164,7 @@ public class BookServiceImpl implements BookService {
 
 	//책 조회
 	@Override
-	public Book getBook(int id) {
+	public Book getBook(String id) {
 
 		//책 정보 가지고 오기
 		Book book=bookJdbcDao.getBook(id);

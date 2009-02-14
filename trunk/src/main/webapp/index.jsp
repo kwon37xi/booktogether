@@ -11,5 +11,7 @@
 	<p>
 	이제 시작합니다.화이팅*ㅁ*
 	</p>
+	
+	<a href="/booktogether/book/insertBookView.do">링크링크</a>
 </body>
 </html>

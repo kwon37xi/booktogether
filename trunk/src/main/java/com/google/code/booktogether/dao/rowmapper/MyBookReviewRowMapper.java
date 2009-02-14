@@ -32,7 +32,7 @@ public class MyBookReviewRowMapper implements ParameterizedRowMapper<BookReview>
 		bookReview.setRecommend(rs.getInt("RECOMMEND"));
 		bookReview.setTitle(rs.getString("TITLE"));
 		
-		bookReview.getBook().setId(rs.getInt("BID"));
+		bookReview.getBook().setId(rs.getString("BID"));
 		bookReview.getBook().setName(rs.getString("BNAME"));
 		bookReview.getBook().setISBN10(rs.getString("BISBN"));
 		bookReview.getBook().setPublish_comp(rs.getString("BCOMP"));

@@ -26,11 +26,11 @@ public class MyBookGradeRowMapper implements ParameterizedRowMapper<BookGrade>,S
 		
 		BookGrade bookGrade=new BookGrade();
 
-		bookGrade.setId(rs.getInt("ID"));
+		bookGrade.setId(rs.getString("ID"));
 		bookGrade.setGrade(rs.getInt("GRADE"));
 		
 		bookGrade.setBook(new Book());
-		bookGrade.getBook().setId(rs.getInt("UID"));
+		bookGrade.getBook().setId(rs.getString("UID"));
 		bookGrade.getBook().setName(rs.getString("BOOK_NAME"));
 		bookGrade.getBook().setISBN10(rs.getString("ISBN"));
 		

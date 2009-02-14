@@ -34,7 +34,7 @@ public interface BookMarkDao {
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookMark> getListBookMark(int book_id,int startPage, int endPage);
+	public List<BookMark> getListBookMark(String book_id,int startPage, int endPage);
 
 	/**
 	 * 내가 작성한 인용구 목록
