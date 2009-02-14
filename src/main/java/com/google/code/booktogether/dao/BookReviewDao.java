@@ -35,14 +35,12 @@ public interface BookReviewDao {
 	 */
 	public int modifyReview(BookReview bookReview);
 	
-	
 	/**
 	 * 리뷰 삭제
 	 * @param id
 	 * @return
 	 */
 	public int deleteReview(BookReview bookReview);
-	
 	
 	/**
 	 * 리뷰 목록(책 조회시)
@@ -51,8 +49,7 @@ public interface BookReviewDao {
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookReview> getListBookReview(int book_id,int startPage, int endPage);
-	
+	public List<BookReview> getListBookReview(String book_id, int startPage, int endPage);
 	
 	/**
 	 * 내가 매긴 리뷰 목록
@@ -63,15 +60,13 @@ public interface BookReviewDao {
 	 */
 	public List<BookReview> getListMyBookReview(int user_id,int startPage, int endPage);
 	
-	
 	/**
 	 * 내가 작성한 리뷰이 있는지 체크
 	 * @param book_id
 	 * @param user_id
 	 * @return
 	 */
-	public int isExistReview(int book_id,int user_id);
-	
+	public int isExistReview(String book_id,int user_id);
 	
 	/**
 	 * 추천수 올리기
@@ -80,14 +75,12 @@ public interface BookReviewDao {
 	 */
 	public int modifyReviewRecommend(BookReview bookReview);
 	
-	
 	/**
 	 * 추천인 등록
 	 * @param bookReview
 	 * @return
 	 */
 	public int insertRecommend(BookReview bookReview);
-	
 	
 	/**
 	 * 기존에 추천기록이 있는지
