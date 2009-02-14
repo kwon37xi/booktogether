@@ -31,7 +31,9 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 			int count=bookMarkJdbcDao.insertBookMark(bookMark);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -57,7 +59,9 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 			int count=bookMarkJdbcDao.modifyBookMark(bookMark);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -82,7 +86,9 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 			int count=bookMarkJdbcDao.deleteBookMark(bookMark);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -99,7 +105,7 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 
 	@Override
-	public List<BookMark> getListBookMark(int book_id, int startPage, int endPage) {
+	public List<BookMark> getListBookMark(String book_id, int startPage, int endPage) {
 
 		List<BookMark> bookmarklist=bookMarkJdbcDao.getListBookMark(book_id,startPage, endPage);
 

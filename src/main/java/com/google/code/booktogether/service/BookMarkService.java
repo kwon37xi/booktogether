@@ -35,7 +35,7 @@ public interface BookMarkService {
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookMark> getListBookMark(int book_id, int startPage, int endPage);
+	public List<BookMark> getListBookMark(String book_id, int startPage, int endPage);
 	
 	/**
 	 * 내가 입력한 인용구 목록

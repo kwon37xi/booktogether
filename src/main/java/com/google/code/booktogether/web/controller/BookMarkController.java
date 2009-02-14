@@ -41,7 +41,7 @@ public class BookMarkController {
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
 		//파라미터 정보 변수에 세팅
-		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
+		String book_id=ServletRequestUtils.getStringParameter(req, "book_id", "0");
 		int page=ServletRequestUtils.getIntParameter(req, "page", 0);
 		String content=ServletRequestUtils.getStringParameter(req, "content", "");
 
@@ -96,7 +96,7 @@ public class BookMarkController {
 
 		//파라미터 정보 변수에 세팅
 		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
-		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
+		String book_id=ServletRequestUtils.getStringParameter(req, "book_id", "0");
 
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 
@@ -148,7 +148,7 @@ public class BookMarkController {
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 		
 		//파라미터 정보 변수에 세팅
-		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
+		String book_id=ServletRequestUtils.getStringParameter(req, "book_id", "0");
 		int page=ServletRequestUtils.getIntParameter(req, "page", 0);
 		String content=ServletRequestUtils.getStringParameter(req, "content", "");
 
@@ -203,7 +203,7 @@ public class BookMarkController {
 		
 		//파라미터 정보 변수에 세팅
 		int bookmark_id=ServletRequestUtils.getIntParameter(req, "id", 0);
-		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
+		String book_id=ServletRequestUtils.getStringParameter(req, "book_id", "0");
 		
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 		

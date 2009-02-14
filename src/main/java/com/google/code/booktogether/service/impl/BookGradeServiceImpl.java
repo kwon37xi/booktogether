@@ -31,7 +31,9 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 			int count=bookGradeJdbcDao.insertGrade(bookGrade);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -57,7 +59,9 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 			int count=bookGradeJdbcDao.modifyGrade(bookGrade);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -82,7 +86,9 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 			int count=bookGradeJdbcDao.deleteGrade(bookGrade);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -99,7 +105,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 
 	@Override
-	public List<BookGrade> getListBookGrade(int book_id, int startPage, int endPage) {
+	public List<BookGrade> getListBookGrade(String book_id, int startPage, int endPage) {
 
 		List<BookGrade> bookgradelist=bookGradeJdbcDao.getListBookGrade(book_id,startPage, endPage);
 
@@ -118,7 +124,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 
 	@Override
-	public boolean isExistGrade(int book_id, int user_id) {
+	public boolean isExistGrade(String book_id, int user_id) {
 
 		int count=bookGradeJdbcDao.isExistGrade(book_id,user_id);
 

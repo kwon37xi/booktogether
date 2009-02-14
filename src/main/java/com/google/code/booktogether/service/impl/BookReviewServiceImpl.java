@@ -31,7 +31,9 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 			int count=bookReviewJdbcDao.insertReview(bookReview);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -57,7 +59,9 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 			int count=bookReviewJdbcDao.modifyReview(bookReview);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -82,7 +86,9 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 			int count=bookReviewJdbcDao.deleteReview(bookReview);
 
-			if(count!=1){
+			if(count==0){
+				throw new Exception();
+			}else if(count!=1){
 				throw new Exception();
 			}else{
 				result=true;
@@ -99,7 +105,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 
 	@Override
-	public List<BookReview> getListBookReview(int book_id, int startPage, int endPage) {
+	public List<BookReview> getListBookReview(String book_id, int startPage, int endPage) {
 
 		List<BookReview> bookReviewlist=bookReviewJdbcDao.getListBookReview(book_id,startPage, endPage);
 
@@ -118,7 +124,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 
 	@Override
-	public boolean isExistReview(int book_id, int user_id) {
+	public boolean isExistReview(String book_id, int user_id) {
 
 		int count=bookReviewJdbcDao.isExistReview(book_id,user_id);
 
@@ -164,13 +170,17 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 				count=bookReviewJdbcDao.modifyReviewRecommend(bookReview);
 
-				if(count!=1){
+				if(count==0){
+					throw new Exception();
+				}else if(count!=1){
 					throw new Exception();
 				}
 
 				count=bookReviewJdbcDao.insertRecommend(bookReview);
 
-				if(count!=1){
+				if(count==0){
+					throw new Exception();
+				}else if(count!=1){
 					throw new Exception();
 				}else{
 					message="추천등록완료";

@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<div>
-			<form method="post" name="insertbook_form" action="/book/insertBook.do">
+			<form method="post" name="insertbook_form" action="/booktogether/book/insertBook.do">
 				<p>			
 					<label for="name">책 제목</label>
 					<input type="text" name="name" size="20"/>
@@ -33,7 +33,7 @@
 				</p>
 				<p>
 					<label for="isbn10">ISBN(10자리)</label>
-					<input type="text" name="isbn10" size="20"/>
+					<input type="text" name="ISBN10" size="20"/>
 				</p>
 				<p>
 					<label for="isbn13">ISBN(13자리)</label>
