@@ -26,7 +26,7 @@ public class BookGradeRowMapper implements ParameterizedRowMapper<BookGrade>,Ser
 		
 		BookGrade bookGrade=new BookGrade();
  	    
-		bookGrade.setId(rs.getString("ID"));
+		bookGrade.setId(rs.getInt("ID"));
 		bookGrade.setGrade(rs.getInt("GRADE"));
 		
 		bookGrade.setUser(new User());

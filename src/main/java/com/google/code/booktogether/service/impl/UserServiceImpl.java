@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.code.booktogether.dao.UserDao;
+import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.UserService;
 import com.google.code.booktogether.service.util.ImageResize;
 import com.google.code.booktogether.service.util.PasswordAuthenticator;
@@ -23,6 +24,7 @@ import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
 
 @Service("userService")
+@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 public class UserServiceImpl implements UserService {
 
 	//사용자 JDBC DAO DI
@@ -31,26 +33,18 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	@Transactional(readOnly=false)
 	public boolean deleteUser(int id) {
 
 		boolean result=false;
 
-		try{
+		int count=userJdbcDao.deleteUser(id);
 
-			int count=userJdbcDao.deleteUser(id);
-
-			if(count!=1){
-				throw new Exception();
-			}else{
-				result=true;
-			}
-
-		}catch(Exception e){
-			e.printStackTrace();
-			return false;
+		if(count!=1){
+			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
+		}else{
+			result=true;
 		}
-
 		return result;
 	}
 
@@ -96,7 +90,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	@Transactional(readOnly=false)
 	public boolean insertUser(User user,UserPw userPw) {
 
 		boolean result=false;
@@ -112,6 +106,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		int count=userJdbcDao.insertUser(user);
+
 
 		if(count!=0){
 
@@ -151,7 +146,6 @@ public class UserServiceImpl implements UserService {
 				result=true;
 
 			} catch (Exception e) {
-				e.printStackTrace();
 				return false;
 			}
 		}
@@ -162,7 +156,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	@Transactional(readOnly=false)
 	public boolean modifyUser(User user) {
 
 		boolean result=false;
@@ -201,7 +195,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public User validIdPwUser(String user_id, String pw) {
 
 		User user=userJdbcDao.isExistUser(user_id);
@@ -244,7 +237,6 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
 	public String findPW(User user) {
 
 		String message="";
@@ -298,7 +290,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	@Transactional(readOnly=false)
 	public boolean modifyPW(User user, String newPw) {
 
 		boolean result=false;
@@ -336,6 +328,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional(readOnly=false)
 	public boolean deleteZone(int zone_id, int user_id) {
 
 		int count=userJdbcDao.deleteZone(zone_id,user_id);

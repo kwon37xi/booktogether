@@ -40,7 +40,7 @@ public class BookReviewDetailRowMapper implements ParameterizedRowMapper<BookRev
 		bookReview.getUser().setName(rs.getString("USER_NAME"));
 		bookReview.getUser().setNickname(rs.getString("USER_NICKNAME"));
 		
-		bookReview.getBook().setId(rs.getString("BID"));
+		bookReview.getBook().setId(rs.getInt("BID"));
 		
 		return bookReview;
 	}

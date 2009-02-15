@@ -50,7 +50,7 @@ public interface BookReviewService {
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookReview> getListBookReview(String book_id, int startPage, int endPage);
+	public List<BookReview> getListBookReview(int book_id, int startPage, int endPage);
 	
 	/**
 	 * 내가 입력한 리뷰 목록
@@ -68,7 +68,7 @@ public interface BookReviewService {
 	  * @param user_id
 	  * @return  true : 리뷰가 있다. false : 리뷰가 없다.
 	  */
-	 public boolean isExistReview(String book_id, int user_id);
+	 public boolean isExistReview(int book_id,int user_id);
 	 
 	 
 	 /**

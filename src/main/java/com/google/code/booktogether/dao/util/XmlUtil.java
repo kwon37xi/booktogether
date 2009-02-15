@@ -43,7 +43,7 @@ public class XmlUtil {
 			map.clear();
 			
 			try	{
-				doc = builder.build(ResourceUtils.getFile("classpath:"+filename));
+				doc = builder.build(ResourceUtils.getFile("classpath:sqls/"+filename));
 			}catch(Exception ioe){
 				ioe.printStackTrace();
 			}

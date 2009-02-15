@@ -9,10 +9,5 @@
 	<title>책 관련 테이블 CRUD 결과</title>
 </head>
 	<body>
-	${result}<br/>
-	${book.name}<br/>
-	${book.ISBN10}<br/>
-	${book.ISBN13}<br/>
-	
 	</body>
 </html>
