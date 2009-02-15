@@ -10,7 +10,7 @@ import com.google.code.booktogether.dao.BookReviewDao;
 import com.google.code.booktogether.dao.rowmapper.BookReviewDetailRowMapper;
 import com.google.code.booktogether.dao.rowmapper.BookReviewRowMapper;
 import com.google.code.booktogether.dao.rowmapper.MyBookReviewRowMapper;
-import com.google.code.booktogether.service.util.XmlUtil;
+import com.google.code.booktogether.dao.util.XmlUtil;
 import com.google.code.booktogether.web.domain.BookReview;
 
 @Repository("bookReviewJdbcDao")
@@ -20,12 +20,15 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 	public void setJdbcDao(DataSource dataSource){
 		setDataSource(dataSource);
 	}
+	
+	@Resource(name="XmlUtil")
+	XmlUtil xmlUtil;
 
 
 	@Override
 	public int insertReview(BookReview bookReview) {
 
-		String sql=XmlUtil.getInstance().getSQL("bookReview","INSERT_BOOKREVIEW_SQL");
+		String sql=xmlUtil.getSQL("bookReview","INSERT_BOOKREVIEW_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql,
@@ -44,7 +47,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 	@Override
 	public int modifyReview(BookReview bookReview) {
 
-		String sql=XmlUtil.getInstance().getSQL("bookReview","MODIFY_BOOKREVIEW_SQL");
+		String sql=xmlUtil.getSQL("bookReview","MODIFY_BOOKREVIEW_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -63,7 +66,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 	@Override
 	public int deleteReview(BookReview bookReview) {
 
-		String sql=XmlUtil.getInstance().getSQL("bookReview","DELETE_BOOKREVIEW_SQL");
+		String sql=xmlUtil.getSQL("bookReview","DELETE_BOOKREVIEW_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql,
@@ -78,11 +81,11 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 
 
 	@Override
-	public List<BookReview> getListBookReview(String book_id,int startPage, int endPage) {
+	public List<BookReview> getListBookReview(int book_id,int startPage, int endPage) {
 
 		BookReviewRowMapper bookReviewRowMapper=new BookReviewRowMapper();
 
-		String sql=XmlUtil.getInstance().getSQL("bookReview","LIST_BOOKREVIEW_SQL");
+		String sql=xmlUtil.getSQL("bookReview","LIST_BOOKREVIEW_SQL");
 
 		List<BookReview> bookReviewlist=getSimpleJdbcTemplate().query(
 				sql
@@ -103,7 +106,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 
 		MyBookReviewRowMapper myBookReviewRowMapper=new MyBookReviewRowMapper();
 
-		String sql=XmlUtil.getInstance().getSQL("bookReview","LIST_MYBOOKREVIEW_SQL");
+		String sql=xmlUtil.getSQL("bookReview","LIST_MYBOOKREVIEW_SQL");
 
 		List<BookReview> mybookReviewlist=
 			getSimpleJdbcTemplate().query(
@@ -120,9 +123,9 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 	}
 
 	@Override
-	public int isExistReview(String book_id, int user_id) {
+	public int isExistReview(int book_id, int user_id) {
 
-		String sql=XmlUtil.getInstance().getSQL("bookReview","EXIST_MYBOOKREVIEW_SQL");
+		String sql=xmlUtil.getSQL("bookReview","EXIST_MYBOOKREVIEW_SQL");
 
 		int count=getSimpleJdbcTemplate().queryForInt(
 				sql
@@ -140,7 +143,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 
 		BookReviewDetailRowMapper bookReviewDetailRowMapper=new BookReviewDetailRowMapper();
 
-		String sql=XmlUtil.getInstance().getSQL("bookReview","GET_MY_BOOKREVIEW_SQL");
+		String sql=xmlUtil.getSQL("bookReview","GET_MY_BOOKREVIEW_SQL");
 
 		bookReview=(BookReview)DataAccessUtils.singleResult(
 				getSimpleJdbcTemplate().query(
@@ -163,7 +166,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 
 		BookReviewDetailRowMapper bookReviewDetailRowMapper=new BookReviewDetailRowMapper();
 
-		String sql=XmlUtil.getInstance().getSQL("bookReview","GET_BOOKREVIEW_SQL");
+		String sql=xmlUtil.getSQL("bookReview","GET_BOOKREVIEW_SQL");
 
 		BookReview bookReview=(BookReview)DataAccessUtils.singleResult(
 				getSimpleJdbcTemplate().query(
@@ -183,7 +186,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 	@Override
 	public int insertRecommend(BookReview bookReview) {
 
-		String sql=XmlUtil.getInstance().getSQL("bookReview","INSERT_RECOMMEND_SQL");
+		String sql=xmlUtil.getSQL("bookReview","INSERT_RECOMMEND_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -199,7 +202,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 	@Override
 	public int modifyReviewRecommend(BookReview bookReview) {
 		
-		String sql=XmlUtil.getInstance().getSQL("bookReview","MODIFY_REVIEWRECOMMEND_SQL");
+		String sql=xmlUtil.getSQL("bookReview","MODIFY_REVIEWRECOMMEND_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -215,7 +218,7 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookR
 	@Override
 	public int isExistRecommend(BookReview bookReview) {
 		
-		String sql=XmlUtil.getInstance().getSQL("bookReview","EXIST_RECOMMEND_SQL");
+		String sql=xmlUtil.getSQL("bookReview","EXIST_RECOMMEND_SQL");
 
 		int count=getSimpleJdbcTemplate().queryForInt(
 				sql

@@ -162,7 +162,7 @@ public class UseApiDaumBook {
 
 			book.setName(item.getChild("title").getText());
 			book.setCorver(item.getChild("cover_s_url").getText());
-			book.setPrice(item.getChild("list_price").getText());
+			book.setPrice(Integer.parseInt(item.getChild("list_price").getText()));
 			book.setPublish_comp(item.getChild("pub_nm").getText());
 			book.setPublish_date(item.getChild("pub_date").getText());
 			book.setDescription(item.getChild("description").getText());

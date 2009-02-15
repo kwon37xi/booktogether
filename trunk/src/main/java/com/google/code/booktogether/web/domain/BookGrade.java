@@ -12,7 +12,7 @@ public class BookGrade extends BaseObject{
 	/**
 	 * 별점 일련번호
 	 */
-	private String id;
+	private int id;
 	
 	/**
 	 * 사용자 정보
@@ -32,12 +32,12 @@ public class BookGrade extends BaseObject{
 	private int grade=0;
 	
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

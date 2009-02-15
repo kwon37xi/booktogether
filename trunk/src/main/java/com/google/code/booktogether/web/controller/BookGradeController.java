@@ -41,7 +41,7 @@ public class BookGradeController {
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
 		//파라미터 정보 변수에 세팅
-		String book_id=ServletRequestUtils.getStringParameter(req, "book_id", "0");
+		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
 		int grade=ServletRequestUtils.getIntParameter(req, "grade", 0);
 
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
@@ -94,8 +94,8 @@ public class BookGradeController {
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
 		//파라미터 정보 변수에 세팅
-		String id=ServletRequestUtils.getStringParameter(req, "id", "0");
-		String book_id=ServletRequestUtils.getStringParameter(req, "book_id", "0");
+		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
+		int book_id=ServletRequestUtils.getIntParameter(req, "book_id", 0);
 
 		Integer user_id=(Integer)sra.getAttribute("id", RequestAttributes.SCOPE_SESSION);
 

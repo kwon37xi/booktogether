@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestAttributes;
@@ -29,7 +28,7 @@ import com.google.code.booktogether.web.domain.PageBean;
 /**
  * Book에 관련된 Controller
  * @author ParkHaeCheol
- * @modifier 09.02.13 ParkYoonYoung - getter/setter 자동 기능을 이용하기 위해 소스 수정
+ *
  */
 @Controller
 public class BookController {
@@ -80,7 +79,6 @@ public class BookController {
 	 * @param req
 	 * @return
 	 */
-	/*
 	@RequestMapping("/book/insertBook.do")
 	public ModelAndView handleInsertBook(HttpServletRequest req){
 
@@ -125,59 +123,19 @@ public class BookController {
 
 		//책 등록
 		//지은이 등록 메서드안에 포함
-		//boolean result=bookService.insertBook(book);
-		boolean result=true;
+		boolean result=bookService.insertBook(book);
+
 
 		//경로 설정 및 Attribute 설정
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("book/tempBook");
 		mav.addObject("result",result);
-		mav.addObject("book",book);
+
 		return mav;
 
 	}
-	*/
-	
-	
-	// 스프링의 setter/getter 자동 기능을 위해 소스 수정
-	@RequestMapping("/book/insertBook.do")
-	public ModelAndView handleInsertBook(HttpServletRequest req, Book book){
-		
-		// 자동 setter/getter 테스트
-		System.out.println("name:::"+book.getName());
-		System.out.println("isbn:::"+book.getISBN10());
-		System.out.println("author_names:::"+ req.getParameterValues("author_name"));
 
-		String[] author_name = book.getAuthor_name();
-		String[] author_div = book.getAuthor_div();
-		
-		//지은이 정보 세팅,
-		//여러명일 경우를 생각하여 배열로 작성
-		if( author_name != null ){
-			Author[] authors=new Author[author_name.length];
-	
-			for(int i=0;i<authors.length;i++){
-				Author author=new Author();
-				author.setName(author_name[i]);
-				if( author_div != null ){
-					author.setAuthor_div(Integer.parseInt(author_div[i]));
-				}
-				authors[i]=author;
-			}
-			book.setAuthors(authors);
-		}
-		
-		boolean result=bookService.insertBook(book);
-		
-		//경로 설정 및 Attribute 설정
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("book/tempBook");
-		mav.addObject("result", result);
-		mav.addObject("book", book);
-		return mav;
-	}
-	
-	
+
 	/**
 	 * 책목록(지금 안씀)
 	 * @param req
@@ -218,7 +176,7 @@ public class BookController {
 		ServletRequestAttributes sra=new ServletRequestAttributes(req);
 
 		//책 ID값
-		String id=ServletRequestUtils.getStringParameter(req, "id", "0");
+		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 
 		//책 정보 가지고 오기
 		Book book=bookService.getBook(id);
@@ -273,7 +231,7 @@ public class BookController {
 	public ModelAndView handleModifyViewBook(HttpServletRequest req){
 
 		//책 ID값
-		String id=ServletRequestUtils.getStringParameter(req, "id", "0");
+		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 
 		//책 정보 가지고 오기
 		Book book=bookService.getBook(id);
@@ -297,11 +255,11 @@ public class BookController {
 
 
 		//파라미터 정보 변수  세팅
-		String id=ServletRequestUtils.getStringParameter(req, "id", "0");
+		int id=ServletRequestUtils.getIntParameter(req, "id", 0);
 		String name=ServletRequestUtils.getStringParameter(req, "name", "no_title");
 		String publish_date=ServletRequestUtils.getStringParameter(req, "publish_date", "mm");
 		String publish_comp=ServletRequestUtils.getStringParameter(req, "publish_comp", "해철1234");
-		String price=ServletRequestUtils.getStringParameter(req, "price", "0");
+		int price=ServletRequestUtils.getIntParameter(req, "price", 0);
 		String corver=ServletRequestUtils.getStringParameter(req, "corver", "");
 		String isbn10=ServletRequestUtils.getStringParameter(req, "isbn10", "1234567890");
 		String isbn13=ServletRequestUtils.getStringParameter(req, "isbn13", "1234567890123");

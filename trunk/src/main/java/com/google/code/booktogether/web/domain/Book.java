@@ -4,10 +4,8 @@ package com.google.code.booktogether.web.domain;
 /**
  * 책 도메인
  * @author ParkHaeCheol
- * @modified 02.13 YoonYoung
- *  - int 타입을 String 타입으로 수정
+ *
  */
-
 public class Book extends BaseObject{
 	
 	private static final long serialVersionUID = 1L;
@@ -15,7 +13,7 @@ public class Book extends BaseObject{
 	/**
 	 * id
 	 */
-	private String id;					
+	private int id;					
 	
 	/**
 	 * 책이름
@@ -26,10 +24,6 @@ public class Book extends BaseObject{
 	 * 책지은이들
 	 */
 	private Author[] authors=null;
-	
-	private String[] author_name;
-	
-	private String[] author_div;
 	
 	/**
 	 * ISBN 10자리
@@ -54,7 +48,7 @@ public class Book extends BaseObject{
 	/**
 	 * 책가격
 	 */
-	private String price;	
+	private int price;	
 	
 	/**
 	 * 분류
@@ -77,10 +71,10 @@ public class Book extends BaseObject{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -88,18 +82,6 @@ public class Book extends BaseObject{
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String[] getAuthor_name() {
-		return author_name;
-	}
-	public void setAuthor_name(String[] author_name) {
-		this.author_name = author_name;
-	}
-	public String[] getAuthor_div() {
-		return author_div;
-	}
-	public void setAuthor_div(String[] author_div) {
-		this.author_div = author_div;
 	}
 	public String getISBN10() {
 		return ISBN10;
@@ -125,10 +107,10 @@ public class Book extends BaseObject{
 	public void setPublish_date(String publish_date) {
 		this.publish_date = publish_date;
 	}
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	public String getCategory() {
