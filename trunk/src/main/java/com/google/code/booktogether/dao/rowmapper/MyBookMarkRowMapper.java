@@ -11,10 +11,12 @@ import com.google.code.booktogether.web.domain.BookMark;
 
 /**
  * 인용구 정보 목록화할때 사용
+ * 
  * @author ParkHaeCheol
- *
+ * 
  */
-public class MyBookMarkRowMapper implements ParameterizedRowMapper<BookMark>,Serializable{
+public class MyBookMarkRowMapper implements ParameterizedRowMapper<BookMark>,
+		Serializable {
 
 	/**
 	 * 
@@ -23,23 +25,21 @@ public class MyBookMarkRowMapper implements ParameterizedRowMapper<BookMark>,Ser
 
 	@Override
 	public BookMark mapRow(ResultSet rs, int rowNum) throws SQLException {
-		
-		BookMark bookMark=new BookMark();
- 	    
+
+		BookMark bookMark = new BookMark();
+
 		bookMark.setId(rs.getInt("ID"));
 		bookMark.setPage(rs.getInt("PAGE"));
 		bookMark.setVibeNum(rs.getInt("VIBE_NUM"));
 		bookMark.setInput_date(rs.getDate("INPUT_DATE"));
 		bookMark.setContent(rs.getString("CONTENT"));
-		
+
 		bookMark.setBook(new Book());
-		bookMark.getBook().setId(rs.getInt("BID"));
+		bookMark.getBook().setIdNum(rs.getInt("BID"));
 		bookMark.getBook().setName(rs.getString("BOOK_NAME"));
-		bookMark.getBook().setPublish_comp(rs.getString("BOOK_COMP"));
-		
+		bookMark.getBook().setPublishComp(rs.getString("BOOK_COMP"));
+
 		return bookMark;
 	}
-
-	
 
 }
