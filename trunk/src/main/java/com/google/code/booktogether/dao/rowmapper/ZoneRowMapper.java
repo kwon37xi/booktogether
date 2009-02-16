@@ -23,8 +23,8 @@ public class ZoneRowMapper implements ParameterizedRowMapper<Zone>,Serializable{
 		
 		Zone zone=new Zone();
 		
-		zone.setIdNum(rs.getInt("ID"));
-		zone.setUserIdNum(rs.getInt("USER_ID_NUM"));
+		zone.setIdNum(rs.getInt("IDNUM"));
+		zone.setUserIdNum(rs.getInt("USER_IDNUM"));
 		zone.setZone(rs.getInt("ZONE"));
 		zone.setZoneName(rs.getString("ZONE_NAME"));
 		

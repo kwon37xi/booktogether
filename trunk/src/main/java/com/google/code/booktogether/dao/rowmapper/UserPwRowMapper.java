@@ -25,9 +25,9 @@ public class UserPwRowMapper implements ParameterizedRowMapper<UserPw>,Serializa
 		
 		UserPw userPw=new UserPw();
 		
-		userPw.setUserIdNum(rs.getInt("USER_ID"));
-		userPw.setDigest(rs.getBytes("PW"));
+		userPw.setUserIdNum(rs.getInt("USER_IDNUM"));
 		userPw.setSalt(rs.getBytes("SALT"));
+		userPw.setDigest(rs.getBytes("PW"));
 		
 		return userPw;
 	}

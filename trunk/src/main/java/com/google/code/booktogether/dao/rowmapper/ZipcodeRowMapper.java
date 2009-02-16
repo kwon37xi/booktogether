@@ -24,7 +24,7 @@ public class ZipcodeRowMapper implements ParameterizedRowMapper<Zipcode>,Seriali
 		
 		Zipcode zipcode=new Zipcode();
 
-		zipcode.setIdNum(rs.getInt("SEQ"));
+		zipcode.setIdNum(rs.getInt("IDNUM"));
 		zipcode.setSido(rs.getString("SIDO"));
 		zipcode.setGugun(rs.getString("GUGUN"));
 		zipcode.setDong(rs.getString("DONG"));
