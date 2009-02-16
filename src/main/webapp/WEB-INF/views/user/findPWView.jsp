@@ -3,11 +3,11 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
 		<title>비밀번호 찾기</title>
 	</head>
 	<body>
-		<form name="findPWform" method="post" action="/user/findPW.do">
+		<form name="findPwform" method="post" action="/user/findPw.do">
 			<table>
 				<thead>
 					<tr>
@@ -16,8 +16,8 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><label for="user_id">아이디</label></td>
-						<td><input type="text" name="user_id" size="20"/></td>
+						<td><label for="userId">아이디</label></td>
+						<td><input type="text" name="userId" size="20"/></td>
 					</tr>
 					<tr>
 						<td><label for="name">이름</label></td>

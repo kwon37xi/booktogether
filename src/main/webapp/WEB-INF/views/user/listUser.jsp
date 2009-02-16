@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
 		<title>책목록</title>
 	</head>
 	<body>
@@ -24,16 +24,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach begin="0" items="${userlist}" var="user_info" varStatus="status">
+				<c:forEach begin="0" items="${userList}" var="userInfo" varStatus="status">
 					<tr>
-						<td>${user_info.id}</td>
-						<td><a href="/user/getUser.do?id=${user_info.id}">${user_info.user_id}</a></td>
-						<td>${user_info.name}</td>
-						<td>${user_info.nickname}</td>
-						<td>${user_info.email}</td>
-						<td>${user_info.pw}</td>
-						<td>${user_info.delete_y_n}</td>
-						<td>${user_info.input_date}</td>
+						<td>${userInfo.idNum}</td>
+						<td><a href="/user/getUser.do?id=${userInfo.idNum}">${userInfo.userId}</a></td>
+						<td>${userInfo.name}</td>
+						<td>${userInfo.nickname}</td>
+						<td>${userInfo.email}</td>
+						<td>${userInfo.pw}</td>
+						<td>${userInfo.isdelete}</td>
+						<td>${userInfo.inputDate}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -42,7 +42,7 @@
 		
 		
 		<div id='page_div'>
-			<c:if test="${pageBean.prepage}">
+			<c:if test="${pageBean.prePage}">
 				<a href="javascript:go_page('${pageBean.startPage-pageBean.limit}')">이전</a>
 			</c:if>
 			
@@ -50,7 +50,7 @@
 				<a href="javascript:go_page('${i}')">[ ${i} ]</a>
 			</c:forEach>
 				
-			<c:if test="${pageBean.nextpage}">
+			<c:if test="${pageBean.nextPage}">
 				<a href="javascript:go_page('${pageBean.startPage+pageBean.limit}')">다음</a>
 			</c:if>
 		</div>

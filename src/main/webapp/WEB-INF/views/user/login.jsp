@@ -7,8 +7,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/user/user.js"></script>
+		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
 		<title>로그인</title>
 	</head>
 	<body>
@@ -21,7 +21,7 @@
 		</c:if>
 	
 		<c:choose>
-			<c:when test="${sessionScope.id!=null}">
+			<c:when test="${sessionScope.idNum!=null}">
 				<table border="1">
 					<thead>
 						<tr>
@@ -55,7 +55,7 @@
 						<tbody>
 							<tr>
 								<td><label for="user_id">아이디</label></td>
-								<td><input type="text" name="user_id" size="20"/></td>
+								<td><input type="text" name="userId" size="20"/></td>
 							</tr>
 							<tr>
 								<td><label for="pw">비밀번호</label></td>
@@ -70,7 +70,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2" align="center"><a href="/user/findIDView.do">아이디 찾기</a> / <a href="/user/findPWView.do">비밀번호 찾기</a></td>
+								<td colspan="2" align="center"><a href="/user/findIdView.do">아이디 찾기</a> / <a href="/user/findPwView.do">비밀번호 찾기</a></td>
 							</tr>
 						</tfoot>
 					</table>
