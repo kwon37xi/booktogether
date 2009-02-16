@@ -164,6 +164,6 @@ public interface UserDao {
 	 * @param addr
 	 * @return
 	 */
-	public List<Zipcode> getLisZipcode(String addr);
+	public List<Zipcode> getListZipcode(String addr);
 	
 }

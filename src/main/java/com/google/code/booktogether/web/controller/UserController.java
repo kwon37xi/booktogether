@@ -162,7 +162,7 @@ public class UserController {
 	}
 
 	/**
-	 * 로그아웃
+	 * 로그아웃하기
 	 * 
 	 * @param req
 	 * @return 로그인화면
@@ -187,14 +187,11 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("/user/valiadIdPwUser.do")
-	public ModelAndView handleValiadIdPwUser(HttpServletRequest req) {
+	public ModelAndView handleValiadIdPwUser(HttpServletRequest req,
+			@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "pw", required = false) String pw) {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
-		// 현재 페이지
-		String userId = ServletRequestUtils.getStringParameter(req, "userId",
-				"");
-		String pw = ServletRequestUtils.getStringParameter(req, "pw", "");
 
 		// 사용자 아이디, 비밀번호 일치 되는치 검사
 		User user = userService.validIdPwUser(userId, pw);
@@ -224,16 +221,14 @@ public class UserController {
 	}
 
 	/**
-	 * 사용자 목록
+	 * 사용자 목록(사용안함)
 	 * 
 	 * @param req
 	 * @return
 	 */
 	@RequestMapping("/user/listUser.do")
-	public ModelAndView handleListUser(HttpServletRequest req) {
-
-		// 현재 페이지
-		int pageNo = ServletRequestUtils.getIntParameter(req, "pageNo", 0);
+	public ModelAndView handleListUser(HttpServletRequest req,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 
 		// 페이지 클래스에 세팅
 		PageBean pageBean = new PageBean();
@@ -444,11 +439,11 @@ public class UserController {
 	 * 
 	 * @param req
 	 */
-	@RequestMapping("/user/findIDView.do")
-	public ModelAndView handleFindUserIDView(HttpServletRequest req) {
+	@RequestMapping("/user/findIdView.do")
+	public ModelAndView handleFindUserIdView(HttpServletRequest req) {
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("user/findIDView");
+		mav.setViewName("user/findIdView");
 
 		return mav;
 
@@ -461,8 +456,8 @@ public class UserController {
 	 */
 	@RequestMapping("/user/findId.do")
 	public ModelAndView handleFindUserId(HttpServletRequest req,
-			@RequestParam("name") String name,
-			@RequestParam("email") String email) {
+			@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "email", required = false) String email) {
 
 		// 사용자 세팅
 		User user = new User();
@@ -470,13 +465,13 @@ public class UserController {
 		user.setEmail(email);
 
 		// 사용자 아이디 찾기
-		String id = userService.findId(user);
+		String userId = userService.findId(user);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("user/findIdResult");
 		mav.addObject("name", name);
 		mav.addObject("email", email);
-		mav.addObject("id", id);
+		mav.addObject("userId", userId);
 
 		return mav;
 
@@ -504,9 +499,9 @@ public class UserController {
 	 */
 	@RequestMapping("/user/findPw.do")
 	public ModelAndView handleFindUserPw(HttpServletRequest req,
-			@RequestParam("userId") String userId,
-			@RequestParam("name") String name,
-			@RequestParam("email") String email) {
+			@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "email", required = false) String email) {
 
 		User user = new User();
 
@@ -547,8 +542,9 @@ public class UserController {
 	 */
 	@RequestMapping("/user/modifyPw.do")
 	public ModelAndView handleModifyUserPw(HttpServletRequest req,
-			@RequestParam("userId") String userId,
-			@RequestParam("pw") String pw, @RequestParam("newPw") String newPw) {
+			@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "pw", required = false) String pw,
+			@RequestParam(value = "newPw", required = false) String newPw) {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
@@ -582,16 +578,17 @@ public class UserController {
 	 * @param req
 	 */
 	@RequestMapping("/user/deleteZone.do")
-	public ModelAndView handleDeleteZone(HttpServletRequest req,
-			@RequestParam("zoneIdNum") Integer zoneIdNum) {
+	public ModelAndView handleDeleteZone(
+			HttpServletRequest req,
+			@RequestParam(value = "zoneIdNum", required = false) Integer zoneIdNum) {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
-		// 사용자 user_ID값
-		Integer id = (Integer) sra.getAttribute("id",
+		// 사용자 userId값
+		Integer idNum = (Integer) sra.getAttribute("idNum",
 				RequestAttributes.SCOPE_SESSION);
 
-		boolean result = userService.deleteZone(zoneIdNum, id);
+		boolean result = userService.deleteZone(zoneIdNum, idNum);
 
 		String message = (result) ? "삭제 되었습니다." : "삭제를 실패하였습니다.";
 
@@ -622,12 +619,10 @@ public class UserController {
 	 * @param req
 	 */
 	@RequestMapping("/user/duplicateUserId.do")
-	public ModelAndView handleDuplicateUserId(HttpServletRequest req) {
+	public ModelAndView handleDuplicateUserId(HttpServletRequest req,
+			@RequestParam(value = "userId", required = false) String userId) {
 
-		String userId = ServletRequestUtils.getStringParameter(req, "userId",
-				"");
-
-		boolean result = userService.duplicateUser_id(userId);
+		boolean result = userService.duplicateUserId(userId);
 
 		String message = "";
 
@@ -657,10 +652,10 @@ public class UserController {
 	 * @param req
 	 */
 	@RequestMapping("/user/findAddrView.do")
-	public ModelAndView handleFindAddrView(HttpServletRequest req) {
+	public ModelAndView handleFindAddrView(HttpServletRequest req,
+			@RequestParam(value = "eleSeq", required = false) Integer eleSeq) {
 
 		// 주소 선택시 값을 가입창의 input태그에 옮겨야 할때 식별자
-		Integer eleSeq = ServletRequestUtils.getIntParameter(req, "eleSeq", 0);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("user/findAddr");
@@ -676,11 +671,9 @@ public class UserController {
 	 * @param req
 	 */
 	@RequestMapping("/user/findAddr.do")
-	public ModelAndView handleFindAddr(HttpServletRequest req) {
-
-		Integer eleSeq = ServletRequestUtils.getIntParameter(req, "eleSeq", 0);
-
-		String addr = ServletRequestUtils.getStringParameter(req, "addr", "");
+	public ModelAndView handleFindAddr(HttpServletRequest req,
+			@RequestParam(value = "eleSeq", required = false) Integer eleSeq,
+			@RequestParam(value = "addr", required = false) String addr) {
 
 		// 우편정보목록
 		List<Zipcode> zipcodeList = userService.getListAddr(addr);

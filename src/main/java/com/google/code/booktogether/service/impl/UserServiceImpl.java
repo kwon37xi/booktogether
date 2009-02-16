@@ -331,35 +331,30 @@ public class UserServiceImpl implements UserService {
 
 		} catch (Exception e) {
 
-			throw new BooktogetherException("비밀번호 암호화 실패");
+			throw new BooktogetherException("비밀번호 암호화 실패",e);
 
 		}
 		return result;
 	}
 
+	
+	
 	@Override
 	public boolean deleteThumnail(String realPath, String filename) {
 
-		boolean result = false;
+		File file = new File(realPath + File.separatorChar + filename);
 
-		try {
-			File file = new File(realPath + File.separatorChar + filename);
+		boolean result = file.delete();
 
-			file.delete();
-
-			result = true;
-
-		} catch (Exception e) {
-
+		if (result) {
 			throw new BooktogetherException("비밀번호 암호화 실패");
-
 		}
 
 		return result;
 	}
 
 	@Override
-	public boolean duplicateUser_id(String userId) {
+	public boolean duplicateUserId(String userId) {
 
 		boolean result = false;
 
@@ -373,9 +368,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Zipcode> getListAddr(String addr) {
 
-		List<Zipcode> zipcodelist = userJdbcDao.getLisZipcode(addr);
+		List<Zipcode> zipcodeList = userJdbcDao.getListZipcode(addr);
 
-		return zipcodelist;
+		return zipcodeList;
 	}
 
 }

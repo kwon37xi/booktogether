@@ -47,9 +47,9 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 
 		String sql = sqlparser.getSQL("user", "DBCOUNT_USER_SQL");
 
-		int dbcount = getSimpleJdbcTemplate().queryForInt(sql);
+		int dbCount = getSimpleJdbcTemplate().queryForInt(sql);
 
-		return dbcount;
+		return dbCount;
 
 	}
 
@@ -58,9 +58,9 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 
 		String sql = sqlparser.getSQL("user", "GET_LAST_NUM");
 
-		int last_increment = getSimpleJdbcTemplate().queryForInt(sql);
+		int lastIncrement = getSimpleJdbcTemplate().queryForInt(sql);
 
-		return last_increment;
+		return lastIncrement;
 	}
 
 	@Override
@@ -223,6 +223,7 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 
 	@Override
 	public int insertUserAddInfo(UserAddInfo userAddInfo) {
+
 		String sql = sqlparser.getSQL("user", "INSERT_USERADDINFO_SQL");
 
 		int count = getSimpleJdbcTemplate().update(
@@ -251,10 +252,10 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 
 		String sql = sqlparser.getSQL("user", "GET_ZONE_SQL");
 
-		List<Zone> zonelist = getSimpleJdbcTemplate().query(sql, zoneRowMapper,
+		List<Zone> zoneList = getSimpleJdbcTemplate().query(sql, zoneRowMapper,
 				new Object[] { userIdNum });
 
-		return zonelist;
+		return zoneList;
 
 	}
 
@@ -281,19 +282,19 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 	}
 
 	@Override
-	public List<Zipcode> getLisZipcode(String addr) {
+	public List<Zipcode> getListZipcode(String addr) {
 
 		ZipcodeRowMapper zipcodeRowMapper = new ZipcodeRowMapper();
 
 		String sql = sqlparser.getSQL("user", "LIST_ZIPCODE_SQL");
 
-		List<Zipcode> zipcodelist = getSimpleJdbcTemplate().query(
+		List<Zipcode> zipcodeList = getSimpleJdbcTemplate().query(
 				sql,
 				zipcodeRowMapper,
 				new Object[] { "%" + addr + "%", "%" + addr + "%",
 						"%" + addr + "%" });
 
-		return zipcodelist;
+		return zipcodeList;
 	}
 
 }

@@ -6,7 +6,7 @@
         <description>사용자 등록</description>
         <query>
             <![CDATA[
-             INSERT INTO USER(user_id, email, nickname, name, delete_y_n, input_date) 
+             INSERT INTO USER(user_id, email, nickname, name, isdelete, input_date) 
              VALUES (?, ?, ?, ?, 0, now())
             ]]>
         </query>
@@ -16,7 +16,7 @@
         <description>사용자 비밀번호 인증키 등록(SALT)</description>
         <query>
             <![CDATA[
-             INSERT INTO USER_PW(user_id, pw, salt) 
+             INSERT INTO USER_PW(user_idnum, pw, salt) 
              VALUES(?, ?, ?) 
             ]]>
         </query>
@@ -26,7 +26,7 @@
         <description>사용자 추가정보 등록</description>
         <query>
             <![CDATA[
-             INSERT INTO USERADDINFO(user_id, blog, thumnail) 
+             INSERT INTO USERADDINFO(user_idnum, blog, thumnail) 
              VALUES(?, ?, ?) 
             ]]>
         </query>
@@ -36,7 +36,7 @@
         <description>사용자 생활반경</description>
         <query>
             <![CDATA[
-             INSERT INTO ZONE(user_id, zone) 
+             INSERT INTO ZONE(user_idnum, zone) 
              VALUES(?, ?) 
             ]]>
         </query>
@@ -44,23 +44,23 @@
     
     
 	<sql name="GET_USER_SQL">
-        <description>사용자 정보 조회(삭제된사람 포함)</description>
+        <description>사용자 정보 조회</description>
         <query>
             <![CDATA[
-             SELECT U.id
+             SELECT U.idnum
                     ,U.user_id as user_id 
                     ,U.email as email 
                     ,U.nickname as nickname 
                     ,U.name as name
-                    ,U.delete_y_n as delete_y_n 
+                    ,U.isdelete as isdelete 
                     ,U.input_date as input_date
-                    ,UAI.id as uai_id 
+                    ,UAI.idnum as uai_idnum 
                     ,UAI.blog as blog 
-                    ,UAI.thumnail as thumnail 
-             FROM USER U, USERADDINFO UAI 
-             WHERE U.id=UAI.user_id  
-               AND U.id=? 
-               AND U.delete_y_n=0
+                    ,UAI.thumnail as thumnail  
+             FROM USER U, USERADDINFO UAI  
+             WHERE U.idnum=UAI.user_idnum  
+               AND U.user_id=?  
+               AND U.isdelete=0 
             ]]>
         </query>
     </sql>
@@ -70,11 +70,11 @@
         <description>지역명 가지고 오기</description>
         <query>
             <![CDATA[
-             SELECT id 
-             		,user_id 
+             SELECT idnum 
+             		,user_idnum 
              		,zone 
              FROM ZONE 
-             WHERE user_id=? 
+             WHERE user_idnum=? 
             ]]>
         </query>
     </sql>
@@ -83,9 +83,9 @@
         <description>사용자 암호 조회</description>
         <query>
             <![CDATA[
-             SELECT user_id, salt, pw 
+             SELECT user_idnum, salt, pw 
              FROM USER_PW 
-             WHERE user_id=?
+             WHERE user_idnum=?
             ]]>
         </query>
     </sql>
@@ -99,7 +99,7 @@
                     ,U.email as email 
                     ,U.nickname as nickname 
                     ,U.name as name
-                    ,U.delete_y_n as delete_y_n 
+                    ,U.isdelete as isdelete 
                     ,U.input_date as input_date
                     ,UAI.id as uai_id 
                     ,UAI.blog as blog 
@@ -118,7 +118,7 @@
             <![CDATA[
              SELECT count(*)  
                FROM USER 
-              WHERE delete_y_n=0 
+              WHERE isdelete=0 
                 AND user_id=? 
             ]]>
         </query>
@@ -168,7 +168,7 @@
         <query>
             <![CDATA[
              UPDATE USER 
-             SET delete_y_n=1  
+             SET isdelete=1  
              WHERE id= ? 
             ]]>
         </query>
@@ -202,7 +202,7 @@
         <description>사용자 목록</description>
         <query>
             <![CDATA[
-             SELECT id, user_id, email, nickname, name, delete_y_n, input_date 
+             SELECT id, user_id, email, nickname, name, isdelete, input_date 
              FROM USER 
              LIMIT ?, ?
             ]]>
@@ -240,11 +240,11 @@
         <description>사용자 ID찾기</description>
         <query>
             <![CDATA[
-             SELECT id, user_id, email, nickname, name, delete_y_n, input_date 
+             SELECT id, user_id, email, nickname, name, isdelete, input_date 
              FROM USER 
              WHERE name=?
                AND email=? 
-               AND delete_y_n=0 
+               AND isdelete=0 
             ]]>
         </query>
     </sql>
@@ -254,12 +254,12 @@
         <description>사용자 PW찾기</description>
         <query>
             <![CDATA[
-             SELECT id, user_id, email, nickname, name, delete_y_n, input_date  
+             SELECT id, user_id, email, nickname, name, isdelete, input_date  
              FROM USER 
              WHERE user_id = ? 
                AND name = ? 
                AND email = ? 
-               AND delete_y_n = 0 
+               AND isdelete = 0 
             ]]>
         </query>
     </sql>
