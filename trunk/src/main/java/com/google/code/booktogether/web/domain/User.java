@@ -11,21 +11,21 @@ public class User extends BaseObject{
 	
 	private static final long serialVersionUID = 1L;
 	
+	
 	/**
 	 * 사용자 일련번호
 	 */
-	private int id;
+	private Integer idNum;
 	
 	/**
 	 * 사용자 ID
 	 */
-	private String user_id;
+	private String userId;
 	
 	/**
 	 * 이메일
 	 */
 	private String email;
-	
 	
 	/**
 	 * 별명 
@@ -40,12 +40,12 @@ public class User extends BaseObject{
 	/**
 	 * 등록날짜
 	 */
-	private Date input_date;
+	private Date inputDate;
 	
 	/**
 	 * 삭제유무
 	 */
-	private int delete_y_n;
+	private Integer isDelete;
 	
 	/**
 	 * 사용자 추가정보 클래스
@@ -58,60 +58,79 @@ public class User extends BaseObject{
 	private Zone[] zones;
 	
 	
-	public Zone[] getZones() {
-		return zones;
+	public Integer getIdNum() {
+		return idNum;
 	}
-	public void setZones(Zone[] zones) {
-		this.zones = zones;
+
+	public void setIdNum(Integer idNum) {
+		this.idNum = idNum;
 	}
-	public UserAddInfo getUserAddInfo() {
-		return userAddInfo;
+
+	public String getUserId() {
+		return userId;
 	}
-	public void setUserAddInfo(UserAddInfo userAddInfo) {
-		this.userAddInfo = userAddInfo;
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getNickname() {
 		return nickname;
 	}
+
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getInput_date() {
-		return input_date;
-	}
-	public void setInput_date(Date input_date) {
-		this.input_date = input_date;
-	}
-	public int getDelete_y_n() {
-		return delete_y_n;
-	}
-	public void setDelete_y_n(int delete_y_n) {
-		this.delete_y_n = delete_y_n;
-	}
-	
 
+	public Date getInputDate() {
+		return inputDate;
+	}
+
+	public void setInputDate(Date inputDate) {
+		this.inputDate = inputDate;
+	}
+
+	public Integer getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(Integer isDelete) {
+		this.isDelete = isDelete;
+	}
+
+	public UserAddInfo getUserAddInfo() {
+		return userAddInfo;
+	}
+
+	public void setUserAddInfo(UserAddInfo userAddInfo) {
+		this.userAddInfo = userAddInfo;
+	}
+
+	public Zone[] getZones() {
+		return zones;
+	}
+
+	public void setZones(Zone[] zones) {
+		this.zones = zones;
+	}
+
+
+	
+	
 }

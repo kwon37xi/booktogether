@@ -10,43 +10,55 @@ public class Zone extends BaseObject{
 	/**
 	 * 일련번호
 	 */
-	private int id;
+	private Integer id;
 	
 	/**
 	 * 사용자 일련번호
 	 */
-	private int user_id;
+	private Integer userIdNum;
 	
 	/**
-	 * 지역명
+	 * 지역명 일련번호
 	 */
-	private int zone;
+	private Integer zone;
 	
+	/**
+	 * 지역명 주소
+	 */
+	private String zoneName;
+
+	public String getZoneName() {
+		return zoneName;
+	}
+
+	public void setZoneName(String zoneName) {
+		this.zoneName = zoneName;
+	}
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getUser_id() {
-		return user_id;
-	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
-
-	public int getZone() {
+	public Integer getZone() {
 		return zone;
 	}
 
-	public void setZone(int zone) {
+	public void setZone(Integer zone) {
 		this.zone = zone;
 	}
 	
+	public Integer getUserIdNum() {
+		return userIdNum;
+	}
+
+	public void setUserIdNum(Integer userIdNum) {
+		this.userIdNum = userIdNum;
+	}
 	
 	
 

@@ -10,12 +10,12 @@ public class UserAddInfo extends BaseObject{
 	/**
 	 * 일련번호
 	 */
-	private int id;
+	private Integer idNum;
 	
 	/**
 	 * 사용자 일련번호
 	 */
-	private int user_id;
+	private Integer userIdNum;
 	
 	/**
 	 * 블로그 주소
@@ -28,32 +28,40 @@ public class UserAddInfo extends BaseObject{
 	private String thumnail;
 	
 	
-	public int getId() {
-		return id;
+	
+	public Integer getIdNum() {
+		return idNum;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setIdNum(Integer idNum) {
+		this.idNum = idNum;
 	}
+
+	public Integer getUserIdNum() {
+		return userIdNum;
+	}
+
+	public void setUserIdNum(Integer userIdNum) {
+		this.userIdNum = userIdNum;
+	}
+
 	public String getBlog() {
 		return blog;
 	}
+
 	public void setBlog(String blog) {
 		this.blog = blog;
 	}
+
 	public String getThumnail() {
 		return thumnail;
 	}
+
 	public void setThumnail(String thumnail) {
 		this.thumnail = thumnail;
 	}
-	public int getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
-	
-	
+
+
 	
 
 }
