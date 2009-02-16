@@ -1,4 +1,4 @@
-package com.google.code.booktogether.dao.util;
+package com.google.code.booktogether.dao.sqlparser.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,33 +6,37 @@ import java.util.List;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
+
+import com.google.code.booktogether.dao.sqlparser.SqlParser;
 
 /**
  * SQL 관리하는 XML을 파싱하는 유틸
  * @author ParkHaeCheol
  *
  */
-@Component("XmlUtil")
-public class XmlUtil {
+public class SqlParserXmlImpl implements SqlParser{
 	
 	private static HashMap<String,HashMap<String,String>> xml = new HashMap<String,HashMap<String,String>>();
 	
-
-	public XmlUtil(){
-		load();
-	}
+	private List<String> filenames;
 	
+	
+	//classpath:sqls/파일명
+	public SqlParserXmlImpl(List<String> filenames){
+		
+		this.filenames=filenames;
+		
+		load();
+		
+	}
+
 	@SuppressWarnings("unchecked")
 	private void load(){
 		
-		
 		SAXBuilder builder= new SAXBuilder();
 		
-		String[] sqlXmlFilenames={"booksqls.xml","usersqls.xml","gradesqls.xml","reviewsqls.xml","bookmarksqls.xml"};
-		
-		for(String filename : sqlXmlFilenames){
+		for(String filename : filenames){
 			
 			Document doc = null;
 			Element root =null;
@@ -43,7 +47,7 @@ public class XmlUtil {
 			map.clear();
 			
 			try	{
-				doc = builder.build(ResourceUtils.getFile("classpath:sqls/"+filename));
+				doc = builder.build(ResourceUtils.getFile(filename));
 			}catch(Exception ioe){
 				ioe.printStackTrace();
 			}
@@ -63,8 +67,11 @@ public class XmlUtil {
 		}
 	}
 
+	@Override
 	public String getSQL(String xmlname,String sqlKey)	{
+		
 		String sql = "";
+		
 		if(xml.containsKey(xmlname)){
 			
 			HashMap<String,String> map =xml.get(xmlname);
@@ -77,7 +84,4 @@ public class XmlUtil {
 		return sql;
 	}
 	
-	public void reload(){
-		load();
-	}
 }
