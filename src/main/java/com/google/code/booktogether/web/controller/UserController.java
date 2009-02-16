@@ -58,42 +58,25 @@ public class UserController {
 	 * @return 사용자 등록 결과화면
 	 */
 	@RequestMapping("/user/insertUser.do")
-	public ModelAndView handleInsertUser(HttpServletRequest req) {
-
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) req;
+	public ModelAndView handleInsertUser(
+			HttpServletRequest req,
+			@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "nickname", required = false) String nickname,
+			@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "pw", required = false) String pw,
+			@RequestParam(value = "blog", required = false) String blog,
+			@RequestParam(value = "zone", required = false) String zoneNames[],
+			@RequestParam(value = "thumnail", required = false) MultipartFile file) {
 
 		// 썸네일 이미지 저장 경로
-		String realPath = multipartRequest.getSession().getServletContext()
-				.getRealPath("/images/user/thumnail/");
-
-		// 파라미터 세팅
-		String userId = ServletRequestUtils.getStringParameter(
-				multipartRequest, "userId", "");
-		String email = ServletRequestUtils.getStringParameter(multipartRequest,
-				"email", "");
-		String nickname = ServletRequestUtils.getStringParameter(
-				multipartRequest, "nickname", "");
-		String name = ServletRequestUtils.getStringParameter(multipartRequest,
-				"name", "");
-		String pw = ServletRequestUtils.getStringParameter(multipartRequest,
-				"pw", "");
-		String blog = ServletRequestUtils.getStringParameter(multipartRequest,
-				"blog", "");
-
-		// request의 "file"을 찾아 file객체에 세팅한다.
-		MultipartFile file = multipartRequest.getFile("thumnail");
-
-		// 임의의 파일명 현재 시간+기존파일명
-		String filename = System.currentTimeMillis()
-				+ file.getOriginalFilename();
+		String realPath = req.getSession().getServletContext().getRealPath(
+				"/images/user/thumnail/");
 
 		// 이미지 만들기
-		boolean result = userService
-				.createImageResize(file, realPath, filename);
+		String filename = userService.createImageResize(file, realPath);
 
 		// 지역명 세팅하기
-		String zoneNames[] = ServletRequestUtils.getStringParameters(
-				multipartRequest, "zone");
 
 		Zone[] zones = new Zone[zoneNames.length];
 
@@ -132,12 +115,12 @@ public class UserController {
 		// **************
 		// 사용자 저장하기
 		// **************
-		result = userService.insertUser(user, userPw);
+		boolean result = userService.insertUser(user, userPw);
 
 		// 메세지 세팅
 		String message = (result) ? "가입성공" : "가입실패";
 
-		// 메세지 세션에 담기
+		// 메세지 세션에 담기 new
 		new ServletRequestAttributes(req).setAttribute("message", message,
 				RequestAttributes.SCOPE_SESSION);
 
@@ -307,41 +290,28 @@ public class UserController {
 	 * @return 사용자 조회화면
 	 */
 	@RequestMapping("/user/modifyUser.do")
-	public ModelAndView handleModifyUser(HttpServletRequest req) {
+	public ModelAndView handleModifyUser(
+			HttpServletRequest req,
+			@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "nickname", required = false) String nickname,
+			@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "pw", required = false) String pw,
+			@RequestParam(value = "blog", required = false) String blog,
+			@RequestParam(value = "zone", required = false) String zoneNames[],
+			@RequestParam(value = "currThumnail", required = false) String currThumnail,
+			@RequestParam(value = "userAddInfoId", required = false) Integer userAddInfoId,
+			@RequestParam(value = "thumnail", required = false) MultipartFile file) {
 
-		// 파일 업로드시작
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) req;
-
-		ServletRequestAttributes sra = new ServletRequestAttributes(
-				multipartRequest);
+		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
 		// 썸네일 이미지 저장 경로
-		String realPath = multipartRequest.getSession().getServletContext()
-				.getRealPath("/images/user/thumnail/");
+		String realPath = req.getSession().getServletContext().getRealPath(
+				"/images/user/thumnail/");
 
 		// 사용자 ID값
 		Integer idNum = (Integer) sra.getAttribute("idNum",
 				RequestAttributes.SCOPE_SESSION);
-
-		// 파라미터 정보 변수 세팅
-		String email = ServletRequestUtils.getStringParameter(multipartRequest,
-				"email", "");
-		String nickname = ServletRequestUtils.getStringParameter(
-				multipartRequest, "nickname", "");
-		String name = ServletRequestUtils.getStringParameter(multipartRequest,
-				"name", "");
-		String blog = ServletRequestUtils.getStringParameter(multipartRequest,
-				"blog", "");
-		String currThumnail = ServletRequestUtils.getStringParameter(
-				multipartRequest, "currThumnail", "");
-		int userAddinfoId = ServletRequestUtils.getIntParameter(
-				multipartRequest, "userAddInfoId", 0);
-
-		User user = new User();
-		user.setIdNum(idNum);
-
-		// 썸네일 파일정보
-		MultipartFile file = multipartRequest.getFile("thumnail");
 
 		String filename = "";
 
@@ -351,11 +321,8 @@ public class UserController {
 			// 기본의 이미지 파일 삭제
 			userService.deleteThumnail(realPath, currThumnail);
 
-			// 새로운 이미지명 생성
-			filename = System.currentTimeMillis() + file.getOriginalFilename();
-
 			// 이미지 저장
-			userService.createImageResize(file, realPath, filename);
+			filename = userService.createImageResize(file, realPath);
 
 			// **********
 			// 여기부분 봐야함
@@ -366,9 +333,6 @@ public class UserController {
 		}
 
 		// 지역명 가지고 오기
-		String zoneNames[] = ServletRequestUtils.getStringParameters(
-				multipartRequest, "zone");
-
 		Zone[] zones = new Zone[zoneNames.length];
 
 		for (int i = 0; i < zoneNames.length; i++) {
@@ -386,11 +350,13 @@ public class UserController {
 
 		// 사용자 추가 정보
 		UserAddInfo userAddInfo = new UserAddInfo();
-		userAddInfo.setIdNum(userAddinfoId);
+		userAddInfo.setIdNum(userAddInfoId);
 		userAddInfo.setBlog(blog);
 		userAddInfo.setThumnail(filename);
 
 		// 사용자 기본 정보
+		User user = new User();
+		user.setIdNum(idNum);
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setName(name);

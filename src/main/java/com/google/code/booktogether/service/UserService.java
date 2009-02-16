@@ -107,8 +107,7 @@ public interface UserService {
 	 * @param filename
 	 * @return
 	 */
-	public boolean createImageResize(MultipartFile file, String realPath,
-			String fileName);
+	public String createImageResize(MultipartFile file, String realPath);
 
 	/**
 	 * 썸네일 파일 삭제
