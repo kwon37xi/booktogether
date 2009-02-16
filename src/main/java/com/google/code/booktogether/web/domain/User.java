@@ -43,7 +43,7 @@ public class User extends BaseObject{
 	private Date inputDate;
 	
 	/**
-	 * 삭제유무
+	 * 탈퇴유무
 	 */
 	private Integer isDelete;
 	
@@ -56,6 +56,11 @@ public class User extends BaseObject{
 	 * 내 생활 반경
 	 */
 	private Zone[] zones;
+	
+	
+	
+	
+	
 	
 	
 	public Integer getIdNum() {

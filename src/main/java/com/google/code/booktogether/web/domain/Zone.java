@@ -10,7 +10,7 @@ public class Zone extends BaseObject{
 	/**
 	 * 일련번호
 	 */
-	private Integer id;
+	private Integer idNum;
 	
 	/**
 	 * 사용자 일련번호
@@ -35,14 +35,6 @@ public class Zone extends BaseObject{
 		this.zoneName = zoneName;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 
 	public Integer getZone() {
 		return zone;
@@ -59,7 +51,13 @@ public class Zone extends BaseObject{
 	public void setUserIdNum(Integer userIdNum) {
 		this.userIdNum = userIdNum;
 	}
-	
+	public Integer getIdNum() {
+		return idNum;
+	}
+
+	public void setIdNum(Integer idNum) {
+		this.idNum = idNum;
+	}
 	
 
 }
