@@ -7,17 +7,17 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/common/prototype.js"></script>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/common/common.js"></script>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/user/user.js"></script>
+		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/prototype.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
 		
 		<title>주소찾기</title>
 		
 	</head>
 	<body>
 		<form action="/user/findAddr.do" onsubmit="" name="findAddrform">
-			<input type="hidden" name="ele_seq" value="${requestScope.ele_seq}"/>
+			<input type="hidden" name="eleSeq" value="${requestScope.eleSeq}"/>
 			<table>
 				<thead>
 					<tr>
@@ -38,7 +38,7 @@
 		
 		<br/>
 		
-		<c:if test="${requestScope.zipcodelist!=null}">
+		<c:if test="${requestScope.zipcodeList!=null}">
 			결과물
 			<table>
 				<thead>	
@@ -48,11 +48,11 @@
 				</thead>
 				<tbody>
 					<c:choose>
-						<c:when test="${fn:length(zipcodelist)!=0}">
-							<c:forEach begin="0" items="${zipcodelist}" var="addr_info" varStatus="status">
+						<c:when test="${fn:length(zipcodeList)!=0}">
+							<c:forEach begin="0" items="${zipcodeList}" var="addrInfo" varStatus="status">
 								<tr>
 									<td>
-										<a href="javascript:choice_addr('${addr_info.seq}','${addr_info.sido} ${addr_info.gugun} ${addr_info.dong}')">${addr_info.sido} ${addr_info.gugun} ${addr_info.dong}</a>
+										<a href="javascript:choice_addr('${addrInfo.idNum}','${addrInfo.sido} ${addrInfo.gugun} ${addrInfo.dong}')">${addrInfo.sido} ${addrInfo.gugun} ${addrInfo.dong}</a>
 									</td>
 								</tr>
 							</c:forEach>

@@ -24,23 +24,23 @@
 			<tbody>
 				<tr>
 					<td>아이디</td>
-					<td>${user_info.user_id}</td>
+					<td>${userInfo.userId}</td>
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td>${user_info.name}</td>
+					<td>${userInfo.name}</td>
 				</tr>
 				<tr>
 					<td>닉네임</td>
-					<td>${user_info.nickname}</td>
+					<td>${userInfo.nickname}</td>
 				</tr>
 				<tr>
 					<td>이메일</td>
-					<td>${user_info.email}</td>
+					<td>${userInfo.email}</td>
 				</tr>
 				<tr>
 					<td>가입일</td>
-					<td>${user_info.input_date}</td>
+					<td>${userInfo.inputDate}</td>
 				</tr>
 			</tbody>
 			<tfoot></tfoot>
@@ -53,17 +53,17 @@
 			<tbody>
 				<tr>
 					<td>블로그</td>
-					<td>${user_info.userAddInfo.blog}</td>
+					<td>${userInfo.userAddInfo.blog}</td>
 				</tr>
 				<tr>
 					<td>썸네일</td>
-					<td><img src="/images/user/thumnail/${user_info.userAddInfo.thumnail}"/></td>
+					<td><img src="/images/user/thumnail/${userInfo.userAddInfo.thumnail}"/></td>
 				</tr>
 				
-				<c:forEach begin="0" items="${user_info.zones}" var="zone_info" varStatus="status">
+				<c:forEach begin="0" items="${userInfo.zones}" var="zoneInfo" varStatus="status">
 					<tr>
 						<td>생활 반경</td>
-						<td>${zone_info.zone}</td>
+						<td>${zoneInfo.zoneName}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

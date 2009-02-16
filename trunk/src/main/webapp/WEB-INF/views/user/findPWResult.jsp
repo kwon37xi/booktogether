@@ -3,12 +3,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
 		<title>비밀번호 찾기</title>
 	</head>
 	<body>
 		
-		${name}(${user_id})님이 요청에 대한 결과
+		${userInfo.name}(${userInfo.userId})님이 요청에 대한 결과
 		
 		<br/><br/>
 		

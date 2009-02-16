@@ -5,19 +5,19 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/common/prototype.js"></script>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/common/common.js"></script>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/user/user.js"></script>
+		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/prototype.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
 		<title>회원가입</title>
 	</head>
 	<body>
 		<div>
 			<form enctype="multipart/form-data" method="post" name="insertuser_form" action="/user/insertUser.do">
-				<input type="hidden" name="dupli_id" value="0"/>
+				<input type="hidden" name="dupliId" value="0"/>
 				<p>			
-					<label for="user_id">ID</label>
-					<input type="text" name="user_id" size="20" readonly="readonly"/>
+					<label for="userId">ID</label>
+					<input type="text" name="userId" size="20" readonly="readonly"/>
 					<a href="/user/duplicateUserIdView.do" target="_blank">중복 확인</a>
 				</p>
 				<p>

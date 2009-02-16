@@ -7,10 +7,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/common/prototype.js"></script>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/common/common.js"></script>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/user/user.js"></script>
+		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/prototype.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
 		<title>회원수정</title>
 	</head>
 	<body>
@@ -24,31 +24,31 @@
 		
 		<div>
 			<form method="post" name="modifyuser_form" action="/user/modifyUser.do"  enctype="multipart/form-data">
-				<input type="hidden" name="userAddInfo_id" value="${user_info.userAddInfo.id}"/>
+				<input type="hidden" name="userAddInfo_id" value="${userInfo.userAddInfo.idNum}"/>
 			
 				<p>			
-					${user_info.user_id}
+					${userInfo.userId}
 				</p>
 				<p>
 					<label for="nickname">별명</label>
-					<input type="text" name="nickname" size="20" value="${user_info.nickname}"/>
+					<input type="text" name="nickname" size="20" value="${userInfo.nickname}"/>
 				</p>
 				<p>
 					<label for="name">이름</label>
-					<input type="text" name="name" size="20" value="${user_info.name}"/>
+					<input type="text" name="name" size="20" value="${userInfo.name}"/>
 				</p>
 				<p>
 					<label for="name">이메일</label>
-					<input type="text" name="email" size="20" value="${user_info.email}"/>
+					<input type="text" name="email" size="20" value="${userInfo.email}"/>
 				</p>
 				<p>
 					<label for="blog">블로그</label>
-					<input type="text" name="blog" size="20" value="${user_info.userAddInfo.blog}"/>
+					<input type="text" name="blog" size="20" value="${userInfo.userAddInfo.blog}"/>
 				</p>
 				<p>
 					<label for="thumnail">이미지</label>
-					<input type="hidden" name="curr_thumnail" value="${user_info.userAddInfo.thumnail}"/>
-					${user_info.userAddInfo.thumnail}
+					<input type="hidden" name="currThumnail" value="${userInfo.userAddInfo.thumnail}"/>
+					${userInfo.userAddInfo.thumnail}
 					<input type="button" value="변경" onclick="addThumnail()"/>
 				</p>
 
@@ -56,8 +56,8 @@
 				
 				<p>
 					<label>생활반경</label>
-					<c:forEach begin="0" items="${user_info.zones}" var="zone_info" varStatus="status">
-						${zone_info.zone} <input type="button" value="삭제" onclick="deleteZone('${zone_info.id}')"/>
+					<c:forEach begin="0" items="${userInfo.zones}" var="zoneInfo" varStatus="status">
+						${zoneInfo.zoneName} <input type="button" value="삭제" onclick="deleteZone('${zoneInfo.idNum}')"/>
 					</c:forEach>
 					<br/>
 					<input type="button" value="추가" onclick="addZone()"/>

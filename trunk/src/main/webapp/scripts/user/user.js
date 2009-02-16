@@ -82,7 +82,7 @@ function removeZone(ele_seq){
 
 function findAddr(ele_seq){
 	
-	window.open('/user/findAddrView.do?ele_seq='+ele_seq,'주소찾기','');
+	window.open('/user/findAddrView.do?eleSeq='+ele_seq,'주소찾기','');
 	
 }
 
@@ -94,13 +94,13 @@ function removeThumnail(){
 }
 
 
-function useId(user_id){
+function useId(userId){
 	
-	if(user_id==''){
+	if(userId==''){
 		alert('아이디가 없습니다.');
 	}else{
-		opener.document.insertuser_form.dupli_id.value="true";
-		opener.document.insertuser_form.user_id.value=user_id;
+		opener.document.insertuser_form.dupliId.value="true";
+		opener.document.insertuser_form.userId.value=userId;
 		self.close();
 	}
 	
@@ -108,7 +108,7 @@ function useId(user_id){
 
 function choice_addr(seq, addr){
 	
-	var ele_seq=document.findAddrform.ele_seq.value;
+	var ele_seq=document.findAddrform.eleSeq.value;
 	
 	//eval("opener.document.insertuser_form.t_zone"+ele_seq).value=addr;
 	

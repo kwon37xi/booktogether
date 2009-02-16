@@ -6,8 +6,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/user/user.js"></script>
+		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
 		<title>아이디 중복 확인</title>
 	</head>
 	<body>
@@ -21,7 +21,7 @@
 				<tbody>
 					<tr>
 						<td>
-							<input type="text" name="user_id" id="user_id" size="20" value="${requestScope.user_id}"/>
+							<input type="text" name="userId" id="userId" size="20" value="${requestScope.userId}"/>
 							<input type="submit" value="중복조회"/>
 						</td>
 					</tr>
@@ -31,7 +31,7 @@
 		</form>
 		
 		검색 결과
-		<c:if test="${requestScope.message!=null && requestScope.result_div!=null}">
+		<c:if test="${requestScope.message!=null && requestScope.resultDiv!=null}">
 			<table>
 				<thead>
 				</thead>
@@ -39,10 +39,10 @@
 					<tr>
 						<td>
 							<c:choose>
-								<c:when test="${requestScope.result_div==1}">
+								<c:when test="${requestScope.resultDiv==1}">
 									<b>${requestScope.message}</b>
 									<br/>
-									<input type="button" value="사용하기" onclick="useId('${requestScope.user_id}')"/>
+									<input type="button" value="사용하기" onclick="useId('${requestScope.userId}')"/>
 								</c:when>
 								<c:otherwise>
 									<b>${requestScope.message}</b>

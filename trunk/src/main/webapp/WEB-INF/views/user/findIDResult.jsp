@@ -4,18 +4,18 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
 		<title>사용자 ID찾기</title>
 	</head>
 	<body>
 		
-		${name}(${user_id})님이 요청에 대한 결과
+		${userInfo.name}(${userInfo.userId})님이 요청에 대한 결과
 		
 		<br/><br/>
 		
 		<c:choose>
-			<c:when test="${id==''}">해당 아이디가 존재하지 않습니다.</c:when>
-			<c:otherwise>요청하신 아이디는 <b>${id}</b>입니다.</c:otherwise>
+			<c:when test="${userId==''}">해당 아이디가 존재하지 않습니다.</c:when>
+			<c:otherwise>요청하신 아이디는 <b>${userId}</b>입니다.</c:otherwise>
 		</c:choose>
 		<br/><br/>
 		<a href="/user/login.do">로그인하기</a>
