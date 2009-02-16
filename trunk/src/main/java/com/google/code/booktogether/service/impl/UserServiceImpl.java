@@ -317,28 +317,26 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean createImageResize(MultipartFile file, String realPath,
-			String filename) {
+	public String createImageResize(MultipartFile file, String realPath) {
 
-		boolean result = false;
+		// 임의의 파일명 현재 시간+기존파일명
+		String filename = System.currentTimeMillis()
+				+ file.getOriginalFilename();
 
 		try {
 
 			ImageResize.createImageResize(file.getInputStream(), realPath
 					+ File.separatorChar + filename, 100);
 
-			result = true;
-
 		} catch (Exception e) {
-
-			throw new BooktogetherException("비밀번호 암호화 실패",e);
+			filename = "";
+			throw new BooktogetherException("비밀번호 암호화 실패", e);
 
 		}
-		return result;
+
+		return filename;
 	}
 
-	
-	
 	@Override
 	public boolean deleteThumnail(String realPath, String filename) {
 
