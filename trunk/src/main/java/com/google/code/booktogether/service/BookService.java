@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
-import com.google.code.booktogether.web.domain.PageBean;
+import com.google.code.booktogether.web.page.PageBean;
 
 public interface BookService {
 

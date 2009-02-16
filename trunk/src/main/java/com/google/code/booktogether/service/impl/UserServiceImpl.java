@@ -17,11 +17,11 @@ import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.UserService;
 import com.google.code.booktogether.service.util.ImageResize;
 import com.google.code.booktogether.service.util.PasswordAuthenticator;
-import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserPw;
 import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
+import com.google.code.booktogether.web.page.PageBean;
 
 
 @Service("userService")

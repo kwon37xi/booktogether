@@ -1,4 +1,4 @@
-package com.google.code.booktogether.web.interceptor;
+package com.google.code.booktogether.web.openapi.impl;
 
 
 import java.io.BufferedReader;
@@ -16,21 +16,19 @@ import org.jdom.input.SAXBuilder;
 
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
+import com.google.code.booktogether.web.openapi.BookOpenApi;
+import com.google.code.booktogether.web.openapi.header.BookOpenApiDaumHeader;
 
 
 /**
- * API를 위해서 임시 클래스
  * @author ParkHaeCheol
  *
  */
-public class UseApiDaumBook {
+public class BookOpenApiDaumImpl implements BookOpenApi{
 
-	/**
-	 * 작성자 : microflower
-	 */
 	private static final long serialVersionUID = 1L;
 
-	//네이버 APIEKY
+	//다음 APIEKY
 	private final String DAUM_API_KEY="4cf1b8e1876394d1334d699b0568f32ef762db19";
 
 	//다음  검색 주소
@@ -40,17 +38,20 @@ public class UseApiDaumBook {
 	private StringReader stringxml=null;
 	private Document xmldoc=null;
 	private StringBuffer xmlcontent=null;
+	private BookOpenApiDaumHeader header=null;
 
-	private int totalcount;
+
+
 	/**
 	 * 주소 요청하고 output에 맞게 받기
 	 * 인코딩 UTF-8
 	 */
+	@Override
 	public Book viewBook(String isbn){
 
-		ConnectURL(isbn,"isbn",1);
+		connectURL(isbn,"isbn",1);
 
-		//네이버 XML파서
+		//다음 XML파서
 		xmlParser(xmlcontent);
 
 		//item 파서
@@ -59,10 +60,8 @@ public class UseApiDaumBook {
 		return book;
 	}
 	
-	public int getTotalCount(){
-		return totalcount;
-	}
 
+	@Override
 	public List<Book> searchBook(String query, String searchType,int pageno){
 
 		try {
@@ -71,7 +70,7 @@ public class UseApiDaumBook {
 			e1.printStackTrace();
 		}
 		
-		ConnectURL(query, searchType, pageno);
+		connectURL(query, searchType, pageno);
 
 		//네이버 XML파서
 		xmlParser(xmlcontent);
@@ -85,7 +84,7 @@ public class UseApiDaumBook {
 		return booklist;
 	}
 
-	private void ConnectURL(String query,String searchType,int pageno){
+	private void connectURL(String query,String searchType,int pageno){
 
 		String params="";
 
@@ -131,6 +130,7 @@ public class UseApiDaumBook {
 		}
 	}
 
+	
 	private void xmlParser(StringBuffer xmlcontent){
 
 		builder=new SAXBuilder();
@@ -146,7 +146,7 @@ public class UseApiDaumBook {
 	}
 
 
-	//네이버책(조회시)
+	//책 조회
 	@SuppressWarnings("unchecked")
 	private Book xmlBookParser(){
 
@@ -206,7 +206,7 @@ public class UseApiDaumBook {
 		return book;
 	}
 
-	//네이버책(검색시)
+	//책 목록 검색
 	@SuppressWarnings("unchecked")
 	private List<Book> xmlBookListParser(){
 
@@ -253,14 +253,23 @@ public class UseApiDaumBook {
 		
 	}
 	
+	//헤더 파싱
 	private void xmlBookHeaderParse(){
+		
 		Element child=xmldoc.getRootElement();
-
-		//title=child.getChildText("title");
-		totalcount=Integer.parseInt(child.getChildText("totalCount"));
-		//int result=child.getChildText("result");
-		//sort=ParamUtil.parseInt(child.getChildText("sort"),0);
-		//pageno=ParamUtil.parseInt(child.getChildText("pageno"),0);
+		
+		header=new BookOpenApiDaumHeader();
+		header.setTitle(child.getChildText("title"));
+		header.setTotalcount(child.getChildText("totalCount"));
+		header.setResult(child.getChildText("result"));
+		header.setSort(child.getChildText("sort"));
+		header.setPageno(child.getChildText("pageno"));
+	}
+	
+	
+	@Override
+	public Object getHeader() {
+		return header;
 	}
 
 

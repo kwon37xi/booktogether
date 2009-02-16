@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.code.booktogether.web.domain.User;
-import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.UserPw;
 import com.google.code.booktogether.web.domain.Zipcode;
+import com.google.code.booktogether.web.page.PageBean;
 
 public interface UserService {
 
