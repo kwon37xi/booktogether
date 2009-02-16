@@ -10,14 +10,14 @@ public class UserPw extends BaseObject{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * 사용자 비밀번호 일련번호
+	 * 비밀번호 일련번호
 	 */
-	private int id;
+	private Integer id;
 	
 	/**
 	 * 사용자 일련번호
 	 */
-	private int user_id;
+	private Integer userIdNum;
 	
 	/**
 	 * 비밀번호
@@ -35,6 +35,12 @@ public class UserPw extends BaseObject{
 	private byte[] salt;
 	
 	
+	
+	
+	
+	
+	
+	
 	public byte[] getDigest() {
 		return digest;
 	}
@@ -42,7 +48,7 @@ public class UserPw extends BaseObject{
 	public void setDigest(byte[] digest) {
 		this.digest = digest;
 	}
-	
+
 	public byte[] getSalt() {
 		return salt;
 	}
@@ -51,12 +57,21 @@ public class UserPw extends BaseObject{
 		this.salt = salt;
 	}
 
-	public int getId() {
+	
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getUserIdNum() {
+		return userIdNum;
+	}
+
+	public void setUserIdNum(Integer userIdNum) {
+		this.userIdNum = userIdNum;
 	}
 
 	public String getPw() {
@@ -66,12 +81,6 @@ public class UserPw extends BaseObject{
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
-	public int getUser_id() {
-		return user_id;
-	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
-
+	
 }

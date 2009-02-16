@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,66 +24,67 @@ import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
 import com.google.code.booktogether.web.page.PageBean;
 
-
 @Service("userService")
-@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
+@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 public class UserServiceImpl implements UserService {
 
-	//사용자 JDBC DAO DI
-	@Resource(name="userJdbcDao")
+	// 사용자 JDBC DAO DI
+	@Resource(name = "userJdbcDao")
 	private UserDao userJdbcDao;
 
+	private Logger log = Logger.getLogger(this.getClass());
 
 	@Override
-	@Transactional(readOnly=false)
-	public boolean deleteUser(int id) {
+	@Transactional(readOnly = false)
+	public boolean deleteUser(Integer idNum) {
 
-		boolean result=false;
+		boolean result = false;
 
-		int count=userJdbcDao.deleteUser(id);
+		int count = userJdbcDao.deleteUser(idNum);
 
-		if(count!=1){
+		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
-		}else{
-			result=true;
+		} else {
+			result = true;
 		}
+
 		return result;
 	}
 
 	@Override
 	public List<User> getListUser(PageBean pageBean) {
 
-		int dbcount=userJdbcDao.getDbcount();
+		int dbCount = userJdbcDao.getDbCount();
 
-		pageBean.setDbcount(dbcount);
+		pageBean.setDbCount(dbCount);
 
-		List<User> userlist=userJdbcDao.getListUser(pageBean.getStartPage()-1, pageBean.getPagesize());
+		List<User> userlist = userJdbcDao.getListUser(
+				pageBean.getStartPage() - 1, pageBean.getPageSize());
 
 		return userlist;
 	}
 
 	@Override
-	public User getUser(int id) {
+	public User getUser(Integer idNum) {
 
-		User user=userJdbcDao.getUser(id);
+		User user = userJdbcDao.getUser(idNum);
 
 		return user;
 	}
 
-
 	@Override
-	public User getUserDetail(int id) {
+	public User getUserDetail(Integer idNum) {
 
-		User user=userJdbcDao.getUser(id);
+		User user = userJdbcDao.getUser(idNum);
 
-		List<Zone> zonelist=userJdbcDao.getZones(id);
+		List<Zone> zonelist = userJdbcDao.getZones(idNum);
 
-		Zone[] zones=new Zone[zonelist.size()];
+		Zone[] zones = new Zone[zonelist.size()];
 
-		int i=0;
+		int i = 0;
 
-		for(Zone zone:zonelist){
-			zones[i++]=zone;
+		for (Zone zone : zonelist) {
+			zones[i++] = zone;
 		}
 
 		user.setZones(zones);
@@ -91,276 +93,245 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional(readOnly=false)
-	public boolean insertUser(User user,UserPw userPw) {
+	@Transactional(readOnly = false)
+	public boolean insertUser(User user, UserPw userPw) {
 
-		boolean result=false;
+		boolean result = false;
 
-		byte[] salt=PasswordAuthenticator.generatorSalt();
-		byte[] digest=null;
+		byte[] salt = PasswordAuthenticator.generatorSalt();
+		byte[] digest = null;
 
 		try {
-			digest=PasswordAuthenticator.createPasswordDigest(userPw.getPw(), salt);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-			return false;
+			digest = PasswordAuthenticator.createPasswordDigest(userPw.getPw(),
+					salt);
+		} catch (Exception e) {
+			throw new BooktogetherException("비밀번호 암호화 실패");
 		}
 
-		int count=userJdbcDao.insertUser(user);
+		int count = userJdbcDao.insertUser(user);
 
+		if (count != 0) {
 
-		if(count!=0){
+			Integer idNum = userJdbcDao.getLastNumIncrement();
 
-			try {
+			userPw.setUserIdNum(idNum);
+			userPw.setDigest(digest);
+			userPw.setSalt(salt);
 
-				int id=userJdbcDao.getLastNumIncrement();
+			count = userJdbcDao.insertUserPw(userPw);
 
-				userPw.setUser_id(id);
-				userPw.setDigest(digest);
-				userPw.setSalt(salt);
-
-				count=userJdbcDao.insertUserPw(userPw);
-
-				if(count!=1){
-					throw new Exception();
-				}
-
-				user.getUserAddInfo().setUser_id(id);
-
-				count=userJdbcDao.insertUserAddInfo(user.getUserAddInfo());
-
-				if(count!=1){
-					throw new Exception();
-				}
-
-				for(Zone zone: user.getZones()){
-
-					zone.setUser_id(id);
-					count=userJdbcDao.insertZone(zone);
-
-					if(count!=1){
-						throw new Exception();
-					}
-
-				}
-
-				result=true;
-
-			} catch (Exception e) {
-				return false;
+			if (count != 1) {
+				throw new BooktogetherException("비밀번호 암호화 실패");
 			}
+
+			user.getUserAddInfo().setUserIdNum(idNum);
+
+			count = userJdbcDao.insertUserAddInfo(user.getUserAddInfo());
+
+			if (count != 1) {
+				throw new BooktogetherException("비밀번호 암호화 실패");
+			}
+
+			for (Zone zone : user.getZones()) {
+
+				zone.setUserIdNum(idNum);
+				count = userJdbcDao.insertZone(zone);
+
+				if (count != 1) {
+					throw new BooktogetherException("비밀번호 암호화 실패");
+				}
+
+			}
+
+			result = true;
+
 		}
-
-
 
 		return result;
 	}
 
 	@Override
-	@Transactional(readOnly=false)
+	@Transactional(readOnly = false)
 	public boolean modifyUser(User user) {
 
-		boolean result=false;
+		boolean result = false;
 
-		try{
-			int count=userJdbcDao.modifyUser(user);
+		int count = userJdbcDao.modifyUser(user);
 
-			if(count!=1){
-				throw new Exception();
-			}
-
-			count=userJdbcDao.modifyUserAddInfo(user.getUserAddInfo());
-
-			if(count!=1){
-				throw new Exception();
-			}
-
-			for(Zone zone: user.getZones()){
-
-				count=userJdbcDao.insertZone(zone);
-
-				if(count!=1){
-					throw new Exception();
-				}
-
-			}
-
-			result=true;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+		if (count != 1) {
+			throw new BooktogetherException("비밀번호 암호화 실패");
 		}
+
+		count = userJdbcDao.modifyUserAddInfo(user.getUserAddInfo());
+
+		if (count != 1) {
+			throw new BooktogetherException("비밀번호 암호화 실패");
+		}
+
+		for (Zone zone : user.getZones()) {
+
+			count = userJdbcDao.insertZone(zone);
+
+			if (count != 1) {
+				throw new BooktogetherException("비밀번호 암호화 실패");
+			}
+
+		}
+
+		result = true;
 
 		return result;
 	}
 
 	@Override
-	public User validIdPwUser(String user_id, String pw) {
+	public User validIdPwUser(String userId, String pw) {
 
-		User user=userJdbcDao.isExistUser(user_id);
+		User user = userJdbcDao.isExistUser(userId);
 
-		if(user!=null){
+		if (user != null) {
 
-			UserPw userPw=userJdbcDao.getUserPw(user.getId());
+			UserPw userPw = userJdbcDao.getUserPw(user.getIdNum());
 
-			byte[] salt=userPw.getSalt();
-			byte[] hashedDigest=userPw.getDigest();
-			byte[] digest=null;
+			byte[] salt = userPw.getSalt();
+			byte[] hashedDigest = userPw.getDigest();
+			byte[] digest = null;
 
 			try {
-				digest=PasswordAuthenticator.createPasswordDigest(pw, salt);
+				digest = PasswordAuthenticator.createPasswordDigest(pw, salt);
 			} catch (Exception e1) {
-				e1.printStackTrace();
-				return null;
+				throw new BooktogetherException("비밀번호 암호화 실패");
 			}
 
-			if(Arrays.equals(digest, hashedDigest)){
-				System.out.println("일치한다.");
-			}else{
-				System.out.println("일치하지 않는다.");
-				user=null;
+			if (Arrays.equals(digest, hashedDigest)) {
+				if (log.isInfoEnabled()) {
+					log.info("일치한다.");
+				}
+			} else {
+				if (log.isInfoEnabled()) {
+					log.info("일치하지 않는다.");
+				}
+				user = null;
 			}
 
-		}else{
+		} else {
 			System.out.println("아이디가 없다.");
 		}
 
 		return user;
 	}
 
-
 	@Override
-	public String findID(User user) {
-		String id=userJdbcDao.findID(user);
+	public String findId(User user) {
+		String id = userJdbcDao.findId(user);
 		return id;
 	}
 
-
 	@Override
-	public String findPW(User user) {
+	public String findPw(User user) {
 
-		String message="";
+		String message = "";
 
-		user=userJdbcDao.findPW(user);
+		user = userJdbcDao.findPw(user);
 
-		if(user!=null){
+		if (user != null) {
 
-			//임시 비밀번호 맘들기
-			String temp_pw=RandomStringUtils.random(8,true,true);
+			// 임시 비밀번호 맘들기
+			String temp_pw = RandomStringUtils.random(8, true, true);
 
-			byte[] salt=PasswordAuthenticator.generatorSalt();
-			byte[] digest=null;
+			byte[] salt = PasswordAuthenticator.generatorSalt();
+			byte[] digest = null;
 
 			try {
-				digest = PasswordAuthenticator.createPasswordDigest(temp_pw, salt);
+				digest = PasswordAuthenticator.createPasswordDigest(temp_pw,
+						salt);
 			} catch (Exception e) {
-				e.printStackTrace();
-				message="시스템에 문제가 발생하여 비밀번호 전송이 실패 하였습니다.";	
+				message = "시스템에 문제가 발생하여 비밀번호 전송이 실패 하였습니다.";
 				return message;
 			}
 
-			UserPw userPw=new UserPw();
+			UserPw userPw = new UserPw();
 			userPw.setDigest(digest);
 			userPw.setSalt(salt);
-			userPw.setUser_id(user.getId());
+			userPw.setUserIdNum(user.getIdNum());
 
-			try{
+			int count = userJdbcDao.modifyUserPw(userPw);
 
-				int count=userJdbcDao.modifyUserPw(userPw);
-
-				if(count!=1){
-					throw new Exception();
-				}
-
-			}catch(Exception e){
-				e.printStackTrace();
-				message="시스템에 문제가 발생하여 비밀번호 전송이 실패 하였습니다.";	
-				return message;
+			if (count != 1) {
+				throw new BooktogetherException("비밀번호 암호화 실패");
 			}
 
-			//이메일로 전송 알고리즘 구현 해야됨
+			// 이메일로 전송 알고리즘 구현 해야됨
 
-			message="성공적으로 전송되었습니다.";
+			message = "성공적으로 전송되었습니다.";
 
-		}else{
-			message="해당 사용자가 존재하지 않습니다.";
+		} else {
+			message = "해당 사용자가 존재하지 않습니다.";
 		}
 
 		return message;
 	}
 
 	@Override
-	@Transactional(readOnly=false)
-	public boolean modifyPW(User user, String newPw) {
+	@Transactional(readOnly = false)
+	public boolean modifyPw(User user, String newPw) {
 
-		boolean result=false;
+		boolean result = false;
 
-		byte[] salt=PasswordAuthenticator.generatorSalt();
-		byte[] digest=null;
+		byte[] salt = PasswordAuthenticator.generatorSalt();
+		byte[] digest = null;
 
 		try {
 			digest = PasswordAuthenticator.createPasswordDigest(newPw, salt);
 		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+			throw new BooktogetherException("비밀번호 암호화 실패");
 		}
 
-		UserPw userPw=new UserPw();
+		UserPw userPw = new UserPw();
 		userPw.setDigest(digest);
 		userPw.setSalt(salt);
-		userPw.setUser_id(user.getId());
+		userPw.setUserIdNum(user.getIdNum());
 
-		try{
+		int count = userJdbcDao.modifyUserPw(userPw);
 
-			int count=userJdbcDao.modifyUserPw(userPw);
-
-			if(count!=1){
-				throw new Exception();
-			}else{
-				result=true;
-			}
-
-		}catch(Exception e){
-			e.printStackTrace();
+		if (count != 1) {
+			throw new BooktogetherException("비밀번호 암호화 실패");
+		} else {
+			result = true;
 		}
 
 		return result;
 	}
 
 	@Override
-	@Transactional(readOnly=false)
-	public boolean deleteZone(int zone_id, int user_id) {
+	@Transactional(readOnly = false)
+	public boolean deleteZone(Integer zoneIdNum, Integer userIdNum) {
 
-		int count=userJdbcDao.deleteZone(zone_id,user_id);
+		int count = userJdbcDao.deleteZone(zoneIdNum, userIdNum);
 
-		try{
-			if(count!=1){
-				throw new Exception();
-			}else{
-				return true;
-			}
-
-		}catch(Exception e){
-			e.printStackTrace();
-			return false;
+		if (count != 1) {
+			throw new BooktogetherException("비밀번호 암호화 실패");
+		} else {
+			return true;
 		}
+
 	}
 
 	@Override
-	public boolean createImageResize(MultipartFile file, String realPath, String filename) {
+	public boolean createImageResize(MultipartFile file, String realPath,
+			String filename) {
 
-		boolean result=false;
+		boolean result = false;
 
 		try {
 
-			ImageResize.createImageResize(file.getInputStream(),realPath+File.separatorChar+filename,100);
+			ImageResize.createImageResize(file.getInputStream(), realPath
+					+ File.separatorChar + filename, 100);
 
-			result=true;
+			result = true;
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			throw new BooktogetherException("비밀번호 암호화 실패");
 
 		}
 		return result;
@@ -369,18 +340,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean deleteThumnail(String realPath, String filename) {
 
-		boolean result=false;
+		boolean result = false;
 
-		try{
-			File file=new File(realPath+File.separatorChar+filename);
+		try {
+			File file = new File(realPath + File.separatorChar + filename);
 
 			file.delete();
 
-			result=true;
+			result = true;
 
-		}catch(Exception e){
+		} catch (Exception e) {
 
-			e.printStackTrace();
+			throw new BooktogetherException("비밀번호 암호화 실패");
 
 		}
 
@@ -388,18 +359,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean duplicateUser_id(String user_id) {
+	public boolean duplicateUser_id(String userId) {
 
-		boolean result=false;
+		boolean result = false;
 
-		try{
-			int count=userJdbcDao.duplicateUser_id(user_id);
+		int count = userJdbcDao.duplicateUserId(userId);
 
-			result=(count==0) ?  true : false;
-
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		result = (count == 0) ? true : false;
 
 		return result;
 	}
@@ -407,10 +373,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Zipcode> getListAddr(String addr) {
 
-		List<Zipcode> zipcodelist=userJdbcDao.getLisZipcode(addr);
+		List<Zipcode> zipcodelist = userJdbcDao.getLisZipcode(addr);
 
 		return zipcodelist;
 	}
-
 
 }

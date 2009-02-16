@@ -27,15 +27,15 @@ public class UserRowMapper implements ParameterizedRowMapper<User>,Serializable{
 		User user=new User();
 		user.setUserAddInfo(new UserAddInfo());
 		
-		user.setId(rs.getInt("ID"));
-		user.setUser_id(rs.getString("USER_ID"));
+		user.setIdNum(rs.getInt("ID"));
+		user.setUserId(rs.getString("USER_ID"));
 		user.setEmail(rs.getString("EMAIL"));
 		user.setNickname(rs.getString("NICKNAME"));
 		user.setName(rs.getString("NAME"));
-		user.setDelete_y_n(rs.getInt("DELETE_Y_N"));
-		user.setInput_date(rs.getDate("INPUT_DATE"));
+		user.setIsDelete(rs.getInt("DELETE_Y_N"));
+		user.setInputDate(rs.getDate("INPUT_DATE"));
 		
-		user.getUserAddInfo().setId(rs.getInt("UAI_ID"));
+		user.getUserAddInfo().setIdNum(rs.getInt("UAI_ID"));
 		user.getUserAddInfo().setBlog(rs.getString("BLOG"));
 		user.getUserAddInfo().setThumnail(rs.getString("THUMNAIL"));
 		

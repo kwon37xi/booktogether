@@ -30,7 +30,7 @@ public interface UserService {
 	 * @param id
 	 * @return
 	 */
-	public boolean deleteUser(int id);
+	public boolean deleteUser(Integer userIdNum);
 	
 	
 	/**
@@ -38,7 +38,7 @@ public interface UserService {
 	 * @param id
 	 * @return
 	 */
-	public boolean deleteZone(int zone_id,int user_id);	
+	public boolean deleteZone(Integer zoneIdNum,Integer userIdNum);	
 	
 	
 	/**
@@ -46,7 +46,7 @@ public interface UserService {
 	 * @param id
 	 * @return 사용자 정보
 	 */
-	public User validIdPwUser(String user_id, String pw);
+	public User validIdPwUser(String userId, String pw);
 	
 	
 	/**
@@ -54,7 +54,7 @@ public interface UserService {
 	 * @param id
 	 * @return
 	 */
-	public User getUser(int id);
+	public User getUser(Integer idNum);
 	
 	
 	/**
@@ -62,7 +62,7 @@ public interface UserService {
 	 * @param id
 	 * @return
 	 */
-	public User getUserDetail(int id);		
+	public User getUserDetail(Integer idNum);		
 	
 	
 	/**
@@ -78,14 +78,14 @@ public interface UserService {
 	 * @param user
 	 * @return 아이디
 	 */
-	public String findID(User user);
+	public String findId(User user);
 	
 	/**
 	 * 사용자 PW찾기
 	 * @param user
 	 * @return 사용자 정보
 	 */
-	public String findPW(User user);
+	public String findPw(User user);
 	
 	
 	/**
@@ -93,7 +93,7 @@ public interface UserService {
 	 * @param User user,String newPw
 	 * @return 변경 결과
 	 */
-	public boolean modifyPW(User user,String newPw);
+	public boolean modifyPw(User user,String newPw);
 	
 	/**
 	 * 썸네일 파일 저장
@@ -101,7 +101,7 @@ public interface UserService {
 	 * @param filename
 	 * @return
 	 */
-	public boolean createImageResize(MultipartFile file,String realPath,String filename);
+	public boolean createImageResize(MultipartFile file,String realPath,String fileName);
 	
 	
 	/**
@@ -110,7 +110,7 @@ public interface UserService {
 	 * @param filename
 	 * @return
 	 */
-	public boolean deleteThumnail(String realPath,String filename);
+	public boolean deleteThumnail(String realPath,String fileName);
 	
 	
 	/**
@@ -118,7 +118,7 @@ public interface UserService {
 	 * @param user_id
 	 * @return
 	 */
-	public boolean duplicateUser_id(String user_id);
+	public boolean duplicateUser_id(String userId);
 	
 	
 	/**

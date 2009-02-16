@@ -5,7 +5,7 @@ public class Zipcode {
 	/**
 	 * 일련번호
 	 */
-	private int seq;
+	private Integer idNum;
 	
 	/**
 	 * 우편번호
@@ -29,12 +29,11 @@ public class Zipcode {
 	private String dong;
 	
 	
-	
-	public int getSeq() {
-		return seq;
+	public int getIdNum() {
+		return idNum;
 	}
-	public void setSeq(int seq) {
-		this.seq = seq;
+	public void setIdNum(int idNum) {
+		this.idNum = idNum;
 	}
 	public String getSido() {
 		return sido;

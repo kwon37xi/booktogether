@@ -5,152 +5,166 @@ import com.google.code.booktogether.web.domain.BaseObject;
 /**
  * 페이징 기법을 위한 클래스.
  */
-public class PageBean extends BaseObject{
+public class PageBean extends BaseObject {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * 리스트 뿌릴때 번호출력
 	 */
-	private int numlist;   
-	
+	private Integer numList;
+
 	/**
 	 * 선택된 페이지
 	 */
-	private int pageNo=1;	
-	
+	private Integer pageNo = 1;
+
 	/**
 	 * 시작 페이지
 	 */
-	private int startRow;
-	
+	private Integer startRow;
+
 	/**
 	 * 마지막 페이지
 	 */
-	private int endRow;
-	
+	private Integer endRow;
+
 	/**
 	 * 데이터베이스에 있는 모든 회원수
 	 */
-	private int dbcount;
-	
+	private Integer dbCount;
+
 	/**
 	 * 보여줄 페이지 갯수
 	 */
-	private int pagesize=3;
-	
+	private Integer pageSize = 3;
+
 	/**
 	 * 총번호 수
 	 */
-	private int pagecount;
-	
+	private Integer pageCount;
+
 	/**
 	 * 보여질 페이지 숫자 갯수
 	 */
-	private int limit=3;
-	
+	private Integer limit = 3;
+
 	/**
 	 * 시작 페이지
 	 */
-	private int startPage=1;
-	
+	private Integer startPage = 1;
+
 	/**
 	 * 끝페이지
 	 */
-	private int endPage;
-	
+	private Integer endPage;
+
 	/**
 	 * 이전 페이지 유무확인
 	 */
-	private boolean prepage;
-	
+	private boolean prePage;
+
 	/**
 	 * 다음 페이지 유무확인
 	 */
-	private boolean nextpage;
+	private boolean nextPage;
+	
+	
+	
 
-	public void setPageNo(int pageNo){
-		this.pageNo=pageNo;
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
 	}
 
-	public void setLimit(int limit){
-		this.limit=limit;
+	public void setLimit(Integer limit) {
+		this.limit = limit;
 	}
 
-	public void setDbcount(int dbcount){
-		this.dbcount=dbcount;
+	public void setDbCount(Integer dbCount) {
+		this.dbCount = dbCount;
 	}
-	public void setPagesize(int pagesize){
-		this.pagesize=pagesize;
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
 	}
-	public int getPageNo(){
+
+	public Integer getPageNo() {
 		return pageNo;
 	}
-	public int getLimit(){
+
+	public Integer getLimit() {
 		return limit;
 	}
-	public int getStartRow(){
-		startRow=(pageNo-1)*pagesize+1;
+
+	public Integer getStartRow() {
+		startRow = (pageNo - 1) * pageSize + 1;
 		return startRow;
 	}
-	public int getEndRow(){
-		endRow=startRow+pagesize-1;
-		if(endRow>dbcount){
-			endRow=dbcount;
+
+	public Integer getEndRow() {
+		endRow = startRow + pageSize - 1;
+		if (endRow > dbCount) {
+			endRow = dbCount;
 		}
 		return endRow;
 	}
-	public int getDbcount(){
-		return dbcount;
+
+	public Integer getDbCount() {
+		return dbCount;
 	}
-	public int getPagesize(){
-		return pagesize;
+
+	public Integer getPageSize() {
+		return pageSize;
 	}
-	public int getPagecount(){
-		if(dbcount%pagesize == 0 )
-			pagecount=dbcount/pagesize;
+
+	public Integer getPageCount() {
+		if (dbCount % pageSize == 0)
+			pageCount = dbCount / pageSize;
 		else
-			pagecount=dbcount/pagesize+1;
-		return pagecount;
+			pageCount = dbCount / pageSize + 1;
+		return pageCount;
 	}
 
-	public int getStartPage(){
-		startPage=pageNo-((pageNo-1)%limit);
-		return startPage; 
+	public Integer getStartPage() {
+		startPage = pageNo - ((pageNo - 1) % limit);
+		return startPage;
 	}
-	public int getEndPage(){
-		getPagecount();
-		endPage=startPage+limit-1;
-		if(endPage>pagecount){
-			endPage=pagecount;
+
+	public Integer getEndPage() {
+		getPageCount();
+		endPage = startPage + limit - 1;
+		if (endPage > pageCount) {
+			endPage = pageCount;
 		}
-		if(endPage==0){
-			endPage=1;
+		if (endPage == 0) {
+			endPage = 1;
 		}
-		return endPage; 
+		return endPage;
 	}
 
-	public boolean isNextpage() {
-		if(getStartPage()+getLimit()-1<getPagecount()){
-			nextpage=true;
-		}else nextpage=false;
-		return nextpage;
+	public boolean isNextPage() {
+		if (getStartPage() + getLimit() - 1 < getPageCount()) {
+			nextPage = true;
+		} else
+			nextPage = false;
+		return nextPage;
 	}
 
-	public boolean isPrepage() {
-		if(getStartPage()-getLimit()>0){
-			prepage=true;
-		}else prepage=false;
-		return prepage;
+	public boolean isPrePage() {
+		if (getStartPage() - getLimit() > 0) {
+			prePage = true;
+		} else
+			prePage = false;
+		return prePage;
 	}
 
-	public int getNumlist() {
-		numlist=dbcount-((getPageNo()-1)*getPagesize());
-		return numlist;
+	public Integer getNumList() {
+		numList = dbCount - ((getPageNo() - 1) * getPageSize());
+		return numList;
 	}
 
-	public void setNumlist(int numlist) {
-		this.numlist = numlist;
+	public void setNumList(Integer numList) {
+		this.numList = numList;
 	}
 
 }

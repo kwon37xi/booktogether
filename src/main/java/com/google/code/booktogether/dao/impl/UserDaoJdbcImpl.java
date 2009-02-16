@@ -21,41 +21,33 @@ import com.google.code.booktogether.web.domain.UserPw;
 import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
 
-
 @Repository("userJdbcDao")
-public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
+public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 
-	
-	@Resource(name="SqlParser")
+	@Resource(name = "SqlParser")
 	SqlParserXmlImpl sqlparser;
 
-	@Resource(name="dataSource")
-	public void setJdbcDao(DataSource dataSource){
+	@Resource(name = "dataSource")
+	public void setJdbcDao(DataSource dataSource) {
 		setDataSource(dataSource);
 	}
-
 
 	@Override
 	public int deleteUser(int id) {
 
-		String sql=sqlparser.getSQL("user","DELETE_USER_SQL");
+		String sql = sqlparser.getSQL("user", "DELETE_USER_SQL");
 
-		int count=getSimpleJdbcTemplate().update(
-				sql
-				, new Object[]{
-						id
-				}
-		);
+		int count = getSimpleJdbcTemplate().update(sql, new Object[] { id });
 
 		return count;
 	}
 
 	@Override
-	public int getDbcount() {
+	public int getDbCount() {
 
-		String sql=sqlparser.getSQL("user","DBCOUNT_USER_SQL");
+		String sql = sqlparser.getSQL("user", "DBCOUNT_USER_SQL");
 
-		int dbcount=getSimpleJdbcTemplate().queryForInt(sql);
+		int dbcount = getSimpleJdbcTemplate().queryForInt(sql);
 
 		return dbcount;
 
@@ -64,48 +56,35 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int getLastNumIncrement() {
 
-		String sql=sqlparser.getSQL("user","GET_LAST_NUM");
+		String sql = sqlparser.getSQL("user", "GET_LAST_NUM");
 
-		int last_increment=getSimpleJdbcTemplate().queryForInt(sql);
+		int last_increment = getSimpleJdbcTemplate().queryForInt(sql);
 
 		return last_increment;
 	}
 
 	@Override
-	public List<User> getListUser(int startpage, int pageSize) {
+	public List<User> getListUser(Integer startPage, Integer pageSize) {
 
-		UserRowMapper userRowMapper=new UserRowMapper();
+		UserRowMapper userRowMapper = new UserRowMapper();
 
-		String sql=sqlparser.getSQL("user","LIST_USER_SQL");
+		String sql = sqlparser.getSQL("user", "LIST_USER_SQL");
 
-		List<User> userlist=getSimpleJdbcTemplate().query(
-				sql
-				, userRowMapper
-				, new Object[]{
-						startpage
-						,pageSize
-				}
-		);
+		List<User> userlist = getSimpleJdbcTemplate().query(sql, userRowMapper,
+				new Object[] { startPage, pageSize });
 
 		return userlist;
 	}
 
 	@Override
-	public User getUser(int id) {
+	public User getUser(Integer userId) {
 
-		UserRowMapper userRowMapper=new UserRowMapper();
+		UserRowMapper userRowMapper = new UserRowMapper();
 
-		String sql=sqlparser.getSQL("user","GET_USER_SQL");
+		String sql = sqlparser.getSQL("user", "GET_USER_SQL");
 
-		User user=(User)DataAccessUtils.singleResult(
-				getSimpleJdbcTemplate().query(
-						sql
-						, userRowMapper
-						, new Object[]{
-								id
-						}
-				)
-		);
+		User user = (User) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
+				.query(sql, userRowMapper, new Object[] { userId }));
 
 		return user;
 
@@ -114,17 +93,12 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int insertUser(User user) {
 
-		String sql=sqlparser.getSQL("user","INSERT_USER_SQL");
+		String sql = sqlparser.getSQL("user", "INSERT_USER_SQL");
 
-		int count=getSimpleJdbcTemplate().update(
-				sql
-				, new Object[]{
-						user.getUser_id()
-						,user.getEmail()
-						,user.getNickname()
-						,user.getName()
-				}
-		);
+		int count = getSimpleJdbcTemplate().update(
+				sql,
+				new Object[] { user.getUserId(), user.getEmail(),
+						user.getNickname(), user.getName() });
 
 		return count;
 
@@ -133,17 +107,12 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int modifyUser(User user) {
 
-		String sql=sqlparser.getSQL("user","MODIFY_USER_SQL");
+		String sql = sqlparser.getSQL("user", "MODIFY_USER_SQL");
 
-		int count=getSimpleJdbcTemplate().update(
-				sql
-				, new Object[]{
-						user.getEmail()
-						,user.getNickname()
-						,user.getName()
-						,user.getId()
-				}
-		);
+		int count = getSimpleJdbcTemplate().update(
+				sql,
+				new Object[] { user.getEmail(), user.getNickname(),
+						user.getName(), user.getIdNum() });
 
 		return count;
 
@@ -152,15 +121,12 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int modifyUserAddInfo(UserAddInfo userAddInfo) {
 
-		String sql=sqlparser.getSQL("user","MODIFY_USERADDINFO_SQL");
+		String sql = sqlparser.getSQL("user", "MODIFY_USERADDINFO_SQL");
 
-		int count=getSimpleJdbcTemplate().update(
-				sql
-				, new Object[]{
-						userAddInfo.getBlog()
-						,userAddInfo.getThumnail()
-						,userAddInfo.getId()
-				}
+		int count = getSimpleJdbcTemplate().update(
+				sql,
+				new Object[] { userAddInfo.getBlog(),
+						userAddInfo.getThumnail(), userAddInfo.getIdNum() }
 
 		);
 
@@ -171,16 +137,12 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int modifyUserPw(UserPw userpw) {
 
-		String sql=sqlparser.getSQL("user","MODIFY_USER_PW_SQL");
+		String sql = sqlparser.getSQL("user", "MODIFY_USER_PW_SQL");
 
-		int count=getSimpleJdbcTemplate().update(
-				sql
-				, new Object[]{
-						userpw.getDigest()
-						, userpw.getSalt()
-						, userpw.getUser_id()
-				}
-		);
+		int count = getSimpleJdbcTemplate().update(
+				sql,
+				new Object[] { userpw.getDigest(), userpw.getSalt(),
+						userpw.getUserIdNum() });
 
 		return count;
 
@@ -189,36 +151,26 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int insertUserPw(UserPw userPw) {
 
-		String sql=sqlparser.getSQL("user","INSERT_USER_PW_SQL");
+		String sql = sqlparser.getSQL("user", "INSERT_USER_PW_SQL");
 
-		int count=getSimpleJdbcTemplate().update(
-				sql
-				, new Object[]{
-						userPw.getUser_id()
-						, userPw.getDigest()
-						, userPw.getSalt()
-				}
-		);
+		int count = getSimpleJdbcTemplate().update(
+				sql,
+				new Object[] { userPw.getUserIdNum(), userPw.getDigest(),
+						userPw.getSalt() });
 
 		return count;
 	}
 
 	@Override
-	public UserPw getUserPw(int id) {
+	public UserPw getUserPw(Integer userIdNum) {
 
-		UserPwRowMapper userPwRowMapper=new UserPwRowMapper();
+		UserPwRowMapper userPwRowMapper = new UserPwRowMapper();
 
-		String sql=sqlparser.getSQL("user","GET_USER_PW_SQL");
+		String sql = sqlparser.getSQL("user", "GET_USER_PW_SQL");
 
-		UserPw userPw=(UserPw)DataAccessUtils.singleResult(
-				getSimpleJdbcTemplate().query(
-						sql
-						, userPwRowMapper
-						, new Object[]{
-								id
-						}
-				)
-		);
+		UserPw userPw = (UserPw) DataAccessUtils
+				.singleResult(getSimpleJdbcTemplate().query(sql,
+						userPwRowMapper, new Object[] { userIdNum }));
 
 		return userPw;
 	}
@@ -226,63 +178,44 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public User isExistUser(String user_id) {
 
-		UserRowMapper userRowMapper=new UserRowMapper();
+		UserRowMapper userRowMapper = new UserRowMapper();
 
-		String sql=sqlparser.getSQL("user","EXIST_USER_SQL");
+		String sql = sqlparser.getSQL("user", "EXIST_USER_SQL");
 
-		User user=(User)DataAccessUtils.singleResult(
-				getSimpleJdbcTemplate().query(
-						sql
-						, userRowMapper
-						, new Object[]{
-								user_id
-						}
-				)
-		);
+		User user = (User) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
+				.query(sql, userRowMapper, new Object[] { user_id }));
 
 		return user;
 	}
 
 	@Override
-	public String findID(User user) {
+	public String findId(User user) {
 
-		UserRowMapper userRowMapper=new UserRowMapper();
+		UserRowMapper userRowMapper = new UserRowMapper();
 
-		String sql=sqlparser.getSQL("user","FIND_USER_ID_SQL");
+		String sql = sqlparser.getSQL("user", "FIND_USER_ID_SQL");
 
-		user=(User)DataAccessUtils.singleResult(
-				getSimpleJdbcTemplate().query(
-						sql
-						, userRowMapper
-						, new Object[]{
-								user.getName()
-								, user.getEmail()
-						}
-				)
-		);
+		user = (User) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
+				.query(sql, userRowMapper,
+						new Object[] { user.getName(), user.getEmail() }));
 
-		return user.getUser_id();
+		return user.getUserId();
 
 	}
 
 	@Override
-	public User findPW(User user) {
+	public User findPw(User user) {
 
-		UserRowMapper userRowMapper=new UserRowMapper();
+		UserRowMapper userRowMapper = new UserRowMapper();
 
-		String sql=sqlparser.getSQL("user","FIND_USER_PW_SQL");
+		String sql = sqlparser.getSQL("user", "FIND_USER_PW_SQL");
 
-		user=(User)DataAccessUtils.singleResult(
-				getSimpleJdbcTemplate().query(
-						sql
-						, userRowMapper
-						, new Object[]{
-								user.getUser_id()
-								, user.getName()
-								, user.getEmail()
-						}
-				)
-		);
+		user = (User) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
+				.query(
+						sql,
+						userRowMapper,
+						new Object[] { user.getUserId(), user.getName(),
+								user.getEmail() }));
 
 		return user;
 
@@ -290,16 +223,12 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 	@Override
 	public int insertUserAddInfo(UserAddInfo userAddInfo) {
-		String sql=sqlparser.getSQL("user","INSERT_USERADDINFO_SQL");
+		String sql = sqlparser.getSQL("user", "INSERT_USERADDINFO_SQL");
 
-		int count=getSimpleJdbcTemplate().update(
-				sql
-				, new Object[]{
-						userAddInfo.getUser_id()
-						, userAddInfo.getBlog()
-						, userAddInfo.getThumnail()
-				}
-		);
+		int count = getSimpleJdbcTemplate().update(
+				sql,
+				new Object[] { userAddInfo.getUserIdNum(),
+						userAddInfo.getBlog(), userAddInfo.getThumnail() });
 
 		return count;
 	}
@@ -307,89 +236,64 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int insertZone(Zone zone) {
 
-		String sql=sqlparser.getSQL("user","INSERT_ZONE_SQL");
+		String sql = sqlparser.getSQL("user", "INSERT_ZONE_SQL");
 
-		int count=getSimpleJdbcTemplate().update(
-				sql
-				, new Object[]{
-						zone.getUser_id()
-						,zone.getZone()
-				}
-		);
+		int count = getSimpleJdbcTemplate().update(sql,
+				new Object[] { zone.getUserIdNum(), zone.getZone() });
 
 		return count;
 	}
 
 	@Override
-	public List<Zone> getZones(int id) {
+	public List<Zone> getZones(Integer userIdNum) {
 
-		ZoneRowMapper zoneRowMapper=new ZoneRowMapper();
+		ZoneRowMapper zoneRowMapper = new ZoneRowMapper();
 
-		String sql=sqlparser.getSQL("user","GET_ZONE_SQL");
+		String sql = sqlparser.getSQL("user", "GET_ZONE_SQL");
 
-		List<Zone> zonelist=getSimpleJdbcTemplate().query(
-				sql
-				,zoneRowMapper
-				,new Object[]{
-						id
-				}
-		);
+		List<Zone> zonelist = getSimpleJdbcTemplate().query(sql, zoneRowMapper,
+				new Object[] { userIdNum });
 
 		return zonelist;
 
 	}
 
 	@Override
-	public int deleteZone(int zone_id, int id) {
+	public int deleteZone(Integer zoneIdNum, Integer userIdNum) {
 
-		String sql=sqlparser.getSQL("user","DELETE_ZONE_SQL");
+		String sql = sqlparser.getSQL("user", "DELETE_ZONE_SQL");
 
-		int count=getSimpleJdbcTemplate().update(
-				sql
-				, new Object[]{
-						zone_id
-						, id
-				}
-		);
+		int count = getSimpleJdbcTemplate().update(sql,
+				new Object[] { zoneIdNum, userIdNum });
 
 		return count;
 	}
 
 	@Override
-	public int duplicateUser_id(String user_id) {
-		
-		String sql=sqlparser.getSQL("user","DUPLICATE_USER_ID_SQL");
+	public int duplicateUserId(String userId) {
 
-		int count=getSimpleJdbcTemplate().queryForInt(
-				sql
-				, new Object[]{
-						user_id
-				}
-		);
+		String sql = sqlparser.getSQL("user", "DUPLICATE_USER_ID_SQL");
+
+		int count = getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { userId });
 
 		return count;
 	}
 
 	@Override
 	public List<Zipcode> getLisZipcode(String addr) {
-		
-		
-		ZipcodeRowMapper zipcodeRowMapper=new ZipcodeRowMapper();
 
-		String sql=sqlparser.getSQL("user","LIST_ZIPCODE_SQL");
+		ZipcodeRowMapper zipcodeRowMapper = new ZipcodeRowMapper();
 
-		List<Zipcode> zipcodelist=getSimpleJdbcTemplate().query(
-				sql
-				,zipcodeRowMapper
-				,new Object[]{
-					"%"+addr+"%"
-					,"%"+addr+"%"
-					,"%"+addr+"%"
-				}
-		);
+		String sql = sqlparser.getSQL("user", "LIST_ZIPCODE_SQL");
+
+		List<Zipcode> zipcodelist = getSimpleJdbcTemplate().query(
+				sql,
+				zipcodeRowMapper,
+				new Object[] { "%" + addr + "%", "%" + addr + "%",
+						"%" + addr + "%" });
 
 		return zipcodelist;
 	}
-
 
 }
