@@ -8,6 +8,12 @@ public class Zipcode {
 	private int seq;
 	
 	/**
+	 * 우편번호
+	 */
+	private String zipcode;
+	
+	
+	/**
 	 * 특별시,광역시,도 
 	 */
 	private String sido;
@@ -47,6 +53,12 @@ public class Zipcode {
 	}
 	public void setDong(String dong) {
 		this.dong = dong;
+	}
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 
 }
