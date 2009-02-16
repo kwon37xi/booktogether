@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
 		<title>사용자 조회</title>
 	</head>
 	<body>
@@ -57,7 +57,7 @@
 				</tr>
 				<tr>
 					<td>썸네일</td>
-					<td><img src="../../images/user/thumnail/${user_info.userAddInfo.thumnail}"/></td>
+					<td><img src="/images/user/thumnail/${user_info.userAddInfo.thumnail}"/></td>
 				</tr>
 				
 				<c:forEach begin="0" items="${user_info.zones}" var="zone_info" varStatus="status">

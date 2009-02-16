@@ -23,6 +23,7 @@ import com.google.code.booktogether.web.domain.UserPw;
 import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
 
+
 @Service("userService")
 @Transactional(propagation=Propagation.REQUIRED,readOnly=true)
 public class UserServiceImpl implements UserService {
