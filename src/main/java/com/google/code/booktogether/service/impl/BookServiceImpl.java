@@ -17,65 +17,65 @@ import com.google.code.booktogether.web.page.PageBean;
 @Service("bookService")
 public class BookServiceImpl implements BookService {
 
-	//책 JDBC DAO DI
-	@Resource(name="bookJdbcDao")
+	// 책 JDBC DAO DI
+	@Resource(name = "bookJdbcDao")
 	private BookDao bookJdbcDao;
-
 
 	@Override
 	public List<Book> getListBook(PageBean pageBean) {
 
-		//페이지를 위해서 전체 목록 가지고 오기
-		int dbcount=bookJdbcDao.getDbcount();
+		// 페이지를 위해서 전체 목록 가지고 오기
+		int dbcount = bookJdbcDao.getDbcount();
 
-		//페이지 정보에 저장
-		pageBean.setDbcount(dbcount);
+		// 페이지 정보에 저장
+		pageBean.setDbCount(dbcount);
 
-		//목록 가지고 오기
-		List<Book> booklist = bookJdbcDao.getListBook(pageBean.getStartPage()-1, pageBean.getPagesize());
+		// 목록 가지고 오기
+		List<Book> booklist = bookJdbcDao.getListBook(
+				pageBean.getStartPage() - 1, pageBean.getPageSize());
 
-		//책 목록 에서 지은이 정보는 빠진상태
-		//한 책당 여러명의 지은이 정보를 가지고 와야 함
-		for(int i=0;i<booklist.size();i++){
+		// 책 목록 에서 지은이 정보는 빠진상태
+		// 한 책당 여러명의 지은이 정보를 가지고 와야 함
+		for (int i = 0; i < booklist.size(); i++) {
 
-			//책에 관련된 지은이정보
-			List<Author> authorlist=bookJdbcDao.getAuthor(booklist.get(i));
+			// 책에 관련된 지은이정보
+			List<Author> authorlist = bookJdbcDao.getAuthor(booklist.get(i));
 
-			//List<Author> -> Array로 바꾸기
+			// List<Author> -> Array로 바꾸기
 			booklist.get(i).setAuthors(listToArray(authorlist));
 		}
 
 		return booklist;
 	}
 
-	//책 등록
+	// 책 등록
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public boolean insertBook(Book book) {
 
-		boolean result=false;
+		boolean result = false;
 
-		try{
+		try {
 
-			//책정보 등록
-			int count=bookJdbcDao.insertBook(book);
+			// 책정보 등록
+			int count = bookJdbcDao.insertBook(book);
 
-			if(count!=1){
+			if (count != 1) {
 				throw new Exception();
 			}
 
-			int id=bookJdbcDao.getLastNumIncrement();
+			int id = bookJdbcDao.getLastNumIncrement();
 
-			//지은이 정보등록
-			count=bookJdbcDao.insertAuthor(book.getAuthors(),id);
+			// 지은이 정보등록
+			count = bookJdbcDao.insertAuthor(book.getAuthors(), id);
 
-			if(count!=1){
+			if (count != 1) {
 				throw new Exception();
-			}else{
-				result=true;
+			} else {
+				result = true;
 			}
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -83,35 +83,35 @@ public class BookServiceImpl implements BookService {
 		return result;
 	}
 
-	//책 수정
+	// 책 수정
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public boolean modifyBook(Book book) {
 
-		boolean result=false;
+		boolean result = false;
 
-		try{
+		try {
 
-			//책 수정
-			int count=bookJdbcDao.modifyBook(book);
+			// 책 수정
+			int count = bookJdbcDao.modifyBook(book);
 
-			if(count!=1){
+			if (count != 1) {
 				throw new Exception();
 			}
 
-			//지은이 정보 수정
-			for(Author author:book.getAuthors()){
-				count=bookJdbcDao.modifyAuthor(author);
+			// 지은이 정보 수정
+			for (Author author : book.getAuthors()) {
+				count = bookJdbcDao.modifyAuthor(author);
 			}
 
-			//책 수정
-			count=bookJdbcDao.modifyBook(book);
+			// 책 수정
+			count = bookJdbcDao.modifyBook(book);
 
-			if(count!=1){
+			if (count != 1) {
 				throw new Exception();
 			}
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -119,30 +119,30 @@ public class BookServiceImpl implements BookService {
 		return result;
 	}
 
-	//책 삭제
+	// 책 삭제
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public boolean deleteBook(int id) {
 
-		boolean result=false;
-		
-		try{
+		boolean result = false;
 
-			int count=bookJdbcDao.deleteBook(id);
-			
-			if(count!=1){
+		try {
+
+			int count = bookJdbcDao.deleteBook(id);
+
+			if (count != 1) {
 				throw new Exception();
 			}
-			
-			count=bookJdbcDao.deleteAuthor(id);
-			
-			if(count!=1){
+
+			count = bookJdbcDao.deleteAuthor(id);
+
+			if (count != 1) {
 				throw new Exception();
-			}else{
-				result=true;
+			} else {
+				result = true;
 			}
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -151,19 +151,19 @@ public class BookServiceImpl implements BookService {
 
 	}
 
-	//책 조회
+	// 책 조회
 	@Override
 	public Book getBook(int id) {
 
-		//책 정보 가지고 오기
-		Book book=bookJdbcDao.getBook(id);
+		// 책 정보 가지고 오기
+		Book book = bookJdbcDao.getBook(id);
 
-		if(book!=null){
+		if (book != null) {
 
-			//해당 책관련 지은이 가지고오기
-			List<Author> authorlist=bookJdbcDao.getAuthor(book);
+			// 해당 책관련 지은이 가지고오기
+			List<Author> authorlist = bookJdbcDao.getAuthor(book);
 
-			//List<Author> -> array로 변환
+			// List<Author> -> array로 변환
 			book.setAuthors(listToArray(authorlist));
 		}
 
@@ -171,48 +171,48 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor={Exception.class})
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Book checkBook(String isbn) {
 
-		//해당 책 있는지 체크
-		Book book=bookJdbcDao.getBook(isbn);
+		// 해당 책 있는지 체크
+		Book book = bookJdbcDao.getBook(isbn);
 
-		//해당책이 없을시
-		if(book==null){
+		// 해당책이 없을시
+		if (book == null) {
 
-			//OPEN API로 Book값 세팅
-			book=new BookOpenApiDaumImpl().viewBook(isbn);
+			// OPEN API로 Book값 세팅
+			book = new BookOpenApiDaumImpl().viewBook(isbn);
 
-			//DB에 넣기
+			// DB에 넣기
 			this.insertBook(book);
 
-			//ISBN으로 값가지고 오기
-			book=bookJdbcDao.getBook(isbn);
+			// ISBN으로 값가지고 오기
+			book = bookJdbcDao.getBook(isbn);
 
 		}
 
-		//지은이 정보 가지고 오기
-		List<Author> authorlist=bookJdbcDao.getAuthor(book);
+		// 지은이 정보 가지고 오기
+		List<Author> authorlist = bookJdbcDao.getAuthor(book);
 
 		book.setAuthors(listToArray(authorlist));
 
 		return book;
 	}
 
-	//List -> Array로 변환
+	// List -> Array로 변환
 	@Override
 	public Author[] listToArray(List<Author> authorlist) {
 
-		Author[] authors=null;
+		Author[] authors = null;
 
-		if(authorlist!=null){
+		if (authorlist != null) {
 
-			authors=new Author[authorlist.size()];
+			authors = new Author[authorlist.size()];
 
-			int j=0;
+			int j = 0;
 
-			for(Author author : authorlist){
-				authors[j++]=author;
+			for (Author author : authorlist) {
+				authors[j++] = author;
 			}
 		}
 
@@ -221,16 +221,19 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<Book> searchBook(String query, String searchType, PageBean pageBean) {
-		
-		BookOpenApiDaumImpl boadi=new BookOpenApiDaumImpl();
-		
-		List<Book> booklist=boadi.searchBook(query, searchType, pageBean.getPageNo());
-		
-		BookOpenApiDaumHeader header=(BookOpenApiDaumHeader)boadi.getHeader();
-		
-		pageBean.setDbcount(Integer.parseInt(header.getTotalcount()));
-		
+	public List<Book> searchBook(String query, String searchType,
+			PageBean pageBean) {
+
+		BookOpenApiDaumImpl boadi = new BookOpenApiDaumImpl();
+
+		List<Book> booklist = boadi.searchBook(query, searchType, pageBean
+				.getPageNo());
+
+		BookOpenApiDaumHeader header = (BookOpenApiDaumHeader) boadi
+				.getHeader();
+
+		pageBean.setDbCount(Integer.parseInt(header.getTotalcount()));
+
 		return booklist;
 	}
 }

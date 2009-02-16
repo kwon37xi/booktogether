@@ -27,16 +27,16 @@
 			<tbody>
 				<c:forEach begin="0" items="${booklist}" var="book_info" varStatus="status">
 					<tr>
-						<td>${book_info.id}</td>
-						<td><img src="${book_info.corver}"/></td>
-						<td><a href="/book/getBook.do?id=${book_info.id}">${book_info.name}</a></td>
+						<td>${book_info.idNum}</td>
+						<td><img src="${book_info.bookCover}"/></td>
+						<td><a href="/book/getBook.do?id=${book_info.idNum}">${book_info.name}</a></td>
 						<td>
 							<c:forEach begin="0" items="${book_info.authors}" var="author_info">
 								[${author_info.name}/${author_info.author_div}]  
 							</c:forEach>
 						</td>
 						<td>${book_info.ISBN10}/${book_info.ISBN13}</td>
-						<td>${book_info.publish_comp}/${book_info.publish_date}</td>
+						<td>${book_info.publishComp}/${book_info.publishDate}</td>
 						<td>${book_info.price}</td>
 						<td>${book_info.category}</td>
 					</tr>
@@ -47,7 +47,7 @@
 		
 		
 		<div id='page_div'>
-			<c:if test="${pageBean.prepage}">
+			<c:if test="${pageBean.prePage}">
 				<a href="javascript:go_page('${pageBean.startPage-pageBean.limit}')">이전</a>
 			</c:if>
 			
@@ -55,7 +55,7 @@
 				<a href="javascript:go_page('${i}')">[ ${i} ]</a>
 			</c:forEach>
 				
-			<c:if test="${pageBean.nextpage}">
+			<c:if test="${pageBean.nextPage}">
 				<a href="javascript:go_page('${pageBean.startPage+pageBean.limit}')">다음</a>
 			</c:if>
 		</div>

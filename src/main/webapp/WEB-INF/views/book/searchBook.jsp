@@ -44,7 +44,7 @@
 									<td>
 										<c:if test="${a_index>book_list_length}">&nbsp;</c:if>
 										<c:if test="${a_index<book_list_length}">
-											<img src="${booklist[a_index].corver}" width="72" height="102" onclick="checkBook('${booklist[a_index].ISBN10}')"/><br/>
+											<img src="${booklist[a_index].bookCover}" width="72" height="102" onclick="checkBook('${booklist[a_index].ISBN10}')"/><br/>
 											<a href="javascript:checkBook('${booklist[a_index].ISBN10}')">
 												${booklist[a_index].name}
 											</a><br/>
@@ -67,7 +67,7 @@
 		</table>	
 		
 		<div id='page_div'>
-			<c:if test="${pageBean.prepage}">
+			<c:if test="${pageBean.prePage}">
 				<a href="javascript:go_page_search('${pageBean.startPage-pageBean.limit}')">이전</a>
 			</c:if>
 			
@@ -75,7 +75,7 @@
 				<a href="javascript:go_page_search('${i}')">[ ${i} ]</a>
 			</c:forEach>
 				
-			<c:if test="${pageBean.nextpage}">
+			<c:if test="${pageBean.nextPage}">
 				<a href="javascript:go_page_search('${pageBean.startPage+pageBean.limit}')">다음</a>
 			</c:if>
 		</div>

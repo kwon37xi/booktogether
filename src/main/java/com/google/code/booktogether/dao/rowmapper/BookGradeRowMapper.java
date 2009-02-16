@@ -11,10 +11,12 @@ import com.google.code.booktogether.web.domain.User;
 
 /**
  * 별점 정보 목록화할때 사용
+ * 
  * @author ParkHaeCheol
- *
+ * 
  */
-public class BookGradeRowMapper implements ParameterizedRowMapper<BookGrade>,Serializable{
+public class BookGradeRowMapper implements ParameterizedRowMapper<BookGrade>,
+		Serializable {
 
 	/**
 	 * 
@@ -23,20 +25,18 @@ public class BookGradeRowMapper implements ParameterizedRowMapper<BookGrade>,Ser
 
 	@Override
 	public BookGrade mapRow(ResultSet rs, int rowNum) throws SQLException {
-		
-		BookGrade bookGrade=new BookGrade();
- 	    
+
+		BookGrade bookGrade = new BookGrade();
+
 		bookGrade.setId(rs.getInt("ID"));
 		bookGrade.setGrade(rs.getInt("GRADE"));
-		
+
 		bookGrade.setUser(new User());
-		bookGrade.getUser().setId(rs.getInt("UID"));
-		bookGrade.getUser().setUser_id(rs.getString("USER_ID"));
+		bookGrade.getUser().setIdNum(rs.getInt("UID"));
+		bookGrade.getUser().setUserId(rs.getString("USER_ID"));
 		bookGrade.getUser().setNickname(rs.getString("USER_NICKNAME"));
-		
+
 		return bookGrade;
 	}
-
-	
 
 }
