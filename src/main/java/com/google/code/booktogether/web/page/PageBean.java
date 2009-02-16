@@ -1,4 +1,6 @@
-package com.google.code.booktogether.web.domain;
+package com.google.code.booktogether.web.page;
+
+import com.google.code.booktogether.web.domain.BaseObject;
 
 /**
  * 페이징 기법을 위한 클래스.

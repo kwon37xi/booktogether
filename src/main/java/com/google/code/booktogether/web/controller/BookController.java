@@ -23,7 +23,7 @@ import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookGrade;
 import com.google.code.booktogether.web.domain.BookMark;
 import com.google.code.booktogether.web.domain.BookReview;
-import com.google.code.booktogether.web.domain.PageBean;
+import com.google.code.booktogether.web.page.PageBean;
 
 /**
  * Book에 관련된 Controller

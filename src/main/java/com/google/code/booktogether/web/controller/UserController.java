@@ -15,12 +15,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.UserService;
-import com.google.code.booktogether.web.domain.PageBean;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserAddInfo;
 import com.google.code.booktogether.web.domain.UserPw;
 import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
+import com.google.code.booktogether.web.page.PageBean;
 
 /**
  * User에 관련된 Controller

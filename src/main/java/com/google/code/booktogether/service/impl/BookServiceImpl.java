@@ -10,8 +10,9 @@ import com.google.code.booktogether.dao.BookDao;
 import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
-import com.google.code.booktogether.web.domain.PageBean;
-import com.google.code.booktogether.web.interceptor.UseApiDaumBook;
+import com.google.code.booktogether.web.openapi.header.BookOpenApiDaumHeader;
+import com.google.code.booktogether.web.openapi.impl.BookOpenApiDaumImpl;
+import com.google.code.booktogether.web.page.PageBean;
 
 @Service("bookService")
 public class BookServiceImpl implements BookService {
@@ -180,7 +181,7 @@ public class BookServiceImpl implements BookService {
 		if(book==null){
 
 			//OPEN API로 Book값 세팅
-			book=new UseApiDaumBook().viewBook(isbn);
+			book=new BookOpenApiDaumImpl().viewBook(isbn);
 
 			//DB에 넣기
 			this.insertBook(book);
@@ -222,11 +223,13 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> searchBook(String query, String searchType, PageBean pageBean) {
 		
-		UseApiDaumBook uadb=new UseApiDaumBook();
+		BookOpenApiDaumImpl boadi=new BookOpenApiDaumImpl();
 		
-		List<Book> booklist=uadb.searchBook(query, searchType, pageBean.getPageNo());
+		List<Book> booklist=boadi.searchBook(query, searchType, pageBean.getPageNo());
 		
-		pageBean.setDbcount(uadb.getTotalCount());
+		BookOpenApiDaumHeader header=(BookOpenApiDaumHeader)boadi.getHeader();
+		
+		pageBean.setDbcount(Integer.parseInt(header.getTotalcount()));
 		
 		return booklist;
 	}
