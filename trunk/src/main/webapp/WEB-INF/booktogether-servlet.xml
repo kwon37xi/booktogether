@@ -14,7 +14,7 @@
 
 	<context:component-scan base-package="com.google.code.booktogether.web.controller" />
 
-	<bean
+	<bean id="exceptionResolver"
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<props>

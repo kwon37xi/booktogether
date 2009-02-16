@@ -14,7 +14,7 @@ import com.google.code.booktogether.dao.rowmapper.UserPwRowMapper;
 import com.google.code.booktogether.dao.rowmapper.UserRowMapper;
 import com.google.code.booktogether.dao.rowmapper.ZipcodeRowMapper;
 import com.google.code.booktogether.dao.rowmapper.ZoneRowMapper;
-import com.google.code.booktogether.dao.util.XmlUtil;
+import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserAddInfo;
 import com.google.code.booktogether.web.domain.UserPw;
@@ -26,8 +26,8 @@ import com.google.code.booktogether.web.domain.Zone;
 public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 	
-	@Resource(name="XmlUtil")
-	XmlUtil xmlUtil;
+	@Resource(name="SqlParser")
+	SqlParserXmlImpl sqlparser;
 
 	@Resource(name="dataSource")
 	public void setJdbcDao(DataSource dataSource){
@@ -38,7 +38,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int deleteUser(int id) {
 
-		String sql=xmlUtil.getSQL("user","DELETE_USER_SQL");
+		String sql=sqlparser.getSQL("user","DELETE_USER_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -53,7 +53,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int getDbcount() {
 
-		String sql=xmlUtil.getSQL("user","DBCOUNT_USER_SQL");
+		String sql=sqlparser.getSQL("user","DBCOUNT_USER_SQL");
 
 		int dbcount=getSimpleJdbcTemplate().queryForInt(sql);
 
@@ -64,7 +64,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int getLastNumIncrement() {
 
-		String sql=xmlUtil.getSQL("user","GET_LAST_NUM");
+		String sql=sqlparser.getSQL("user","GET_LAST_NUM");
 
 		int last_increment=getSimpleJdbcTemplate().queryForInt(sql);
 
@@ -76,7 +76,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 		UserRowMapper userRowMapper=new UserRowMapper();
 
-		String sql=xmlUtil.getSQL("user","LIST_USER_SQL");
+		String sql=sqlparser.getSQL("user","LIST_USER_SQL");
 
 		List<User> userlist=getSimpleJdbcTemplate().query(
 				sql
@@ -95,7 +95,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 		UserRowMapper userRowMapper=new UserRowMapper();
 
-		String sql=xmlUtil.getSQL("user","GET_USER_SQL");
+		String sql=sqlparser.getSQL("user","GET_USER_SQL");
 
 		User user=(User)DataAccessUtils.singleResult(
 				getSimpleJdbcTemplate().query(
@@ -114,7 +114,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int insertUser(User user) {
 
-		String sql=xmlUtil.getSQL("user","INSERT_USER_SQL");
+		String sql=sqlparser.getSQL("user","INSERT_USER_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -133,7 +133,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int modifyUser(User user) {
 
-		String sql=xmlUtil.getSQL("user","MODIFY_USER_SQL");
+		String sql=sqlparser.getSQL("user","MODIFY_USER_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -152,7 +152,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int modifyUserAddInfo(UserAddInfo userAddInfo) {
 
-		String sql=xmlUtil.getSQL("user","MODIFY_USERADDINFO_SQL");
+		String sql=sqlparser.getSQL("user","MODIFY_USERADDINFO_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -171,7 +171,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int modifyUserPw(UserPw userpw) {
 
-		String sql=xmlUtil.getSQL("user","MODIFY_USER_PW_SQL");
+		String sql=sqlparser.getSQL("user","MODIFY_USER_PW_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -189,7 +189,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int insertUserPw(UserPw userPw) {
 
-		String sql=xmlUtil.getSQL("user","INSERT_USER_PW_SQL");
+		String sql=sqlparser.getSQL("user","INSERT_USER_PW_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -208,7 +208,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 		UserPwRowMapper userPwRowMapper=new UserPwRowMapper();
 
-		String sql=xmlUtil.getSQL("user","GET_USER_PW_SQL");
+		String sql=sqlparser.getSQL("user","GET_USER_PW_SQL");
 
 		UserPw userPw=(UserPw)DataAccessUtils.singleResult(
 				getSimpleJdbcTemplate().query(
@@ -228,7 +228,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 		UserRowMapper userRowMapper=new UserRowMapper();
 
-		String sql=xmlUtil.getSQL("user","EXIST_USER_SQL");
+		String sql=sqlparser.getSQL("user","EXIST_USER_SQL");
 
 		User user=(User)DataAccessUtils.singleResult(
 				getSimpleJdbcTemplate().query(
@@ -248,7 +248,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 		UserRowMapper userRowMapper=new UserRowMapper();
 
-		String sql=xmlUtil.getSQL("user","FIND_USER_ID_SQL");
+		String sql=sqlparser.getSQL("user","FIND_USER_ID_SQL");
 
 		user=(User)DataAccessUtils.singleResult(
 				getSimpleJdbcTemplate().query(
@@ -270,7 +270,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 		UserRowMapper userRowMapper=new UserRowMapper();
 
-		String sql=xmlUtil.getSQL("user","FIND_USER_PW_SQL");
+		String sql=sqlparser.getSQL("user","FIND_USER_PW_SQL");
 
 		user=(User)DataAccessUtils.singleResult(
 				getSimpleJdbcTemplate().query(
@@ -290,7 +290,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 	@Override
 	public int insertUserAddInfo(UserAddInfo userAddInfo) {
-		String sql=xmlUtil.getSQL("user","INSERT_USERADDINFO_SQL");
+		String sql=sqlparser.getSQL("user","INSERT_USERADDINFO_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -307,7 +307,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int insertZone(Zone zone) {
 
-		String sql=xmlUtil.getSQL("user","INSERT_ZONE_SQL");
+		String sql=sqlparser.getSQL("user","INSERT_ZONE_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -325,7 +325,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 
 		ZoneRowMapper zoneRowMapper=new ZoneRowMapper();
 
-		String sql=xmlUtil.getSQL("user","GET_ZONE_SQL");
+		String sql=sqlparser.getSQL("user","GET_ZONE_SQL");
 
 		List<Zone> zonelist=getSimpleJdbcTemplate().query(
 				sql
@@ -342,7 +342,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int deleteZone(int zone_id, int id) {
 
-		String sql=xmlUtil.getSQL("user","DELETE_ZONE_SQL");
+		String sql=sqlparser.getSQL("user","DELETE_ZONE_SQL");
 
 		int count=getSimpleJdbcTemplate().update(
 				sql
@@ -358,7 +358,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 	@Override
 	public int duplicateUser_id(String user_id) {
 		
-		String sql=xmlUtil.getSQL("user","DUPLICATE_USER_ID_SQL");
+		String sql=sqlparser.getSQL("user","DUPLICATE_USER_ID_SQL");
 
 		int count=getSimpleJdbcTemplate().queryForInt(
 				sql
@@ -376,7 +376,7 @@ public class UserDaoJdbcImpl  extends SimpleJdbcDaoSupport implements UserDao{
 		
 		ZipcodeRowMapper zipcodeRowMapper=new ZipcodeRowMapper();
 
-		String sql=xmlUtil.getSQL("user","LIST_ZIPCODE_SQL");
+		String sql=sqlparser.getSQL("user","LIST_ZIPCODE_SQL");
 
 		List<Zipcode> zipcodelist=getSimpleJdbcTemplate().query(
 				sql
