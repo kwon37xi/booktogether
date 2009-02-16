@@ -12,7 +12,7 @@ public class UserPw extends BaseObject{
 	/**
 	 * 비밀번호 일련번호
 	 */
-	private Integer id;
+	private Integer idNum;
 	
 	/**
 	 * 사용자 일련번호
@@ -38,7 +38,13 @@ public class UserPw extends BaseObject{
 	
 	
 	
-	
+	public Integer getIdNum() {
+		return idNum;
+	}
+
+	public void setIdNum(Integer idNum) {
+		this.idNum = idNum;
+	}
 	
 	
 	public byte[] getDigest() {
@@ -58,14 +64,6 @@ public class UserPw extends BaseObject{
 	}
 
 	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public Integer getUserIdNum() {
 		return userIdNum;
 	}
