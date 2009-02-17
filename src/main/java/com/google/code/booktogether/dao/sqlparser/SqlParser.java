@@ -8,6 +8,6 @@ public interface SqlParser {
 	 * @param sqlKey SQL 키값
 	 * @return
 	 */
-	public String getSQL(String xmlname,String sqlKey);	
+	public String getSQL(String xmlName,String sqlKey);	
 	
 }
