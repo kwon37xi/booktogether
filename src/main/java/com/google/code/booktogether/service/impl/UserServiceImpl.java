@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
 	@Resource(name = "userJdbcDao")
 	private UserDao userJdbcDao;
 
+	//로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
 
 	@Override
@@ -214,7 +215,9 @@ public class UserServiceImpl implements UserService {
 			}
 
 		} else {
-			System.out.println("아이디가 없다.");
+			if (log.isInfoEnabled()) {
+				log.info("아이디가 없다.");
+			}
 		}
 
 		return user;
