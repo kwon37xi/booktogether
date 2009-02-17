@@ -5,14 +5,13 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.UserService;
@@ -37,6 +36,11 @@ public class UserController {
 	@Resource(name = "userService")
 	UserService userService;
 
+	
+	//로그 표시를 위하여
+	//private Logger log = Logger.getLogger(this.getClass());
+	
+	
 	/**
 	 * 사용자 등록 화면
 	 * 

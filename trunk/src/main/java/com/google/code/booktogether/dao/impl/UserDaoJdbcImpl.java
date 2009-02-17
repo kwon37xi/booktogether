@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -26,6 +27,9 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 
 	@Resource(name = "SqlParser")
 	SqlParserXmlImpl sqlparser;
+
+	// 로그 표시를 위하여
+	//private Logger log = Logger.getLogger(this.getClass());
 
 	@Resource(name = "dataSource")
 	public void setJdbcDao(DataSource dataSource) {
