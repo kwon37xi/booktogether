@@ -19,15 +19,15 @@
             <![CDATA[
              UPDATE BOOK 
              SET name=?
-             	, isbn10=?
-             	, isbn13=?
-             	, publish_comp=?
-             	, publish_date=?
-             	, price=?
-             	, corver=?
-             	, category=?
-             	, description=? 
-             WHERE id=?
+             	, isbn10 = ?
+             	, isbn13 = ?
+             	, publish_comp = ?
+             	, publish_date = ?
+             	, price = ?
+             	, corver = ?
+             	, category = ?
+             	, description = ? 
+             WHERE idNum = ?
             ]]>
         </query>
     </sql>
@@ -38,10 +38,10 @@
         <query>
             <![CDATA[
              UPDATE AUTHOR  
-             SET name=?
-             	, author_div=? 
-             WHERE id=?
-            ]]>
+             SET name = ?
+             	, author_div = ? 
+             WHERE idNum = ?
+            ]]> 
         </query>
     </sql>
     
@@ -76,7 +76,7 @@
             <![CDATA[
             SELECT * 
             FROM AUTHOR 
-            WHERE BOOK_REF=?
+            WHERE book_idNum=?
             ]]>
         </query>
     </sql>
@@ -88,7 +88,7 @@
             <![CDATA[
             SELECT * 
             FROM AUTHOR 
-            WHERE id=?
+            WHERE idNum=?
             ]]>
         </query>
     </sql>
@@ -101,7 +101,7 @@
             <![CDATA[
              SELECT * 
              FROM BOOK 
-             WHERE ID=?
+             WHERE idNum=?
             ]]>
         </query>
     </sql>
@@ -121,7 +121,7 @@
         <description></description>
         <query>
             <![CDATA[
-             INSERT INTO AUTHOR(name,author_div,book_ref) 
+             INSERT INTO AUTHOR(name,author_div,book_idNum) 
              VALUES(?, ?, ?)
             ]]>
         </query>
@@ -143,7 +143,7 @@
         <query>
             <![CDATA[
              DELETE FROM BOOK 
-             WHERE id=?
+             WHERE idNum=?
             ]]>
         </query>
     </sql>
@@ -154,7 +154,7 @@
         <query>
             <![CDATA[
              DELETE FROM AUTHOR 
-             WHERE book_ref=?
+             WHERE book_idNum=?
             ]]>
         </query>
     </sql>
@@ -165,7 +165,7 @@
         <query>
             <![CDATA[
      	      DELETE FROM AUTHOR 
-     	      WHERE id=?
+     	      WHERE idNum=?
             ]]>
         </query>
     </sql>

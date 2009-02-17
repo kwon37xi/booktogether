@@ -71,7 +71,7 @@
              	    ,U.nickname as user_nickname
              	    ,BR.recommend as recommend
              	    ,BR.title as title 
-             	    ,BR.id as id 
+             	    ,BR.idNum as idNum 
              FROM USER U, BOOKREVIEW BR  
              WHERE BR.book_idNum=? 
                AND BR.user_idNum=U.idNum 
@@ -86,7 +86,7 @@
 		<description>내가 작성한 책 리뷰 목록</description>
 		<query>
             <![CDATA[
-             SELECT BR.id as idNum
+             SELECT BR.idNum as idNum
              		,BR.recommend as recommend 
              		,BR.title as title 
              		,BR.book_id as bidNum
@@ -108,7 +108,7 @@
 		<description>책 리뷰(내가쓴 리뷰)</description>
 		<query>
             <![CDATA[
-             SELECT U.id as uidNum
+             SELECT U.idNum as uidNum
              	    ,U.user_id as user_id 
              	    ,U.name as user_name 
              	    ,U.nickname as user_nickname
@@ -130,7 +130,7 @@
 		<description>책 리뷰</description>
 		<query>
             <![CDATA[
-             SELECT U.id as uidNum
+             SELECT U.idNum as uidNum
              	    ,U.user_id as user_id 
              	    ,U.name as user_name 
              	    ,U.nickname as user_nickname

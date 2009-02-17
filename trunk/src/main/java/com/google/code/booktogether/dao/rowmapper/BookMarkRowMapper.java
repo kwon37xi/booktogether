@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 import com.google.code.booktogether.web.domain.BookMark;
-import com.google.code.booktogether.web.domain.User;
 
 /**
  * 인용구 정보 목록화할때 사용
@@ -28,14 +27,13 @@ public class BookMarkRowMapper implements ParameterizedRowMapper<BookMark>,
 
 		BookMark bookMark = new BookMark();
 
-		bookMark.setId(rs.getInt("ID"));
+		bookMark.setIdNum(rs.getInt("IDNUM"));
 		bookMark.setPage(rs.getInt("PAGE"));
 		bookMark.setVibeNum(rs.getInt("VIBE_NUM"));
-		bookMark.setInput_date(rs.getDate("INPUT_DATE"));
+		bookMark.setInputDate(rs.getDate("INPUT_DATE"));
 		bookMark.setContent(rs.getString("CONTENT"));
 
-		bookMark.setUser(new User());
-		bookMark.getUser().setIdNum(rs.getInt("UID"));
+		bookMark.getUser().setIdNum(rs.getInt("UIDNUM"));
 		bookMark.getUser().setUserId(rs.getString("USER_ID"));
 		bookMark.getUser().setName(rs.getString("USER_NAME"));
 		bookMark.getUser().setNickname(rs.getString("USER_NICKNAME"));

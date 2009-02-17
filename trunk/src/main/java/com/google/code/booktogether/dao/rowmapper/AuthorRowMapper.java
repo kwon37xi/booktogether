@@ -25,9 +25,9 @@ public class AuthorRowMapper implements ParameterizedRowMapper<Author>,Serializa
 		
 		Author author=new Author();
 		
-		author.setId(rs.getInt("ID"));
+		author.setIdNum(rs.getInt("IDNUM"));
 		author.setName(rs.getString("NAME"));
-		author.setAuthor_div(rs.getInt("AUTHOR_DIV"));
+		author.setAuthorDiv(rs.getInt("AUTHOR_DIV"));
 		
 		return author;
 	}

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
-import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookGrade;
 
 /**
@@ -28,11 +27,9 @@ public class MyBookGradeRowMapper implements ParameterizedRowMapper<BookGrade>,
 
 		BookGrade bookGrade = new BookGrade();
 
-		bookGrade.setId(rs.getInt("ID"));
+		bookGrade.setIdNum(rs.getInt("IDNUM"));
 		bookGrade.setGrade(rs.getInt("GRADE"));
 
-		bookGrade.setBook(new Book());
-		bookGrade.getBook().setIdNum(rs.getInt("UID"));
 		bookGrade.getBook().setName(rs.getString("BOOK_NAME"));
 		bookGrade.getBook().setISBN10(rs.getString("ISBN"));
 

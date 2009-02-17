@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
-import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookMark;
 
 /**
@@ -28,14 +27,13 @@ public class MyBookMarkRowMapper implements ParameterizedRowMapper<BookMark>,
 
 		BookMark bookMark = new BookMark();
 
-		bookMark.setId(rs.getInt("ID"));
+		bookMark.setIdNum(rs.getInt("IDNUM"));
 		bookMark.setPage(rs.getInt("PAGE"));
 		bookMark.setVibeNum(rs.getInt("VIBE_NUM"));
-		bookMark.setInput_date(rs.getDate("INPUT_DATE"));
+		bookMark.setInputDate(rs.getDate("INPUT_DATE"));
 		bookMark.setContent(rs.getString("CONTENT"));
 
-		bookMark.setBook(new Book());
-		bookMark.getBook().setIdNum(rs.getInt("BID"));
+		bookMark.getBook().setIdNum(rs.getInt("BIDNum"));
 		bookMark.getBook().setName(rs.getString("BOOK_NAME"));
 		bookMark.getBook().setPublishComp(rs.getString("BOOK_COMP"));
 

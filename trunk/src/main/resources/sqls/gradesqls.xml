@@ -6,7 +6,7 @@
         <description>책 별점 주기</description>
         <query>
             <![CDATA[
-             INSERT INTO BOOKGRADE(book_id, user_id, grade)  
+             INSERT INTO BOOKGRADE(book_idNum, user_idNum, grade)  
              VALUES (?, ?, ?)
             ]]>
         </query>
@@ -18,7 +18,7 @@
             <![CDATA[
              UPDATE BOOKGRADE 
              	SET grade=?
-              WHERE id=?
+              WHERE idNum=?
             ]]>
         </query>
      </sql>
@@ -29,8 +29,8 @@
             <![CDATA[
              DELETE FROM BOOKGRADE 
              WHERE id=? 
-               AND book_id=? 
-               AND user_id=? 
+               AND book_idNum=? 
+               AND user_idNum=? 
             ]]>
         </query>
      </sql>
@@ -40,15 +40,15 @@
         <description>책 별점 목록</description>
         <query>
             <![CDATA[
-             SELECT U.id as uid
+             SELECT U.idNum as uidNum
              	    ,U.user_id as user_id 
              	    ,U.nickname as user_nickname
              	    ,BG.grade as grade
-             	    ,BG.id as id 
+             	    ,BG.idNum as idNum 
              FROM USER U, BOOKGRADE BG  
-             WHERE BG.book_id=? 
-               AND BG.user_id=U.id 
-               AND U.delete_y_n=0 
+             WHERE BG.book_idNum = ? 
+               AND BG.user_idNum = U.idNum 
+               AND U.isdelete=0 
              LIMIT ?,? 
             ]]>
         </query>
@@ -60,14 +60,14 @@
         <query>
             <![CDATA[
              SELECT BG.grade as grade
-             	    ,BG.id as id
+             	    ,BG.idNum as idNum
              	    ,B.name as book_name
              	    ,B.isbn10 as isbn
              FROM BOOK B, USER U, BOOKGRADE BG  
-             WHERE BG.user_id = ?  
-               AND BG.user_id=U.id 
-               AND BG.book_id=B.id  
-               AND U.delete_y_n=0 
+             WHERE BG.user_idNum = ?  
+               AND BG.user_idNum = U.idNum 
+               AND BG.book_idNum = B.idNum  
+               AND U.isdelete = 0 
              LIMIT ?,? 
             ]]>
         </query>
@@ -78,12 +78,12 @@
         <description>내가 매긴 책 별점이 있는지 체크</description>
         <query>
             <![CDATA[
-             SELECT count(BG.id) as count
+             SELECT count(BG.idNum) as count
              FROM BOOKGRADE BG, USER U 
-             WHERE BG.book_id = ? 
-               AND BG.user_id = ? 
-               AND BG.user_id=U.id 
-               AND U.delete_y_n=0  
+             WHERE BG.book_idNum = ? 
+               AND BG.user_idNum = ? 
+               AND BG.user_idNum = U.idNum 
+               AND U.isdelete = 0  
             ]]>
         </query>
     </sql>

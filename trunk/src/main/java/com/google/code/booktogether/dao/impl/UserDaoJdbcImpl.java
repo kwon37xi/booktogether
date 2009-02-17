@@ -29,7 +29,7 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 	SqlParserXmlImpl sqlparser;
 
 	// 로그 표시를 위하여
-	//private Logger log = Logger.getLogger(this.getClass());
+	private Logger log = Logger.getLogger(this.getClass());
 
 	@Resource(name = "dataSource")
 	public void setJdbcDao(DataSource dataSource) {
