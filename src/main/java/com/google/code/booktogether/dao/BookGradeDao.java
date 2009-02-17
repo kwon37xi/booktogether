@@ -34,7 +34,7 @@ public interface BookGradeDao {
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookGrade> getListBookGrade(int book_id,int startPage, int endPage);
+	public List<BookGrade> getListBookGrade(Integer bookIdNum,Integer startPage, Integer endPage);
 	
 	/**
 	 * 내가 매긴 별점 목록
@@ -43,7 +43,7 @@ public interface BookGradeDao {
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookGrade> getListMyBookGrade(int user_id,int startPage, int endPage);
+	public List<BookGrade> getListMyBookGrade(Integer userIdNum,Integer startPage, Integer endPage);
 	
 	/**
 	 * 내가 매긴 별점이 있는지 체크
@@ -51,5 +51,5 @@ public interface BookGradeDao {
 	 * @param user_id
 	 * @return
 	 */
-	public int isExistGrade(int book_id,int user_id);
+	public int isExistGrade(Integer bookIdNum,Integer userIdNum);
 }

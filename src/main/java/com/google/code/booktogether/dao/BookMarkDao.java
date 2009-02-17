@@ -29,37 +29,37 @@ public interface BookMarkDao {
 
 	/**
 	 * 인용구 목록(책 조회시)
-	 * @param book_id
+	 * @param bookIdNum
 	 * @param startPage
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookMark> getListBookMark(int book_id,int startPage, int endPage);
+	public List<BookMark> getListBookMark(Integer bookIdNum,Integer startPage, Integer endPage);
 
 	/**
 	 * 내가 작성한 인용구 목록
-	 * @param user_id
+	 * @param userIdNum
 	 * @param startPage
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookMark> getListMyBookMark(int user_id,int startPage, int endPage);
+	public List<BookMark> getListMyBookMark(Integer userIdNum,Integer startPage, Integer endPage);
 
 	/**
 	 * 내가 매긴 공감이 있는지 체크
-	 * @param book_id
-	 * @param user_id
+	 * @param vibeIdNum
+	 * @param userIdNum
 	 * @return
 	 */
-	public int isExistVibe(int id,int user_id);
+	public int isExistVibe(Integer vibeIdNum,Integer userIdNum);
 
 	/**
 	 * 공감등록
-	 * @param bookmark_id
-	 * @param user_id
+	 * @param bookMarkIdNum
+	 * @param userIdNum
 	 * @return
 	 */
-	public int insertVibe(int bookmark_id, int user_id);
+	public int insertVibe(Integer bookMarkIdNum, Integer userIdNum);
 
 
 	/**

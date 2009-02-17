@@ -247,9 +247,9 @@ public class UserController extends AbstractController{
 	public ModelAndView handleGetUser(HttpServletRequest req) {
 
 		// 사용자 ID값
-		Integer idNum = getLoginUser();
+		Integer userIdNum = getLoginUser();
 
-		User user = userService.getUserDetail(idNum);
+		User user = userService.getUserDetail(userIdNum);
 
 		// 경로 설정 및 Attribute 설정
 		ModelAndView mav = new ModelAndView();
@@ -270,9 +270,9 @@ public class UserController extends AbstractController{
 	public ModelAndView handleModifyUserView(HttpServletRequest req) {
 
 		// 사용자 ID값
-		Integer idNum = getLoginUser();
+		Integer userIdNum = getLoginUser();
 
-		User user = userService.getUserDetail(idNum);
+		User user = userService.getUserDetail(userIdNum);
 
 		// 경로 설정 및 Attribute 설정
 		ModelAndView mav = new ModelAndView();
@@ -310,7 +310,7 @@ public class UserController extends AbstractController{
 				"/images/user/thumnail/");
 
 		// 사용자 ID값
-		Integer idNum = getLoginUser();
+		Integer userIdNum = getLoginUser();
 
 		String filename = "";
 
@@ -355,7 +355,7 @@ public class UserController extends AbstractController{
 
 		// 사용자 기본 정보
 		User user = new User();
-		user.setIdNum(idNum);
+		user.setIdNum(userIdNum);
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setName(name);
@@ -383,12 +383,12 @@ public class UserController extends AbstractController{
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
 		// 사용자 ID값
-		Integer idNum = getLoginUser();
+		Integer userIdNum = getLoginUser();
 
 		boolean result = false;
 
 		// 사용자 탈퇴
-		result = userService.deleteUser(idNum);
+		result = userService.deleteUser(userIdNum);
 
 		String message = (result) ? "탈퇴성공" : "탈퇴실패";
 
@@ -550,9 +550,9 @@ public class UserController extends AbstractController{
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
 		// 사용자 userId값
-		Integer idNum = getLoginUser();
+		Integer userIdNum = getLoginUser();
 
-		boolean result = userService.deleteZone(zoneIdNum, idNum);
+		boolean result = userService.deleteZone(zoneIdNum, userIdNum);
 
 		String message = (result) ? "삭제 되었습니다." : "삭제를 실패하였습니다.";
 

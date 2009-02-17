@@ -31,12 +31,10 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookGrade", "INSERT_BOOKGRADE_SQL");
 
-		int count = getSimpleJdbcTemplate().update(
+		return getSimpleJdbcTemplate().update(
 				sql,
 				new Object[] { bookGrade.getBook().getIdNum(),
 						bookGrade.getUser().getIdNum(), bookGrade.getGrade() });
-
-		return count;
 	}
 
 	@Override
@@ -44,10 +42,8 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookgGade", "MODIFY_BOOKGRADE_SQL");
 
-		int count = getSimpleJdbcTemplate().update(sql,
-				new Object[] { bookGrade.getGrade(), bookGrade.getId() });
-
-		return count;
+		return getSimpleJdbcTemplate().update(sql,
+				new Object[] { bookGrade.getGrade(), bookGrade.getIdNum() });
 	}
 
 	@Override
@@ -55,54 +51,44 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookGrade", "DELETE_BOOKGRADE_SQL");
 
-		int count = getSimpleJdbcTemplate().update(
+		return getSimpleJdbcTemplate().update(
 				sql,
-				new Object[] { bookGrade.getId(),
+				new Object[] { bookGrade.getIdNum(),
 						bookGrade.getBook().getIdNum(),
 						bookGrade.getUser().getIdNum() });
-
-		return count;
 	}
 
 	@Override
-	public List<BookGrade> getListBookGrade(int book_id, int startPage,
-			int endPage) {
+	public List<BookGrade> getListBookGrade(Integer bookIdNum, Integer startPage,
+			Integer endPage) {
 
 		BookGradeRowMapper bookGradeRowMapper = new BookGradeRowMapper();
 
 		String sql = sqlparser.getSQL("bookGrade", "LIST_BOOKGRADE_SQL");
 
-		List<BookGrade> bookgradelist = getSimpleJdbcTemplate().query(sql,
-				bookGradeRowMapper,
-				new Object[] { book_id, startPage, endPage });
-
-		return bookgradelist;
+		return getSimpleJdbcTemplate().query(sql, bookGradeRowMapper,
+				new Object[] { bookIdNum, startPage, endPage });
 	}
 
 	@Override
-	public List<BookGrade> getListMyBookGrade(int user_id, int startPage,
-			int endPage) {
+	public List<BookGrade> getListMyBookGrade(Integer userIdNum,
+			Integer startPage, Integer endPage) {
 
 		MyBookGradeRowMapper myBookGradeRowMapper = new MyBookGradeRowMapper();
 
 		String sql = sqlparser.getSQL("bookGrade", "LIST_MYBOOKGRADE_SQL");
 
-		List<BookGrade> mybookgradelist = getSimpleJdbcTemplate().query(sql,
-				myBookGradeRowMapper,
-				new Object[] { user_id, startPage, endPage });
-
-		return mybookgradelist;
+		return getSimpleJdbcTemplate().query(sql, myBookGradeRowMapper,
+				new Object[] { userIdNum, startPage, endPage });
 	}
 
 	@Override
-	public int isExistGrade(int book_id, int user_id) {
+	public int isExistGrade(Integer bookIdNum, Integer userIdNum) {
 
 		String sql = sqlparser.getSQL("bookGrade", "EXIST_MYBOOKGRADE_SQL");
 
-		int count = getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { book_id, user_id });
-
-		return count;
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { bookIdNum, userIdNum });
 	}
 
 }

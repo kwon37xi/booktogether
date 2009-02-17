@@ -28,13 +28,11 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookMark", "INSERT_BOOKMARK_SQL");
 
-		int count = getSimpleJdbcTemplate().update(
+		return getSimpleJdbcTemplate().update(
 				sql,
 				new Object[] { bookMark.getUser().getIdNum(),
 						bookMark.getBook().getIdNum(), bookMark.getVibeNum(),
 						bookMark.getPage(), bookMark.getContent() });
-
-		return count;
 	}
 
 	@Override
@@ -42,13 +40,11 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookMark", "MODIFY_BOOKMARK_SQL");
 
-		int count = getSimpleJdbcTemplate().update(
+		return getSimpleJdbcTemplate().update(
 				sql,
 				new Object[] { bookMark.getPage(), bookMark.getContent(),
-						bookMark.getId(), bookMark.getUser().getIdNum(),
+						bookMark.getIdNum(), bookMark.getUser().getIdNum(),
 						bookMark.getBook().getIdNum() });
-
-		return count;
 	}
 
 	@Override
@@ -56,65 +52,54 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookMark", "DELETE_BOOKMARK_SQL");
 
-		int count = getSimpleJdbcTemplate().update(
+		return getSimpleJdbcTemplate().update(
 				sql,
-				new Object[] { bookMark.getId(),
+				new Object[] { bookMark.getIdNum(),
 						bookMark.getBook().getIdNum(),
 						bookMark.getUser().getIdNum() });
-
-		return count;
 	}
 
 	@Override
-	public List<BookMark> getListBookMark(int book_id, int startPage,
-			int endPage) {
+	public List<BookMark> getListBookMark(Integer bookIdNum, Integer startPage,
+			Integer endPage) {
 
 		BookMarkRowMapper bookMarkRowMapper = new BookMarkRowMapper();
 
 		String sql = sqlparser.getSQL("bookMark", "LIST_BOOKMARK_SQL");
 
-		List<BookMark> bookmarklist = getSimpleJdbcTemplate()
-				.query(sql, bookMarkRowMapper,
-						new Object[] { book_id, startPage, endPage });
-
-		return bookmarklist;
+		return getSimpleJdbcTemplate().query(sql, bookMarkRowMapper,
+				new Object[] { bookIdNum, startPage, endPage });
 	}
 
 	@Override
-	public List<BookMark> getListMyBookMark(int user_id, int startPage,
-			int endPage) {
+	public List<BookMark> getListMyBookMark(Integer userIdNum, Integer startPage,
+			Integer endPage) {
 
 		MyBookMarkRowMapper myBookMarkRowMapper = new MyBookMarkRowMapper();
 
 		String sql = sqlparser.getSQL("bookMark", "LIST_MYBOOKMARK_SQL");
 
-		List<BookMark> mybookmarklist = getSimpleJdbcTemplate().query(sql,
-				myBookMarkRowMapper,
-				new Object[] { user_id, startPage, endPage });
-
-		return mybookmarklist;
+		return getSimpleJdbcTemplate().query(sql, myBookMarkRowMapper,
+				new Object[] { userIdNum, startPage, endPage });
 	}
 
 	@Override
-	public int isExistVibe(int id, int user_id) {
+	public int isExistVibe(Integer vibeIdNum, Integer userIdNum) {
 
 		String sql = sqlparser.getSQL("bookMark", "EXIST_MYVIBE_SQL");
 
-		int count = getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { id, user_id });
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { vibeIdNum, userIdNum });
 
-		return count;
 	}
 
 	@Override
-	public int insertVibe(int bookmark_id, int user_id) {
+	public int insertVibe(Integer bookMarkIdNum, Integer userIdNum) {
 
 		String sql = sqlparser.getSQL("bookMark", "INSERT_VIBE_SQL");
 
-		int count = getSimpleJdbcTemplate().update(sql,
-				new Object[] { user_id, bookmark_id });
-
-		return count;
+		return getSimpleJdbcTemplate().update(sql,
+				new Object[] { userIdNum, bookMarkIdNum });
 	}
 
 	@Override
@@ -122,13 +107,10 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookMark", "MODIFY_VIBE_BOOKMARK_SQL");
 
-		int count = getSimpleJdbcTemplate()
-				.update(
-						sql,
-						new Object[] { bookMark.getId(),
-								bookMark.getBook().getIdNum() });
-
-		return count;
+		return getSimpleJdbcTemplate().update(
+				sql,
+				new Object[] { bookMark.getIdNum(),
+						bookMark.getBook().getIdNum() });
 	}
 
 }

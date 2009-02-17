@@ -9,147 +9,110 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.code.booktogether.dao.BookMarkDao;
+import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.BookMarkService;
 import com.google.code.booktogether.web.domain.BookMark;
 
 @Service("bookMarkService")
+@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 public class BookMarkServiceImpl implements BookMarkService {
 
 	@Resource(name = "bookMarkJdbcDao")
 	private BookMarkDao bookMarkJdbcDao;
 
+	
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	@Transactional(readOnly = false)
 	public boolean insertBookMark(BookMark bookMark) {
 
-		boolean result = false;
+		int count = bookMarkJdbcDao.insertBookMark(bookMark);
 
-		try {
-
-			int count = bookMarkJdbcDao.insertBookMark(bookMark);
-
-			if (count != 1) {
-				throw new Exception();
-			} else {
-				result = true;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+		if (count != 1) {
+			throw new BooktogetherException("인용구 등록 실패");
+		} else {
+			return true;
 		}
-
-		return result;
 
 	}
 
+	
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	@Transactional(readOnly = false)
 	public boolean modifyBookMark(BookMark bookMark) {
 
-		boolean result = false;
+		int count = bookMarkJdbcDao.modifyBookMark(bookMark);
 
-		try {
-
-			int count = bookMarkJdbcDao.modifyBookMark(bookMark);
-
-			if (count != 1) {
-				throw new Exception();
-			} else {
-				result = true;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+		if (count != 1) {
+			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
+		} else {
+			return true;
 		}
-
-		return result;
 
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	@Transactional(readOnly = false)
 	public boolean deleteBookMark(BookMark bookMark) {
 
-		boolean result = false;
+		int count = bookMarkJdbcDao.deleteBookMark(bookMark);
 
-		try {
-
-			int count = bookMarkJdbcDao.deleteBookMark(bookMark);
-
-			if (count != 1) {
-				throw new Exception();
-			} else {
-				result = true;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+		if (count != 1) {
+			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
+		} else {
+			return true;
 		}
 
-		return result;
+	}
+
+	
+	
+	@Override
+	public List<BookMark> getListBookMark(Integer bookIdNum, Integer startPage,
+			Integer endPage) {
+
+		return bookMarkJdbcDao.getListBookMark(bookIdNum, startPage, endPage);
+	}
+
+	
+	
+	@Override
+	public List<BookMark> getListMyBookMark(Integer userIdNum,
+			Integer startPage, Integer endPage) {
+
+		return bookMarkJdbcDao.getListMyBookMark(userIdNum, startPage, endPage);
 
 	}
 
+	
+	
 	@Override
-	public List<BookMark> getListBookMark(int book_id, int startPage,
-			int endPage) {
-
-		List<BookMark> bookmarklist = bookMarkJdbcDao.getListBookMark(book_id,
-				startPage, endPage);
-
-		return bookmarklist;
-	}
-
-	@Override
-	public List<BookMark> getListMyBookMark(int user_id, int startPage,
-			int endPage) {
-
-		List<BookMark> mybookmarklist = bookMarkJdbcDao.getListMyBookMark(
-				user_id, startPage, endPage);
-
-		return mybookmarklist;
-
-	}
-
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	@Transactional(readOnly = false)
 	public String modifyVibe(BookMark bookMark) {
 
-		try {
+		int count = bookMarkJdbcDao.isExistVibe(bookMark.getIdNum(), bookMark
+				.getUser().getIdNum());
 
-			int count = bookMarkJdbcDao.isExistVibe(bookMark.getId(), bookMark
-					.getUser().getIdNum());
+		if (count == 0) {
 
-			System.out.println(count);
+			count = bookMarkJdbcDao.modifyVibeBookMark(bookMark);
 
-			if (count == 0) {
+			if (count == 1) {
 
-				count = bookMarkJdbcDao.modifyVibeBookMark(bookMark);
+				count = bookMarkJdbcDao.insertVibe(bookMark.getIdNum(),
+						bookMark.getUser().getIdNum());
 
 				if (count == 1) {
-
-					count = bookMarkJdbcDao.insertVibe(bookMark.getId(),
-							bookMark.getUser().getIdNum());
-
-					if (count == 1) {
-						return "공감등록 성공";
-					} else {
-						throw new Exception();
-					}
+					return "공감등록 성공";
 				} else {
-					throw new Exception();
+					throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 				}
-
+				
 			} else {
-				return "이미 공감을 하셨습니다.";
+				throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "공감등록 실패";
+		} else {
+			return "이미 공감을 하셨습니다.";
 		}
 
 	}

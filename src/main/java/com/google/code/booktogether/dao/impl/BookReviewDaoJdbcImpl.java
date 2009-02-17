@@ -30,14 +30,12 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookReview", "INSERT_BOOKREVIEW_SQL");
 
-		int count = getSimpleJdbcTemplate().update(
+		return getSimpleJdbcTemplate().update(
 				sql,
 				new Object[] { bookReview.getBook().getIdNum(),
 						bookReview.getUser().getIdNum(),
 						bookReview.getRecommend(), bookReview.getTitle(),
 						bookReview.getReview() });
-
-		return count;
 	}
 
 	@Override
@@ -45,13 +43,11 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookReview", "MODIFY_BOOKREVIEW_SQL");
 
-		int count = getSimpleJdbcTemplate().update(
+		return getSimpleJdbcTemplate().update(
 				sql,
 				new Object[] { bookReview.getTitle(), bookReview.getReview(),
-						bookReview.getId(), bookReview.getUser().getIdNum(),
+						bookReview.getIdNum(), bookReview.getUser().getIdNum(),
 						bookReview.getBook().getIdNum() });
-
-		return count;
 	}
 
 	@Override
@@ -59,53 +55,45 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookReview", "DELETE_BOOKREVIEW_SQL");
 
-		int count = getSimpleJdbcTemplate().update(
+		return getSimpleJdbcTemplate().update(
 				sql,
 				new Object[] { bookReview.getBook().getIdNum(),
 						bookReview.getUser().getIdNum() });
 
-		return count;
 	}
 
 	@Override
-	public List<BookReview> getListBookReview(int book_id, int startPage,
-			int endPage) {
+	public List<BookReview> getListBookReview(Integer bookIdNum,
+			Integer startPage, Integer endPage) {
 
 		BookReviewRowMapper bookReviewRowMapper = new BookReviewRowMapper();
 
 		String sql = sqlparser.getSQL("bookReview", "LIST_BOOKREVIEW_SQL");
 
-		List<BookReview> bookReviewlist = getSimpleJdbcTemplate().query(sql,
-				bookReviewRowMapper,
-				new Object[] { book_id, startPage, endPage });
-
-		return bookReviewlist;
+		return getSimpleJdbcTemplate().query(sql, bookReviewRowMapper,
+				new Object[] { bookIdNum, startPage, endPage });
 	}
 
 	@Override
-	public List<BookReview> getListMyBookReview(int user_id, int startPage,
-			int endPage) {
+	public List<BookReview> getListMyBookReview(Integer userIdNum,
+			Integer startPage, Integer endPage) {
 
 		MyBookReviewRowMapper myBookReviewRowMapper = new MyBookReviewRowMapper();
 
 		String sql = sqlparser.getSQL("bookReview", "LIST_MYBOOKREVIEW_SQL");
 
-		List<BookReview> mybookReviewlist = getSimpleJdbcTemplate().query(sql,
-				myBookReviewRowMapper,
-				new Object[] { user_id, startPage, endPage });
-
-		return mybookReviewlist;
+		return getSimpleJdbcTemplate().query(sql, myBookReviewRowMapper,
+				new Object[] { userIdNum, startPage, endPage });
 	}
 
 	@Override
-	public int isExistReview(int book_id, int user_id) {
+	public int isExistReview(Integer bookIdNum, Integer userIdNum) {
 
 		String sql = sqlparser.getSQL("bookReview", "EXIST_MYBOOKREVIEW_SQL");
 
-		int count = getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { book_id, user_id });
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { bookIdNum, userIdNum });
 
-		return count;
 	}
 
 	@Override
@@ -115,29 +103,26 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookReview", "GET_MY_BOOKREVIEW_SQL");
 
-		bookReview = (BookReview) DataAccessUtils
+		return (BookReview) DataAccessUtils
 				.singleResult(getSimpleJdbcTemplate().query(
 						sql,
 						bookReviewDetailRowMapper,
 						new Object[] { bookReview.getBook().getIdNum(),
 								bookReview.getUser().getIdNum() }));
 
-		return bookReview;
-
 	}
 
 	@Override
-	public BookReview getReview(int id) {
+	public BookReview getReview(Integer bookReviewIdNum) {
 
 		BookReviewDetailRowMapper bookReviewDetailRowMapper = new BookReviewDetailRowMapper();
 
 		String sql = sqlparser.getSQL("bookReview", "GET_BOOKREVIEW_SQL");
 
-		BookReview bookReview = (BookReview) DataAccessUtils
+		return (BookReview) DataAccessUtils
 				.singleResult(getSimpleJdbcTemplate().query(sql,
-						bookReviewDetailRowMapper, new Object[] { id }));
-
-		return bookReview;
+						bookReviewDetailRowMapper,
+						new Object[] { bookReviewIdNum }));
 
 	}
 
@@ -146,11 +131,10 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookReview", "INSERT_RECOMMEND_SQL");
 
-		int count = getSimpleJdbcTemplate().update(
+		return getSimpleJdbcTemplate().update(
 				sql,
 				new Object[] { bookReview.getUser().getIdNum(),
-						bookReview.getId() });
-		return count;
+						bookReview.getIdNum() });
 	}
 
 	@Override
@@ -159,11 +143,10 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 		String sql = sqlparser.getSQL("bookReview",
 				"MODIFY_REVIEWRECOMMEND_SQL");
 
-		int count = getSimpleJdbcTemplate().update(
+		return getSimpleJdbcTemplate().update(
 				sql,
-				new Object[] { bookReview.getId(),
+				new Object[] { bookReview.getIdNum(),
 						bookReview.getBook().getIdNum() });
-		return count;
 	}
 
 	@Override
@@ -171,11 +154,10 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("bookReview", "EXIST_RECOMMEND_SQL");
 
-		int count = getSimpleJdbcTemplate().queryForInt(
+		return getSimpleJdbcTemplate().queryForInt(
 				sql,
-				new Object[] { bookReview.getId(),
+				new Object[] { bookReview.getIdNum(),
 						bookReview.getUser().getIdNum() });
-		return count;
 	}
 
 }

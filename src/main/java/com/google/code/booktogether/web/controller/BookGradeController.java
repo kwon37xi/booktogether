@@ -2,19 +2,18 @@ package com.google.code.booktogether.web.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.BookGradeService;
-import com.google.code.booktogether.web.domain.Book;
+import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.BookGrade;
-import com.google.code.booktogether.web.domain.User;
 
 /**
  * 별점 관련된 Controller
@@ -22,7 +21,7 @@ import com.google.code.booktogether.web.domain.User;
  * @author ParkHaeCheol
  */
 @Controller
-public class BookGradeController {
+public class BookGradeController extends AbstractController {
 
 	/**
 	 * BookGradeService
@@ -30,6 +29,11 @@ public class BookGradeController {
 	@Resource(name = "bookGradeService")
 	BookGradeService bookGradeService;
 
+	
+	//로그 표시를 위하여
+	private Logger log = Logger.getLogger(this.getClass());
+	
+	
 	/**
 	 * 별점 등록
 	 * 
@@ -37,39 +41,19 @@ public class BookGradeController {
 	 * @return
 	 */
 	@RequestMapping("/book/insertBookGrade.do")
-	public ModelAndView handleInsertBookGrade(HttpServletRequest req,
-			HttpServletResponse res) {
+	public ModelAndView handleInsertBookGrade(
+			HttpServletRequest req,
+			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum,
+			@RequestParam(value = "grade", required = false) Integer grade) {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
-		// 파라미터 정보 변수에 세팅
-		int book_id = ServletRequestUtils.getIntParameter(req, "book_id", 0);
-		int grade = ServletRequestUtils.getIntParameter(req, "grade", 0);
+		Integer userIdNum = getLoginUser();
 
-		Integer user_id = (Integer) sra.getAttribute("id",
-				RequestAttributes.SCOPE_SESSION);
-
-		boolean isExistId = (user_id != null) ? true : false;
-
-		BookGrade bookGrade = null;
-
-		if (isExistId) {
-
-			bookGrade = new BookGrade();
-			bookGrade.setBook(new Book());
-			bookGrade.setUser(new User());
-			bookGrade.getBook().setIdNum(book_id);
-			bookGrade.getUser().setIdNum(user_id);
-			bookGrade.setGrade(grade);
-
-		} else {
-
-			sra.setAttribute("message", "로그아웃되었습니다.",
-					RequestAttributes.SCOPE_SESSION);
-
-			return new ModelAndView("redirect:/user/login.do");
-
-		}
+		BookGrade bookGrade = new BookGrade();
+		bookGrade.setGrade(grade);
+		bookGrade.getBook().setIdNum(bookIdNum);
+		bookGrade.getUser().setIdNum(userIdNum);
 
 		// 별점 등록
 		boolean result = bookGradeService.insertGrade(bookGrade);
@@ -82,7 +66,8 @@ public class BookGradeController {
 					RequestAttributes.SCOPE_SESSION);
 		}
 
-		return new ModelAndView("redirect:/book/getBook.do?id=" + book_id);
+		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
+				+ bookIdNum);
 
 	}
 
@@ -93,38 +78,20 @@ public class BookGradeController {
 	 * @return
 	 */
 	@RequestMapping("/book/deleteBookGrade.do")
-	public ModelAndView handleDeleteBookGrade(HttpServletRequest req,
-			HttpServletResponse res) {
+	public ModelAndView handleDeleteBookGrade(
+			HttpServletRequest req,
+			@RequestParam(value = "bookGradeIdNum", required = false) Integer bookGradeIdNum,
+			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
 		// 파라미터 정보 변수에 세팅
-		int id = ServletRequestUtils.getIntParameter(req, "id", 0);
-		int book_id = ServletRequestUtils.getIntParameter(req, "book_id", 0);
+		Integer userIdNum = getLoginUser();
 
-		Integer user_id = (Integer) sra.getAttribute("id",
-				RequestAttributes.SCOPE_SESSION);
-
-		boolean isExistId = (user_id != null) ? true : false;
-
-		BookGrade bookGrade = null;
-
-		if (isExistId) {
-
-			bookGrade = new BookGrade();
-			bookGrade.setId(id);
-			bookGrade.setBook(new Book());
-			bookGrade.setUser(new User());
-			bookGrade.getBook().setIdNum(book_id);
-			bookGrade.getUser().setIdNum(user_id);
-
-		} else {
-
-			sra.setAttribute("message", "로그아웃되었습니다.",
-					RequestAttributes.SCOPE_SESSION);
-
-			return new ModelAndView("redirect:/user/login.do");
-		}
+		BookGrade bookGrade = new BookGrade();
+		bookGrade.setIdNum(bookGradeIdNum);
+		bookGrade.getBook().setIdNum(bookIdNum);
+		bookGrade.getUser().setIdNum(userIdNum);
 
 		// 별점 등록
 		boolean result = bookGradeService.deleteGrade(bookGrade);
@@ -137,7 +104,8 @@ public class BookGradeController {
 					RequestAttributes.SCOPE_SESSION);
 		}
 
-		return new ModelAndView("redirect:/book/getBook.do?id=" + book_id);
+		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
+				+ userIdNum);
 
 	}
 

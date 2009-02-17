@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.code.booktogether.dao.BookDao;
+import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
@@ -15,163 +16,62 @@ import com.google.code.booktogether.web.openapi.impl.BookOpenApiDaumImpl;
 import com.google.code.booktogether.web.page.PageBean;
 
 @Service("bookService")
+@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 public class BookServiceImpl implements BookService {
 
 	// 책 JDBC DAO DI
 	@Resource(name = "bookJdbcDao")
 	private BookDao bookJdbcDao;
 
-	@Override
-	public List<Book> getListBook(PageBean pageBean) {
-
-		// 페이지를 위해서 전체 목록 가지고 오기
-		int dbcount = bookJdbcDao.getDbcount();
-
-		// 페이지 정보에 저장
-		pageBean.setDbCount(dbcount);
-
-		// 목록 가지고 오기
-		List<Book> booklist = bookJdbcDao.getListBook(
-				pageBean.getStartPage() - 1, pageBean.getPageSize());
-
-		// 책 목록 에서 지은이 정보는 빠진상태
-		// 한 책당 여러명의 지은이 정보를 가지고 와야 함
-		for (int i = 0; i < booklist.size(); i++) {
-
-			// 책에 관련된 지은이정보
-			List<Author> authorlist = bookJdbcDao.getAuthor(booklist.get(i));
-
-			// List<Author> -> Array로 바꾸기
-			booklist.get(i).setAuthors(listToArray(authorlist));
-		}
-
-		return booklist;
-	}
-
 	// 책 등록
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	@Transactional(readOnly = false)
 	public boolean insertBook(Book book) {
 
-		boolean result = false;
+		// 책정보 등록
+		int count = bookJdbcDao.insertBook(book);
 
-		try {
-
-			// 책정보 등록
-			int count = bookJdbcDao.insertBook(book);
-
-			if (count != 1) {
-				throw new Exception();
-			}
-
-			int id = bookJdbcDao.getLastNumIncrement();
-
-			// 지은이 정보등록
-			count = bookJdbcDao.insertAuthor(book.getAuthors(), id);
-
-			if (count != 1) {
-				throw new Exception();
-			} else {
-				result = true;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+		if (count != 1) {
+			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 		}
 
-		return result;
-	}
+		int bookIdNum = bookJdbcDao.getLastNumIncrement();
 
-	// 책 수정
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public boolean modifyBook(Book book) {
+		// 지은이 정보등록
+		for (Author author : book.getAuthors()) {
 
-		boolean result = false;
-
-		try {
-
-			// 책 수정
-			int count = bookJdbcDao.modifyBook(book);
+			count = bookJdbcDao.insertAuthor(author, bookIdNum);
 
 			if (count != 1) {
-				throw new Exception();
+				throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 			}
-
-			// 지은이 정보 수정
-			for (Author author : book.getAuthors()) {
-				count = bookJdbcDao.modifyAuthor(author);
-			}
-
-			// 책 수정
-			count = bookJdbcDao.modifyBook(book);
-
-			if (count != 1) {
-				throw new Exception();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
 		}
 
-		return result;
-	}
-
-	// 책 삭제
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public boolean deleteBook(int id) {
-
-		boolean result = false;
-
-		try {
-
-			int count = bookJdbcDao.deleteBook(id);
-
-			if (count != 1) {
-				throw new Exception();
-			}
-
-			count = bookJdbcDao.deleteAuthor(id);
-
-			if (count != 1) {
-				throw new Exception();
-			} else {
-				result = true;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-
-		return result;
+		return true;
 
 	}
 
 	// 책 조회
 	@Override
-	public Book getBook(int id) {
+	public Book getBook(Integer bookIdNum) {
 
 		// 책 정보 가지고 오기
-		Book book = bookJdbcDao.getBook(id);
+		Book book = bookJdbcDao.getBook(bookIdNum);
 
 		if (book != null) {
 
 			// 해당 책관련 지은이 가지고오기
-			List<Author> authorlist = bookJdbcDao.getAuthor(book);
+			List<Author> authorList = bookJdbcDao.getAuthor(book);
 
 			// List<Author> -> array로 변환
-			book.setAuthors(listToArray(authorlist));
+			book.setAuthors((Author[]) authorList.toArray(new Author[authorList
+					.size()]));
 		}
 
 		return book;
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Book checkBook(String isbn) {
 
 		// 해당 책 있는지 체크
@@ -192,32 +92,12 @@ public class BookServiceImpl implements BookService {
 		}
 
 		// 지은이 정보 가지고 오기
-		List<Author> authorlist = bookJdbcDao.getAuthor(book);
+		List<Author> authorList = bookJdbcDao.getAuthor(book);
 
-		book.setAuthors(listToArray(authorlist));
+		book.setAuthors((Author[]) authorList.toArray(new Author[authorList
+				.size()]));
 
 		return book;
-	}
-
-	// List -> Array로 변환
-	@Override
-	public Author[] listToArray(List<Author> authorlist) {
-
-		Author[] authors = null;
-
-		if (authorlist != null) {
-
-			authors = new Author[authorlist.size()];
-
-			int j = 0;
-
-			for (Author author : authorlist) {
-				authors[j++] = author;
-			}
-		}
-
-		return authors;
-
 	}
 
 	@Override
@@ -226,7 +106,7 @@ public class BookServiceImpl implements BookService {
 
 		BookOpenApiDaumImpl boadi = new BookOpenApiDaumImpl();
 
-		List<Book> booklist = boadi.searchBook(query, searchType, pageBean
+		List<Book> bookList = boadi.searchBook(query, searchType, pageBean
 				.getPageNo());
 
 		BookOpenApiDaumHeader header = (BookOpenApiDaumHeader) boadi
@@ -234,6 +114,6 @@ public class BookServiceImpl implements BookService {
 
 		pageBean.setDbCount(Integer.parseInt(header.getTotalCount()));
 
-		return booklist;
+		return bookList;
 	}
 }

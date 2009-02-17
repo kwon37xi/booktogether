@@ -12,7 +12,7 @@ public class Author extends BaseObject{
 	/**
 	 * ID
 	 */
-	private int id;
+	private Integer idNum;
 	
 	/**
 	 * 이름
@@ -22,31 +22,34 @@ public class Author extends BaseObject{
 	/**
 	 * 구분, 1: 지은이, 2: 옮김, 3: 원저자
 	 */
-	private int author_div;	
 	
-	
-	
-	public int getAuthor_div() {
-		return author_div;
+	private Integer authorDiv;
+
+	public Integer getIdNum() {
+		return idNum;
 	}
-	public void setAuthor_div(int author_div) {
-		this.author_div = author_div;
+
+	public void setIdNum(Integer idNum) {
+		this.idNum = idNum;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getId() {
-		return id;
+
+	public Integer getAuthorDiv() {
+		return authorDiv;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+
+	public void setAuthorDiv(Integer authorDiv) {
+		this.authorDiv = authorDiv;
+	}	
+	
+	
 	
 
 }
