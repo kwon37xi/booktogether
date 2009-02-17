@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
-import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookReview;
 
 /**
@@ -28,13 +27,11 @@ public class MyBookReviewRowMapper implements
 
 		BookReview bookReview = new BookReview();
 
-		bookReview.setBook(new Book());
-
-		bookReview.setId(rs.getInt("ID"));
+		bookReview.setIdNum(rs.getInt("UIDNUM"));
 		bookReview.setRecommend(rs.getInt("RECOMMEND"));
 		bookReview.setTitle(rs.getString("TITLE"));
 
-		bookReview.getBook().setIdNum(rs.getInt("BID"));
+		bookReview.getBook().setIdNum(rs.getInt("BIDNUM"));
 		bookReview.getBook().setName(rs.getString("BNAME"));
 		bookReview.getBook().setISBN10(rs.getString("BISBN"));
 		bookReview.getBook().setPublishComp(rs.getString("BCOMP"));

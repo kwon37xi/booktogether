@@ -2,6 +2,8 @@ package com.google.code.booktogether.service.impl;
 
 import java.util.List;
 import javax.annotation.Resource;
+
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,11 @@ public class BookServiceImpl implements BookService {
 	// 책 JDBC DAO DI
 	@Resource(name = "bookJdbcDao")
 	private BookDao bookJdbcDao;
+	
+	
+	// 로그 표시를 위하여
+	private Logger log = Logger.getLogger(this.getClass());
+	
 
 	// 책 등록
 	@Override

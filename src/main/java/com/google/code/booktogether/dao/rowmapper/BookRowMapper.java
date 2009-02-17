@@ -27,7 +27,7 @@ public class BookRowMapper implements ParameterizedRowMapper<Book>,
 
 		Book book = new Book();
 
-		book.setIdNum(rs.getInt("ID"));
+		book.setIdNum(rs.getInt("IDNUM"));
 		book.setName(rs.getString("NAME"));
 		book.setISBN10(rs.getString("ISBN10"));
 		book.setISBN13(rs.getString("ISBN13"));
