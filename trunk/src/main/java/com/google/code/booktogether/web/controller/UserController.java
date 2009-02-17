@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.UserService;
+import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserAddInfo;
 import com.google.code.booktogether.web.domain.UserPw;
@@ -29,7 +30,7 @@ import com.google.code.booktogether.web.page.PageBean;
  * @author ParkHaeCheol
  */
 @Controller()
-public class UserController {
+public class UserController extends AbstractController{
 
 	/**
 	 * UserService
@@ -245,11 +246,8 @@ public class UserController {
 	@RequestMapping("/user/getUser.do")
 	public ModelAndView handleGetUser(HttpServletRequest req) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
 		// 사용자 ID값
-		Integer idNum = (Integer) sra.getAttribute("idNum",
-				RequestAttributes.SCOPE_SESSION);
+		Integer idNum = getLoginUser();
 
 		User user = userService.getUserDetail(idNum);
 
@@ -271,11 +269,8 @@ public class UserController {
 	@RequestMapping("/user/modifyUserView.do")
 	public ModelAndView handleModifyUserView(HttpServletRequest req) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
 		// 사용자 ID값
-		Integer idNum = (Integer) sra.getAttribute("idNum",
-				RequestAttributes.SCOPE_SESSION);
+		Integer idNum = getLoginUser();
 
 		User user = userService.getUserDetail(idNum);
 
@@ -315,8 +310,7 @@ public class UserController {
 				"/images/user/thumnail/");
 
 		// 사용자 ID값
-		Integer idNum = (Integer) sra.getAttribute("idNum",
-				RequestAttributes.SCOPE_SESSION);
+		Integer idNum = getLoginUser();
 
 		String filename = "";
 
@@ -389,8 +383,7 @@ public class UserController {
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
 		// 사용자 ID값
-		Integer idNum = (Integer) sra.getAttribute("idNum",
-				RequestAttributes.SCOPE_SESSION);
+		Integer idNum = getLoginUser();
 
 		boolean result = false;
 
@@ -557,8 +550,7 @@ public class UserController {
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
 		// 사용자 userId값
-		Integer idNum = (Integer) sra.getAttribute("idNum",
-				RequestAttributes.SCOPE_SESSION);
+		Integer idNum = getLoginUser();
 
 		boolean result = userService.deleteZone(zoneIdNum, idNum);
 
