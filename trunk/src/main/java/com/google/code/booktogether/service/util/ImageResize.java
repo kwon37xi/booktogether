@@ -57,7 +57,7 @@ public class ImageResize {
 		JPEGImageEncoder jpeg = JPEGCodec.createJPEGEncoder(fos);
 
 		JPEGEncodeParam jep = jpeg.getDefaultJPEGEncodeParam(bi);
-		jep.setQuality(1, false);
+		jep.setQuality(0.8f, false);
 		jpeg.encode(bi, jep);
 
 		fos.close();

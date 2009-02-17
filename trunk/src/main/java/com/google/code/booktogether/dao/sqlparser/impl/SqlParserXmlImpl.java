@@ -19,13 +19,13 @@ public class SqlParserXmlImpl implements SqlParser{
 	
 	private static HashMap<String,HashMap<String,String>> xml = new HashMap<String,HashMap<String,String>>();
 	
-	private List<String> filenames;
+	private List<String> fileNames;
 	
 	
 	//classpath:sqls/파일명
-	public SqlParserXmlImpl(List<String> filenames){
+	public SqlParserXmlImpl(List<String> fileNames){
 		
-		this.filenames=filenames;
+		this.fileNames=fileNames;
 		
 		load();
 		
@@ -36,7 +36,7 @@ public class SqlParserXmlImpl implements SqlParser{
 		
 		SAXBuilder builder= new SAXBuilder();
 		
-		for(String filename : filenames){
+		for(String filename : fileNames){
 			
 			Document doc = null;
 			Element root =null;
@@ -68,13 +68,13 @@ public class SqlParserXmlImpl implements SqlParser{
 	}
 
 	@Override
-	public String getSQL(String xmlname,String sqlKey)	{
+	public String getSQL(String xmlName,String sqlKey)	{
 		
 		String sql = "";
 		
-		if(xml.containsKey(xmlname)){
+		if(xml.containsKey(xmlName)){
 			
-			HashMap<String,String> map =xml.get(xmlname);
+			HashMap<String,String> map =xml.get(xmlName);
 			
 			if( map.containsKey(sqlKey) ){
 				sql = (String)map.get(sqlKey);
