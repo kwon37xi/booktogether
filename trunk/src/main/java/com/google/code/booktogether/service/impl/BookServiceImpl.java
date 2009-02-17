@@ -232,7 +232,7 @@ public class BookServiceImpl implements BookService {
 		BookOpenApiDaumHeader header = (BookOpenApiDaumHeader) boadi
 				.getHeader();
 
-		pageBean.setDbCount(Integer.parseInt(header.getTotalcount()));
+		pageBean.setDbCount(Integer.parseInt(header.getTotalCount()));
 
 		return booklist;
 	}

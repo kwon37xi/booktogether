@@ -20,7 +20,7 @@ public class BookOpenApiDaumHeader extends BaseObject{
 	/**
 	 * 총 검색 갯수
 	 */
-	private String totalcount;
+	private String totalCount;
 	
 	/**
 	 * 보여질 갯수
@@ -35,10 +35,7 @@ public class BookOpenApiDaumHeader extends BaseObject{
 	/**
 	 * 페이지
 	 */
-	private String pageno;
-	
-	
-	
+	private String pageNo;
 	
 	
 	public String getTitle() {
@@ -49,12 +46,12 @@ public class BookOpenApiDaumHeader extends BaseObject{
 		this.title = title;
 	}
 
-	public String getTotalcount() {
-		return totalcount;
+	public String getTotalCount() {
+		return totalCount;
 	}
 
-	public void setTotalcount(String totalcount) {
-		this.totalcount = totalcount;
+	public void setTotalCount(String totalCount) {
+		this.totalCount = totalCount;
 	}
 
 	public String getResult() {
@@ -73,14 +70,15 @@ public class BookOpenApiDaumHeader extends BaseObject{
 		this.sort = sort;
 	}
 
-	public String getPageno() {
-		return pageno;
+	public String getPageNo() {
+		return pageNo;
 	}
 
-	public void setPageno(String pageno) {
-		this.pageno = pageno;
+	public void setPageNo(String pageNo) {
+		this.pageNo = pageNo;
 	}
-
+	
+	
 	
 
 }

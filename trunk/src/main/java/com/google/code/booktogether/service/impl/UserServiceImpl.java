@@ -230,6 +230,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public String findPw(User user) {
 
 		String message = "";
