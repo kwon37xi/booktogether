@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <sqls name="bookReview">
-  
-     <sql name="INSERT_BOOKREVIEW_SQL">
-        <description>책 리뷰 등록</description>
-        <query>
+
+	<sql name="INSERT_BOOKREVIEW_SQL">
+		<description>책 리뷰 등록</description>
+		<query>
             <![CDATA[
-             INSERT INTO BOOKREVIEW(book_id, user_id, recommend, title, review)  
+             INSERT INTO BOOKREVIEW(book_idNum, user_idNum, recommend, title, review)  
              VALUES (?, ?, ?, ?, ?)
             ]]>
-        </query>
-     </sql>
-     
-     
-     <sql name="INSERT_RECOMMEND_SQL">
-        <description>추천인 등록</description>
-        <query>
+		</query>
+	</sql>
+
+
+	<sql name="INSERT_RECOMMEND_SQL">
+		<description>추천인 등록</description>
+		<query>
             <![CDATA[
-             INSERT INTO RECOMMEND(user_id, review_id)   
+             INSERT INTO RECOMMEND(user_idNum, review_idNum)   
              VALUES (?, ?)
             ]]>
-        </query>
-     </sql>
-    
-     <sql name="MODIFY_BOOKREVIEW_SQL">
-        <description>책 리뷰 수정하기</description>
-        <query>
+		</query>
+	</sql>
+
+	<sql name="MODIFY_BOOKREVIEW_SQL">
+		<description>책 리뷰 수정하기</description>
+		<query>
             <![CDATA[
              UPDATE BOOKREVIEW 
              	SET TITLE = ? 
              	    ,REVIEW = ?
               WHERE id=?
-                AND user_id=? 
-                AND book_id=?
+                AND user_idNum=? 
+                AND book_idNum=?
             ]]>
-        </query>
-     </sql>
-     
-     <sql name="MODIFY_REVIEWRECOMMEND_SQL">
-        <description>책 리뷰 추천수 증가</description>
-        <query>
+		</query>
+	</sql>
+
+	<sql name="MODIFY_REVIEWRECOMMEND_SQL">
+		<description>책 리뷰 추천수 증가</description>
+		<query>
             <![CDATA[
              UPDATE BOOKREVIEW 
              	SET recommend=recommend+1 
-              WHERE id=? 
-                AND book_id=?
+              WHERE idNum=? 
+                AND book_idNum=?
             ]]>
-        </query>
-     </sql>
-     
-     <sql name="DELETE_BOOKREVIEW_SQL">
-        <description>책 리뷰 삭제</description>
-        <query>
+		</query>
+	</sql>
+
+	<sql name="DELETE_BOOKREVIEW_SQL">
+		<description>책 리뷰 삭제</description>
+		<query>
             <![CDATA[
              DELETE FROM BOOKREVIEW 
-             WHERE book_id=? 
-               AND user_id=? 
+             WHERE book_idNum=? 
+               AND user_idNum=? 
             ]]>
-        </query>
-     </sql>
-    
-    
-     <sql name="LIST_BOOKREVIEW_SQL">
-        <description>책 리뷰 목록(책조회시)</description>
-        <query>
+		</query>
+	</sql>
+
+
+	<sql name="LIST_BOOKREVIEW_SQL">
+		<description>책 리뷰 목록(책조회시)</description>
+		<query>
             <![CDATA[
-             SELECT U.id as uid
+             SELECT U.idNum as uidNum
              	    ,U.user_id as user_id 
              	    ,U.name as user_name 
              	    ,U.nickname as user_nickname
@@ -73,106 +73,106 @@
              	    ,BR.title as title 
              	    ,BR.id as id 
              FROM USER U, BOOKREVIEW BR  
-             WHERE BR.book_id=? 
-               AND BR.user_id=U.id 
-               AND U.delete_y_n=0  
+             WHERE BR.book_idNum=? 
+               AND BR.user_idNum=U.idNum 
+               AND U.isdelete=0  
              LIMIT ?,? 
             ]]>
-        </query>
-     </sql>
-    
-    
-     <sql name="LIST_MYBOOKREVIEW_SQL">
-        <description>내가 작성한 책 리뷰 목록</description>
-        <query>
+		</query>
+	</sql>
+
+
+	<sql name="LIST_MYBOOKREVIEW_SQL">
+		<description>내가 작성한 책 리뷰 목록</description>
+		<query>
             <![CDATA[
-             SELECT BR.id as id
+             SELECT BR.id as idNum
              		,BR.recommend as recommend 
              		,BR.title as title 
-             		,BR.book_id as bid 
+             		,BR.book_id as bidNum
              	    ,B.name as bname
              	    ,B.isbn10 as bisbn
              	    ,B.publish_comp as bcomp
              FROM BOOK B, USER U, BOOKREVIEW BR  
-             WHERE BR.user_id = ?  
-               AND BR.user_id=U.id 
-               AND BR.book_id=B.id  
-               AND U.delete_y_n=0 
+             WHERE BR.user_idNum = ?  
+               AND BR.user_idNum=U.idNum 
+               AND BR.book_idNum=B.idNum  
+               AND U.isdelete=0 
              LIMIT ?,? 
             ]]>
-        </query>
-     </sql>
-    
-    
-     <sql name="GET_MY_BOOKREVIEW_SQL">
-        <description>책 리뷰(내가쓴 리뷰)</description>
-        <query>
+		</query>
+	</sql>
+
+
+	<sql name="GET_MY_BOOKREVIEW_SQL">
+		<description>책 리뷰(내가쓴 리뷰)</description>
+		<query>
             <![CDATA[
-             SELECT U.id as uid
+             SELECT U.id as uidNum
              	    ,U.user_id as user_id 
              	    ,U.name as user_name 
              	    ,U.nickname as user_nickname
-             	    ,BR.id as id 
+             	    ,BR.id as idNum 
              	    ,BR.recommend as recommend
              	    ,BR.review as review 
              	    ,BR.title as title 
-             	    ,BR.book_id as bid 
+             	    ,BR.book_id as bidNum 
              FROM USER U, BOOKREVIEW BR  
-             WHERE BR.book_id = ? 
-               AND BR.user_id = ?  
-               AND BR.user_id = U.id 
-               AND U.delete_y_n = 0  
+             WHERE BR.book_idNum = ? 
+               AND BR.user_idNum = ?  
+               AND BR.user_idNum = U.idNum 
+               AND U.isdelete = 0  
             ]]>
-        </query>
-     </sql>
-    
-     <sql name="GET_BOOKREVIEW_SQL">
-        <description>책 리뷰</description>
-        <query>
+		</query>
+	</sql>
+
+	<sql name="GET_BOOKREVIEW_SQL">
+		<description>책 리뷰</description>
+		<query>
             <![CDATA[
-             SELECT U.id as uid
+             SELECT U.id as uidNum
              	    ,U.user_id as user_id 
              	    ,U.name as user_name 
              	    ,U.nickname as user_nickname
-             	    ,BR.id as id 
+             	    ,BR.id as idNum 
              	    ,BR.recommend as recommend
              	    ,BR.review as review 
              	    ,BR.title as title
-             	    ,B.id as bid
+             	    ,B.id as bidNum 
              FROM USER U, BOOKREVIEW BR, BOOK B  
-             WHERE BR.id = ? 
-               AND BR.user_id = U.id 
-               AND BR.book_id=B.id  
-               AND U.delete_y_n = 0    
+             WHERE BR.idNum = ? 
+               AND BR.user_idNum = U.idNum 
+               AND BR.book_idNum = B.idNum  
+               AND U.isdelete = 0    
             ]]>
-        </query>
-     </sql>
-    
-    
-     <sql name="EXIST_MYBOOKREVIEW_SQL">
-        <description>내가 작성한 책 리뷰가 있는지 체크</description>
-        <query>
+		</query>
+	</sql>
+
+
+	<sql name="EXIST_MYBOOKREVIEW_SQL">
+		<description>내가 작성한 책 리뷰가 있는지 체크</description>
+		<query>
             <![CDATA[
-             SELECT count(BR.id) as count 
+             SELECT count(BR.idNum) as count 
              FROM BOOKREVIEW BR, USER U 
-             WHERE BR.book_id = ? 
-               AND BR.user_id = ? 
-               AND BR.user_id=U.id 
-               AND U.delete_y_n=0  
+             WHERE BR.book_idNum = ? 
+               AND BR.user_idNum = ? 
+               AND BR.user_idNum = U.idNum 
+               AND U.isdelete=0  
             ]]>
-        </query>
-     </sql>
-     
-     
-     <sql name="EXIST_RECOMMEND_SQL">
-        <description>내가 추천한 기록이 있는지 체크</description>
-        <query>
+		</query>
+	</sql>
+
+
+	<sql name="EXIST_RECOMMEND_SQL">
+		<description>내가 추천한 기록이 있는지 체크</description>
+		<query>
             <![CDATA[
              SELECT count(*) as count 
              FROM RECOMMEND 
-             WHERE review_id = ? 
-               AND user_id = ? 
+             WHERE review_idNum = ? 
+               AND user_idNum = ? 
             ]]>
-        </query>
-    </sql>
+		</query>
+	</sql>
 </sqls>

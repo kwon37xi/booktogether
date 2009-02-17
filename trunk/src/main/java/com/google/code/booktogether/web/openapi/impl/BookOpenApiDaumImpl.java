@@ -175,14 +175,14 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 			Author[] authors;
 			Author author = new Author();
 			author.setName(item.getChild("author").getText());
-			author.setAuthor_div(0);
+			author.setAuthorDiv(0);
 
 			if (translator_name != null && !translator_name.equals("")) {
 				authors = new Author[2];
 
 				Author translator = new Author();
 				translator.setName(translator_name);
-				translator.setAuthor_div(1);
+				translator.setAuthorDiv(1);
 
 				authors[0] = author;
 				authors[1] = translator;
@@ -231,7 +231,7 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 
 			Author author = new Author();
 			author.setName(item.getChild("author").getText());
-			author.setAuthor_div(0);
+			author.setAuthorDiv(0);
 			authors[0] = author;
 
 			book.setAuthors(authors);

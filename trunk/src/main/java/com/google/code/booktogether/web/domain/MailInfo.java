@@ -10,17 +10,17 @@ public class MailInfo {
 	/**
 	 * 보내는 사람
 	 */
-	private String from="";
+	private String from;
 	
 	/**
 	 * 제목
 	 */
-	private String subject="";
+	private String subject;
 	
 	/**
 	 * 내용
 	 */
-	private String content="";
+	private String content;
 	
 	/**
 	 * 본문 인코딩 방식
@@ -30,7 +30,7 @@ public class MailInfo {
 	/**
 	 * 첨부파일 경로(절대경로)
 	 */
-	private String[] files=null;
+	private String[] files;
 	
 
 	/**
@@ -56,8 +56,6 @@ public class MailInfo {
 	public void setFromName(String fromName) {
 		this.fromName = fromName;
 	}
-	
-	
 	
 	
 	public String[] getTo() {

@@ -12,44 +12,35 @@ public class BookGrade extends BaseObject{
 	/**
 	 * 별점 일련번호
 	 */
-	private int id;
+	private Integer idNum;
 	
 	/**
 	 * 사용자 정보
 	 */
-	private User user=null;
+	private User user=new User();
 	
 
 	/**
 	 * 책 정보
 	 */
-	private Book book=null;
+	private Book book=new Book();
 	
 	
 	/**
 	 * 별점 
 	 */
-	private int grade=0;
-	
-	
-	public int getId() {
-		return id;
+	private Integer grade;
+
+
+	public Integer getIdNum() {
+		return idNum;
 	}
 
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdNum(Integer idNum) {
+		this.idNum = idNum;
 	}
 
-
-	public int getGrade() {
-		return grade;
-	}
-
-
-	public void setGrade(int grade) {
-		this.grade = grade;
-	}
 
 	public User getUser() {
 		return user;
@@ -69,6 +60,17 @@ public class BookGrade extends BaseObject{
 	public void setBook(Book book) {
 		this.book = book;
 	}
+
+
+	public Integer getGrade() {
+		return grade;
+	}
+
+
+	public void setGrade(Integer grade) {
+		this.grade = grade;
+	}
+	
 	
 	
 	

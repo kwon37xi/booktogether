@@ -14,51 +14,51 @@ public class BookMark extends BaseObject{
 	/**
 	 * 일련번호
 	 */
-	private int id;
+	private Integer idNum;
 	
 	
 	/**
 	 * 사용자 정보
 	 */
-	private User user=null;
+	private User user=new User();
 	
 
 	/**
 	 * 책 정보
 	 */
-	private Book book=null;
+	private Book book=new Book();
 	
 	
 	/**
 	 * 페이지 
 	 */
-	private int page=0;
+	private Integer page;
 	
 	/**
 	 * 공감수
 	 */
-	private int vibeNum=0;
+	private Integer vibeNum;
 	
 
 	/**
 	 * 입력날짜 
 	 */
-	private Date input_date=null;
+	private Date inputDate;
 	
 	
 	/**
 	 * 인용구
 	 */
 	private String content;
-	
-	
-	public int getId() {
-		return id;
+
+
+	public Integer getIdNum() {
+		return idNum;
 	}
 
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdNum(Integer idNum) {
+		this.idNum = idNum;
 	}
 
 
@@ -82,23 +82,33 @@ public class BookMark extends BaseObject{
 	}
 
 
-	public int getPage() {
+	public Integer getPage() {
 		return page;
 	}
 
 
-	public void setPage(int page) {
+	public void setPage(Integer page) {
 		this.page = page;
 	}
 
 
-	public Date getInput_date() {
-		return input_date;
+	public Integer getVibeNum() {
+		return vibeNum;
 	}
 
 
-	public void setInput_date(Date input_date) {
-		this.input_date = input_date;
+	public void setVibeNum(Integer vibeNum) {
+		this.vibeNum = vibeNum;
+	}
+
+
+	public Date getInputDate() {
+		return inputDate;
+	}
+
+
+	public void setInputDate(Date inputDate) {
+		this.inputDate = inputDate;
 	}
 
 
@@ -106,17 +116,10 @@ public class BookMark extends BaseObject{
 		return content;
 	}
 
+
 	public void setContent(String content) {
 		this.content = content;
 	}
 	
-	public int getVibeNum() {
-		return vibeNum;
-	}
-
-	public void setVibeNum(int vibeNum) {
-		this.vibeNum = vibeNum;
-	}
-
 	
 }

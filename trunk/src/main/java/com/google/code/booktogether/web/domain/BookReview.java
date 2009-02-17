@@ -12,24 +12,22 @@ public class BookReview extends BaseObject{
 	/**
 	 * 일련번호
 	 */
-	private int id;
+	private Integer idNum;
 	
 	/**
 	 * 사용자 정보
 	 */
-	private User user=null;
+	private User user=new User();
 	
-
 	/**
 	 * 책 정보
 	 */
-	private Book book=null;
+	private Book book=new Book();
 	
 	/**
 	 * 추천수
 	 */
-	private int recommend=0;
-	
+	private Integer recommend;
 	
 	/**
 	 * 리뷰 제목
@@ -47,15 +45,26 @@ public class BookReview extends BaseObject{
 	
 	
 	
-	public int getRecommend() {
+	public Integer getIdNum() {
+		return idNum;
+	}
+
+
+	public void setIdNum(Integer idNum) {
+		this.idNum = idNum;
+	}
+
+
+	public Integer getRecommend() {
 		return recommend;
 	}
 
-	public void setRecommend(int recommend) {
+
+	public void setRecommend(Integer recommend) {
 		this.recommend = recommend;
 	}
-	
-	
+
+
 	public String getTitle() {
 		return title;
 	}
@@ -76,16 +85,6 @@ public class BookReview extends BaseObject{
 	}
 
 	
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
 	public User getUser() {
 		return user;
 	}

@@ -8,7 +8,7 @@ public interface BookMarkService {
 
 	/**
 	 * 인용구 등록
-	 * @param bookGrade
+	 * @param bookMark
 	 * @return
 	 */
 	public boolean insertBookMark(BookMark bookMark);
@@ -16,41 +16,40 @@ public interface BookMarkService {
 	
 	/**
 	 * 인용구 수정
-	 * @param bookGrade
+	 * @param bookMark
 	 * @return
 	 */
 	public boolean modifyBookMark(BookMark bookMark);
 	
 	/**
 	 * 인용구 삭제
-	 * @param bookGrade
+	 * @param bookMark
 	 * @return
 	 */
 	public boolean deleteBookMark(BookMark bookMark);
 	
 	/**
 	 * 인용구 목록(책 조회시)
-	 * @param book_id
+	 * @param bookIdNum
 	 * @param startPage
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookMark> getListBookMark(int book_id, int startPage, int endPage);
+	public List<BookMark> getListBookMark(Integer bookIdNum, Integer startPage, Integer endPage);
 	
 	/**
 	 * 내가 입력한 인용구 목록
-	 * @param user_id
+	 * @param userIdNum
 	 * @param startPage
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookMark> getListMyBookMark(int user_id, int startPage, int endPage);
+	public List<BookMark> getListMyBookMark(Integer userIdNum, Integer startPage, Integer endPage);
 
 	/**
-	 * 사용자가 입력한 공감이 있는지 체크
-	 * @param id
-	 * @param user_id
-	 * @return true : 공감이 있다. false : 공감이 없다.
+	 * 인용구 수정
+	 * @param bookMark
+	 * @return 수정결과 메세지
 	 */
 	public String modifyVibe(BookMark bookMark);
 	

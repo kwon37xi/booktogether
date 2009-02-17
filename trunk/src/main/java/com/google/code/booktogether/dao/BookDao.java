@@ -15,51 +15,16 @@ public interface BookDao {
 	public int insertBook(Book book);
 	
 	/**
-	 * 책 수정
-	 * @param book 수정할 책 도메인
-	 * @return
-	 */
-	public int modifyBook(Book book);
-	
-	/**
-	 * 지은이 수정
-	 * @param author 수정할 지은이 도메인
-	 * @return
-	 */
-	public int modifyAuthor(Author author);
-	
-	/**
-	 * 책 삭제
-	 * @param id	책 ID값
-	 * @return
-	 */
-	public int deleteBook(int id);
-	
-	/**
-	 * 책 관련 지은이 삭제
-	 * @param book_ref	책 ID값
-	 * @return
-	 */
-	public int deleteAuthorBook(int book_ref);
-	
-	/**
-	 * 지은이 삭제
-	 * @param id	지은이 ID값
-	 * @return
-	 */
-	public int deleteAuthor(int id);
-	
-	/**
 	 * 책조회
-	 * @param id	책 ID값
+	 * @param bookIdNum	책 ID값
 	 * @return
 	 */
-	public Book getBook(int id);
+	public Book getBook(Integer bookIdNum);
 	
 	
 	/**
 	 * 책조회
-	 * @param id	책 ISBN값
+	 * @param isbn	책 ISBN값
 	 * @return
 	 */
 	public Book getBook(String isbn);
@@ -73,31 +38,18 @@ public interface BookDao {
 	
 	/**
 	 * 책관련 지은이 목록	
-	 * @param book	책 도메인
+	 * @param bookIdNum	
 	 * @return
 	 */
-	public Author getAuthor(int id);
-	
-	/**
-	 * 책 목록
-	 * @param startpage	보여줄 시작 줄번호
-	 * @param pageSize	시작줄번호로 부터 몇개
-	 * @return
-	 */
-	public List<Book> getListBook(int startpage, int pageSize);	
-	
-	/**
-	 * 책 전체 갯수
-	 * @return
-	 */
-	public int getDbcount();	
+	public Author getAuthor(Integer bookIdNum);
 	
 	/**
 	 * 지은이 등록
-	 * @param authors	지은이 도메인
+	 * @param author	지은이 도메인
+	 * @param bookIdNum
 	 * @return
 	 */
-	public int insertAuthor(Author[] authors,int id);
+	public int insertAuthor(Author author,Integer bookIdNum);
 	
 	
 	/**
