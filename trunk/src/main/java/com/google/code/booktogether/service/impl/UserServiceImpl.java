@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 	@Resource(name = "userJdbcDao")
 	private UserDao userJdbcDao;
 
-	//로그 표시를 위하여
+	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
 
 	@Override
@@ -59,10 +59,10 @@ public class UserServiceImpl implements UserService {
 
 		pageBean.setDbCount(dbCount);
 
-		List<User> userlist = userJdbcDao.getListUser(
+		List<User> userList = userJdbcDao.getListUser(
 				pageBean.getStartPage() - 1, pageBean.getPageSize());
 
-		return userlist;
+		return userList;
 	}
 
 	@Override
@@ -78,15 +78,9 @@ public class UserServiceImpl implements UserService {
 
 		User user = userJdbcDao.getUser(idNum);
 
-		List<Zone> zonelist = userJdbcDao.getZones(idNum);
+		List<Zone> zoneList = userJdbcDao.getZones(idNum);
 
-		Zone[] zones = new Zone[zonelist.size()];
-
-		int i = 0;
-
-		for (Zone zone : zonelist) {
-			zones[i++] = zone;
-		}
+		Zone[] zones = (Zone[]) zoneList.toArray(new Zone[zoneList.size()]);
 
 		user.setZones(zones);
 
@@ -122,7 +116,7 @@ public class UserServiceImpl implements UserService {
 			count = userJdbcDao.insertUserPw(userPw);
 
 			if (count != 1) {
-				throw new BooktogetherException("비밀번호 암호화 실패");
+				throw new BooktogetherException("비밀번호 등록 실패");
 			}
 
 			user.getUserAddInfo().setUserIdNum(idNum);
@@ -130,7 +124,7 @@ public class UserServiceImpl implements UserService {
 			count = userJdbcDao.insertUserAddInfo(user.getUserAddInfo());
 
 			if (count != 1) {
-				throw new BooktogetherException("비밀번호 암호화 실패");
+				throw new BooktogetherException("사용자 추가정보 등록 실패");
 			}
 
 			for (Zone zone : user.getZones()) {
@@ -139,7 +133,7 @@ public class UserServiceImpl implements UserService {
 				count = userJdbcDao.insertZone(zone);
 
 				if (count != 1) {
-					throw new BooktogetherException("비밀번호 암호화 실패");
+					throw new BooktogetherException("생활반경 등록 실패");
 				}
 
 			}
@@ -160,13 +154,13 @@ public class UserServiceImpl implements UserService {
 		int count = userJdbcDao.modifyUser(user);
 
 		if (count != 1) {
-			throw new BooktogetherException("비밀번호 암호화 실패");
+			throw new BooktogetherException("사용자 기본정보 수정 실패");
 		}
 
 		count = userJdbcDao.modifyUserAddInfo(user.getUserAddInfo());
 
 		if (count != 1) {
-			throw new BooktogetherException("비밀번호 암호화 실패");
+			throw new BooktogetherException("사용자 추가 정보 수정실패");
 		}
 
 		for (Zone zone : user.getZones()) {
@@ -174,7 +168,7 @@ public class UserServiceImpl implements UserService {
 			count = userJdbcDao.insertZone(zone);
 
 			if (count != 1) {
-				throw new BooktogetherException("비밀번호 암호화 실패");
+				throw new BooktogetherException("사용자 생활반경 등록 실패");
 			}
 
 		}
@@ -261,7 +255,7 @@ public class UserServiceImpl implements UserService {
 			int count = userJdbcDao.modifyUserPw(userPw);
 
 			if (count != 1) {
-				throw new BooktogetherException("비밀번호 암호화 실패");
+				throw new BooktogetherException("임시 비밀번호로 비밀번호 수정 실패");
 			}
 
 			// 이메일로 전송 알고리즘 구현 해야됨
@@ -298,7 +292,7 @@ public class UserServiceImpl implements UserService {
 		int count = userJdbcDao.modifyUserPw(userPw);
 
 		if (count != 1) {
-			throw new BooktogetherException("비밀번호 암호화 실패");
+			throw new BooktogetherException("비밀번호 수정 실패");
 		} else {
 			result = true;
 		}
@@ -313,7 +307,7 @@ public class UserServiceImpl implements UserService {
 		int count = userJdbcDao.deleteZone(zoneIdNum, userIdNum);
 
 		if (count != 1) {
-			throw new BooktogetherException("비밀번호 암호화 실패");
+			throw new BooktogetherException("생활 반경 삭제 실패");
 		} else {
 			return true;
 		}
@@ -334,7 +328,7 @@ public class UserServiceImpl implements UserService {
 
 		} catch (Exception e) {
 			filename = "";
-			throw new BooktogetherException("비밀번호 암호화 실패", e);
+			throw new BooktogetherException("이미지 축소 및 JPEG 압축 과정에서 실패", e);
 
 		}
 
@@ -349,7 +343,7 @@ public class UserServiceImpl implements UserService {
 		boolean result = file.delete();
 
 		if (result) {
-			throw new BooktogetherException("비밀번호 암호화 실패");
+			throw new BooktogetherException("썸네일 이미지 파일 삭제 오류");
 		}
 
 		return result;
