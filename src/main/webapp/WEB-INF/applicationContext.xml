@@ -19,37 +19,10 @@
 
 	<bean class="com.google.code.booktogether.aspect.AnnotLoggingAspect" />
 
+
+
 	<context:component-scan base-package="com.google.code.booktogether.service.impl" />
 	<context:component-scan base-package="com.google.code.booktogether.service.util" />
-	<context:component-scan base-package="com.google.code.booktogether.web.interceptor" />
-	<context:component-scan base-package="com.google.code.booktogether.web.controller" />
-
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize">
-			<value>800000</value>
-		</property>
-	</bean>
-
-	<bean id="publicMapper"
-		class="com.google.code.booktogether.web.interceptor.handler.SelectedAnnotationHandlerMapping">
-		<property name="order" value="0" />
-		<property name="urls">
-			<list>
-				<value>/user/getUser.do</value>
-				<value>/user/modifyUserView.do</value>
-				<value>/user/modifyUser.do</value>
-				<value>/user/deleteUser.do</value>
-				<value>/user/modifyPw.do</value>
-				<value>/user/deleteZone.do</value>
-			</list>
-		</property>
-		<property name="interceptors">
-			<list>
-				<ref bean="loginCheckInterceptor" />
-			</list>
-		</property>
-	</bean>
 
 
 </beans>

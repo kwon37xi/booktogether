@@ -24,7 +24,7 @@
 		
 		<div>
 			<form method="post" name="modifyuser_form" action="/user/modifyUser.do"  enctype="multipart/form-data">
-				<input type="hidden" name="userAddInfo_id" value="${userInfo.userAddInfo.idNum}"/>
+				<input type="hidden" name="userAddInfoIdNum" value="${userInfo.userAddInfo.idNum}"/>
 			
 				<p>			
 					${userInfo.userId}

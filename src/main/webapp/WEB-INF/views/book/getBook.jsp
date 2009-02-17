@@ -9,8 +9,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/book/book.js"></script>
+		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
 		<title>책조회</title>
 	</head>
 	<body>
@@ -28,46 +28,46 @@
 			<tbody>
 				<tr>
 					<td>책표지</td>
-					<td><img src="${book_info.corver}"/></td>
+					<td><img src="${bookInfo.bookCorver}"/></td>
 				</tr>
 				<tr>
 					<td>책이름</td>
-					<td>${book_info.name}</td>
+					<td>${bookInfo.name}</td>
 				</tr>
 				<tr>
 					<td>지은이</td>
 					<td>
-						<c:forEach begin="0" items="${book_info.authors}" var="author_info">
-							[${author_info.name}/
-							<c:if test="${author_info.author_div==0}">지음</c:if>
-							<c:if test="${author_info.author_div==1}">옮김</c:if>
+						<c:forEach begin="0" items="${bookInfo.authors}" var="authorInfo">
+							[${authorInfo.name}/
+							<c:if test="${authorInfo.authorDiv==0}">지음</c:if>
+							<c:if test="${authorInfo.authorDiv==1}">옮김</c:if>
 							]  
 						</c:forEach>
 					</td>
 				</tr>
 				<tr>
 					<td>ISBN</td>
-					<td>${book_info.ISBN10}</td>
+					<td>${bookInfo.ISBN10}</td>
 				</tr>
 				<tr>
 					<td>출판사/출판일</td>
-					<td>${book_info.publish_comp}/
-						${fn:substring(book_info.publish_date,0,4)}년 
-						${fn:substring(book_info.publish_date,4,6)}월 
-						${fn:substring(book_info.publish_date,6,8)}일
+					<td>${bookInfo.publishComp}/
+						${fn:substring(bookInfo.publishDate,0,4)}년 
+						${fn:substring(bookInfo.publishDate,4,6)}월 
+						${fn:substring(bookInfo.publishDate,6,8)}일
 					</td>
 				</tr>
 				<tr>
 					<td>가격</td>
-					<td><fmt:formatNumber value="${book_info.price}" pattern=",###"/>원</td>
+					<td><fmt:formatNumber value="${bookInfo.price}" pattern=",###"/>원</td>
 				</tr>
 				<tr>
 					<td>카테고리</td>
-					<td>${book_info.category}</td>
+					<td>${bookInfo.category}</td>
 				</tr>
 				<tr>
 					<td>설명</td>
-					<td>${book_info.description}</td>
+					<td>${bookInfo.description}</td>
 				</tr>
 			</tbody>
 			<tfoot></tfoot>
@@ -82,21 +82,21 @@
 			</thead>
 			<tbody>
 				<c:choose>
-					<c:when test="${fn:length(bookgradelist)!=0}">
-						<c:forEach begin="0" items="${bookgradelist}" var="grade_info" varStatus="status">
+					<c:when test="${fn:length(bookGradeList)!=0}">
+						<c:forEach begin="0" items="${bookGradeList}" var="gradeInfo" varStatus="status">
 							<tr>
 								<td>
 									<c:set var="count" value="0"/>
-									<c:forEach begin="1" end="${grade_info.grade}" var="i" >
+									<c:forEach begin="1" end="${gradeInfo.grade}" var="i" >
 										<c:set var="count" value="${i}"/>★
 									</c:forEach>
 									
 									<c:forEach begin="${count}" end="4">☆</c:forEach>
 								</td>
 								<td>
-									${grade_info.user.user_id}(${grade_info.user.nickname})
-									<c:if test="${grade_info.user.user_id==sessionScope.user_id}">
-										<a href="/book/deleteBookGrade.do?id=${grade_info.id}&book_id=${book_info.id}">삭제</a>
+									${gradeInfo.user.user_id}(${gradeInfo.user.nickname})
+									<c:if test="${gradeInfo.user.userId==sessionScope.userId}">
+										<a href="/book/deleteBookGrade.do?bookGradeIdNum=${gradeInfo.idNum}&bookIdNum=${gradeInfo.idNum}">삭제</a>
 									</c:if>
 								</td>
 							</tr>	
@@ -112,9 +112,9 @@
 			<tfoot></tfoot>
 		</table>
 		
-		<c:if test="${sessionScope.id!=null && !existGrade}">
+		<c:if test="${sessionScope.idNum!=null && !existGrade}">
 			<form name="bookgradeform" method="post" action="/book/insertBookGrade.do">
-				<input type="hidden" name="book_id" value="${book_info.id}"/>
+				<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
 				<table border="1">
 					<thead>
 						<tr>
@@ -152,12 +152,12 @@
 			</thead>
 			<tbody>
 				<c:choose>
-					<c:when test="${fn:length(bookreviewlist)!=0}">
-						<c:forEach begin="0" items="${bookreviewlist}" var="review_info" varStatus="status">
+					<c:when test="${fn:length(bookReviewList)!=0}">
+						<c:forEach begin="0" items="${bookReviewList}" var="reviewInfo" varStatus="status">
 							<tr>
-								<td><a href="/book/getReview.do?id=${review_info.id}">${review_info.title}</a></td>
-								<td>${review_info.user.user_id}(${review_info.user.nickname})</td>
-								<td>추천수 : ${review_info.recommend}</td>
+								<td><a href="/book/getReview.do?bookIdNum=${reviewInfo.idNum}">${reviewInfo.title}</a></td>
+								<td>${reviewInfo.user.user_id}(${reviewInfo.user.nickname})</td>
+								<td>추천수 : ${reviewInfo.recommend}</td>
 							</tr>	
 						</c:forEach>
 					</c:when>
@@ -173,21 +173,20 @@
 		
 		
 		<c:choose>
-			<c:when test="${sessionScope.id!=null && existReview}">
+			<c:when test="${sessionScope.idNum!=null && existReview}">
 				내가 작성한 리뷰 정보
 				<form name="myreviewform" method="post">
-					<input type="hidden" name="book_id" value="${book_info.id}"/> 
-					
+					<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/> 
 					<input type="button" value="조회" onclick="getMyReviewView()"/>
 					<input type="button" value="수정" onclick="modifyReviewView()"/>
 					<input type="button" value="삭제" onclick="deleteReviewView()"/>
 				</form>
 			</c:when>
 			
-			<c:when test="${sessionScope.id!=null && !existReview}">
+			<c:when test="${sessionScope.idNum!=null && !existReview}">
 				내가 작성한 리뷰 정보
 				<form name="myreviewform" method="post">
-					<input type="hidden" name="book_id" value="${book_info.id}"/> 
+					<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/> 
 					<input type="button" value="등록" onclick="insertReviewView()"/>
 				</form>
 			</c:when>
@@ -204,20 +203,20 @@
 			</thead>
 			<tbody>
 				<c:choose>
-					<c:when test="${fn:length(bookmarklist)!=0}">
-						<c:forEach begin="0" items="${bookmarklist}" var="bookmark_info" varStatus="status">
+					<c:when test="${fn:length(bookMarkList)!=0}">
+						<c:forEach begin="0" items="${bookMarkList}" var="bookMarkInfo" varStatus="status">
 							<tr>
-								<td>(p.${bookmark_info.page})${bookmark_info.content}/
-									<fmt:formatDate value="${bookmark_info.input_date}" pattern="yyyy. MM. dd"/>
+								<td>(p.${bookMarkInfo.page})${bookMarkInfo.content}/
+									<fmt:formatDate value="${bookMarkInfo.inputDate}" pattern="yyyy. MM. dd"/>
 								</td>
 								<td>
-									${bookmark_info.user.user_id}(${bookmark_info.user.nickname})
-									<c:if test="${sessionScope.id!=null && bookmark_info.user.user_id!=sessionScope.id}">
-										<input type="button" value="삭제" onclick="deleteBookMark('${bookmark_info.id}','${book_info.id}')"/>
+									${bookMarkInfo.user.userId}(${bookMarkInfo.user.nickname})
+									<c:if test="${sessionScope.idNum!=null && bookMarkInfo.user.idNum!=sessionScope.idNum}">
+										<input type="button" value="삭제" onclick="deleteBookMark('${bookMarkInfo.idNum}','${bookInfo.idNum}')"/>
 									</c:if>
 								</td>
-								<td>공감수 : ${bookmark_info.vibeNum}</td>
-								<td><input type="button" value="공감하기" onclick="modifyVibe('${bookmark_info.id}','${book_info.id}')"/></td>
+								<td>공감수 : ${bookMarkInfo.vibeNum}</td>
+								<td><input type="button" value="공감하기" onclick="modifyVibe('${bookMarkInfo.idNum}','${bookInfo.idNum}')"/></td>
 							</tr>	
 						</c:forEach>
 					</c:when>
@@ -234,9 +233,9 @@
 		<br/>
 		<br/>
 		
-		<c:if test="${sessionScope.id!=null}">
+		<c:if test="${sessionScope.idNum!=null}">
 			<form action="/book/insertBookMark.do" method="post" name="insertbookmarkform">
-				<input type="hidden" name="book_id" value="${book_info.id}"/>
+				<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
 				<table>
 					<thead>
 						<tr>

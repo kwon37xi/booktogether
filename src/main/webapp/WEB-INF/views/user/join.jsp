@@ -25,8 +25,8 @@
 					<input type="password" name="pw" size="20"/>
 				</p>
 				<p>
-					<label for="pw_again">PW 다시 확인</label>
-					<input type="password" name="pw_again" size="20"/>
+					<label for="pwAgain">PW 다시 확인</label>
+					<input type="password" name="pwAgain" size="20"/>
 				</p>
 				<p>
 					<label for="email">이메일</label>

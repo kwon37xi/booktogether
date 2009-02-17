@@ -31,11 +31,9 @@ public class BookMarkController extends AbstractController {
 	@Resource(name = "bookMarkService")
 	BookMarkService bookMarkService;
 
-	//로그 표시를 위하여
+	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
-	
-	
-	
+
 	/**
 	 * 인용구 등록
 	 * 
@@ -82,16 +80,12 @@ public class BookMarkController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping("/book/deleteBookMark.do")
-	public ModelAndView handleDeleteBookMark(HttpServletRequest req,
-			HttpServletResponse res) {
+	public ModelAndView handleDeleteBookMark(
+			HttpServletRequest req,
+			@RequestParam(value = "bookMarkIdNum", required = false) Integer bookMarkIdNum,
+			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
-		// 파라미터 정보 변수에 세팅
-		Integer bookMarkIdNum = ServletRequestUtils.getIntParameter(req,
-				"bookMarkIdNum", 0);
-		Integer bookIdNum = ServletRequestUtils.getIntParameter(req,
-				"bookIdNum", 0);
 
 		Integer userIdNum = getLoginUser();
 
@@ -123,25 +117,21 @@ public class BookMarkController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping("/book/modifyBookMark.do")
-	public ModelAndView handleModifyBookMark(HttpServletRequest req,
-			HttpServletResponse res) {
+	public ModelAndView handleModifyBookMark(
+			HttpServletRequest req,
+			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum,
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "content", required = false) String content) {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
-		// 파라미터 정보 변수에 세팅
-		Integer bookIdNum = ServletRequestUtils.getIntParameter(req,
-				"bookIdNum", 0);
-		Integer page = ServletRequestUtils.getIntParameter(req, "page", 0);
-		String content = ServletRequestUtils.getStringParameter(req, "content",
-				"");
 
 		Integer userIdNum = getLoginUser();
 
 		BookMark bookMark = new BookMark();
-		bookMark.getBook().setIdNum(bookIdNum);
-		bookMark.getUser().setIdNum(userIdNum);
 		bookMark.setContent(content);
 		bookMark.setPage(page);
+		bookMark.getBook().setIdNum(bookIdNum);
+		bookMark.getUser().setIdNum(userIdNum);
 
 		// 인용구 수정
 		boolean result = bookMarkService.modifyBookMark(bookMark);
@@ -166,16 +156,12 @@ public class BookMarkController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping("/book/modifyVibe.do")
-	public ModelAndView handleModifyVibeBookMark(HttpServletRequest req,
-			HttpServletResponse res) {
+	public ModelAndView handleModifyVibeBookMark(
+			HttpServletRequest req,
+			@RequestParam(value = "bookMarkIdNum", required = false) Integer bookMarkIdNum,
+			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
-		// 파라미터 정보 변수에 세팅
-		Integer bookMarkIdNum = ServletRequestUtils.getIntParameter(req,
-				"bookMarkIdNum", 0);
-		Integer bookIdNum = ServletRequestUtils.getIntParameter(req,
-				"bookIdNum", 0);
 
 		Integer userIdNum = getLoginUser();
 
