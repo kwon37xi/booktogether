@@ -54,7 +54,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td><label for="user_id">아이디</label></td>
+								<td><label for="userId">아이디</label></td>
 								<td><input type="text" name="userId" size="20"/></td>
 							</tr>
 							<tr>

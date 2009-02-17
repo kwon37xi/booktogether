@@ -27,7 +27,7 @@
 				<c:forEach begin="0" items="${userList}" var="userInfo" varStatus="status">
 					<tr>
 						<td>${userInfo.idNum}</td>
-						<td><a href="/user/getUser.do?id=${userInfo.idNum}">${userInfo.userId}</a></td>
+						<td><a href="/user/getUser.do">${userInfo.userId}</a></td>
 						<td>${userInfo.name}</td>
 						<td>${userInfo.nickname}</td>
 						<td>${userInfo.email}</td>

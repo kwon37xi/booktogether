@@ -6,14 +6,14 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="../../styles/common/default.css" rel="stylesheet" type="text/css"/>
-		<script type="text/javascript" charset="utf-8" src="../../scripts/book/book.js"></script>
+		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
 		<title>책 검색</title>
 	</head>
 	<body>
 	
 		<form name="searchBookform" action="/book/searchBook.do" method="post">
-			<input type="hidden" name="pageno" value="1"/>
+			<input type="hidden" name="pageNo" value="1"/>
 			<select name="searchType">
 				<option value="all">전체</option>
 				<option value="title" ${param.searchType=='title' ? 'selected' : ''}>제목</option>
@@ -31,27 +31,27 @@
 			</thead>
 			<tbody>
 				<c:choose>
-					<c:when test="${fn:length(book_list)!=0}">
-						<c:set var="book_list_length" value="${fn:length(book_list)}"/>
-						<c:set var="colum_count" value="4"/>
-						<c:set var="row_count" value="${(book_list_length%colum_count==0)? book_list_length/colum_count : book_list_length/colum_count+1}"/>
-						<c:set var="a_index" value="0"/>
-						<c:set var="booklist" value="${book_list}"/>
+					<c:when test="${fn:length(bookList)!=0}">
+						<c:set var="bookListLength" value="${fn:length(bookList)}"/>
+						<c:set var="columCount" value="4"/>
+						<c:set var="rowCount" value="${(bookListLength%columCount==0)? bookListLength/columCount : bookListLength/columCount+1}"/>
+						<c:set var="aIndex" value="0"/>
+						<c:set var="bookList" value="${bookList}"/>
 						
-						<c:forEach begin="1" end="${row_count}" varStatus="status">
+						<c:forEach begin="1" end="${rowCount}" varStatus="status">
 							<tr>
-								<c:forEach begin="1" end="${colum_count}" varStatus="istatus">
+								<c:forEach begin="1" end="${columCount}" varStatus="istatus">
 									<td>
-										<c:if test="${a_index>book_list_length}">&nbsp;</c:if>
-										<c:if test="${a_index<book_list_length}">
-											<img src="${booklist[a_index].bookCover}" width="72" height="102" onclick="checkBook('${booklist[a_index].ISBN10}')"/><br/>
-											<a href="javascript:checkBook('${booklist[a_index].ISBN10}')">
-												${booklist[a_index].name}
+										<c:if test="${aIndex>bookListLength}">&nbsp;</c:if>
+										<c:if test="${aIndex<bookListLength}">
+											<img src="${bookList[aIndex].bookCover}" width="72" height="102" onclick="checkBook('${bookList[aIndex].ISBN10}')"/><br/>
+											<a href="javascript:checkBook('${bookList[aIndex].ISBN10}')">
+												${bookList[aIndex].name}
 											</a><br/>
-											${booklist[a_index].authors[0].name}<br/>
+											${bookList[aIndex].authors[0].name}<br/>
 										</c:if>
 									</td>
-									<c:set var="a_index" value="${a_index+1}"/>
+									<c:set var="aIndex" value="${aIndex+1}"/>
 								</c:forEach>
 							</tr>
 						</c:forEach>

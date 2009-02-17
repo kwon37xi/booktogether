@@ -25,7 +25,7 @@
 					</tr>
 					<tr>
 						<td><label for="pw_c_again">비밀번호 변경확인</label></td>
-						<td><input type="password" name="newPw_again" size="20"/></td>
+						<td><input type="password" name="newPwAgain" size="20"/></td>
 					</tr>
 				</tbody>
 				<tfoot>

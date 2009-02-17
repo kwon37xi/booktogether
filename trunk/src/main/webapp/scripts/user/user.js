@@ -5,9 +5,9 @@ function join(){
 }
 
 
-function deleteZone(zone_id){
+function deleteZone(zoneIdNum){
 	
-	location.href="/user/deleteZone.do?zone_id="+zone_id;
+	location.href="/user/deleteZone.do?zoneIdNum="+zoneIdNum;
 	
 }
 
