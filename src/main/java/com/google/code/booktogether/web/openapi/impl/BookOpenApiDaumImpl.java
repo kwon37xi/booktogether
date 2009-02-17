@@ -13,6 +13,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
+import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.openapi.BookOpenApi;
@@ -33,52 +34,53 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 	private final String DAUM_SEARCH_URL = "http://apis.daum.net/search/book";
 
 	private SAXBuilder builder = null;
-	private StringReader stringxml = null;
+	private StringReader stringXml = null;
 	private Document xmldoc = null;
-	private StringBuffer xmlcontent = null;
+	private StringBuffer xmlContent = null;
 	private BookOpenApiDaumHeader header = null;
 
 	/**
 	 * 주소 요청하고 output에 맞게 받기 인코딩 UTF-8
 	 */
 	@Override
-	public Book viewBook(String isbn) {
+	public Book viewBook(String ISBN) {
 
-		connectURL(isbn, "isbn", 1);
+		connectUrl(ISBN, "isbn", 1);
 
 		// 다음 XML파서
-		xmlParser(xmlcontent);
+		xmlParser(xmlContent);
 
 		// item 파서
 		Book book = xmlBookParser();
 
 		return book;
+
 	}
 
 	@Override
-	public List<Book> searchBook(String query, String searchType, int pageno) {
+	public List<Book> searchBook(String query, String searchType, int pageNo) {
 
 		try {
 			query = URLEncoder.encode(query, "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
+			throw new BooktogetherException("OpenApi Query UTF-8로 인코딩에러", e1);
 		}
 
-		connectURL(query, searchType, pageno);
+		connectUrl(query, searchType, pageNo);
 
 		// 네이버 XML파서
-		xmlParser(xmlcontent);
+		xmlParser(xmlContent);
 
 		// header파서(총갯수)
 		xmlBookHeaderParse();
 
 		// item 파서
-		List<Book> booklist = xmlBookListParser();
+		List<Book> bookList = xmlBookListParser();
 
-		return booklist;
+		return bookList;
 	}
 
-	private void connectURL(String query, String searchType, int pageno) {
+	private void connectUrl(String query, String searchType, int pageNo) {
 
 		String params = "";
 
@@ -89,7 +91,7 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 		params += "&pageno=" + "meta";
 		params += "&result=" + 20;
 		params += "&sort=" + "accu";
-		params += "&pageno=" + pageno;
+		params += "&pageno=" + pageNo;
 		params += "&output=" + "xml";
 		params += "&apikey=" + DAUM_API_KEY;
 
@@ -107,34 +109,31 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 			in = new BufferedReader(new InputStreamReader(openapi.openStream(),
 					"UTF-8"));
 
-			xmlcontent = new StringBuffer();
+			xmlContent = new StringBuffer();
 
 			while ((inputLine = in.readLine()) != null) {
-				xmlcontent.append(inputLine);
-				System.out.println(inputLine);
+				xmlContent.append(inputLine);
 			}
 
 			in.close();
 
 		} catch (Exception e) {
-
-			e.printStackTrace();
-
+			throw new BooktogetherException("OpenAPi주소 요청과 응답에서 에러발생", e);
 		} finally {
 			in = null;
 		}
 	}
 
-	private void xmlParser(StringBuffer xmlcontent) {
+	private void xmlParser(StringBuffer xmlContent) {
 
 		builder = new SAXBuilder();
 
-		stringxml = new StringReader((String) xmlcontent.toString());
+		stringXml = new StringReader((String) xmlContent.toString());
 
 		try {
-			xmldoc = builder.build(stringxml);
+			xmldoc = builder.build(stringXml);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new BooktogetherException("OpenApi에서 전체적인 XML파싱과정에서 에러 발생", e);
 		}
 
 	}
@@ -143,15 +142,15 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 	@SuppressWarnings("unchecked")
 	private Book xmlBookParser() {
 
-		List item_list = xmldoc.getRootElement().getChildren("item");
+		List itemList = xmldoc.getRootElement().getChildren("item");
 
 		Element item = null;
 
 		Book book = new Book();
 
-		for (int i = 0; i < item_list.size(); i++) {
+		for (int i = 0; i < itemList.size(); i++) {
 
-			item = (Element) item_list.get(i);
+			item = (Element) itemList.get(i);
 
 			book.setName(item.getChild("title").getText());
 			book.setBookCover(item.getChild("cover_s_url").getText());
@@ -202,17 +201,17 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 	@SuppressWarnings("unchecked")
 	private List<Book> xmlBookListParser() {
 
-		List item_list = xmldoc.getRootElement().getChildren("item");
+		List itemList = xmldoc.getRootElement().getChildren("item");
 
 		Element item = null;
 
-		List<Book> booklist = new ArrayList<Book>();
+		List<Book> bookList = new ArrayList<Book>();
 
-		for (int i = 0; i < item_list.size(); i++) {
+		for (int i = 0; i < itemList.size(); i++) {
 
 			Book book = new Book();
 
-			item = (Element) item_list.get(i);
+			item = (Element) itemList.get(i);
 
 			String title = item.getChild("title").getText();
 
@@ -237,10 +236,10 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 
 			book.setAuthors(authors);
 
-			booklist.add(book);
+			bookList.add(book);
 		}
 
-		return booklist;
+		return bookList;
 
 	}
 
@@ -251,10 +250,10 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 
 		header = new BookOpenApiDaumHeader();
 		header.setTitle(child.getChildText("title"));
-		header.setTotalcount(child.getChildText("totalCount"));
+		header.setTotalCount(child.getChildText("totalCount"));
 		header.setResult(child.getChildText("result"));
 		header.setSort(child.getChildText("sort"));
-		header.setPageno(child.getChildText("pageno"));
+		header.setPageNo(child.getChildText("pageno"));
 	}
 
 	@Override
