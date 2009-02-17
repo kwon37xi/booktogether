@@ -40,7 +40,7 @@ public class UserController extends AbstractController{
 
 	
 	//로그 표시를 위하여
-	//private Logger log = Logger.getLogger(this.getClass());
+	private Logger log = Logger.getLogger(this.getClass());
 	
 	
 	/**
