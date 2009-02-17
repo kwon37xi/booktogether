@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,7 @@ import com.google.code.booktogether.web.page.PageBean;
  * 
  * @author ParkHaeCheol
  */
-@Controller
+@Controller()
 public class UserController {
 
 	/**
@@ -168,7 +169,7 @@ public class UserController {
 	}
 
 	/**
-	 * 사용자 조회(로그인)
+	 * 로그인하기(아이디 비밀번호 일치하는지 검사)
 	 * 
 	 * @param req
 	 * @return
@@ -492,7 +493,7 @@ public class UserController {
 	}
 
 	/**
-	 * 사용자 PW변경 화면
+	 * 사용자 Pw변경 화면
 	 * 
 	 * @param req
 	 */
@@ -506,18 +507,19 @@ public class UserController {
 	}
 
 	/**
-	 * 사용자 PW 변경하기
+	 * 사용자 Pw 변경하기
 	 * 
 	 * @param req
 	 */
 	@RequestMapping("/user/modifyPw.do")
 	public ModelAndView handleModifyUserPw(HttpServletRequest req,
-			@RequestParam(value = "userId", required = false) String userId,
 			@RequestParam(value = "pw", required = false) String pw,
 			@RequestParam(value = "newPw", required = false) String newPw) {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
+		String userId=(String)sra.getAttribute("userId", RequestAttributes.SCOPE_SESSION);
+		
 		String message = "";
 
 		User user = userService.validIdPwUser(userId, pw);
