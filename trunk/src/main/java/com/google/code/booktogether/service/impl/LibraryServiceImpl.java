@@ -1,5 +1,7 @@
 package com.google.code.booktogether.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -11,6 +13,8 @@ import com.google.code.booktogether.dao.LibraryDao;
 import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.LibraryService;
 import com.google.code.booktogether.web.domain.Library;
+import com.google.code.booktogether.web.domain.LibraryBook;
+import com.google.code.booktogether.web.domain.PossessBook;
 
 @Service("libraryService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
@@ -19,10 +23,6 @@ public class LibraryServiceImpl implements LibraryService {
 	// 서재 JDBC DAO DI
 	@Resource(name = "libraryJdbcDao")
 	private LibraryDao libraryDao;
-	
-	
-	
-	
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -52,7 +52,7 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean insertLibrary(Library library) {
-		
+
 		int count = libraryDao.insertLibrary(library);
 
 		if (count != 1) {
@@ -60,6 +60,70 @@ public class LibraryServiceImpl implements LibraryService {
 		} else {
 			return true;
 		}
+	}
+
+	@Override
+	public boolean deleteLibraryBook(Integer libraryBookIdNum) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deletePossessBook(PossessBook possessBook) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public LibraryBook getLibraryBook(Integer libraryBookIdNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook,
+			Integer startPage, Integer endPage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PossessBook> getListPossessBook(Integer userIdNum,
+			Integer startPage, Integer endPage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PossessBook getPossessBook(Integer possessBookIdNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean insertLibraryBook(LibraryBook libraryBook) {
+		
+		
+		int count = libraryDao.insertLibraryBook(libraryBook);
+
+		if (count != 1) {
+			throw new BooktogetherException("개인서재 등록 실패");
+		} else {
+			return true;
+		}
+		
+	}
+
+	@Override
+	public boolean insertPossessBook(PossessBook possessBook) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean modifyLibraryBook(LibraryBook libraryBook) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

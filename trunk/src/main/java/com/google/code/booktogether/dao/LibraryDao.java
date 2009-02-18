@@ -1,6 +1,7 @@
 package com.google.code.booktogether.dao;
 
 import com.google.code.booktogether.web.domain.Library;
+import com.google.code.booktogether.web.domain.LibraryBook;
 
 public interface LibraryDao {
 
@@ -27,5 +28,13 @@ public interface LibraryDao {
 	 * @return
 	 */
 	public int insertLibrary(Library library);
+	
+	
+	/**
+	 * 서재에 책 등록하기
+	 * @param libraryBook
+	 * @return
+	 */
+	public int insertLibraryBook(LibraryBook libraryBook);
 	
 }
