@@ -1,5 +1,7 @@
 package com.google.code.booktogether.dao.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
@@ -8,6 +10,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.google.code.booktogether.dao.LibraryDao;
+import com.google.code.booktogether.dao.rowmapper.LibraryBookRowMapper;
 import com.google.code.booktogether.dao.rowmapper.LibraryRowMapper;
 import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.Library;
@@ -19,7 +22,6 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 	@Resource(name = "SqlParser")
 	SqlParserXmlImpl sqlparser;
-
 
 	@Resource(name = "dataSource")
 	public void setJdbcDao(DataSource dataSource) {
@@ -79,6 +81,25 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 						libraryBook.getIsPosssess() });
 
 		return count;
+	}
+
+	@Override
+	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook,
+			Integer startPage, Integer endPage) {
+
+		LibraryBookRowMapper rowMapper = new LibraryBookRowMapper();
+
+		String sql = sqlparser.getSQL("library", "LIST_LIBRARYBOOK_SQL");
+
+		List<LibraryBook> libraryBookList = getSimpleJdbcTemplate()
+				.query(
+						sql,
+						rowMapper,
+						new Object[] { libraryBook.getState(),
+								libraryBook.getLibrary().getIdNum(), startPage,
+								endPage });
+
+		return libraryBookList;
 	}
 
 }

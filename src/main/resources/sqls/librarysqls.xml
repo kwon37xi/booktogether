@@ -57,6 +57,25 @@
             ]]>
 		</query>
 	</sql>
+	
+	
+	<sql name="LIST_LIBRARYBOOK_SQL">
+		<description>서재에 책 목록</description>
+		<query>
+            <![CDATA[
+             SELECT idnum
+                    ,read_date
+                    ,state
+                    ,ispossess
+                    ,book_idNum as bidnum
+                    ,library_idNum as lidnum 
+               FROM LIBRARYBOOK 
+              WHERE state = ? 
+                AND library_idNum = ? 
+              LIMIT ?, ?
+            ]]>
+		</query>
+	</sql>
 
 
 </sqls>

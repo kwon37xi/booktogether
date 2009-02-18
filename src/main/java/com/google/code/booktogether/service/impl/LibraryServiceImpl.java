@@ -23,6 +23,7 @@ public class LibraryServiceImpl implements LibraryService {
 	// 서재 JDBC DAO DI
 	@Resource(name = "libraryJdbcDao")
 	private LibraryDao libraryDao;
+	
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -53,6 +54,8 @@ public class LibraryServiceImpl implements LibraryService {
 	@Transactional(readOnly = false)
 	public boolean insertLibrary(Library library) {
 
+		log.info(library);
+
 		int count = libraryDao.insertLibrary(library);
 
 		if (count != 1) {
@@ -63,12 +66,14 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public boolean deleteLibraryBook(Integer libraryBookIdNum) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public boolean deletePossessBook(PossessBook possessBook) {
 		// TODO Auto-generated method stub
 		return false;
@@ -83,8 +88,11 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook,
 			Integer startPage, Integer endPage) {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<LibraryBook> libraryBookList = libraryDao.getListLibraryBook(
+				libraryBook, startPage, endPage);
+
+		return libraryBookList;
 	}
 
 	@Override
@@ -101,9 +109,9 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public boolean insertLibraryBook(LibraryBook libraryBook) {
-		
-		
+
 		int count = libraryDao.insertLibraryBook(libraryBook);
 
 		if (count != 1) {
@@ -111,16 +119,18 @@ public class LibraryServiceImpl implements LibraryService {
 		} else {
 			return true;
 		}
-		
+
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public boolean insertPossessBook(PossessBook possessBook) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public boolean modifyLibraryBook(LibraryBook libraryBook) {
 		// TODO Auto-generated method stub
 		return false;

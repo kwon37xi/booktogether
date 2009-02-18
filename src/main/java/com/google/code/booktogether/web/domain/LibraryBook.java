@@ -22,12 +22,12 @@ public class LibraryBook extends BaseObject{
 	/**
 	 * 책 정보
 	 */
-	private Book book;
+	private Book book=new Book();
 	
 	/**
 	 * 서재 정보
 	 */
-	private Library library;
+	private Library library=new Library();
 	
 	/**
 	 * 읽기 시작한 날짜/ 읽은 날짜

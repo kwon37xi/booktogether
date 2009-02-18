@@ -28,7 +28,7 @@
 			<tbody>
 				<tr>
 					<td>책표지</td>
-					<td><img src="${bookInfo.bookCorver}"/></td>
+					<td><img src="${bookInfo.bookCover}"/></td>
 				</tr>
 				<tr>
 					<td>책이름</td>
@@ -74,8 +74,9 @@
 		</table>
 		
 		서재에 등록
-		<form name="insertBookMyLibraryform" method="post" action="/library/insertBookMyLibrary.do">
+		<form name="insertBookMyLibraryform" method="post" action="/library/insertLibraryBook.do">
 		
+			<input type="hidden" name="book.idNum" value="${bookInfo.idNum}"/>
 			<input type="hidden" name="library.idNum" value="${library.idNum}"/>
 			
 			<table border='1'>
@@ -93,7 +94,9 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="readDate" size="20"/>
+							<input type="text" name="readDateYear" size="4"/>
+							<input type="text" name="readDateMonth" size="2"/>
+							<input type="text" name="readDateDate" size="2"/>
 						</td>
 					</tr>
 					<tr>

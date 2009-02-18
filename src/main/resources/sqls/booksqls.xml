@@ -6,8 +6,8 @@
         <description></description>
         <query>
             <![CDATA[
-             INSERT INTO BOOK(name, isbn10, isbn13, publish_comp, publish_date, price, corver, category, description) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ? ,? )
+             INSERT INTO BOOK(name, isbn10 , isbn13 , publish_comp, publish_date,  price, corver, category, description)  
+             VALUES (?, ?, ?, ?, ?, ?, ?, ? ,? ) 
             ]]>
         </query>
     </sql>
