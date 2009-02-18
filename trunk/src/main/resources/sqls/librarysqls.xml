@@ -9,8 +9,7 @@
              SELECT L.idNUm as idNum
                     ,L.notice as notice
                     ,L.isOpen as isOpen
-                    ,U.user_id as user_id
-                    ,U.name as name 
+                    ,U.idNum as uidNum
                FROM LIBRARY L, USER U 
               WHERE L.user_idNum = U.idNum 
               	AND U.user_id = ? 
@@ -27,7 +26,7 @@
              UPDATE LIBRARY 
                 SET notice = ?
                     ,isOpen = ? 
-              WHERE user_IdNum=?,
+              WHERE user_IdNum=? 
                 AND idNum = ?  
             ]]>
 		</query>

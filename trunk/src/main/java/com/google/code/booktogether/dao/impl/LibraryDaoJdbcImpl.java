@@ -13,7 +13,7 @@ import com.google.code.booktogether.dao.rowmapper.LibraryRowMapper;
 import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.Library;
 
-@Repository("userJdbcDao")
+@Repository("libraryJdbcDao")
 public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 		LibraryDao {
 
@@ -47,7 +47,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("library", "MODIFY_LIBRARY_SQL");
 
-		int count = getSimpleJdbcTemplate().queryForInt(
+		int count = getSimpleJdbcTemplate().update(
 				sql,
 				new Object[] { library.getNotice(), library.getIsOpen(),
 						library.getUser().getIdNum(), library.getIdNum() });
@@ -60,7 +60,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("library", "INSERT_LIBRARY_SQL");
 
-		int count = getSimpleJdbcTemplate().queryForInt(
+		int count = getSimpleJdbcTemplate().update(
 				sql,
 				new Object[] { library.getUser().getIdNum(),
 						library.getNotice(), library.getIsOpen()});

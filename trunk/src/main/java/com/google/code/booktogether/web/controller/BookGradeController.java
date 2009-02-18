@@ -48,7 +48,7 @@ public class BookGradeController extends AbstractController {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		BookGrade bookGrade = new BookGrade();
 		bookGrade.setGrade(grade);
@@ -86,7 +86,7 @@ public class BookGradeController extends AbstractController {
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
 		// 파라미터 정보 변수에 세팅
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		BookGrade bookGrade = new BookGrade();
 		bookGrade.setIdNum(bookGradeIdNum);

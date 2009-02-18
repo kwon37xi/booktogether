@@ -12,13 +12,17 @@ import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.LibraryService;
 import com.google.code.booktogether.web.domain.Library;
 
-@Service("userService")
+@Service("libraryService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 public class LibraryServiceImpl implements LibraryService {
 
 	// 서재 JDBC DAO DI
-	@Resource(name = "libraryDao")
+	@Resource(name = "libraryJdbcDao")
 	private LibraryDao libraryDao;
+	
+	
+	
+	
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -28,13 +32,12 @@ public class LibraryServiceImpl implements LibraryService {
 
 		Library library = libraryDao.getLibrary(userId);
 
-		log.info(library);
-
 		return library;
 
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public boolean modifyLibrary(Library library) {
 
 		int count = libraryDao.modifyLibrary(library);
@@ -47,6 +50,7 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public boolean insertLibrary(Library library) {
 		
 		int count = libraryDao.insertLibrary(library);

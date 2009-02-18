@@ -77,7 +77,7 @@ public class BookReviewController extends AbstractController {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		BookReview bookReview = new BookReview();
 		bookReview.getBook().setIdNum(bookIdNum);
@@ -115,7 +115,7 @@ public class BookReviewController extends AbstractController {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		BookReview bookReview = new BookReview();
 		bookReview.getBook().setIdNum(bookIdNum);
@@ -148,7 +148,7 @@ public class BookReviewController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		BookReview bookReview = new BookReview();
 		bookReview.getBook().setIdNum(bookIdNum);
@@ -202,7 +202,7 @@ public class BookReviewController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		BookReview bookReview = new BookReview();
 		bookReview.getBook().setIdNum(bookIdNum);
@@ -274,7 +274,7 @@ public class BookReviewController extends AbstractController {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		BookReview bookReview = new BookReview();
 		bookReview.setIdNum(recommandIdNum);

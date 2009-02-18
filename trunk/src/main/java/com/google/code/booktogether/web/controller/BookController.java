@@ -37,25 +37,25 @@ public class BookController extends AbstractController {
 	 * BookService
 	 */
 	@Resource(name = "bookService")
-	BookService bookService;
+	private BookService bookService;
 
 	/**
 	 * BookGradeService
 	 */
 	@Resource(name = "bookGradeService")
-	BookGradeService bookGradeService;
+	private BookGradeService bookGradeService;
 
 	/**
 	 * BookReviewService
 	 */
 	@Resource(name = "bookReviewService")
-	BookReviewService bookReviewService;
+	private BookReviewService bookReviewService;
 
 	/**
 	 * BookMarkService
 	 */
 	@Resource(name = "bookMarkService")
-	BookMarkService bookMarkService;
+	private BookMarkService bookMarkService;
 
 	//로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -91,7 +91,7 @@ public class BookController extends AbstractController {
 			List<BookMark> bookMarkList = bookMarkService.getListBookMark(book
 					.getIdNum(), 0, 5);
 
-			Integer userIdNum = getLoginUser();
+			Integer userIdNum = getLoginUserIdNum();
 
 			// 자기가 입력한 별점이 있는지 체크
 			boolean existGrade = bookGradeService.isExistGrade(book.getIdNum(),
