@@ -28,8 +28,7 @@ public class LibraryRowMapper implements ParameterizedRowMapper<Library>,Seriali
 		library.setIdNum(rs.getInt("IDNUM"));
 		library.setNotice(rs.getString("NOTICE"));
 		library.setIsOpen(rs.getInt("ISOPEN"));
-		library.getUser().setUserId("USER_ID");
-		library.getUser().setName("NAME");
+		library.getUser().setIdNum(rs.getInt("UIDNUM"));
 		
 		return library;
 	}

@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +29,7 @@ import com.google.code.booktogether.web.page.PageBean;
  * @author ParkHaeCheol
  */
 @Controller()
-public class UserController extends AbstractController{
+public class UserController extends AbstractController {
 
 	/**
 	 * UserService
@@ -38,11 +37,9 @@ public class UserController extends AbstractController{
 	@Resource(name = "userService")
 	UserService userService;
 
-	
-	//로그 표시를 위하여
+	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
-	
-	
+
 	/**
 	 * 사용자 등록 화면
 	 * 
@@ -82,22 +79,28 @@ public class UserController extends AbstractController{
 		// 이미지 만들기
 		String filename = userService.createImageResize(file, realPath);
 
+		Zone[] zones=null;
+		
 		// 지역명 세팅하기
+		if (zoneNames != null) {
 
-		Zone[] zones = new Zone[zoneNames.length];
+			zones = new Zone[zoneNames.length];
 
-		for (int i = 0; i < zoneNames.length; i++) {
+			for (int i = 0; i < zoneNames.length; i++) {
 
-			if (zoneNames[i] != null && !zoneNames[i].equals("")) {
+				if (zoneNames[i] != null && !zoneNames[i].equals("")) {
 
-				Zone zone = new Zone();
+					Zone zone = new Zone();
 
-				// 지역명은 숫자다.(일련번호)
-				zone.setZone(Integer.parseInt(zoneNames[i]));
+					// 지역명은 숫자다.(일련번호)
+					zone.setZone(Integer.parseInt(zoneNames[i]));
 
-				zones[i] = zone;
+					zones[i] = zone;
+				}
+
 			}
-
+		}else{
+			zones=new Zone[0];
 		}
 
 		// 추가정보 빈에 세팅
@@ -247,7 +250,7 @@ public class UserController extends AbstractController{
 	public ModelAndView handleGetUser(HttpServletRequest req) {
 
 		// 사용자 ID값
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		User user = userService.getUserDetail(userIdNum);
 
@@ -270,7 +273,7 @@ public class UserController extends AbstractController{
 	public ModelAndView handleModifyUserView(HttpServletRequest req) {
 
 		// 사용자 ID값
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		User user = userService.getUserDetail(userIdNum);
 
@@ -310,7 +313,7 @@ public class UserController extends AbstractController{
 				"/images/user/thumnail/");
 
 		// 사용자 ID값
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		String filename = "";
 
@@ -383,7 +386,7 @@ public class UserController extends AbstractController{
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
 		// 사용자 ID값
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		boolean result = false;
 
@@ -511,8 +514,9 @@ public class UserController extends AbstractController{
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
-		String userId=(String)sra.getAttribute("userId", RequestAttributes.SCOPE_SESSION);
-		
+		String userId = (String) sra.getAttribute("userId",
+				RequestAttributes.SCOPE_SESSION);
+
 		String message = "";
 
 		User user = userService.validIdPwUser(userId, pw);
@@ -550,7 +554,7 @@ public class UserController extends AbstractController{
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
 		// 사용자 userId값
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		boolean result = userService.deleteZone(zoneIdNum, userIdNum);
 

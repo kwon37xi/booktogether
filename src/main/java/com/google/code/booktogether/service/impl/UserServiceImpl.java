@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
 			}
 			
 			Library library=new Library();
-			library.setIdNum(idNum);
+			library.getUser().setIdNum(idNum);
 			library.setIsOpen(0);
 			library.setNotice("등록된 인사말이 없습니다.");
 			

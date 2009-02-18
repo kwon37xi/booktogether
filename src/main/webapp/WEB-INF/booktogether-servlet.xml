@@ -31,6 +31,8 @@
 				<value>/user/deleteUser.do</value>
 				<value>/user/modifyPw.do</value>
 				<value>/user/deleteZone.do</value>
+				<value>/library/modifyLibraryView.do</value>
+				<value>/library/modifyLibrary.do</value>
 			</list>
 		</property>
 		<property name="interceptors">

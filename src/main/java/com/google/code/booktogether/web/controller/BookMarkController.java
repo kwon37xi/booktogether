@@ -49,7 +49,7 @@ public class BookMarkController extends AbstractController {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		BookMark bookMark = new BookMark();
 		bookMark.getBook().setIdNum(bookIdNum);
@@ -87,7 +87,7 @@ public class BookMarkController extends AbstractController {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		BookMark bookMark = new BookMark();
 		bookMark.setIdNum(bookMarkIdNum);
@@ -125,7 +125,7 @@ public class BookMarkController extends AbstractController {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		BookMark bookMark = new BookMark();
 		bookMark.setContent(content);
@@ -163,7 +163,7 @@ public class BookMarkController extends AbstractController {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
-		Integer userIdNum = getLoginUser();
+		Integer userIdNum = getLoginUserIdNum();
 
 		BookMark bookMark = new BookMark();
 		bookMark.getUser().setIdNum(userIdNum);
