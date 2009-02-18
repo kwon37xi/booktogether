@@ -42,6 +42,21 @@
             ]]>
 		</query>
 	</sql>
+	
+	
+	<sql name="INSERT_LIBRARYBOOK_SQL">
+		<description>서재에 책 등록</description>
+		<query>
+            <![CDATA[
+             INSERT INTO LIBRARYBOOK(book_idNum
+             						 , library_idNum
+             						 , read_Date
+             						 , state
+             						 , ispossess)   
+             VALUES (?, ?, ?, ?, ?) 
+            ]]>
+		</query>
+	</sql>
 
 
 </sqls>
