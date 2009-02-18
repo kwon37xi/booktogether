@@ -1,13 +1,22 @@
 #summary Table Infomation
 #labels table
 
-= *Book* 테이블 =
 
+=*1.지은이 *=
 {{{
-DROP TABLE IF EXISTS `book`;
+CREATE TABLE `author` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `author_div` int(1) NOT NULL,
+  `book_idNum` int(11) NOT NULL,
+  PRIMARY KEY (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+}}}
 
+=*2.책 *=
+{{{
 CREATE TABLE `book` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `isbn10` char(10) NOT NULL,
   `isbn13` char(13) NOT NULL,
@@ -17,169 +26,172 @@ CREATE TABLE `book` (
   `corver` varchar(100) DEFAULT NULL,
   `category` varchar(50) DEFAULT NULL,
   `description` text,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 }}}
 
-----
-
-= *Author* 테이블 =
-
+=*3.책 별점 *=
 {{{
-CREATE TABLE `author` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
-  `author_div` int(1) NOT NULL,
-  `book_ref` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `bookgrade` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `book_idNum` int(11) NOT NULL,
+  `user_idNum` int(11) NOT NULL,
+  `grade` int(1) NOT NULL,
+  PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 }}}
 
-----
-= *USER* 테이블 =
 
-{{{
-CREATE TABLE `user` (                                  
-          `id` int(11) NOT NULL AUTO_INCREMENT,                
-          `user_id` varchar(15) NOT NULL,                      
-          `email` varchar(30) NOT NULL,                        
-          `nickname` varchar(20) NOT NULL,                     
-          `name` varchar(20) NOT NULL,                         
-          `delete_y_n` int(1) NOT NULL,                        
-          `input_date` datetime NOT NULL,                      
-          PRIMARY KEY (`id`)                                   
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 
-}}}
-
-
-----
-
-
-
-= *USER_PW* 테이블 =
-
-{{{
-CREATE TABLE `user_pw` (                               
-           `id` int(11) NOT NULL AUTO_INCREMENT,                
-           `user_id` int(11) NOT NULL,                          
-           `pw` varbinary(50) NOT NULL,                         
-           `salt` varbinary(50) NOT NULL,                       
-           PRIMARY KEY (`id`)                                   
-         ) ENGINE=InnoDB DEFAULT CHARSET=utf8
-}}}
-
-
-----
-
-= *BOOKGRADE* 테이블 =
-
-{{{
-CREATE TABLE `bookgrade` (                                  
-             `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',  
-             `book_id` int(11) NOT NULL COMMENT '책',                  
-             `user_id` int(11) NOT NULL COMMENT '사용자',              
-             `grade` int(1) NOT NULL COMMENT '별점',                   
-             PRIMARY KEY (`id`)                                        
-           ) ENGINE=InnoDB DEFAULT CHARSET=utf8
-}}}
-
-
-----
-
-= *BOOKREVIEW* 테이블 =
-
-{{{
-CREATE TABLE `bookreview` (                                 
-              `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',  
-              `book_id` int(11) NOT NULL COMMENT '책',                  
-              `user_id` int(11) NOT NULL COMMENT '사용자',              
-              `recommend` int(11) DEFAULT NULL COMMENT '추천수',        
-              `title` varchar(50) NOT NULL COMMENT '제목',              
-              `review` text COMMENT '내용',                             
-              PRIMARY KEY (`id`)                                        
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8
-}}}
-
-----
-
-
-= *RECOMMEND* 테이블 =
-{{{
-CREATE TABLE `recommend` (                                  
-   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',  
-   `user_id` int(11) NOT NULL COMMENT '사용자일련번호',      
-   `review_id` int(11) NOT NULL COMMENT '리뷰일련번호',      
-   PRIMARY KEY (`id`)                                        
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
-}}}
-
-----
-
-
-= *BOOKMARK* 테이블 =
+=*4. 인용구 *=
 {{{
 CREATE TABLE `bookmark` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
-  `user_id` int(11) NOT NULL COMMENT '사용자 일련번호',
-  `book_id` int(11) NOT NULL COMMENT '책 일련번호',
-  `vibe_num` int(11) NOT NULL COMMENT '공감수',
-  `page` int(11) DEFAULT NULL COMMENT '페이지',
-  `input_date` datetime NOT NULL COMMENT '등록날짜',
-  `content` varchar(200) NOT NULL COMMENT '인용구',
-  PRIMARY KEY (`id`)
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `user_idNum` int(11) NOT NULL,
+  `book_idNum` int(11) NOT NULL,
+  `vibe_num` int(11) NOT NULL,
+  `page` int(11) DEFAULT NULL,
+  `input_date` datetime NOT NULL,
+  `content` varchar(200) NOT NULL,
+  PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 }}}
 
-----
-
-
-= *VIBE* 테이블 =
-
+=*5. 리뷰  *=
 {{{
-CREATE TABLE `vibe` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
-  `user_id` int(11) NOT NULL COMMENT '사용자일련번호',
-  `bookmark_id` int(11) NOT NULL COMMENT '북마크일련번호',
-  PRIMARY KEY (`id`)
+CREATE TABLE `bookreview` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `book_idNum` int(11) NOT NULL,
+  `user_idNum` int(11) NOT NULL,
+  `recommend` int(11) DEFAULT NULL,
+  `title` varchar(50) NOT NULL,
+  `review` text,
+  PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 }}}
 
-----
 
-= *USERADDINFO* 테이블 =
+=*6. 내서재 * =
+{{{
+CREATE TABLE `library` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `user_idNum` int(11) NOT NULL,
+  `isopen` int(1) NOT NULL,
+  `notice` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+}}}
 
+
+=*7. 내서재 *=
+{{{
+CREATE TABLE `librarybook` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `book_idNum` int(11) NOT NULL,
+  `library_idNum` int(11) NOT NULL,
+  `read_Date` datetime DEFAULT NULL,
+  `state` int(1) DEFAULT NULL,
+  `ispossess` int(1) DEFAULT NULL,
+  PRIMARY KEY (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+}}}
+
+
+=*8. 보유하고 있는 책 *=
+{{{
+CREATE TABLE `possessbook` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `book_idNum` int(11) NOT NULL,
+  `purchase_date` datetime DEFAULT NULL,
+  `purchase_price` datetime DEFAULT NULL,
+  `begin_read` datetime DEFAULT NULL,
+  `end_read` datetime DEFAULT NULL,
+  `quality` int(1) DEFAULT NULL,
+  `state` int(1) DEFAULT NULL,
+  PRIMARY KEY (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+}}}
+
+
+=*9. 리뷰 추천 *=
+{{{
+CREATE TABLE `recommend` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `user_idNum` int(11) NOT NULL,
+  `review_idNum` int(11) NOT NULL,
+  PRIMARY KEY (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+}}}
+
+
+=*10.사용자 *=
+{{{
+CREATE TABLE `user` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(15) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `nickname` varchar(20) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `isdelete` int(1) NOT NULL,
+  `input_date` datetime NOT NULL,
+  PRIMARY KEY (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+}}}
+
+
+=*11.사용자 비밀번호 *=
+{{{
+CREATE TABLE `user_pw` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `user_idNum` int(11) NOT NULL,
+  `pw` varbinary(50) NOT NULL,
+  `salt` varbinary(50) NOT NULL,
+  PRIMARY KEY (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+}}}
+
+
+=*12.사용자 추가정보*=
 {{{
 CREATE TABLE `useraddinfo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
-  `user_id` int(11) NOT NULL COMMENT '사용자 일련번호',
-  `blog` varchar(50) DEFAULT NULL COMMENT '블로그주소',
-  `thumnail` varchar(50) DEFAULT NULL COMMENT '썸네일이미지',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `user_idNum` int(11) NOT NULL,
+  `blog` varchar(50) DEFAULT NULL,
+  `thumnail` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 }}}
 
 
-----
-
-= *ZONE* 테이블 =
+=*13.인용구 북마크 *=
 {{{
-CREATE TABLE `zone` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '일련번호',
-  `user_id` int(11) NOT NULL COMMENT '사용자 일련번호',
-  `zone` int(11) NOT NULL COMMENT '주소일련번호',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+CREATE TABLE `vibe` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `user_idNum` int(11) NOT NULL,
+  `bookmark_idNum` int(11) NOT NULL,
+  PRIMARY KEY (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 }}}
 
-----
 
-= *ZIPCODE* 테이블 =
+=*14. 우편번호 *=
 {{{
 CREATE TABLE `zipcode` (
-  `seq` int(11) NOT NULL COMMENT '일련번호',
-  `sido` varchar(5) DEFAULT NULL COMMENT '특별시,광역시,도',
-  `gugun` varchar(15) DEFAULT NULL COMMENT '시,군,구',
-  `dong` varchar(52) DEFAULT NULL COMMENT '읍,면,동,리,건물명',
-  PRIMARY KEY (`seq`)
+  `idNum` int(11) NOT NULL,
+  `zipcode` varchar(7) NOT NULL,
+  `sido` varchar(4) DEFAULT NULL,
+  `gugun` varchar(15) DEFAULT NULL,
+  `dong` varchar(52) DEFAULT NULL,
+  PRIMARY KEY (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+}}}
+
+
+=*15.생활반경 *=
+{{{
+CREATE TABLE `zone` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `user_idNum` int(11) NOT NULL,
+  `zone` int(11) NOT NULL,
+  PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 }}}
