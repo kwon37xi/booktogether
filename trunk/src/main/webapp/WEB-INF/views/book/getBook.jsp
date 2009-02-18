@@ -28,7 +28,7 @@
 			<tbody>
 				<tr>
 					<td>책표지</td>
-					<td><img src="${bookInfo.bookCorver}"/></td>
+					<td><img src="${bookInfo.bookCover}"/></td>
 				</tr>
 				<tr>
 					<td>책이름</td>
@@ -271,6 +271,7 @@
 		<div id=''>
 			<a href="javascript:history.go(-1)">뒤로</a>
 			<a href="/book/searchBook.do">목록</a>
+			<a href="/library/insertLibraryBookView.do?bookIdNum=${bookInfo.idNum}">내서재에 등록</a>
 		</div>
 		
 	</body>

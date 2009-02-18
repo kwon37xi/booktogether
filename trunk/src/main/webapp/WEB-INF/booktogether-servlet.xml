@@ -33,6 +33,8 @@
 				<value>/user/deleteZone.do</value>
 				<value>/library/modifyLibraryView.do</value>
 				<value>/library/modifyLibrary.do</value>
+				<value>/library/insertLibraryBookView.do</value>
+				<value>/library/insertLibraryBook.do</value>
 			</list>
 		</property>
 		<property name="interceptors">

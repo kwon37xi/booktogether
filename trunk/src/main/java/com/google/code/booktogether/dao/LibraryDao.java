@@ -1,5 +1,7 @@
 package com.google.code.booktogether.dao;
 
+import java.util.List;
+
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 
@@ -37,4 +39,13 @@ public interface LibraryDao {
 	 */
 	public int insertLibraryBook(LibraryBook libraryBook);
 	
+	
+	/**
+	 * 내서재에 있는 책 목록
+	 * @param libraryBook
+	 * @param startPage
+	 * @param endPage
+	 * @return
+	 */
+	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook, Integer startPage, Integer endPage);	
 }

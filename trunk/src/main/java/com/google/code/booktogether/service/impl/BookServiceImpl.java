@@ -79,6 +79,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public Book checkBook(String isbn) {
 
 		// 해당 책 있는지 체크
@@ -90,6 +91,8 @@ public class BookServiceImpl implements BookService {
 			// OPEN API로 Book값 세팅
 			book = new BookOpenApiDaumImpl().viewBook(isbn);
 
+			log.info(book);
+			
 			// DB에 넣기
 			this.insertBook(book);
 

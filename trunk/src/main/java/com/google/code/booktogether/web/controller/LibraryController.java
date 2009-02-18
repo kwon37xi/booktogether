@@ -1,5 +1,9 @@
 package com.google.code.booktogether.web.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,14 +38,11 @@ public class LibraryController extends AbstractController {
 	@Resource(name = "libraryService")
 	private LibraryService libraryService;
 
-	
 	@Resource(name = "userService")
 	private UserService userService;
-	
-	
+
 	@Resource(name = "bookService")
 	private BookService bookService;
-	
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -133,7 +134,6 @@ public class LibraryController extends AbstractController {
 	public ModelAndView handleGetLibrary(HttpServletRequest req,
 			@RequestParam(value = "userId", required = false) String userId) {
 
-		
 		Library library = libraryService.getLibrary(userId);
 
 		// 서재가 있을시
@@ -169,8 +169,7 @@ public class LibraryController extends AbstractController {
 		return mav;
 
 	}
-	
-	
+
 	/**
 	 * 서재에 책 등록하기 화면
 	 * 
@@ -178,14 +177,15 @@ public class LibraryController extends AbstractController {
 	 * @return 등록하기 화면
 	 */
 	@RequestMapping("/library/insertLibraryBookView.do")
-	public ModelAndView handleInsertLibraryBookView(HttpServletRequest req,
+	public ModelAndView handleInsertLibraryBookView(
+			HttpServletRequest req,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
-		
-		String userId=getLoginUserId();
-		
-		Book book=bookService.getBook(bookIdNum);
-		
-		Library library=libraryService.getLibrary(userId);
+
+		String userId = getLoginUserId();
+
+		Book book = bookService.getBook(bookIdNum);
+
+		Library library = libraryService.getLibrary(userId);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/insertLibraryBook");
@@ -195,9 +195,6 @@ public class LibraryController extends AbstractController {
 		return mav;
 
 	}
-	
-	
-	
 
 	/**
 	 * 서재에 책 등록하기
@@ -206,11 +203,30 @@ public class LibraryController extends AbstractController {
 	 * @return 서재 시작화면
 	 */
 	@RequestMapping("/library/insertLibraryBook.do")
-	public ModelAndView handleInsertLibraryBook(HttpServletRequest req,
-			LibraryBook libraryBook) {
-		
+	public ModelAndView handleInsertLibraryBook(
+			HttpServletRequest req,
+			LibraryBook libraryBook,
+			@RequestParam(value = "readDateYear", required = false) Integer readDateYear,
+			@RequestParam(value = "readDateMonth", required = false) Integer readDateMonth,
+			@RequestParam(value = "readDateDate", required = false) Integer readDateDate) {
+
+		if (readDateYear == null || readDateMonth == null
+				|| readDateDate == null) {
+
+			libraryBook.setReadDate(new Date());
+
+		} else {
+
+			Calendar cal = Calendar.getInstance();
+
+			cal.set(readDateYear, readDateMonth, readDateDate);
+
+			libraryBook.setReadDate(cal.getTime());
+
+		}
+
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-		
+
 		boolean result = libraryService.insertLibraryBook(libraryBook);
 
 		// 성공시
@@ -227,13 +243,11 @@ public class LibraryController extends AbstractController {
 		}
 
 		// 경로 설정
-		return new ModelAndView("redirect:/library/getLibrary.do?userId="+ getLoginUserId());
+		return new ModelAndView("redirect:/library/getLibrary.do?userId="
+				+ getLoginUserId());
 
 	}
-	
-	
-	
-	
+
 	/**
 	 * 서재에 책 수정하기
 	 * 
@@ -243,30 +257,30 @@ public class LibraryController extends AbstractController {
 	@RequestMapping("/library/modifyLibraryBook.do")
 	public ModelAndView handleModifyLibraryBook(HttpServletRequest req,
 			LibraryBook libraryBook) {
-		
+
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-		
+
 		boolean result = libraryService.modifyLibraryBook(libraryBook);
-		
+
 		// 성공시
 		if (result) {
-			
+
 			sra.setAttribute("message", "서재에 책 수정 성공",
 					RequestAttributes.SCOPE_SESSION);
-			
+
 		} else { // 실패시
-			
+
 			sra.setAttribute("message", "서재에 책 수정 실패",
 					RequestAttributes.SCOPE_SESSION);
-			
+
 		}
-		
+
 		// 경로 설정
-		return new ModelAndView("redirect:/library/getLibrary.do?userId="+ getLoginUserId());
-		
+		return new ModelAndView("redirect:/library/getLibrary.do?userId="
+				+ getLoginUserId());
+
 	}
-	
-	
+
 	/**
 	 * 서재에 책 삭제하기
 	 * 
@@ -274,30 +288,74 @@ public class LibraryController extends AbstractController {
 	 * @return 서재 시작화면
 	 */
 	@RequestMapping("/library/deleteLibraryBook.do")
-	public ModelAndView handleDeleteLibraryBook(HttpServletRequest req,
+	public ModelAndView handleDeleteLibraryBook(
+			HttpServletRequest req,
 			@RequestParam(value = "libraryBookIdNum", required = false) Integer libraryBookIdNum) {
-		
+
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-		
-		
+
 		boolean result = libraryService.deleteLibraryBook(libraryBookIdNum);
-		
+
 		// 성공시
 		if (result) {
-			
+
 			sra.setAttribute("message", "서재에 책 삭제 성공",
 					RequestAttributes.SCOPE_SESSION);
-			
+
 		} else { // 실패시
-			
+
 			sra.setAttribute("message", "서재에 책 삭제 실패",
 					RequestAttributes.SCOPE_SESSION);
-			
+
 		}
-		
+
 		// 경로 설정
-		return new ModelAndView("redirect:/library/getLibrary.do?userId="+ getLoginUserId());
-		
+		return new ModelAndView("redirect:/library/getLibrary.do?userId="
+				+ getLoginUserId());
+
+	}
+
+	/**
+	 * 서재에 책 목록 보여주기
+	 * 
+	 * @param req
+	 * @return 서재 책 목록 화면
+	 */
+	@RequestMapping("/library/getListLibraryBook.do")
+	public ModelAndView handleGetListLibraryBook(
+			HttpServletRequest req,
+			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum,
+			@RequestParam(value = "state", required = false) Integer state) {
+
+		LibraryBook libraryBook = new LibraryBook();
+		libraryBook.getLibrary().setIdNum(libraryIdNum);
+		libraryBook.setState(state);
+
+		List<LibraryBook> libraryBookList = libraryService.getListLibraryBook(
+				libraryBook, 0, 5);
+
+		if (libraryBookList != null) {
+
+			libraryBook = null;
+
+			for (int i = 0; i < libraryBookList.size(); i++) {
+
+				Integer bookIdNum = libraryBookList.get(i).getBook().getIdNum();
+				
+				Book book=bookService.getBook(bookIdNum);
+
+				libraryBookList.get(i).setBook(book);
+
+			}
+		}
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("library/getListLibraryBook");
+		mav.addObject("libraryBookList", libraryBookList);
+		mav.addObject("state", state);
+
+		return mav;
+
 	}
 
 }
