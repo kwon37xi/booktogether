@@ -1,4 +1,4 @@
-﻿insert into `zipcode` (`idNum`, `zipcode`, `sido`, `gugun`, `dong`) values('1','135-806','서울','강남구','개포1동');
+insert into `zipcode` (`idNum`, `zipcode`, `sido`, `gugun`, `dong`) values('1','135-806','서울','강남구','개포1동');
 insert into `zipcode` (`idNum`, `zipcode`, `sido`, `gugun`, `dong`) values('2','135-800','서울','강남구','개포2동');
 insert into `zipcode` (`idNum`, `zipcode`, `sido`, `gugun`, `dong`) values('3','135-992','서울','강남구','개포3동');
 insert into `zipcode` (`idNum`, `zipcode`, `sido`, `gugun`, `dong`) values('4','135-773','서울','강남구','개포4동');

@@ -341,8 +341,8 @@ public class LibraryController extends AbstractController {
 			for (int i = 0; i < libraryBookList.size(); i++) {
 
 				Integer bookIdNum = libraryBookList.get(i).getBook().getIdNum();
-				
-				Book book=bookService.getBook(bookIdNum);
+
+				Book book = bookService.getBook(bookIdNum);
 
 				libraryBookList.get(i).setBook(book);
 
