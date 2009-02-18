@@ -180,14 +180,14 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 	}
 
 	@Override
-	public User isExistUser(String user_id) {
+	public User isExistUser(String userId) {
 
 		UserRowMapper userRowMapper = new UserRowMapper();
 
 		String sql = sqlparser.getSQL("user", "EXIST_USER_SQL");
 
 		User user = (User) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
-				.query(sql, userRowMapper, new Object[] { user_id }));
+				.query(sql, userRowMapper, new Object[] { userId }));
 
 		return user;
 	}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sqls name="library">
+
+	<sql name="GET_LIBRARY_SQL">
+		<description>서재 정보 가지고 오기</description>
+		<query>
+            <![CDATA[
+             SELECT L.idNUm as idNum
+                    ,L.notice as notice
+                    ,L.isOpen as isOpen
+                    ,U.user_id as user_id
+                    ,U.name as name 
+               FROM LIBRARY L, USER U 
+              WHERE L.user_idNum = U.idNum 
+              	AND U.user_id = ? 
+                AND U.isdelete = 0 
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="MODIFY_LIBRARY_SQL">
+		<description>내서재 정보 수정하기</description>
+		<query>
+            <![CDATA[
+             UPDATE LIBRARY 
+                SET notice = ?
+                    ,isOpen = ? 
+              WHERE user_IdNum=?,
+                AND idNum = ?  
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="INSERT_LIBRARY_SQL">
+		<description>내서재 정보 등록</description>
+		<query>
+            <![CDATA[
+             INSERT INTO LIBRARY(user_idNum, notice, isOpen)  
+             VALUES (?, ?, ?) 
+            ]]>
+		</query>
+	</sql>
+
+
+</sqls>

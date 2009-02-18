@@ -1,6 +1,6 @@
 package com.google.code.booktogether.web.openapi.header;
 
-import com.google.code.booktogether.web.domain.BaseObject;
+import com.google.code.booktogether.web.domain.base.BaseObject;
 
 
 /**

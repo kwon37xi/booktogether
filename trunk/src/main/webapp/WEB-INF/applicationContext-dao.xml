@@ -40,6 +40,7 @@
 				<value>classpath:sqls/gradesqls.xml</value>
 				<value>classpath:sqls/reviewsqls.xml</value>
 				<value>classpath:sqls/usersqls.xml</value>
+				<value>classpath:sqls/librarysqls.xml</value>
 			</list>
 		</constructor-arg>
 	</bean>

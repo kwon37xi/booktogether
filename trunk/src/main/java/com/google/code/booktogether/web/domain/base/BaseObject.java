@@ -1,4 +1,4 @@
-package com.google.code.booktogether.web.domain;
+package com.google.code.booktogether.web.domain.base;
 
 import java.io.Serializable;
 
