@@ -2,6 +2,8 @@ package com.google.code.booktogether.web.domain;
 
 import java.util.Date;
 
+import com.google.code.booktogether.web.domain.base.BaseObject;
+
 /**
  * 인용구 도메인
  * @author ParkHaeCheol

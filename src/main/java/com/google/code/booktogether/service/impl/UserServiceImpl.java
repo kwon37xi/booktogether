@@ -15,9 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.code.booktogether.dao.UserDao;
 import com.google.code.booktogether.exception.BooktogetherException;
+import com.google.code.booktogether.service.LibraryService;
 import com.google.code.booktogether.service.UserService;
 import com.google.code.booktogether.service.util.ImageResize;
 import com.google.code.booktogether.service.util.PasswordAuthenticator;
+import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserPw;
 import com.google.code.booktogether.web.domain.Zipcode;
@@ -31,6 +33,14 @@ public class UserServiceImpl implements UserService {
 	// 사용자 JDBC DAO DI
 	@Resource(name = "userJdbcDao")
 	private UserDao userJdbcDao;
+	
+	
+	/**
+	 * BookService
+	 */
+	@Resource(name = "libraryService")
+	private LibraryService libraryService;
+	
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -136,6 +146,17 @@ public class UserServiceImpl implements UserService {
 					throw new BooktogetherException("생활반경 등록 실패");
 				}
 
+			}
+			
+			Library library=new Library();
+			library.setIdNum(idNum);
+			library.setIsOpen(0);
+			library.setNotice("등록된 인사말이 없습니다.");
+			
+			result=libraryService.insertLibrary(library);
+			
+			if(!result){
+				throw new BooktogetherException("사용자 개인서재 등록 실패");
 			}
 
 			result = true;

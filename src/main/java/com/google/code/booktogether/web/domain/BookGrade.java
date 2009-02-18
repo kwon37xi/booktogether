@@ -1,5 +1,7 @@
 package com.google.code.booktogether.web.domain;
 
+import com.google.code.booktogether.web.domain.base.BaseObject;
+
 /**
  * 별점 도메인
  * @author ParkHaeCheol
