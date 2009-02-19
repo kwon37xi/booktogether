@@ -174,7 +174,8 @@
         <description>내가 작성한 인용구에 대한 책 목록</description>
         <query>
             <![CDATA[
-            SELECT	B.idNum as idnum
+            SELECT	distinct 
+            	    B.idNum as idnum
                     ,B.name as name
                     ,B.isbn10 as isbn10
                     ,B.isbn13 as isbn13

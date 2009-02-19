@@ -29,7 +29,7 @@
 				<thead></thead>
 				<tbody>	
 					<tr>
-						<td><img src="${bookList.book.bookCover}"/></td>
+						<td rowspan="3"><img src="${bookList.book.bookCover}"/></td>
 						<td>제목 : ${bookList.book.name} </td>
 						<td>지은이 : 
 							<c:forEach begin="0" items="${bookList.book.authors}" var="authorInfo">
@@ -41,20 +41,23 @@
 						</td>
 					</tr>
 					<tr>
-						<td>출판사 : ${bookList.book.publish_comp}</td>
-						<td>출판일 : ${bookList.book.publish_date}</td>
+						<td>출판사 : ${bookList.book.publishComp}</td>
+						<td>출판일 : ${bookList.book.publishDate}</td>
 					</tr>
 					<tr>
-						<td>카테고리 : ${bookList.book.category}</td>
+						<td colspan="2">카테고리 : ${bookList.book.category}</td>
 					</tr>
 					<tr>
-						<td>
-							<table>
+						<td colspan="3">
+							<table border='1'>
 								<c:forEach begin="0" items="${bookList.bookMarkList}" var="bookMarkList">
 									<tr>
-										<td>${bookMarkList.page}</td>
+										<td>p.${bookMarkList.page}</td>
 										<td>${bookMarkList.content}</td>
-										<td>${bookMarkList.vibe_num}</td>
+										<td>공감 : ${bookMarkList.vibeNum}</td>
+										<td>
+											<input type="button" value="삭제" onclick="deleteBookMark('${bookMarkList.idNum}','${bookList.book.idNum}')"/>
+										</td>
 									</tr>
 								</c:forEach>
 							</table>
