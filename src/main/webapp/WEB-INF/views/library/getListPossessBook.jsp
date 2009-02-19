@@ -15,6 +15,13 @@
 	</head>
 	<body>
 	
+		<c:if test="${sessionScope.message!=null}">
+			<script>
+				alert('${sessionScope.message}');
+			</script>
+			<c:remove scope="session" var="message"/>
+		</c:if>
+	
 		<table border="1">
 			<thead></thead>
 			<tbody>
@@ -49,9 +56,9 @@
 											<tr>
 												<td>책품질 :
 													<c:choose>
-														<c:when test="${possessBook.state==0}">상</c:when>
-														<c:when test="${possessBook.state==1}">중</c:when>
-														<c:when test="${possessBook.state==2}">하</c:when>
+														<c:when test="${possessBook.quality==0}">상</c:when>
+														<c:when test="${possessBook.quality==1}">중</c:when>
+														<c:when test="${possessBook.quality==2}">하</c:when>
 													</c:choose>
 												</td>
 												<td>책상태 :
@@ -66,8 +73,8 @@
 										<tfoot>
 											<tr>
 												<td colspan="3">
-													<a href="/library/modifyPossessBookView.do">수정</a> /
-													<a href="/library/deletePossessBook.do">삭제</a> 
+													<a href="/library/modifyPossessBookView.do?possessBookIdNum=${possessBook.idNum}">수정</a> /
+													<a href="/library/deletePossessBook.do?possessBookIdNum=${possessBook.idNum}">삭제</a> 
 												  
 												</td>
 											</tr>

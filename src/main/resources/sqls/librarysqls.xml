@@ -42,8 +42,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="INSERT_LIBRARYBOOK_SQL">
 		<description>서재에 책 등록</description>
 		<query>
@@ -57,8 +57,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="LIST_LIBRARYBOOK_SQL">
 		<description>서재에 책 목록</description>
 		<query>
@@ -76,8 +76,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="GET_DUPLICATE_LIBRARYBOOK_SQL">
 		<description>서재에 해당책이 있는지 검사</description>
 		<query>
@@ -89,8 +89,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="MODIFY_LIBRARYBOOK_SQL">
 		<description>서재에 해당책 수정하기</description>
 		<query>
@@ -105,8 +105,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="GET_LIBRARYBOOK_SQL">
 		<description>서재에 해당책 조회</description>
 		<query>
@@ -122,8 +122,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="DELETE_LIBRARYBOOK_SQL">
 		<description>서재에 해당책 삭제</description>
 		<query>
@@ -133,8 +133,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="INSERT_POSSESSBOOK_SQL">
 		<description>내가 소유한 책 등록</description>
 		<query>
@@ -151,9 +151,9 @@
             ]]>
 		</query>
 	</sql>
-	
-	
-	
+
+
+
 	<sql name="LIST_POSSESSBOOK_SQL">
 		<description>내가 소유한 책 목록</description>
 		<query>
@@ -175,14 +175,15 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="MODIFY_POSSESSBOOK_SQL">
 		<description>내가 소유한 책 수정</description>
 		<query>
             <![CDATA[
              UPDATE POSSESSBOOK 
                 SET purchase_date = ?
+                	,purchase_price = ?
                     , begin_read = ?
                     , end_read = ?
                     , quality = ?
@@ -191,8 +192,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="GET_POSSESSBOOK_SQL">
 		<description>내가 소유한 책 조회</description>
 		<query>
@@ -211,7 +212,37 @@
             ]]>
 		</query>
 	</sql>
-	
+
+
+	<sql name="DELETE_POSSESSBOOK_SQL">
+		<description>내가 소유한 책 삭제</description>
+		<query>
+            <![CDATA[
+             DELETE FROM POSSESSBOOK
+              WHERE idNum = ?
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="MODIFY_ISPOSSESS_LIBRARYBOOK_SQL">
+		<description>서재 책의 소유 정보 수정</description>
+		<query>
+            <![CDATA[
+             UPDATE LIBRARYBOOK 
+    			SET ispossess = NULL
+    		  WHERE book_idNum = 
+    		  				(SELECT book_idNum 
+    		  				   FROM possessbook
+    		  				  WHERE idNum = ?) 
+    			AND library_idNum = 
+    						(SELECT idNum 
+    						   FROM library 
+    						  WHERE user_idNum= ?)
+            ]]>
+		</query>
+	</sql>
+
 
 
 </sqls>

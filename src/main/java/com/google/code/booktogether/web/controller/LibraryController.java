@@ -571,6 +571,10 @@ public class LibraryController extends AbstractController {
 
 		cal.set(endReadYear, endReadMonth - 1, endReadDate);
 		possessBook.setEndRead(cal.getTime());
+		
+		
+		log.info(possessBook);
+		
 
 		boolean result = libraryService.modifyPossessBook(possessBook);
 
@@ -592,5 +596,30 @@ public class LibraryController extends AbstractController {
 						+ getLoginUserId());
 
 	}
+	
+	
+	
+	/**
+	 * 내가 보유한 책 삭제
+	 * 
+	 * @param req
+	 * @return 내가 보유한 책 목록
+	 */
+	@RequestMapping("/library/deletePossessBook.do")
+	public ModelAndView handleDeletePossessBook(
+			HttpServletRequest req,
+			@RequestParam(value = "possessBookIdNum", required = false) Integer possessBookIdNum) {
+
+		boolean result = libraryService.deletePossessBook(getLoginUserIdNum(),possessBookIdNum);
+
+		log.info(result);
+		
+		// 경로 설정
+		return new ModelAndView(
+				"redirect:/library/getListPossessBook.do?userId="
+						+ getLoginUserId());
+
+	}
+	
 
 }
