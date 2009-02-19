@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -195,15 +196,26 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 	@Override
 	public String findId(User user) {
 
-		UserRowMapper userRowMapper = new UserRowMapper();
+		log.info(user);
 
 		String sql = sqlparser.getSQL("user", "FIND_USER_ID_SQL");
 
-		user = (User) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
-				.query(sql, userRowMapper,
-						new Object[] { user.getName(), user.getEmail() }));
+		Class<String> returnValue = null;
 
-		return user.getUserId();
+		String userId = null;
+
+		try {
+			userId = getSimpleJdbcTemplate().queryForObject(sql, returnValue,
+					new Object[] { user.getName(), user.getEmail() });
+		} catch (Exception e) {
+			return "";
+		}
+
+		if (userId == null) {
+			return "";
+		} else {
+			return userId;
+		}
 
 	}
 

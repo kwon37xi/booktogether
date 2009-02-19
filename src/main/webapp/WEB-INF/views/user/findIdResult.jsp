@@ -9,8 +9,7 @@
 	</head>
 	<body>
 		
-		${userInfo.name}(${userInfo.userId})님이 요청에 대한 결과
-		
+		${name}(${email})님이 요청에 대한 결과
 		<br/><br/>
 		
 		<c:choose>

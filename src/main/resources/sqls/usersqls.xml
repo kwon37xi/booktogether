@@ -250,7 +250,7 @@
 		<description>사용자 ID찾기</description>
 		<query>
             <![CDATA[
-             SELECT idnum, user_id, email, nickname, name, isdelete, input_date 
+             SELECT user_id 
              FROM USER 
              WHERE name=?
                AND email=? 
