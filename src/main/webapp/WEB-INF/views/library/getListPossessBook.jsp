@@ -65,7 +65,11 @@
 										</tbody>
 										<tfoot>
 											<tr>
-												<td colspan="3"> 수정 / 삭제 </td>
+												<td colspan="3">
+													<a href="/library/modifyPossessBookView.do">수정</a> /
+													<a href="/library/deletePossessBook.do">삭제</a> 
+												  
+												</td>
 											</tr>
 										</tfoot>
 									</table>

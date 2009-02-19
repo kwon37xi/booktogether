@@ -79,7 +79,7 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public boolean deletePossessBook(PossessBook possessBook) {
+	public boolean deletePossessBook(Integer possessBookIdNum) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -116,8 +116,10 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	public PossessBook getPossessBook(Integer possessBookIdNum) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		PossessBook possessBook=libraryDao.getPossessBook(possessBookIdNum);
+		
+		return possessBook;
 	}
 
 	@Override
@@ -172,6 +174,19 @@ public class LibraryServiceImpl implements LibraryService {
 		} else {
 			log.info("중복아니다.!!!");
 			return false;
+		}
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean modifyPossessBook(PossessBook possessBook) {
+		
+		int count = libraryDao.modifyPossessBook(possessBook);
+
+		if (count != 1) {
+			throw new BooktogetherException("내소유책 수정 실패");
+		} else {
+			return true;
 		}
 	}
 

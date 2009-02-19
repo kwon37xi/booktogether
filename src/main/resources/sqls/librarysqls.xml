@@ -176,6 +176,42 @@
 		</query>
 	</sql>
 	
+	
+	<sql name="MODIFY_POSSESSBOOK_SQL">
+		<description>내가 소유한 책 수정</description>
+		<query>
+            <![CDATA[
+             UPDATE POSSESSBOOK 
+                SET purchase_date = ?
+                    , begin_read = ?
+                    , end_read = ?
+                    , quality = ?
+                    , state = ?
+              WHERE idnum = ? 
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="GET_POSSESSBOOK_SQL">
+		<description>내가 소유한 책 조회</description>
+		<query>
+            <![CDATA[
+             SELECT idNum as idNum
+                    , book_idNum as bidNum
+                    , user_idNum as uidNum
+                    , purchase_Date as pdate
+                    , purchase_Price as price
+                    , begin_Read as bread
+                    , end_Read as eread
+                    , quality as quality
+                    , state as state
+               FROM POSSESSBOOK 
+              WHERE idNum= ? 
+            ]]>
+		</query>
+	</sql>
+	
 
 
 </sqls>
