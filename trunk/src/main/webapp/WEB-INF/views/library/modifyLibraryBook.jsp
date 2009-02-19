@@ -74,10 +74,11 @@
 		</table>
 		
 		서재에 등록
-		<form name="insertBookMyLibraryform" method="post" action="/library/insertLibraryBook.do">
+		<form name="modifyBookMyLibraryform" method="post" action="/library/modifyLibraryBook.do">
 		
 			<input type="hidden" name="book.idNum" value="${bookInfo.idNum}"/>
-			<input type="hidden" name="library.idNum" value="${library.idNum}"/>
+			<input type="hidden" name="idNum" value="${libraryBook.idNum}"/>
+			<input type="hidden" name="library.idNum" value="${libraryBook.library.idNum}"/>
 			
 			<table border='1'>
 				<thead></thead>
@@ -87,28 +88,31 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="radio" name="state" value="0"/>읽고 싶은책<br/>
-							<input type="radio" name="state" value="1"/>읽고 있는책<br/>
-							<input type="radio" name="state" value="2"/>읽은 책<br/>
+							<input type="radio" name="state" value="0" ${library.isOpen==0 ? 'checked' : ''}/>읽고 싶은책<br/>
+							<input type="radio" name="state" value="1" ${library.isOpen==1 ? 'checked' : ''}/>읽고 있는책<br/>
+							<input type="radio" name="state" value="2" ${library.isOpen==2 ? 'checked' : ''}/>읽은 책<br/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="readDateYear" size="4"/>
-							<input type="text" name="readDateMonth" size="2"/>
-							<input type="text" name="readDateDate" size="2"/>
+							<fmt:formatDate value="${libraryBook.readDate}" pattern="yyyy" var="readDateYear"/>
+							<fmt:formatDate value="${libraryBook.readDate}" pattern="MM" var="readDateMonth"/>
+							<fmt:formatDate value="${libraryBook.readDate}" pattern="dd" var="readDateDate"/>
+							<input type="text" name="readDateYear" size="4" value="${readDateYear}"/>
+							<input type="text" name="readDateMonth" size="2" value="${readDateMonth}"/>
+							<input type="text" name="readDateDate" size="2" value="${readDateDate}"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input type="checkbox" name="isPossess" value="1"/>소유여부
+							<input type="checkbox" name="isPossess" ${libraryBook.isPossess==1 ? 'checked' : '' value="1"/>소유여부
 						</td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
 						<td>
-							<input type="submit" value="서재에 등록"/>
+							<input type="submit" value="수정"/>
 						</td>
 					</tr>
 				</tfoot>

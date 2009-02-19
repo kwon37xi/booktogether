@@ -43,6 +43,10 @@
 											</a><br/>
 											${bookInfo.authors[0].name}<br/>
 										</c:if>
+										
+										<a href="/library/modifyLibraryBook.do?libraryBookIdNum=${libraryBookList[aIndex].idNum}">수정</a>
+										<a href="/library/deleteLibraryBook.do?libraryBookIdNum=${libraryBookList[aIndex].idNum}">삭제</a>
+										
 									</td>
 									<c:set var="aIndex" value="${aIndex+1}"/>
 								</c:forEach>

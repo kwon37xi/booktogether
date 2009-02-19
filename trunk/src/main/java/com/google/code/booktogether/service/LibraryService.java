@@ -105,4 +105,13 @@ public interface LibraryService {
 	 * @return
 	 */
 	public LibraryBook getLibraryBook(Integer libraryBookIdNum);
+	
+	
+	/**
+	 * 내서재에 등록되어있는 책인지 검사
+	 * @param libraryIdNum
+	 * @param boolIdNum
+	 * @return
+	 */
+	public boolean duplicateLibraryBook(Integer libraryIdNum, Integer boolIdNum);
 }
