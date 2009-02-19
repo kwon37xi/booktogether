@@ -23,7 +23,6 @@ public class LibraryServiceImpl implements LibraryService {
 	// 서재 JDBC DAO DI
 	@Resource(name = "libraryJdbcDao")
 	private LibraryDao libraryDao;
-	
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -81,8 +80,11 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	public LibraryBook getLibraryBook(Integer libraryBookIdNum) {
-		// TODO Auto-generated method stub
-		return null;
+
+		LibraryBook libraryBook = libraryDao.getLibraryBook(libraryBookIdNum);
+
+		return libraryBook;
+
 	}
 
 	@Override
@@ -132,8 +134,28 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean modifyLibraryBook(LibraryBook libraryBook) {
-		// TODO Auto-generated method stub
-		return false;
+
+		int count = libraryDao.modifyLibraryBook(libraryBook);
+
+		if (count != 1) {
+			throw new BooktogetherException("개인서재 책 수정 실패");
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean duplicateLibraryBook(Integer libraryIdNum, Integer boolIdNum) {
+
+		int count = libraryDao.duplicateLibraryBook(libraryIdNum, boolIdNum);
+
+		if (count == 1) {
+			log.info("중복이다!!!");
+			return true;
+		} else {
+			log.info("중복아니다.!!!");
+			return false;
+		}
 	}
 
 }

@@ -102,4 +102,47 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 		return libraryBookList;
 	}
 
+	@Override
+	public int duplicateLibraryBook(Integer libraryIdNum, Integer bookIdNum) {
+
+		String sql = sqlparser.getSQL("library",
+				"GET_DUPLICATE_LIBRARYBOOK_SQL");
+
+		int count = getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { libraryIdNum, bookIdNum });
+
+		return count;
+	}
+
+	@Override
+	public int modifyLibraryBook(LibraryBook libraryBook) {
+
+		String sql = sqlparser.getSQL("library", "MODIFY_LIBRARYBOOK_SQL");
+
+		int count = getSimpleJdbcTemplate().update(
+				sql,
+				new Object[] { libraryBook.getState(),
+						libraryBook.getReadDate(), libraryBook.getIsPosssess(),
+						libraryBook.getLibrary().getIdNum(),
+						libraryBook.getBook().getIdNum(),
+						libraryBook.getIdNum() });
+
+		return count;
+
+	}
+
+	@Override
+	public LibraryBook getLibraryBook(Integer librarBookIdNum) {
+
+		LibraryBookRowMapper rowMapper = new LibraryBookRowMapper();
+
+		String sql = sqlparser.getSQL("library", "GET_LIBRARYBOOK_SQL");
+
+		LibraryBook libraryBook = (LibraryBook) DataAccessUtils
+				.singleResult(getSimpleJdbcTemplate().query(sql, rowMapper,
+						new Object[] { librarBookIdNum }));
+
+		return libraryBook;
+	}
+
 }

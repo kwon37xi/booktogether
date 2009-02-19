@@ -48,4 +48,28 @@ public interface LibraryDao {
 	 * @return
 	 */
 	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook, Integer startPage, Integer endPage);	
+	
+	/**
+	 * 내서재에 해당 이미 있는지 검사
+	 * @param libraryIdNum
+	 * @param bookIdNum
+	 * @return
+	 */
+	public int duplicateLibraryBook(Integer libraryIdNum, Integer bookIdNum);
+	
+	
+	/**
+	 * 내서재에 있는 책 수정하기
+	 * @param libraryBook
+	 * @return
+	 */
+	public int modifyLibraryBook(LibraryBook libraryBook);
+	
+	
+	/**
+	 * 내서재 책 정보 조회
+	 * @param librarBookIdNum
+	 * @return
+	 */
+	public LibraryBook getLibraryBook(Integer librarBookIdNum);
 }

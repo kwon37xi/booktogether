@@ -187,12 +187,30 @@ public class LibraryController extends AbstractController {
 
 		Library library = libraryService.getLibrary(userId);
 
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("library/insertLibraryBook");
-		mav.addObject("library", library);
-		mav.addObject("bookInfo", book);
+		boolean result = libraryService.duplicateLibraryBook(
+				library.getIdNum(), book.getIdNum());
 
-		return mav;
+		if (result) {
+
+			log.info("중복이야~~~");
+
+			new ServletRequestAttributes(req).setAttribute("message",
+					"이미 서재에 등록되어있습니다.", RequestAttributes.SCOPE_SESSION);
+
+			return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
+					+ bookIdNum);
+
+		} else {
+
+			log.info("중복아니다~~");
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("library/insertLibraryBook");
+			mav.addObject("library", library);
+			mav.addObject("bookInfo", book);
+
+			return mav;
+		}
 
 	}
 
@@ -209,6 +227,8 @@ public class LibraryController extends AbstractController {
 			@RequestParam(value = "readDateYear", required = false) Integer readDateYear,
 			@RequestParam(value = "readDateMonth", required = false) Integer readDateMonth,
 			@RequestParam(value = "readDateDate", required = false) Integer readDateDate) {
+
+		log.info(libraryBook);
 
 		if (readDateYear == null || readDateMonth == null
 				|| readDateDate == null) {
@@ -249,16 +269,62 @@ public class LibraryController extends AbstractController {
 	}
 
 	/**
+	 * 서재 책 수정화면 보기
+	 * 
+	 * @param req
+	 * @return 서재책 수정화면
+	 */
+	@RequestMapping("/library/modifyLibraryBookView.do")
+	public ModelAndView handleModifyLibraryBookView(
+			HttpServletRequest req,
+			@RequestParam(value = "libraryBookIdNum", required = false) Integer libraryBookIdNum) {
+
+		LibraryBook libraryBook = libraryService
+				.getLibraryBook(libraryBookIdNum);
+
+		Book book = bookService.getBook(libraryBook.getBook().getIdNum());
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("library/modifyLibraryBook");
+		mav.addObject("libraryBook", libraryBook);
+		mav.addObject("bookInfo", book);
+
+		return mav;
+
+	}
+
+	/**
 	 * 서재에 책 수정하기
 	 * 
 	 * @param req
 	 * @return 서재 시작화면
 	 */
 	@RequestMapping("/library/modifyLibraryBook.do")
-	public ModelAndView handleModifyLibraryBook(HttpServletRequest req,
-			LibraryBook libraryBook) {
+	public ModelAndView handleModifyLibraryBook(
+			HttpServletRequest req,
+			LibraryBook libraryBook,
+			@RequestParam(value = "readDateYear", required = false) Integer readDateYear,
+			@RequestParam(value = "readDateMonth", required = false) Integer readDateMonth,
+			@RequestParam(value = "readDateDate", required = false) Integer readDateDate) {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
+
+		if (readDateYear == null || readDateMonth == null
+				|| readDateDate == null) {
+
+			libraryBook.setReadDate(new Date());
+
+		} else {
+
+			Calendar cal = Calendar.getInstance();
+
+			cal.set(readDateYear, readDateMonth, readDateDate);
+
+			libraryBook.setReadDate(cal.getTime());
+
+		}
+
+		log.info(libraryBook);
 
 		boolean result = libraryService.modifyLibraryBook(libraryBook);
 

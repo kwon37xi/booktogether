@@ -76,6 +76,53 @@
             ]]>
 		</query>
 	</sql>
+	
+	
+	<sql name="GET_DUPLICATE_LIBRARYBOOK_SQL">
+		<description>서재에 해당책이 있는지 검사</description>
+		<query>
+            <![CDATA[
+             SELECT COUNT(*) as count 
+               FROM LIBRARYBOOK 
+              WHERE library_IdNum= ? 
+                AND book_IdNum = ? 
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="MODIFY_LIBRARYBOOK_SQL">
+		<description>서재에 해당책 수정하기</description>
+		<query>
+            <![CDATA[
+             UPDATE LIBRARYBOOK 
+                SET state = ? 
+                    ,read_date = ?
+                    ,ispossess = ?
+              WHERE library_idNum = ?
+                AND book_idNum = ?
+                AND idNum = ? 
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="GET_LIBRARYBOOK_SQL">
+		<description>서재에 해당책 조회</description>
+		<query>
+            <![CDATA[
+             SELECT idnum
+                    ,read_date
+                    ,state
+                    ,ispossess
+                    ,book_idNum as bidnum
+                    ,library_idNum as lidnum 
+               FROM LIBRARYBOOK 
+              WHERE idNum = ?
+            ]]>
+		</query>
+	</sql>
+	
 
 
 </sqls>
