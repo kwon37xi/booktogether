@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.BookDao;
 import com.google.code.booktogether.dao.rowmapper.AuthorRowMapper;
 import com.google.code.booktogether.dao.rowmapper.BookRowMapper;
+import com.google.code.booktogether.dao.rowmapper.BookSimpleRowMapper;
 import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
@@ -113,7 +114,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 	public List<Book> getListBookRefBookMark(Integer userIdNum, Integer startPage,
 			Integer endPage) {
 
-		BookRowMapper rowMapper = new BookRowMapper();
+		BookSimpleRowMapper rowMapper = new BookSimpleRowMapper();
 
 		String sql = sqlparser.getSQL("book", "LIST_BOOK_REF_BOOKMARK_SQL");
 

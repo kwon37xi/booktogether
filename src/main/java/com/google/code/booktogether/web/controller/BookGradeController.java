@@ -140,7 +140,7 @@ public class BookGradeController extends AbstractController {
 
 			for (int i = 0; i < bookGradeList.size(); i++) {
 
-				Integer bookIdNum = bookGradeList.get(i).getIdNum();
+				Integer bookIdNum = bookGradeList.get(i).getBook().getIdNum();
 
 				Book book = bookService.getBook(bookIdNum);
 
