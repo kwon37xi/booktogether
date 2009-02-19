@@ -61,7 +61,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 		int count = bookGradeJdbcDao.deleteGrade(bookGrade);
 
 		if (count != 1) {
-			throw new BooktogetherException("인용구 등록 실패");
+			throw new BooktogetherException("인용구 삭제 실패");
 		} else {
 			return true;
 		}

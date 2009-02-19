@@ -28,7 +28,7 @@
         <query>
             <![CDATA[
              DELETE FROM BOOKGRADE 
-             WHERE id=? 
+             WHERE idNum=? 
                AND book_idNum=? 
                AND user_idNum=? 
             ]]>
@@ -45,6 +45,7 @@
              	    ,U.nickname as user_nickname
              	    ,BG.grade as grade
              	    ,BG.idNum as idNum 
+             	    ,BG.book_idNum as bidNum 
              FROM USER U, BOOKGRADE BG  
              WHERE BG.book_idNum = ? 
                AND BG.user_idNum = U.idNum 
@@ -61,12 +62,10 @@
             <![CDATA[
              SELECT BG.grade as grade
              	    ,BG.idNum as idNum
-             	    ,B.name as book_name
-             	    ,B.isbn10 as isbn
-             FROM BOOK B, USER U, BOOKGRADE BG  
-             WHERE BG.user_idNum = ?  
+             	    ,BG.book_idNum as bidNum 
+             FROM USER U, BOOKGRADE BG  
+             WHERE BG.user_idNum = ?   
                AND BG.user_idNum = U.idNum 
-               AND BG.book_idNum = B.idNum  
                AND U.isdelete = 0 
              LIMIT ?,? 
             ]]>

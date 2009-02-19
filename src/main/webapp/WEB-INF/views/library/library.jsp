@@ -78,10 +78,13 @@
 								<td>추천책</td>
 							</tr>
 							<tr>
-								<td>리뷰목록</td>
+								<td><a href="/book/getListMyReview.do?userIdNum=${library.user.idNum}">리뷰목록</a></td>
 							</tr>
 							<tr>
-								<td>별점 목록</td>
+								<td><a href="/book/getListMyBookGrade.do?userIdNum=${library.user.idNum}">별점 목록</a></td>
+							</tr>
+							<tr>
+								<td><a href="/book/getListMyBookMark.do?userIdNum=${library.user.idNum}">인용구 목록</a></td>
 							</tr>
 						</table>
 					</td>

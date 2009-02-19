@@ -6,7 +6,7 @@
         <description></description>
         <query>
             <![CDATA[
-             INSERT INTO BOOK(name, isbn10 , isbn13 , publish_comp, publish_date,  price, corver, category, description)  
+             INSERT INTO BOOK(name, isbn10 , isbn13 , publish_comp, publish_date,  price, cover, category, description)  
              VALUES (?, ?, ?, ?, ?, ?, ?, ? ,? ) 
             ]]>
         </query>
@@ -24,7 +24,7 @@
              	, publish_comp = ?
              	, publish_date = ?
              	, price = ?
-             	, corver = ?
+             	, cover = ?
              	, category = ?
              	, description = ? 
              WHERE idNum = ?
@@ -169,6 +169,27 @@
             ]]>
         </query>
     </sql>
+    
+    <sql name="LIST_BOOK_REF_BOOKMARK_SQL">
+        <description>내가 작성한 인용구에 대한 책 목록</description>
+        <query>
+            <![CDATA[
+            SELECT	B.idNum as idnum
+                    ,B.name as name
+                    ,B.isbn10 as isbn10
+                    ,B.isbn13 as isbn13
+                    ,B.publish_comp as publish_comp
+                    ,B.publish_date as publish_date
+                    ,B.price as price 
+             		,B.cover as cover
+             		,B.category as category 
+               FROM BOOK B, BOOKMARK BM 
+              WHERE B.idNum = BM.book_idNum 
+                AND BM.user_idNum = ? 
+              LIMIT ?, ?
+            ]]>
+        </query>
+     </sql>
     
 
     

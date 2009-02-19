@@ -27,14 +27,12 @@ public class MyBookReviewRowMapper implements
 
 		BookReview bookReview = new BookReview();
 
-		bookReview.setIdNum(rs.getInt("UIDNUM"));
+		bookReview.setIdNum(rs.getInt("IDNUM"));
 		bookReview.setRecommend(rs.getInt("RECOMMEND"));
 		bookReview.setTitle(rs.getString("TITLE"));
 
 		bookReview.getBook().setIdNum(rs.getInt("BIDNUM"));
-		bookReview.getBook().setName(rs.getString("BNAME"));
-		bookReview.getBook().setISBN10(rs.getString("BISBN"));
-		bookReview.getBook().setPublishComp(rs.getString("BCOMP"));
+		bookReview.getUser().setIdNum(rs.getInt("UIDNUM"));
 
 		return bookReview;
 	}

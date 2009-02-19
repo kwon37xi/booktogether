@@ -103,18 +103,16 @@
                     ,BM.input_date as input_date
                     ,BM.content as content 
                     ,BM.vibe_num as vibe_num
-                    ,B.name as book_name
-                    ,B.publish_comp as book_comp
-               FROM BOOKMARK BM, BOOK B  
+               FROM BOOKMARK BM, USER U   
               WHERE BM.user_idNum = ?
-                AND BM.book_idNum = B.idNum
+              	AND BM.book_idNum = ?
                 AND BM.user_idNum = U.idNum   
                 AND U.isdelete = 0 
-              LIMIT ?,? 
             ]]>
         </query>
      </sql>
-    
+     
+     
     
      <sql name="EXIST_MYVIBE_SQL">
         <description>내가 매긴 공감이 있는지 체크</description>

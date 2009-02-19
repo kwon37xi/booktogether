@@ -9,15 +9,23 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
-		<title>리뷰 수정</title>
+		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/common.js"></script>
+		<title>책조회</title>
 	</head>
 	<body>
+		<c:if test="${sessionScope.message!=null}">
+			<script>
+				alert('${sessionScope.message}');
+			</script>
+			<c:remove scope="session" var="message"/>
+		</c:if>
 		<table border='1'>
 			<thead></thead>
 			<tbody>
 				<tr>
 					<td>책표지</td>
-					<td><img src="${bookInfo.bookCorver}"/></td>
+					<td><img src="${bookInfo.bookCover}"/></td>
 				</tr>
 				<tr>
 					<td>책이름</td>
@@ -63,19 +71,28 @@
 		</table>
 		
 		<div>
-			<form method="post" name="modifyreviewform" action="/book/modifyBookReview.do">
-				<input type="hidden" name="bookReviewIdNum" value="${bookReviewInfo.idNum}"/>
+			<form method="post" name="reviewform" action="/book/modifyBookReviewView.do">
 				<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
 				<p>			
-					<label for="name">제목</label>
-					<input type="text" name="title" size="30" value="${bookReviewInfo.title}"/>
+					제목 : ${bookReviewInfo.title}
 				</p>
 				<p>
-					<label for="name">내용</label>
-					<textarea rows="20" cols="60" name="review"><c:out value="${bookReviewInfo.review}" escapeXml="true"/></textarea>
+					<c:out value="${bookReviewInfo.review}" escapeXml="true"/> 
 				</p>
-				<input type="submit" value="수정"/>
+				<c:if test="${bookReviewInfo.user.idNum==sessionScope.idNum}">
+					<input type="submit" value="수정"/>
+				</c:if>
+				
 			</form>
+		</div>
+		
+		<div>
+			<a href="javascript:go_bookView('${bookInfo.idNum}')">뒤로</a>
+			
+			<c:if test="${sessionScope.idNum!=null && bookReviewInfo.user.idNum!=sessionScope.idNum}">
+				<input type="button" value="추천하기" onclick="recommend('${bookInfo.idNum}','${bookReviewInfo.idNum}')"/>
+			</c:if>
+			
 		</div>
 		
 	</body>

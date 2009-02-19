@@ -33,9 +33,7 @@ public class MyBookMarkRowMapper implements ParameterizedRowMapper<BookMark>,
 		bookMark.setInputDate(rs.getDate("INPUT_DATE"));
 		bookMark.setContent(rs.getString("CONTENT"));
 
-		bookMark.getBook().setIdNum(rs.getInt("BIDNum"));
-		bookMark.getBook().setName(rs.getString("BOOK_NAME"));
-		bookMark.getBook().setPublishComp(rs.getString("BOOK_COMP"));
+		bookMark.getBook().setIdNum(rs.getInt("BIDNUM"));
 
 		return bookMark;
 	}

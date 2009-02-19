@@ -1,5 +1,7 @@
 package com.google.code.booktogether.web.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,7 +14,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.BookGradeService;
+import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
+import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookGrade;
 
 /**
@@ -29,11 +33,15 @@ public class BookGradeController extends AbstractController {
 	@Resource(name = "bookGradeService")
 	BookGradeService bookGradeService;
 
-	
-	//로그 표시를 위하여
+	/**
+	 * BookService
+	 */
+	@Resource(name = "bookService")
+	BookService bookService;
+
+	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
-	
-	
+
 	/**
 	 * 별점 등록
 	 * 
@@ -109,4 +117,46 @@ public class BookGradeController extends AbstractController {
 
 	}
 
+	/**
+	 * 내가 입력한 별점 목록
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/book/getListMyBookGrade.do")
+	public ModelAndView handleListBookGrade(
+			HttpServletRequest req,
+			@RequestParam(value = "userIdNum", required = false) Integer userIdNum,
+			@RequestParam(value = "startPage", required = false) Integer startPage,
+			@RequestParam(value = "endPage", required = false) Integer endPage) {
+
+		startPage = (startPage == null) ? 0 : startPage;
+		endPage = (endPage == null) ? 20 : endPage;
+
+		List<BookGrade> bookGradeList = bookGradeService.getListMyBookGrade(
+				userIdNum, startPage, endPage);
+
+		if (bookGradeList != null) {
+
+			for (int i = 0; i < bookGradeList.size(); i++) {
+
+				Integer bookIdNum = bookGradeList.get(i).getIdNum();
+
+				Book book = bookService.getBook(bookIdNum);
+
+				bookGradeList.get(i).setBook(book);
+
+			}
+
+		} else {
+
+		}
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("book/getListMyGrade");
+		mav.addObject("bookGradeList", bookGradeList);
+
+		return mav;
+
+	}
 }

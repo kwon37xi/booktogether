@@ -20,13 +20,10 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 	@Resource(name = "bookMarkJdbcDao")
 	private BookMarkDao bookMarkJdbcDao;
-	
-	
+
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
-	
 
-	
 	@Override
 	@Transactional(readOnly = false)
 	public boolean insertBookMark(BookMark bookMark) {
@@ -41,7 +38,6 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 	}
 
-	
 	@Override
 	@Transactional(readOnly = false)
 	public boolean modifyBookMark(BookMark bookMark) {
@@ -70,8 +66,6 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 	}
 
-	
-	
 	@Override
 	public List<BookMark> getListBookMark(Integer bookIdNum, Integer startPage,
 			Integer endPage) {
@@ -79,18 +73,13 @@ public class BookMarkServiceImpl implements BookMarkService {
 		return bookMarkJdbcDao.getListBookMark(bookIdNum, startPage, endPage);
 	}
 
-	
-	
 	@Override
-	public List<BookMark> getListMyBookMark(Integer userIdNum,
-			Integer startPage, Integer endPage) {
+	public List<BookMark> getListMyBookMark(Integer userIdNum, Integer bookInNum) {
 
-		return bookMarkJdbcDao.getListMyBookMark(userIdNum, startPage, endPage);
+		return bookMarkJdbcDao.getListMyBookMark(userIdNum, bookInNum);
 
 	}
 
-	
-	
 	@Override
 	@Transactional(readOnly = false)
 	public String modifyVibe(BookMark bookMark) {
@@ -112,7 +101,7 @@ public class BookMarkServiceImpl implements BookMarkService {
 				} else {
 					throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 				}
-				
+
 			} else {
 				throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 			}
@@ -122,5 +111,6 @@ public class BookMarkServiceImpl implements BookMarkService {
 		}
 
 	}
+
 
 }
