@@ -56,7 +56,7 @@ public interface LibraryService {
 	 * @param endPage
 	 * @return
 	 */
-	public List<PossessBook> getListPossessBook(Integer userIdNum,
+	public List<PossessBook> getListPossessBook(String userId,
 			Integer startPage, Integer endPage);
 
 	/**

@@ -102,6 +102,60 @@
 					<tr>
 						<td>
 							<input type="checkbox" name="isPossess" value="1"/>소유여부
+							<div>
+								<table>
+									<tr>
+										<td>구입날짜</td>
+										<td>
+											<input type="text" name="purchaseDateYear" size="4"/>
+											<input type="text" name="purchaseDateMonth" size="2"/>
+											<input type="text" name="purchaseDateDate" size="2"/>
+										</td>
+									</tr>
+									<tr>
+										<td>구입가격</td>
+										<td>
+											<input type="text" name="purchasePrice" size="20"/>
+										</td>
+									</tr>
+									<tr>
+										<td>독서시작일</td>
+										<td>
+											<input type="text" name="beginReadYear" size="4"/>
+											<input type="text" name="beginReadMonth" size="2"/>
+											<input type="text" name="beginReadDate" size="2"/>
+										</td>
+									</tr>
+									<tr>
+										<td>독서종료일</td>
+										<td>
+											<input type="text" name="endReadYear" size="4"/>
+											<input type="text" name="endReadMonth" size="2"/>
+											<input type="text" name="endReadDate" size="2"/>
+										</td>
+									</tr>
+									<tr>
+										<td>책품질</td>
+										<td>
+											<select name="quality">
+												<option value="0">상</option>
+												<option value="1">중</option>
+												<option value="2">하</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td>책상태</td>
+										<td>
+											<select name="bookstate">
+												<option value="0">소유</option>
+												<option value="1">대여중</option>
+												<option value="2">교환중</option>
+											</select>
+										</td>
+									</tr>
+								</table>
+							</div>
 						</td>
 					</tr>
 				</tbody>

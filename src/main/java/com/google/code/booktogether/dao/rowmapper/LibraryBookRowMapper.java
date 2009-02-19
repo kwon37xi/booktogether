@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 import com.google.code.booktogether.web.domain.LibraryBook;
-import com.google.code.booktogether.web.domain.User;
-import com.google.code.booktogether.web.domain.UserAddInfo;
 
 /**
  * 사용자 정보 목록화할때 사용
@@ -30,7 +28,7 @@ public class LibraryBookRowMapper implements ParameterizedRowMapper<LibraryBook>
 		libraryBook.setIdNum(rs.getInt("IDNUM"));
 		libraryBook.setReadDate(rs.getDate("READ_DATE"));
 		libraryBook.setState(rs.getInt("STATE"));
-		libraryBook.setIsPosssess(rs.getInt("ISPOSSESS"));
+		libraryBook.setIsPossess(rs.getInt("ISPOSSESS"));
 	
 		libraryBook.getBook().setIdNum(rs.getInt("BIDNUM"));
 		libraryBook.getLibrary().setIdNum(rs.getInt("LIDNUM"));

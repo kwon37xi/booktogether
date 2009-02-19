@@ -34,6 +34,11 @@
 								<a href="/user/getUser.do">회원조회</a>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<a href="/library/getLibrary.do?userId=${sessionScope.userId}">내서재가기</a>
+							</td>
+						</tr>
 					</tbody>
 					<tfoot>
 						<tr>

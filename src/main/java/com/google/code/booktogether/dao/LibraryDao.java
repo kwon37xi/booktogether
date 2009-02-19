@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
+import com.google.code.booktogether.web.domain.PossessBook;
 
 public interface LibraryDao {
 
@@ -72,4 +73,29 @@ public interface LibraryDao {
 	 * @return
 	 */
 	public LibraryBook getLibraryBook(Integer librarBookIdNum);
+	
+	
+	/**
+	 * 내서재에 있는 책 삭제
+	 * @param libraryBookIdNum
+	 * @return
+	 */
+	public int deleteLibraryBook(Integer libraryBookIdNum);
+	
+	
+	/**
+	 * 내가 소유한 책 정보 등록
+	 * @param possessBook
+	 * @return
+	 */
+	public int insertPossessBook(PossessBook possessBook);
+	
+	/**
+	 * 내가 소유한 책 목록
+	 * @param userId
+	 * @param startPage
+	 * @param endpage
+	 * @return
+	 */
+	public List<PossessBook> getListPossessBook(String userId, Integer startPage, Integer endPage);
 }

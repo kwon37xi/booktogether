@@ -88,9 +88,9 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="radio" name="state" value="0" ${library.isOpen==0 ? 'checked' : ''}/>읽고 싶은책<br/>
-							<input type="radio" name="state" value="1" ${library.isOpen==1 ? 'checked' : ''}/>읽고 있는책<br/>
-							<input type="radio" name="state" value="2" ${library.isOpen==2 ? 'checked' : ''}/>읽은 책<br/>
+							<input type="radio" name="state" value="0" ${libraryBook.state==0 ? 'checked' : ''}/>읽고 싶은책<br/>
+							<input type="radio" name="state" value="1" ${libraryBook.state==1 ? 'checked' : ''}/>읽고 있는책<br/>
+							<input type="radio" name="state" value="2" ${libraryBook.state==2 ? 'checked' : ''}/>읽은 책<br/>
 						</td>
 					</tr>
 					<tr>
@@ -105,7 +105,7 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="checkbox" name="isPossess" ${libraryBook.isPossess==1 ? 'checked' : '' value="1"/>소유여부
+							<input type="checkbox" name="isPossess" ${libraryBook.isPossess==1 ? 'checked' : ''} value="1" />소유여부
 						</td>
 					</tr>
 				</tbody>

@@ -63,7 +63,7 @@
 								<td><a href="/library/getListLibraryBook.do?state=2&libraryIdNum=${library.idNum}">읽은 책</a></td>
 							</tr>
 							<tr>
-								<td>내가 보유한 책</td>
+								<td><a href="/library/getListPossessBook.do?userId=${library.user.userId}">내가 보유한 책</a></td>
 							</tr>
 							<tr>
 								<td>주위에 있는 책</td>

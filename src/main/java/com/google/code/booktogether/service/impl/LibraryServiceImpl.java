@@ -67,8 +67,14 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean deleteLibraryBook(Integer libraryBookIdNum) {
-		// TODO Auto-generated method stub
-		return false;
+
+		int count = libraryDao.deleteLibraryBook(libraryBookIdNum);
+
+		if (count != 1) {
+			throw new BooktogetherException("개인서재 등록 실패");
+		} else {
+			return true;
+		}
 	}
 
 	@Override
@@ -98,10 +104,14 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public List<PossessBook> getListPossessBook(Integer userIdNum,
+	public List<PossessBook> getListPossessBook(String userIdNum,
 			Integer startPage, Integer endPage) {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<PossessBook> possessBookList = libraryDao.getListPossessBook(
+				userIdNum, startPage, endPage);
+
+		return possessBookList;
+
 	}
 
 	@Override
@@ -127,8 +137,15 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean insertPossessBook(PossessBook possessBook) {
-		// TODO Auto-generated method stub
-		return false;
+
+		int count = libraryDao.insertPossessBook(possessBook);
+
+		if (count != 1) {
+			throw new BooktogetherException("소유한 책정보 등록 실패");
+		} else {
+			return true;
+		}
+
 	}
 
 	@Override
@@ -140,7 +157,7 @@ public class LibraryServiceImpl implements LibraryService {
 		if (count != 1) {
 			throw new BooktogetherException("개인서재 책 수정 실패");
 		} else {
-			return false;
+			return true;
 		}
 	}
 
