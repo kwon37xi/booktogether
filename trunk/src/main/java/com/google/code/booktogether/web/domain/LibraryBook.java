@@ -43,7 +43,7 @@ public class LibraryBook extends BaseObject{
 	/**
 	 * 소유여부
 	 */
-	private Integer isPosssess;
+	private Integer isPossess;
 	
 	
 	
@@ -87,14 +87,14 @@ public class LibraryBook extends BaseObject{
 		State = state;
 	}
 
-	public Integer getIsPosssess() {
-		return isPosssess;
+	public Integer getIsPossess() {
+		return isPossess;
 	}
 
-	public void setIsPosssess(Integer isPosssess) {
-		this.isPosssess = isPosssess;
+	public void setIsPossess(Integer isPossess) {
+		this.isPossess = isPossess;
 	}
-	
+
 	
 
 }

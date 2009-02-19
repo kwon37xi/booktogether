@@ -123,6 +123,59 @@
 		</query>
 	</sql>
 	
+	
+	<sql name="DELETE_LIBRARYBOOK_SQL">
+		<description>서재에 해당책 삭제</description>
+		<query>
+            <![CDATA[
+             DELETE FROM LIBRARYBOOK  
+              WHERE idNum = ? 
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="INSERT_POSSESSBOOK_SQL">
+		<description>내가 소유한 책 등록</description>
+		<query>
+            <![CDATA[
+             INSERT INTO POSSESSBOOK(book_idNum
+             						 , user_idNum
+             						 , purchase_date
+             						 , purchase_price
+             						 , begin_read
+             						 , end_read
+             						 , quality
+             						 , state)   
+             VALUES(?, ?, ?, ?, ?, ?, ?, ?)
+            ]]>
+		</query>
+	</sql>
+	
+	
+	
+	<sql name="LIST_POSSESSBOOK_SQL">
+		<description>내가 소유한 책 목록</description>
+		<query>
+            <![CDATA[
+             SELECT POS.idNum as idNum
+                    ,POS.book_idNum as bidNum
+                    ,POS.user_idNum as uidNum
+                    ,POS.purchase_Date as pdate
+                    ,POS.purchase_Price as price
+                    ,POS.begin_Read as bread
+                    ,POS.end_Read as eread 
+                    ,POS.quality as quality
+                    ,POS.state  as state
+               FROM POSSESSBOOK POS, USER U  
+              WHERE U.user_id = ? 
+                AND U.isdelete = 0
+                AND U.idNum = POS.user_idNum 
+              LIMIT ?, ?
+            ]]>
+		</query>
+	</sql>
+	
 
 
 </sqls>

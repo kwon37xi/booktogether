@@ -39,7 +39,7 @@ public class PossessBook extends BaseObject {
 	/**
 	 * 구입 가격
 	 */
-	private Date purchasePrice;
+	private Integer purchasePrice;
 	
 	/**
 	 * 독서 시작일
@@ -88,14 +88,6 @@ public class PossessBook extends BaseObject {
 		this.purchaseDate = purchaseDate;
 	}
 
-	public Date getPurchasePrice() {
-		return purchasePrice;
-	}
-
-	public void setPurchasePrice(Date purchasePrice) {
-		this.purchasePrice = purchasePrice;
-	}
-
 	public Date getBeginRead() {
 		return beginRead;
 	}
@@ -134,6 +126,14 @@ public class PossessBook extends BaseObject {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Integer getPurchasePrice() {
+		return purchasePrice;
+	}
+
+	public void setPurchasePrice(Integer purchasePrice) {
+		this.purchasePrice = purchasePrice;
 	}
 	
 	

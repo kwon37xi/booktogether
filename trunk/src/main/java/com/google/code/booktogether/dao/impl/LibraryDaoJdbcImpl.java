@@ -12,9 +12,11 @@ import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.LibraryDao;
 import com.google.code.booktogether.dao.rowmapper.LibraryBookRowMapper;
 import com.google.code.booktogether.dao.rowmapper.LibraryRowMapper;
+import com.google.code.booktogether.dao.rowmapper.PossessBookRowMapper;
 import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
+import com.google.code.booktogether.web.domain.PossessBook;
 
 @Repository("libraryJdbcDao")
 public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
@@ -78,7 +80,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 				new Object[] { libraryBook.getBook().getIdNum(),
 						libraryBook.getLibrary().getIdNum(),
 						libraryBook.getReadDate(), libraryBook.getState(),
-						libraryBook.getIsPosssess() });
+						libraryBook.getIsPossess() });
 
 		return count;
 	}
@@ -122,7 +124,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 		int count = getSimpleJdbcTemplate().update(
 				sql,
 				new Object[] { libraryBook.getState(),
-						libraryBook.getReadDate(), libraryBook.getIsPosssess(),
+						libraryBook.getReadDate(), libraryBook.getIsPossess(),
 						libraryBook.getLibrary().getIdNum(),
 						libraryBook.getBook().getIdNum(),
 						libraryBook.getIdNum() });
@@ -143,6 +145,48 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 						new Object[] { librarBookIdNum }));
 
 		return libraryBook;
+	}
+
+	@Override
+	public int deleteLibraryBook(Integer libraryBookIdNum) {
+
+		String sql = sqlparser.getSQL("library", "DELETE_LIBRARYBOOK_SQL");
+
+		int count = getSimpleJdbcTemplate().update(sql,
+				new Object[] { libraryBookIdNum });
+
+		return count;
+	}
+
+	@Override
+	public int insertPossessBook(PossessBook possessBook) {
+
+		String sql = sqlparser.getSQL("library", "INSERT_POSSESSBOOK_SQL");
+
+		int count = getSimpleJdbcTemplate().update(
+				sql,
+				new Object[] { possessBook.getBook().getIdNum(),
+						possessBook.getUser().getIdNum(),
+						possessBook.getPurchaseDate(),
+						possessBook.getPurchasePrice(),
+						possessBook.getBeginRead(), possessBook.getEndRead(),
+						possessBook.getQuality(), possessBook.getState() });
+
+		return count;
+	}
+
+	@Override
+	public List<PossessBook> getListPossessBook(String userId,
+			Integer startPage, Integer endPage) {
+
+		PossessBookRowMapper rowMapper = new PossessBookRowMapper();
+
+		String sql = sqlparser.getSQL("library", "LIST_POSSESSBOOK_SQL");
+
+		List<PossessBook> possessBookList = getSimpleJdbcTemplate().query(sql,
+				rowMapper, new Object[] { userId, startPage, endPage });
+
+		return possessBookList;
 	}
 
 }

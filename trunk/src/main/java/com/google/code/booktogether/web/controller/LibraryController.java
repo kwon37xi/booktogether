@@ -22,6 +22,7 @@ import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
+import com.google.code.booktogether.web.domain.PossessBook;
 import com.google.code.booktogether.web.domain.User;
 
 /**
@@ -85,7 +86,7 @@ public class LibraryController extends AbstractController {
 	}
 
 	/**
-	 * 수정하기
+	 * 서재 수정하기
 	 * 
 	 * @param req
 	 * @return 수정하기
@@ -125,7 +126,7 @@ public class LibraryController extends AbstractController {
 	}
 
 	/**
-	 * 조회하기
+	 * 서재 조회하기
 	 * 
 	 * @param req
 	 * @return 조회화면
@@ -226,9 +227,25 @@ public class LibraryController extends AbstractController {
 			LibraryBook libraryBook,
 			@RequestParam(value = "readDateYear", required = false) Integer readDateYear,
 			@RequestParam(value = "readDateMonth", required = false) Integer readDateMonth,
-			@RequestParam(value = "readDateDate", required = false) Integer readDateDate) {
+			@RequestParam(value = "readDateDate", required = false) Integer readDateDate,
+			@RequestParam(value = "purchaseDateYear", required = false) Integer purchaseDateYear,
+			@RequestParam(value = "purchaseDateMonth", required = false) Integer purchaseDateMonth,
+			@RequestParam(value = "purchaseDateDate", required = false) Integer purchaseDateDate,
+			@RequestParam(value = "purchasePrice", required = false) Integer purchasePrice,
+			@RequestParam(value = "beginReadYear", required = false) Integer beginReadYear,
+			@RequestParam(value = "beginReadMonth", required = false) Integer beginReadMonth,
+			@RequestParam(value = "beginReadDate", required = false) Integer beginReadDate,
+			@RequestParam(value = "endReadYear", required = false) Integer endReadYear,
+			@RequestParam(value = "endReadMonth", required = false) Integer endReadMonth,
+			@RequestParam(value = "endReadDate", required = false) Integer endReadDate,
+			@RequestParam(value = "quality", required = false) Integer quality,
+			@RequestParam(value = "bookstate", required = false) Integer bookstate) {
 
 		log.info(libraryBook);
+
+		ServletRequestAttributes sra = new ServletRequestAttributes(req);
+
+		Calendar cal = Calendar.getInstance();
 
 		if (readDateYear == null || readDateMonth == null
 				|| readDateDate == null) {
@@ -237,17 +254,37 @@ public class LibraryController extends AbstractController {
 
 		} else {
 
-			Calendar cal = Calendar.getInstance();
-
-			cal.set(readDateYear, readDateMonth, readDateDate);
+			cal.set(readDateYear, readDateMonth - 1, readDateDate);
 
 			libraryBook.setReadDate(cal.getTime());
 
 		}
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
 		boolean result = libraryService.insertLibraryBook(libraryBook);
+
+		if (libraryBook.getIsPossess() != null && result) {
+
+			PossessBook possessBook = new PossessBook();
+			possessBook.setPurchasePrice(purchasePrice);
+			possessBook.setState(bookstate);
+			possessBook.setQuality(quality);
+			possessBook.getBook().setIdNum(libraryBook.getBook().getIdNum());
+			possessBook.getUser().setIdNum(getLoginUserIdNum());
+
+			cal.set(purchaseDateYear, purchaseDateMonth - 1, purchaseDateDate);
+			possessBook.setPurchaseDate(cal.getTime());
+
+			cal.set(beginReadYear, beginReadMonth - 1, beginReadDate);
+			possessBook.setBeginRead(cal.getTime());
+
+			cal.set(endReadYear, endReadMonth - 1, endReadDate);
+			possessBook.setEndRead(cal.getTime());
+
+			log.info(possessBook);
+
+			result = libraryService.insertPossessBook(possessBook);
+
+		}
 
 		// 성공시
 		if (result) {
@@ -318,7 +355,7 @@ public class LibraryController extends AbstractController {
 
 			Calendar cal = Calendar.getInstance();
 
-			cal.set(readDateYear, readDateMonth, readDateDate);
+			cal.set(readDateYear, readDateMonth - 1, readDateDate);
 
 			libraryBook.setReadDate(cal.getTime());
 
@@ -357,6 +394,8 @@ public class LibraryController extends AbstractController {
 	public ModelAndView handleDeleteLibraryBook(
 			HttpServletRequest req,
 			@RequestParam(value = "libraryBookIdNum", required = false) Integer libraryBookIdNum) {
+
+		log.info("삭제 할려고한다.");
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
@@ -424,4 +463,42 @@ public class LibraryController extends AbstractController {
 
 	}
 
+	/**
+	 * 내가 보유한 책 목록 조회
+	 * 
+	 * @param req
+	 * @return 내가 보유한 책 목록 화면
+	 */
+	@RequestMapping("/library/getListPossessBook.do")
+	public ModelAndView handleGetPossessBook(
+			HttpServletRequest req,
+			@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "startPage", required = false) Integer startPage,
+			@RequestParam(value = "endPage", required = false) Integer endPage) {
+
+		startPage = (startPage == null) ? 0 : startPage;
+		endPage = (endPage == null) ? 20 : endPage;
+
+		List<PossessBook> possessBookList = libraryService.getListPossessBook(
+				userId, startPage, endPage);
+
+		if (possessBookList != null) {
+
+			for (int i = 0; i < possessBookList.size(); i++) {
+				Integer bookIdNum = possessBookList.get(i).getBook().getIdNum();
+
+				Book book = bookService.getBook(bookIdNum);
+				
+				possessBookList.get(i).setBook(book);
+			}
+
+		}
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("library/getListPossessBook");
+		mav.addObject("possessBookList", possessBookList);
+
+		return mav;
+
+	}
 }
