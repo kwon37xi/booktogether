@@ -1,5 +1,7 @@
 package com.google.code.booktogether.web.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,12 +39,9 @@ public class BookReviewController extends AbstractController {
 	@Resource(name = "bookService")
 	BookService bookService;
 
-	//로그 표시를 위하여
+	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
-	
-	
-	
-	
+
 	/**
 	 * 리뷰 등록 화면
 	 * 
@@ -50,13 +49,14 @@ public class BookReviewController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping("/book/insertBookReviewView.do")
-	public ModelAndView handleInsertBookReviewView(HttpServletRequest req,
+	public ModelAndView handleInsertBookReviewView(
+			HttpServletRequest req,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
 		Book book = bookService.getBook(bookIdNum);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("review/insertReview");
+		mav.setViewName("book/insertReview");
 		mav.addObject("bookInfo", book);
 		return mav;
 
@@ -159,7 +159,7 @@ public class BookReviewController extends AbstractController {
 		Book book = bookService.getBook(bookIdNum);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("review/modifyReview");
+		mav.setViewName("book/modifyReview");
 		mav.addObject("bookInfo", book);
 		mav.addObject("bookReviewInfo", bookReview);
 
@@ -183,7 +183,7 @@ public class BookReviewController extends AbstractController {
 		Book book = bookService.getBook(bookReview.getBook().getIdNum());
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("review/getReview");
+		mav.setViewName("book/getReview");
 		mav.addObject("bookInfo", book);
 		mav.addObject("bookReviewInfo", bookReview);
 
@@ -213,7 +213,7 @@ public class BookReviewController extends AbstractController {
 		Book book = bookService.getBook(bookIdNum);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("review/getReview");
+		mav.setViewName("book/getReview");
 		mav.addObject("bookInfo", book);
 		mav.addObject("bookReviewInfo", bookReview);
 
@@ -267,10 +267,10 @@ public class BookReviewController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping("/book/modifyRecommend.do")
-	public ModelAndView handleModifyRecommend(HttpServletRequest req,
+	public ModelAndView handleModifyRecommend(
+			HttpServletRequest req,
 			@RequestParam(value = "recommandIdNum", required = false) Integer recommandIdNum,
-			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum
-			) {
+			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
@@ -288,6 +288,49 @@ public class BookReviewController extends AbstractController {
 
 		return new ModelAndView("redirect:/book/getReview.do?bookIdNum="
 				+ bookIdNum);
+
+	}
+
+	/**
+	 * 내가 입력한 리뷰 목록 가지고 오기
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/book/getListMyReview.do")
+	public ModelAndView handleGetListMyReview(
+			HttpServletRequest req,
+			@RequestParam(value = "userIdNum", required = false) Integer userIdNum,
+			@RequestParam(value = "startPage", required = false) Integer startPage,
+			@RequestParam(value = "endPage", required = false) Integer endPage) {
+
+		startPage = (startPage == null) ? 0 : startPage;
+		endPage = (endPage == null) ? 20 : endPage;
+		
+		List<BookReview> bookReviewList = bookReviewService
+				.getListMyBookReview(userIdNum, startPage, endPage);
+		
+		if(bookReviewList!=null){
+			
+			for(int i=0;i<bookReviewList.size();i++){
+				
+				Integer bookIdNum=bookReviewList.get(i).getBook().getIdNum();
+				
+				Book book=bookService.getBook(bookIdNum);
+				
+				bookReviewList.get(i).setBook(book);
+				
+			}
+			
+		}else{
+			log.info("결과가 없는거 같애요");
+		}
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("book/getListMyReview");
+		mav.addObject("bookReviewList", bookReviewList);
+
+		return mav;
 
 	}
 

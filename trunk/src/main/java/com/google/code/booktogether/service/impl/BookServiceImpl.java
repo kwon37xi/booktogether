@@ -24,11 +24,9 @@ public class BookServiceImpl implements BookService {
 	// 책 JDBC DAO DI
 	@Resource(name = "bookJdbcDao")
 	private BookDao bookJdbcDao;
-	
-	
+
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
-	
 
 	// 책 등록
 	@Override
@@ -92,7 +90,7 @@ public class BookServiceImpl implements BookService {
 			book = new BookOpenApiDaumImpl().viewBook(isbn);
 
 			log.info(book);
-			
+
 			// DB에 넣기
 			this.insertBook(book);
 
@@ -123,6 +121,32 @@ public class BookServiceImpl implements BookService {
 				.getHeader();
 
 		pageBean.setDbCount(Integer.parseInt(header.getTotalCount()));
+
+		return bookList;
+	}
+
+	@Override
+	public List<Book> getListBookRefBookMark(Integer userIdNum,
+			Integer startPage, Integer endPage) {
+
+		List<Book> bookList = bookJdbcDao.getListBookRefBookMark(userIdNum,
+				startPage, endPage);
+
+		if (bookList != null) {
+
+			for (int i = 0; i < bookList.size(); i++) {
+
+				// 해당 책관련 지은이 가지고오기
+				List<Author> authorList = bookJdbcDao
+						.getAuthor(bookList.get(i));
+
+				// List<Author> -> array로 변환
+				bookList.get(i).setAuthors(
+						(Author[]) authorList.toArray(new Author[authorList
+								.size()]));
+			}
+
+		}
 
 		return bookList;
 	}

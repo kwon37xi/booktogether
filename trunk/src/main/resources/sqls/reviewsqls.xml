@@ -30,7 +30,7 @@
              UPDATE BOOKREVIEW 
              	SET TITLE = ? 
              	    ,REVIEW = ?
-              WHERE id=?
+              WHERE idNum=?
                 AND user_idNum=? 
                 AND book_idNum=?
             ]]>
@@ -89,14 +89,11 @@
              SELECT BR.idNum as idNum
              		,BR.recommend as recommend 
              		,BR.title as title 
-             		,BR.book_id as bidNum
-             	    ,B.name as bname
-             	    ,B.isbn10 as bisbn
-             	    ,B.publish_comp as bcomp
-             FROM BOOK B, USER U, BOOKREVIEW BR  
+             		,BR.book_idNum as bidNum
+             		,U.idNum as uidNum 
+             FROM USER U, BOOKREVIEW BR  
              WHERE BR.user_idNum = ?  
                AND BR.user_idNum=U.idNum 
-               AND BR.book_idNum=B.idNum  
                AND U.isdelete=0 
              LIMIT ?,? 
             ]]>
@@ -112,11 +109,11 @@
              	    ,U.user_id as user_id 
              	    ,U.name as user_name 
              	    ,U.nickname as user_nickname
-             	    ,BR.id as idNum 
+             	    ,BR.idNum as idNum 
              	    ,BR.recommend as recommend
              	    ,BR.review as review 
              	    ,BR.title as title 
-             	    ,BR.book_id as bidNum 
+             	    ,BR.book_idNum as bidNum 
              FROM USER U, BOOKREVIEW BR  
              WHERE BR.book_idNum = ? 
                AND BR.user_idNum = ?  
@@ -134,11 +131,11 @@
              	    ,U.user_id as user_id 
              	    ,U.name as user_name 
              	    ,U.nickname as user_nickname
-             	    ,BR.id as idNum 
+             	    ,BR.idNum as idNum 
              	    ,BR.recommend as recommend
              	    ,BR.review as review 
              	    ,BR.title as title
-             	    ,B.id as bidNum 
+             	    ,B.idNum as bidNum 
              FROM USER U, BOOKREVIEW BR, BOOK B  
              WHERE BR.idNum = ? 
                AND BR.user_idNum = U.idNum 

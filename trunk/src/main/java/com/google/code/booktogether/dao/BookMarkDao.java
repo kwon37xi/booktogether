@@ -43,7 +43,7 @@ public interface BookMarkDao {
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookMark> getListMyBookMark(Integer userIdNum,Integer startPage, Integer endPage);
+	public List<BookMark> getListMyBookMark(Integer userIdNum,Integer bookIdNum);
 
 	/**
 	 * 내가 매긴 공감이 있는지 체크

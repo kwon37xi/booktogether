@@ -16,7 +16,7 @@
 			<tbody>
 				<tr>
 					<td>책표지</td>
-					<td><img src="${bookInfo.bookCorver}"/></td>
+					<td><img src="${bookInfo.bookCover}"/></td>
 				</tr>
 				<tr>
 					<td>책이름</td>

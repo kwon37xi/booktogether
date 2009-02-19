@@ -40,4 +40,14 @@ public interface BookService {
 	 */
 	public List<Book> searchBook(String query, String searchType, PageBean pageBean);
 	
+	
+	/**
+	 * 내가 작성한 인용구의 책 정보
+	 * @param userIdNum
+	 * @param startPage
+	 * @param endPage
+	 * @return
+	 */
+	public List<Book> getListBookRefBookMark(Integer userIdNum, Integer startPage, Integer endPage);
+	
 }

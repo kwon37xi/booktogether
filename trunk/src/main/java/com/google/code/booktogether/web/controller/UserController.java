@@ -79,8 +79,8 @@ public class UserController extends AbstractController {
 		// 이미지 만들기
 		String filename = userService.createImageResize(file, realPath);
 
-		Zone[] zones=null;
-		
+		Zone[] zones = null;
+
 		// 지역명 세팅하기
 		if (zoneNames != null) {
 
@@ -99,8 +99,8 @@ public class UserController extends AbstractController {
 				}
 
 			}
-		}else{
-			zones=new Zone[0];
+		} else {
+			zones = new Zone[0];
 		}
 
 		// 추가정보 빈에 세팅
@@ -295,7 +295,6 @@ public class UserController extends AbstractController {
 	@RequestMapping("/user/modifyUser.do")
 	public ModelAndView handleModifyUser(
 			HttpServletRequest req,
-			@RequestParam(value = "userId", required = false) String userId,
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "nickname", required = false) String nickname,
 			@RequestParam(value = "name", required = false) String name,
@@ -303,7 +302,7 @@ public class UserController extends AbstractController {
 			@RequestParam(value = "blog", required = false) String blog,
 			@RequestParam(value = "zone", required = false) String zoneNames[],
 			@RequestParam(value = "currThumnail", required = false) String currThumnail,
-			@RequestParam(value = "userAddInfoId", required = false) Integer userAddInfoId,
+			@RequestParam(value = "userAddInfoIdNum", required = false) Integer userAddInfoIdNum,
 			@RequestParam(value = "thumnail", required = false) MultipartFile file) {
 
 		ServletRequestAttributes sra = new ServletRequestAttributes(req);
@@ -334,25 +333,35 @@ public class UserController extends AbstractController {
 			filename = currThumnail;
 		}
 
-		// 지역명 가지고 오기
-		Zone[] zones = new Zone[zoneNames.length];
+		Zone[] zones = null;
 
-		for (int i = 0; i < zoneNames.length; i++) {
+		if (zoneNames != null) {
+			
+			// 지역명 가지고 오기
+			zones = new Zone[zoneNames.length];
 
-			if (zoneNames[i] != null && !zoneNames[i].equals("")) {
+			for (int i = 0; i < zoneNames.length; i++) {
 
-				Zone zone = new Zone();
+				if (zoneNames[i] != null && !zoneNames[i].equals("")) {
 
-				zone.setZone(Integer.parseInt(zoneNames[i]));
+					Zone zone = new Zone();
 
-				zones[i] = zone;
+					zone.setUserIdNum(getLoginUserIdNum());
+					zone.setZone(Integer.parseInt(zoneNames[i]));
+
+					zones[i] = zone;
+				}
+
 			}
-
+		} else {
+			
+			zones = new Zone[0];
+			
 		}
 
 		// 사용자 추가 정보
 		UserAddInfo userAddInfo = new UserAddInfo();
-		userAddInfo.setIdNum(userAddInfoId);
+		userAddInfo.setIdNum(userAddInfoIdNum);
 		userAddInfo.setBlog(blog);
 		userAddInfo.setThumnail(filename);
 

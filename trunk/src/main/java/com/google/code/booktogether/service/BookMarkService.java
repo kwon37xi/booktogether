@@ -13,7 +13,6 @@ public interface BookMarkService {
 	 */
 	public boolean insertBookMark(BookMark bookMark);
 	
-	
 	/**
 	 * 인용구 수정
 	 * @param bookMark
@@ -44,8 +43,9 @@ public interface BookMarkService {
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookMark> getListMyBookMark(Integer userIdNum, Integer startPage, Integer endPage);
-
+	public List<BookMark> getListMyBookMark(Integer userIdNum, Integer bookIdNum);
+	
+	
 	/**
 	 * 인용구 수정
 	 * @param bookMark

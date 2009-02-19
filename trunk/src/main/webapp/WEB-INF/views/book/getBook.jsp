@@ -94,9 +94,9 @@
 									<c:forEach begin="${count}" end="4">☆</c:forEach>
 								</td>
 								<td>
-									${gradeInfo.user.user_id}(${gradeInfo.user.nickname})
+									${gradeInfo.user.userId}(${gradeInfo.user.nickname})
 									<c:if test="${gradeInfo.user.userId==sessionScope.userId}">
-										<a href="/book/deleteBookGrade.do?bookGradeIdNum=${gradeInfo.idNum}&bookIdNum=${gradeInfo.idNum}">삭제</a>
+										<a href="/book/deleteBookGrade.do?bookGradeIdNum=${gradeInfo.idNum}&bookIdNum=${gradeInfo.book.idNum}">삭제</a>
 									</c:if>
 								</td>
 							</tr>	
@@ -156,7 +156,7 @@
 						<c:forEach begin="0" items="${bookReviewList}" var="reviewInfo" varStatus="status">
 							<tr>
 								<td><a href="/book/getReview.do?bookIdNum=${reviewInfo.idNum}">${reviewInfo.title}</a></td>
-								<td>${reviewInfo.user.user_id}(${reviewInfo.user.nickname})</td>
+								<td>${reviewInfo.user.userId}(${reviewInfo.user.nickname})</td>
 								<td>추천수 : ${reviewInfo.recommend}</td>
 							</tr>	
 						</c:forEach>
@@ -211,7 +211,7 @@
 								</td>
 								<td>
 									${bookMarkInfo.user.userId}(${bookMarkInfo.user.nickname})
-									<c:if test="${sessionScope.idNum!=null && bookMarkInfo.user.idNum!=sessionScope.idNum}">
+									<c:if test="${sessionScope.idNum!=null && bookMarkInfo.user.idNum==sessionScope.idNum}">
 										<input type="button" value="삭제" onclick="deleteBookMark('${bookMarkInfo.idNum}','${bookInfo.idNum}')"/>
 									</c:if>
 								</td>
