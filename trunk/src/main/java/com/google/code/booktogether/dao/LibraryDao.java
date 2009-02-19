@@ -98,4 +98,19 @@ public interface LibraryDao {
 	 * @return
 	 */
 	public List<PossessBook> getListPossessBook(String userId, Integer startPage, Integer endPage);
+	
+	
+	/**
+	 * 내가 소유한 책 수정
+	 * @param possessBook
+	 * @return
+	 */
+	public int modifyPossessBook(PossessBook possessBook);
+	
+	/**
+	 * 내가 소유한 책 조회
+	 * @param possessBookIdNum
+	 * @return
+	 */
+	public PossessBook getPossessBook(Integer possessBookIdNum);
 }

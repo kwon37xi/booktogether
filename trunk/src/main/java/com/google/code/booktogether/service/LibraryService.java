@@ -41,12 +41,12 @@ public interface LibraryService {
 	public boolean insertPossessBook(PossessBook possessBook);
 
 	/**
-	 * 소유한 책 등록
+	 * 소유한 책 삭제
 	 * 
-	 * @param possessBook
+	 * @param possessBookIdNum
 	 * @return
 	 */
-	public boolean deletePossessBook(PossessBook possessBook);
+	public boolean deletePossessBook(Integer possessBookIdNum);
 
 	/**
 	 * 소유하고 있는 책 목록
@@ -59,6 +59,7 @@ public interface LibraryService {
 	public List<PossessBook> getListPossessBook(String userId,
 			Integer startPage, Integer endPage);
 
+	
 	/**
 	 * 소유 책 정보 조회
 	 * 
@@ -66,6 +67,15 @@ public interface LibraryService {
 	 * @return
 	 */
 	public PossessBook getPossessBook(Integer possessBookIdNum);
+	
+	
+	/**
+	 * 내소유책 수정
+	 * @param possessBook
+	 * @return
+	 */
+	public boolean modifyPossessBook(PossessBook possessBook);
+	
 
 	/**
 	 * 서재안에 책 등록
@@ -114,4 +124,9 @@ public interface LibraryService {
 	 * @return
 	 */
 	public boolean duplicateLibraryBook(Integer libraryIdNum, Integer boolIdNum);
+	
+	
+	
+	
+	
 }

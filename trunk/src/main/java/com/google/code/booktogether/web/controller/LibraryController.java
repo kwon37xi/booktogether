@@ -470,7 +470,7 @@ public class LibraryController extends AbstractController {
 	 * @return 내가 보유한 책 목록 화면
 	 */
 	@RequestMapping("/library/getListPossessBook.do")
-	public ModelAndView handleGetPossessBook(
+	public ModelAndView handleGetListPossessBook(
 			HttpServletRequest req,
 			@RequestParam(value = "userId", required = false) String userId,
 			@RequestParam(value = "startPage", required = false) Integer startPage,
@@ -488,7 +488,7 @@ public class LibraryController extends AbstractController {
 				Integer bookIdNum = possessBookList.get(i).getBook().getIdNum();
 
 				Book book = bookService.getBook(bookIdNum);
-				
+
 				possessBookList.get(i).setBook(book);
 			}
 
@@ -501,4 +501,96 @@ public class LibraryController extends AbstractController {
 		return mav;
 
 	}
+
+	/**
+	 * 내가 보유한 책 수정하기 화면 조회
+	 * 
+	 * @param req
+	 * @return 내가 보유한 책 수정화면
+	 */
+	@RequestMapping("/library/modifyPossessBookView.do")
+	public ModelAndView handleModifyPossessBookView(
+			HttpServletRequest req,
+			@RequestParam(value = "possessBookIdNum", required = false) Integer possessBookIdNum) {
+
+		PossessBook possessBook = libraryService
+				.getPossessBook(possessBookIdNum);
+
+		if (possessBook != null) {
+
+			Integer bookIdNum = possessBook.getBook().getIdNum();
+
+			Book book = bookService.getBook(bookIdNum);
+
+			possessBook.setBook(book);
+
+		}
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("library/modifyPossessBook");
+		mav.addObject("possessBook", possessBook);
+
+		return mav;
+
+	}
+
+	/**
+	 * 내가 보유한 책 수정하기
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/library/modifyPossessBook.do")
+	public ModelAndView handleModifyPossessBook(
+			HttpServletRequest req,
+			PossessBook possessBook,
+			@RequestParam(value = "readDateYear", required = false) Integer readDateYear,
+			@RequestParam(value = "readDateMonth", required = false) Integer readDateMonth,
+			@RequestParam(value = "readDateDate", required = false) Integer readDateDate,
+			@RequestParam(value = "purchaseDateYear", required = false) Integer purchaseDateYear,
+			@RequestParam(value = "purchaseDateMonth", required = false) Integer purchaseDateMonth,
+			@RequestParam(value = "purchaseDateDate", required = false) Integer purchaseDateDate,
+			@RequestParam(value = "beginReadYear", required = false) Integer beginReadYear,
+			@RequestParam(value = "beginReadMonth", required = false) Integer beginReadMonth,
+			@RequestParam(value = "beginReadDate", required = false) Integer beginReadDate,
+			@RequestParam(value = "endReadYear", required = false) Integer endReadYear,
+			@RequestParam(value = "endReadMonth", required = false) Integer endReadMonth,
+			@RequestParam(value = "endReadDate", required = false) Integer endReadDate) {
+
+		ServletRequestAttributes sra = new ServletRequestAttributes(req);
+
+		Calendar cal = Calendar.getInstance();
+
+		possessBook.getUser().setIdNum(getLoginUserIdNum());
+
+		cal.set(purchaseDateYear, purchaseDateMonth - 1, purchaseDateDate);
+		possessBook.setPurchaseDate(cal.getTime());
+
+		cal.set(beginReadYear, beginReadMonth - 1, beginReadDate);
+		possessBook.setBeginRead(cal.getTime());
+
+		cal.set(endReadYear, endReadMonth - 1, endReadDate);
+		possessBook.setEndRead(cal.getTime());
+
+		boolean result = libraryService.modifyPossessBook(possessBook);
+
+		// 성공시
+		if (result) {
+
+			sra.setAttribute("message", "내소유 책 수정 성공",
+					RequestAttributes.SCOPE_SESSION);
+
+		} else { // 실패시
+
+			sra.setAttribute("message", "내소유 책 수정 실패",
+					RequestAttributes.SCOPE_SESSION);
+		}
+
+		// 경로 설정
+		return new ModelAndView(
+				"redirect:/library/getListPossessBook.do?userId="
+						+ getLoginUserId());
+
+	}
+
 }
