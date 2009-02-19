@@ -219,4 +219,28 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 		return possessBook;
 	}
 
+	@Override
+	public int deletePossessBook(Integer possessBookIdNum) {
+
+		String sql = sqlparser.getSQL("library", "DELETE_POSSESSBOOK_SQL");
+
+		int count = getSimpleJdbcTemplate().update(sql,
+				new Object[] { possessBookIdNum });
+
+		return count;
+	}
+
+	@Override
+	public int modifyLibraryBookIsPossess(Integer userIdNum,
+			Integer possessBookIdNum) {
+
+		String sql = sqlparser.getSQL("library",
+				"MODIFY_ISPOSSESS_LIBRARYBOOK_SQL");
+
+		int count = getSimpleJdbcTemplate().update(sql,
+				new Object[] { possessBookIdNum, userIdNum });
+
+		return count;
+	}
+
 }

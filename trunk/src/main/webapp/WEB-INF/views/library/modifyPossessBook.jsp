@@ -76,7 +76,8 @@
 		내 소유책 수정하기
 		<form name="modifyPossessBookform" method="post" action="/library/modifyPossessBook.do">
 		
-			<input type="hidden" name="book.idNum" value="${bookInfo.idNum}"/>
+			<input type="hidden" name="idNum" value="${possessBook.idNum}"/>
+			<input type="hidden" name="book.idNum" value="${possessBook.book.idNum}"/>
 			
 			<table>
 				<tr>
@@ -85,7 +86,7 @@
 						<fmt:formatDate value="${possessBook.purchaseDate}" pattern="yyyy" var="purchaseDateYear"/>
 						<fmt:formatDate value="${possessBook.purchaseDate}" pattern="MM" var="purchaseDateMonth"/>
 						<fmt:formatDate value="${possessBook.purchaseDate}" pattern="dd" var="purchaseDateDate"/>
-						<input type="text" name="purchaseDateYear" size="4" value="${purchaseDateDate}"/>
+						<input type="text" name="purchaseDateYear" size="4" value="${purchaseDateYear}"/>
 						<input type="text" name="purchaseDateMonth" size="2" value="${purchaseDateMonth}"/>
 						<input type="text" name="purchaseDateDate" size="2" value="${purchaseDateDate}"/>
 					</td>
@@ -93,7 +94,7 @@
 					<tr>
 						<td>구입가격</td>
 						<td>
-							<input type="text" name="purchasePrice" size="20"/>
+							<input type="text" name="purchasePrice" size="20" value="${possessBook.purchasePrice}"/>
 						</td>
 					</tr>
 				<tr>

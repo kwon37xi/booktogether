@@ -41,12 +41,12 @@ public interface LibraryService {
 	public boolean insertPossessBook(PossessBook possessBook);
 
 	/**
-	 * 소유한 책 삭제
+	 * 소유한 책 / 삭제 소유책 삭제되었을때 서재에 있는 책 정보 수정하기 /소유책이 사려졌으니 소유 정보를 바꿔야 함
 	 * 
 	 * @param possessBookIdNum
 	 * @return
 	 */
-	public boolean deletePossessBook(Integer possessBookIdNum);
+	public boolean deletePossessBook(Integer userIdNum, Integer possessBookIdNum);
 
 	/**
 	 * 소유하고 있는 책 목록
@@ -59,7 +59,6 @@ public interface LibraryService {
 	public List<PossessBook> getListPossessBook(String userId,
 			Integer startPage, Integer endPage);
 
-	
 	/**
 	 * 소유 책 정보 조회
 	 * 
@@ -67,15 +66,14 @@ public interface LibraryService {
 	 * @return
 	 */
 	public PossessBook getPossessBook(Integer possessBookIdNum);
-	
-	
+
 	/**
 	 * 내소유책 수정
+	 * 
 	 * @param possessBook
 	 * @return
 	 */
 	public boolean modifyPossessBook(PossessBook possessBook);
-	
 
 	/**
 	 * 서재안에 책 등록
@@ -86,7 +84,8 @@ public interface LibraryService {
 	public boolean insertLibraryBook(LibraryBook libraryBook);
 
 	/**
-	 * 서재안의 책 목록 
+	 * 서재안의 책 목록
+	 * 
 	 * @param libraryBook
 	 * @param startPage
 	 * @param endPage
@@ -94,39 +93,38 @@ public interface LibraryService {
 	 */
 	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook,
 			Integer startPage, Integer endPage);
-	
+
 	/**
 	 * 서재안의 책 수정
+	 * 
 	 * @param libraryBook
 	 * @return
 	 */
 	public boolean modifyLibraryBook(LibraryBook libraryBook);
-	
+
 	/**
 	 * 서재안의 책 삭제
+	 * 
 	 * @param libraryBookIdNum
 	 * @return
 	 */
 	public boolean deleteLibraryBook(Integer libraryBookIdNum);
-	
+
 	/**
 	 * 서재안의 책 조회
+	 * 
 	 * @param libraryBookIdNum
 	 * @return
 	 */
 	public LibraryBook getLibraryBook(Integer libraryBookIdNum);
-	
-	
+
 	/**
 	 * 내서재에 등록되어있는 책인지 검사
+	 * 
 	 * @param libraryIdNum
 	 * @param boolIdNum
 	 * @return
 	 */
 	public boolean duplicateLibraryBook(Integer libraryIdNum, Integer boolIdNum);
-	
-	
-	
-	
-	
+
 }

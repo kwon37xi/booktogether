@@ -107,10 +107,27 @@ public interface LibraryDao {
 	 */
 	public int modifyPossessBook(PossessBook possessBook);
 	
+	
 	/**
 	 * 내가 소유한 책 조회
 	 * @param possessBookIdNum
 	 * @return
 	 */
 	public PossessBook getPossessBook(Integer possessBookIdNum);
+	
+	
+	/**
+	 * 내가 소유한 책 삭제
+	 * @param possessBookIdNum
+	 * @return
+	 */
+	public int deletePossessBook(Integer possessBookIdNum);
+	
+	/**
+	 * 서재에 책 소유 정보 수정
+	 * @param userIdNum
+	 * @param possessBookIdNum
+	 * @return
+	 */
+	public int modifyLibraryBookIsPossess(Integer userIdNum, Integer possessBookIdNum);
 }
