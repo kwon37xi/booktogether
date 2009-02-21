@@ -17,7 +17,7 @@ import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.openapi.BookOpenApi;
-import com.google.code.booktogether.web.openapi.header.BookOpenApiDaumHeader;
+import com.google.code.booktogether.web.openapi.header.BookOpenApiHeader;
 
 /**
  * @author ParkHaeCheol
@@ -37,7 +37,7 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 	private StringReader stringXml = null;
 	private Document xmldoc = null;
 	private StringBuffer xmlContent = null;
-	private BookOpenApiDaumHeader header = null;
+	private BookOpenApiHeader header = null;
 
 	/**
 	 * 주소 요청하고 output에 맞게 받기 인코딩 UTF-8
@@ -248,7 +248,7 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 
 		Element child = xmldoc.getRootElement();
 
-		header = new BookOpenApiDaumHeader();
+		header = new BookOpenApiHeader();
 		header.setTitle(child.getChildText("title"));
 		header.setTotalCount(child.getChildText("totalCount"));
 		header.setResult(child.getChildText("result"));
@@ -257,7 +257,7 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 	}
 
 	@Override
-	public Object getHeader() {
+	public BookOpenApiHeader getHeader() {
 		return header;
 	}
 

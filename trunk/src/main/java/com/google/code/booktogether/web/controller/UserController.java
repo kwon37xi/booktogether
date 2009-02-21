@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -249,7 +250,7 @@ public class UserController extends AbstractController {
 	@RequestMapping("/user/getUser.do")
 	public ModelAndView handleGetUser(HttpServletRequest req) {
 
-		User user=getLoginUser();
+		User user = getLoginUser();
 
 		// 경로 설정 및 Attribute 설정
 		ModelAndView mav = new ModelAndView();
@@ -269,7 +270,7 @@ public class UserController extends AbstractController {
 	@RequestMapping("/user/modifyUserView.do")
 	public ModelAndView handleModifyUserView(HttpServletRequest req) {
 
-		User user=getLoginUser();
+		User user = getLoginUser();
 
 		// 경로 설정 및 Attribute 설정
 		ModelAndView mav = new ModelAndView();
@@ -298,8 +299,6 @@ public class UserController extends AbstractController {
 			@RequestParam(value = "currThumnail", required = false) String currThumnail,
 			@RequestParam(value = "userAddInfoIdNum", required = false) Integer userAddInfoIdNum,
 			@RequestParam(value = "thumnail", required = false) MultipartFile file) {
-
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
 		// 썸네일 이미지 저장 경로
 		String realPath = req.getSession().getServletContext().getRealPath(
@@ -330,7 +329,7 @@ public class UserController extends AbstractController {
 		Zone[] zones = null;
 
 		if (zoneNames != null) {
-			
+
 			// 지역명 가지고 오기
 			zones = new Zone[zoneNames.length];
 
@@ -348,9 +347,9 @@ public class UserController extends AbstractController {
 
 			}
 		} else {
-			
+
 			zones = new Zone[0];
-			
+
 		}
 
 		// 사용자 추가 정보
@@ -372,7 +371,8 @@ public class UserController extends AbstractController {
 
 		String message = (result) ? "수정성공" : "수정실패";
 
-		sra.setAttribute("message", message, RequestAttributes.SCOPE_SESSION);
+		RequestContextHolder.getRequestAttributes().setAttribute("message",
+				message, RequestAttributes.SCOPE_SESSION);
 
 		return new ModelAndView("redirect:/user/getUser.do");
 
