@@ -130,4 +130,18 @@ public interface LibraryDao {
 	 * @return
 	 */
 	public int modifyLibraryBookIsPossess(Integer userIdNum, Integer possessBookIdNum);
+	
+	/**
+	 * 검색 갯수가지고 오기
+	 * @param libraryBook
+	 * @return
+	 */
+	public int getDbCountLibraryBook(LibraryBook libraryBook);
+	
+	/**
+	 * 
+	 * @param userIdNum
+	 * @return
+	 */
+	public int getDbCountPossessBook(String userId);
 }

@@ -249,10 +249,7 @@ public class UserController extends AbstractController {
 	@RequestMapping("/user/getUser.do")
 	public ModelAndView handleGetUser(HttpServletRequest req) {
 
-		// 사용자 ID값
-		Integer userIdNum = getLoginUserIdNum();
-
-		User user = userService.getUserDetail(userIdNum);
+		User user=getLoginUser();
 
 		// 경로 설정 및 Attribute 설정
 		ModelAndView mav = new ModelAndView();
@@ -272,10 +269,7 @@ public class UserController extends AbstractController {
 	@RequestMapping("/user/modifyUserView.do")
 	public ModelAndView handleModifyUserView(HttpServletRequest req) {
 
-		// 사용자 ID값
-		Integer userIdNum = getLoginUserIdNum();
-
-		User user = userService.getUserDetail(userIdNum);
+		User user=getLoginUser();
 
 		// 경로 설정 및 Attribute 설정
 		ModelAndView mav = new ModelAndView();

@@ -20,6 +20,7 @@ import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookMark;
 import com.google.code.booktogether.web.domain.BookMarkList;
+import com.google.code.booktogether.web.page.PageBean;
 
 /**
  * 인용구 관련된 Controller
@@ -176,13 +177,20 @@ public class BookMarkController extends AbstractController {
 
 		Integer userIdNum = getLoginUserIdNum();
 
-		BookMark bookMark = new BookMark();
-		bookMark.getUser().setIdNum(userIdNum);
-		bookMark.getBook().setIdNum(bookIdNum);
-		bookMark.setIdNum(bookMarkIdNum);
+		String message = "";
 
-		// 인용구 수정
-		String message = bookMarkService.modifyVibe(bookMark);
+		if (userIdNum != null) {
+
+			BookMark bookMark = new BookMark();
+			bookMark.getUser().setIdNum(userIdNum);
+			bookMark.getBook().setIdNum(bookIdNum);
+			bookMark.setIdNum(bookMarkIdNum);
+
+			// 인용구 수정
+			message = bookMarkService.modifyVibe(bookMark);
+		} else {
+			message = "공감을 하실려면 로그인을 하셔야 합니다.";
+		}
 
 		sra.setAttribute("message", message, RequestAttributes.SCOPE_SESSION);
 
@@ -201,32 +209,34 @@ public class BookMarkController extends AbstractController {
 	public ModelAndView handleGetListMyBookMark(
 			HttpServletRequest req,
 			@RequestParam(value = "userIdNum", required = false) Integer userIdNum,
-			@RequestParam(value = "startPage", required = false) Integer startPage,
-			@RequestParam(value = "endPage", required = false) Integer endPage) {
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 
-		startPage = (startPage == null) ? 0 : startPage;
-		endPage = (endPage == null) ? 20 : endPage;
+		pageNo = (pageNo == null) ? 1 : pageNo;
 
-		List<BookMarkList> bookListInBookMark=new ArrayList<BookMarkList>();
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNo(pageNo);
 		
+
+		List<BookMarkList> bookListInBookMark = new ArrayList<BookMarkList>();
+
 		List<Book> bookList = bookService.getListBookRefBookMark(userIdNum,
-				startPage, endPage);
+				pageBean);
 
 		if (bookList != null) {
-			
+
 			for (int i = 0; i < bookList.size(); i++) {
-				
-				BookMarkList list=new BookMarkList();
-				
+
+				BookMarkList list = new BookMarkList();
+
 				list.setBook(bookList.get(i));
 
 				Integer bookIdNum = bookList.get(i).getIdNum();
 
-				List<BookMark>  bookMarkList= bookMarkService
+				List<BookMark> bookMarkList = bookMarkService
 						.getListMyBookMark(userIdNum, bookIdNum);
 
 				list.setBookMarkList(bookMarkList);
-				
+
 				bookListInBookMark.add(list);
 
 			}
@@ -238,6 +248,7 @@ public class BookMarkController extends AbstractController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("book/getListMyBookMark");
 		mav.addObject("bookListInBookMark", bookListInBookMark);
+		mav.addObject("pageBean", pageBean);
 
 		return mav;
 	}

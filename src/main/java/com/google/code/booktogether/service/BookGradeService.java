@@ -3,6 +3,7 @@ package com.google.code.booktogether.service;
 import java.util.List;
 
 import com.google.code.booktogether.web.domain.BookGrade;
+import com.google.code.booktogether.web.page.PageBean;
 
 public interface BookGradeService {
 
@@ -34,7 +35,7 @@ public interface BookGradeService {
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookGrade> getListBookGrade(Integer bookIdNum, Integer startPage, Integer endPage);
+	public List<BookGrade> getListBookGrade(Integer bookIdNum, PageBean pageBean);
 	
 	/**
 	 * 내가 입력한 별점 목록
@@ -43,7 +44,7 @@ public interface BookGradeService {
 	 * @param endPage
 	 * @return
 	 */
-	public List<BookGrade> getListMyBookGrade(Integer userIdNum, Integer startPage, Integer endPage);
+	public List<BookGrade> getListMyBookGrade(Integer userIdNum, PageBean pageBean);
 
 	/**
 	 * 사용자가 입력한 별점이 있는지 체크

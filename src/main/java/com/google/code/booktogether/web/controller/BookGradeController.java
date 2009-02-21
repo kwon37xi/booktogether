@@ -18,6 +18,7 @@ import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookGrade;
+import com.google.code.booktogether.web.page.PageBean;
 
 /**
  * 별점 관련된 Controller
@@ -127,14 +128,15 @@ public class BookGradeController extends AbstractController {
 	public ModelAndView handleListBookGrade(
 			HttpServletRequest req,
 			@RequestParam(value = "userIdNum", required = false) Integer userIdNum,
-			@RequestParam(value = "startPage", required = false) Integer startPage,
-			@RequestParam(value = "endPage", required = false) Integer endPage) {
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 
-		startPage = (startPage == null) ? 0 : startPage;
-		endPage = (endPage == null) ? 20 : endPage;
+		pageNo = (pageNo == null) ? 1 : pageNo;
+
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNo(pageNo);
 
 		List<BookGrade> bookGradeList = bookGradeService.getListMyBookGrade(
-				userIdNum, startPage, endPage);
+				userIdNum, pageBean);
 
 		if (bookGradeList != null) {
 
@@ -155,6 +157,7 @@ public class BookGradeController extends AbstractController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("book/getListMyGrade");
 		mav.addObject("bookGradeList", bookGradeList);
+		mav.addObject("pageBean", pageBean);
 
 		return mav;
 

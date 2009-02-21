@@ -35,6 +35,7 @@
 				<value>/library/modifyLibrary.do</value>
 				<value>/library/insertLibraryBookView.do</value>
 				<value>/library/insertLibraryBook.do</value>
+				<value>/library/modifyLibraryBook.do</value>
 			</list>
 		</property>
 		<property name="interceptors">

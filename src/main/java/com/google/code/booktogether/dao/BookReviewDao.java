@@ -96,4 +96,18 @@ public interface BookReviewDao {
 	 */
 	public int isExistRecommend(BookReview bookReview);
 	
+	/**
+	 * 내가 쓴 리뷰목록 갯수
+	 * @param userIdNum
+	 * @return
+	 */
+	public int getDbcountMyBookReview(Integer userIdNum);
+	
+	/**
+	 * 리뷰목록 갯수
+	 * @param bookIdNum
+	 * @return
+	 */
+	public int getDbcountBookReview(Integer bookIdNum);
+	
 }

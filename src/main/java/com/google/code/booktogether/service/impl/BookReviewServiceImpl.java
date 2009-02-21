@@ -13,6 +13,7 @@ import com.google.code.booktogether.dao.BookReviewDao;
 import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.BookReviewService;
 import com.google.code.booktogether.web.domain.BookReview;
+import com.google.code.booktogether.web.page.PageBean;
 
 @Service("bookReviewService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
@@ -20,12 +21,9 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 	@Resource(name = "bookReviewJdbcDao")
 	private BookReviewDao bookReviewJdbcDao;
-	
-	
+
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
-	
-	
 
 	@Override
 	@Transactional(readOnly = false)
@@ -71,18 +69,26 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 	@Override
 	public List<BookReview> getListBookReview(Integer bookIdNum,
-			Integer startPage, Integer endPage) {
+			PageBean pageBean) {
 
-		return bookReviewJdbcDao.getListBookReview(bookIdNum, startPage,
-				endPage);
+		int dbCount = bookReviewJdbcDao.getDbcountBookReview(bookIdNum);
+
+		pageBean.setDbCount(dbCount);
+
+		return bookReviewJdbcDao.getListBookReview(bookIdNum, pageBean
+				.getStartPage()-1, pageBean.getEndPage());
 	}
 
 	@Override
 	public List<BookReview> getListMyBookReview(Integer userIdNum,
-			Integer startPage, Integer endPage) {
+			PageBean pageBean) {
 
-		return bookReviewJdbcDao.getListMyBookReview(userIdNum, startPage,
-				endPage);
+		int dbCount = bookReviewJdbcDao.getDbcountMyBookReview(userIdNum);
+
+		pageBean.setDbCount(dbCount);
+
+		return bookReviewJdbcDao.getListMyBookReview(userIdNum, pageBean
+				.getStartPage()-1, pageBean.getEndPage());
 
 	}
 
@@ -114,6 +120,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public String modifyReviewRecommend(BookReview bookReview) {
 
 		String message = "추천등록을 실패하였습니다.";
@@ -125,21 +132,21 @@ public class BookReviewServiceImpl implements BookReviewService {
 			count = bookReviewJdbcDao.modifyReviewRecommend(bookReview);
 
 			if (count != 1) {
-				throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
+				throw new BooktogetherException("추천수 올리기 실패");
 			}
 
 			count = bookReviewJdbcDao.insertRecommend(bookReview);
 
 			if (count != 1) {
-				
-				throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
-				
+
+				throw new BooktogetherException("추천자 리스트 등록 실패");
+
 			} else {
-				
+
 				message = "추천등록완료";
-				
+
 			}
-			
+
 		} else {
 			message = "이미 추천하셨습니다.";
 		}

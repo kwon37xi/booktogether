@@ -15,6 +15,7 @@ import com.google.code.booktogether.service.LibraryService;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
+import com.google.code.booktogether.web.page.PageBean;
 
 @Service("libraryService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
@@ -44,9 +45,10 @@ public class LibraryServiceImpl implements LibraryService {
 
 		if (count != 1) {
 			throw new BooktogetherException("개인서재 수정 실패");
-		} else {
-			return true;
 		}
+
+		return true;
+
 	}
 
 	@Override
@@ -86,19 +88,17 @@ public class LibraryServiceImpl implements LibraryService {
 
 		if (count != 1) {
 			throw new BooktogetherException("개인서재 소유정보 수정 실패");
-		} else {
-
-			count = libraryDao.deletePossessBook(possessBookIdNum);
-
-			log.info(count);
-			
-			if (count != 1) {
-				throw new BooktogetherException("개인소유책 삭제 실패");
-			} else {
-				return true;
-			}
-
 		}
+
+		count = libraryDao.deletePossessBook(possessBookIdNum);
+
+		log.info(count);
+
+		if (count != 1) {
+			throw new BooktogetherException("개인소유책 삭제 실패");
+		}
+		return true;
+
 	}
 
 	@Override
@@ -112,20 +112,28 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook,
-			Integer startPage, Integer endPage) {
+			PageBean pageBean) {
 
-		List<LibraryBook> libraryBookList = libraryDao.getListLibraryBook(
-				libraryBook, startPage, endPage);
+		int dbCount = libraryDao.getDbCountLibraryBook(libraryBook);
+
+		pageBean.setDbCount(dbCount);
+
+		List<LibraryBook> libraryBookList = libraryDao
+				.getListLibraryBook(libraryBook, pageBean.getStartPage() - 1,
+						pageBean.getEndPage());
 
 		return libraryBookList;
 	}
 
 	@Override
-	public List<PossessBook> getListPossessBook(String userIdNum,
-			Integer startPage, Integer endPage) {
+	public List<PossessBook> getListPossessBook(String userId, PageBean pageBean) {
+
+		int dbCount = libraryDao.getDbCountPossessBook(userId);
+
+		pageBean.setDbCount(dbCount);
 
 		List<PossessBook> possessBookList = libraryDao.getListPossessBook(
-				userIdNum, startPage, endPage);
+				userId, pageBean.getStartPage() - 1, pageBean.getEndPage());
 
 		return possessBookList;
 
@@ -188,10 +196,11 @@ public class LibraryServiceImpl implements LibraryService {
 		if (count == 1) {
 			log.info("중복이다!!!");
 			return true;
-		} else {
-			log.info("중복아니다.!!!");
-			return false;
 		}
+		
+		log.info("중복아니다.!!!");
+		return false;
+
 	}
 
 	@Override

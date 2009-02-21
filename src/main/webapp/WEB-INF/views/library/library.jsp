@@ -72,7 +72,7 @@
 								<td>관심 서재</td>
 							</tr>
 							<tr>
-								<td>책 검색</td>
+								<td><a href="/book/searchBook.do">책 검색</a></td>
 							</tr>
 							<tr>
 								<td>추천책</td>

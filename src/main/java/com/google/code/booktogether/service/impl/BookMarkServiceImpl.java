@@ -13,6 +13,7 @@ import com.google.code.booktogether.dao.BookMarkDao;
 import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.BookMarkService;
 import com.google.code.booktogether.web.domain.BookMark;
+import com.google.code.booktogether.web.page.PageBean;
 
 @Service("bookMarkService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
@@ -67,10 +68,13 @@ public class BookMarkServiceImpl implements BookMarkService {
 	}
 
 	@Override
-	public List<BookMark> getListBookMark(Integer bookIdNum, Integer startPage,
-			Integer endPage) {
+	public List<BookMark> getListBookMark(Integer bookIdNum, PageBean pageBean) {
+		
+		int dbCount=bookMarkJdbcDao.getDbCountBookMark(bookIdNum);
+		
+		pageBean.setDbCount(dbCount);
 
-		return bookMarkJdbcDao.getListBookMark(bookIdNum, startPage, endPage);
+		return bookMarkJdbcDao.getListBookMark(bookIdNum, pageBean.getStartPage()-1, pageBean.getEndPage());
 	}
 
 	@Override

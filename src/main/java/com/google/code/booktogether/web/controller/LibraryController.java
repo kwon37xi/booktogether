@@ -24,6 +24,7 @@ import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
 import com.google.code.booktogether.web.domain.User;
+import com.google.code.booktogether.web.page.PageBean;
 
 /**
  * Library에 관련된 Controller
@@ -120,7 +121,7 @@ public class LibraryController extends AbstractController {
 		}
 
 		// 경로 설정
-		return new ModelAndView("redirect:/library/getlibrary.do?userId="
+		return new ModelAndView("redirect:/library/getLibrary.do?userId="
 				+ getLoginUserId());
 
 	}
@@ -430,14 +431,18 @@ public class LibraryController extends AbstractController {
 	public ModelAndView handleGetListLibraryBook(
 			HttpServletRequest req,
 			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum,
-			@RequestParam(value = "state", required = false) Integer state) {
+			@RequestParam(value = "state", required = false) Integer state,
+			@RequestParam(value = "state", required = false) Integer pageNo) {
 
 		LibraryBook libraryBook = new LibraryBook();
 		libraryBook.getLibrary().setIdNum(libraryIdNum);
 		libraryBook.setState(state);
 
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNo(pageNo);
+
 		List<LibraryBook> libraryBookList = libraryService.getListLibraryBook(
-				libraryBook, 0, 5);
+				libraryBook, pageBean);
 
 		if (libraryBookList != null) {
 
@@ -458,6 +463,7 @@ public class LibraryController extends AbstractController {
 		mav.setViewName("library/getListLibraryBook");
 		mav.addObject("libraryBookList", libraryBookList);
 		mav.addObject("state", state);
+		mav.addObject("pageBean", pageBean);
 
 		return mav;
 
@@ -470,17 +476,17 @@ public class LibraryController extends AbstractController {
 	 * @return 내가 보유한 책 목록 화면
 	 */
 	@RequestMapping("/library/getListPossessBook.do")
-	public ModelAndView handleGetListPossessBook(
-			HttpServletRequest req,
+	public ModelAndView handleGetListPossessBook(HttpServletRequest req,
 			@RequestParam(value = "userId", required = false) String userId,
-			@RequestParam(value = "startPage", required = false) Integer startPage,
-			@RequestParam(value = "endPage", required = false) Integer endPage) {
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 
-		startPage = (startPage == null) ? 0 : startPage;
-		endPage = (endPage == null) ? 20 : endPage;
+		pageNo = (pageNo == null) ? 1 : pageNo;
+		
+		PageBean pageBean=new PageBean();
+		pageBean.setPageNo(pageNo);
 
 		List<PossessBook> possessBookList = libraryService.getListPossessBook(
-				userId, startPage, endPage);
+				userId, pageBean);
 
 		if (possessBookList != null) {
 
@@ -497,6 +503,7 @@ public class LibraryController extends AbstractController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/getListPossessBook");
 		mav.addObject("possessBookList", possessBookList);
+		mav.addObject("pageBean", pageBean);
 
 		return mav;
 
@@ -571,10 +578,8 @@ public class LibraryController extends AbstractController {
 
 		cal.set(endReadYear, endReadMonth - 1, endReadDate);
 		possessBook.setEndRead(cal.getTime());
-		
-		
+
 		log.info(possessBook);
-		
 
 		boolean result = libraryService.modifyPossessBook(possessBook);
 
@@ -596,9 +601,7 @@ public class LibraryController extends AbstractController {
 						+ getLoginUserId());
 
 	}
-	
-	
-	
+
 	/**
 	 * 내가 보유한 책 삭제
 	 * 
@@ -610,16 +613,16 @@ public class LibraryController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "possessBookIdNum", required = false) Integer possessBookIdNum) {
 
-		boolean result = libraryService.deletePossessBook(getLoginUserIdNum(),possessBookIdNum);
+		boolean result = libraryService.deletePossessBook(getLoginUserIdNum(),
+				possessBookIdNum);
 
 		log.info(result);
-		
+
 		// 경로 설정
 		return new ModelAndView(
 				"redirect:/library/getListPossessBook.do?userId="
 						+ getLoginUserId());
 
 	}
-	
 
 }

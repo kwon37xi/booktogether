@@ -33,6 +33,8 @@ public class LibraryBookRowMapper implements ParameterizedRowMapper<LibraryBook>
 		libraryBook.getBook().setIdNum(rs.getInt("BIDNUM"));
 		libraryBook.getLibrary().setIdNum(rs.getInt("LIDNUM"));
 		
+		libraryBook.getLibrary().getUser().setIdNum(rs.getInt("UIDNUM"));
+		
 		return libraryBook;
 	}
 

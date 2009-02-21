@@ -109,10 +109,9 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 		return getSimpleJdbcTemplate().queryForInt(sql);
 	}
 
-	
 	@Override
-	public List<Book> getListBookRefBookMark(Integer userIdNum, Integer startPage,
-			Integer endPage) {
+	public List<Book> getListBookRefBookMark(Integer userIdNum,
+			Integer startPage, Integer endPage) {
 
 		BookSimpleRowMapper rowMapper = new BookSimpleRowMapper();
 
@@ -120,6 +119,17 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 
 		return getSimpleJdbcTemplate().query(sql, rowMapper,
 				new Object[] { userIdNum, startPage, endPage });
+	}
+
+	@Override
+	public int getDbCountBookRefBookMark(Integer userIdNum) {
+
+		String sql = sqlparser.getSQL("book",
+				"GET_DBCOUNT_BOOK_REF_BOOKMARK_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { userIdNum });
+
 	}
 
 }

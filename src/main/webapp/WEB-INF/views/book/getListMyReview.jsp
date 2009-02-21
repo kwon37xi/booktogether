@@ -47,7 +47,7 @@
 								</tr>
 								<tr>
 									<td>
-										리뷰제목 : <a href="/book/getReview.do?bookIdNum=${bookReview.book.idNum}">
+										리뷰제목 : <a href="/book/getReview.do?bookReviewIdNum=${bookReview.idNum}">
 													${bookReview.title}
 												 </a>
 									</td>

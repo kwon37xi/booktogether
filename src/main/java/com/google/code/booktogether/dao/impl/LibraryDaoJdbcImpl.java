@@ -243,4 +243,29 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 		return count;
 	}
 
+	@Override
+	public int getDbCountLibraryBook(LibraryBook libraryBook) {
+
+		String sql = sqlparser.getSQL("library", "GET_DBCOUNT_LIBRARYBOOK_SQL");
+
+		int dbCount = getSimpleJdbcTemplate().queryForInt(
+				sql,
+				new Object[] { libraryBook.getState(),
+						libraryBook.getLibrary().getIdNum() });
+
+		return dbCount;
+	}
+
+	@Override
+	public int getDbCountPossessBook(String userId) {
+		
+		String sql = sqlparser.getSQL("library", "GET_DBCOUNT_POSSESSBOOK_SQL");
+
+		int dbCount = getSimpleJdbcTemplate().queryForInt(
+				sql,
+				new Object[] { userId });
+
+		return dbCount;
+	}
+
 }

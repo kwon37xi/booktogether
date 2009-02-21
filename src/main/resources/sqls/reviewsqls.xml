@@ -80,6 +80,19 @@
             ]]>
 		</query>
 	</sql>
+	
+	<sql name="GET_DBCOUNT_BOOKREVIEW_SQL">
+		<description>책 리뷰 목록 갯수(책조회시)</description>
+		<query>
+            <![CDATA[
+             SELECT COUNT(BR.idNum) 
+             FROM USER U, BOOKREVIEW BR  
+             WHERE BR.book_idNum=? 
+               AND BR.user_idNum=U.idNum 
+               AND U.isdelete=0  
+            ]]>
+		</query>
+	</sql>
 
 
 	<sql name="LIST_MYBOOKREVIEW_SQL">
@@ -96,6 +109,20 @@
                AND BR.user_idNum=U.idNum 
                AND U.isdelete=0 
              LIMIT ?,? 
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="GET_DBCOUNT_MYBOOKREVIEW_SQL">
+		<description>내가 작성한 책 리뷰 목록 갯수</description>
+		<query>
+            <![CDATA[
+             SELECT COUNT(BR.idNum)  
+             FROM USER U, BOOKREVIEW BR  
+             WHERE BR.user_idNum = ?  
+               AND BR.user_idNum=U.idNum 
+               AND U.isdelete=0 
             ]]>
 		</query>
 	</sql>

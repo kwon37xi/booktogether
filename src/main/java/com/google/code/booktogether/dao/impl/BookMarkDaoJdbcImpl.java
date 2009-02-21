@@ -112,5 +112,13 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 						bookMark.getBook().getIdNum() });
 	}
 
+	@Override
+	public int getDbCountBookMark(Integer bookIdNum) {
+
+		String sql = sqlparser.getSQL("bookMark", "GET_DBCOUNT_BOOKMARK_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { bookIdNum });
+	}
 
 }

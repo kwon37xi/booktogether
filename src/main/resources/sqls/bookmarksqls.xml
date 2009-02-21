@@ -90,6 +90,20 @@
             ]]>
         </query>
      </sql>
+     
+     
+     <sql name="GET_DBCOUNT_BOOKMARK_SQL">
+        <description>인용구 목록 갯수(책조회시)</description>
+        <query>
+            <![CDATA[
+             SELECT COUNT(BM.idNum)  
+               FROM BOOKMARK BM, USER U 
+              WHERE BM.user_idNum = U.idNum 
+                AND BM.book_idNum = ? 
+                AND U.isdelete = 0 
+            ]]>
+        </query>
+     </sql>
     
     
      <sql name="LIST_MYBOOKMARK_SQL">
