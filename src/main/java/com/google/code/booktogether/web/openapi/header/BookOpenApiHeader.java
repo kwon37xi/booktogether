@@ -8,7 +8,7 @@ import com.google.code.booktogether.web.domain.base.BaseObject;
  * @author ParkHaeCheol
  *
  */
-public class BookOpenApiDaumHeader extends BaseObject{
+public class BookOpenApiHeader extends BaseObject{
 	
 	private static final long serialVersionUID = 1L;
 

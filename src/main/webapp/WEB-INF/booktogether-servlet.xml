@@ -64,8 +64,6 @@
 		p:prefix="/WEB-INF/views/" p:suffix=".jsp" />
 
 
-
-
 	<bean id="exceptionResolver"
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">

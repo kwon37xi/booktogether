@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -76,7 +77,7 @@ public class BookController extends AbstractController {
 
 		if (book == null) {
 
-			new ServletRequestAttributes(req).setAttribute("message",
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"해당 책 내용이 없습니다.", RequestAttributes.SCOPE_SESSION);
 
 			return new ModelAndView("redirect:/book/searchBook.do");

@@ -3,6 +3,7 @@ package com.google.code.booktogether.web.openapi;
 
 import java.util.List;
 import com.google.code.booktogether.web.domain.Book;
+import com.google.code.booktogether.web.openapi.header.BookOpenApiHeader;
 
 
 /**
@@ -31,7 +32,7 @@ public interface BookOpenApi {
 	 * 파싱한 해더 가지고 오기
 	 * @return
 	 */
-	public Object getHeader();
+	public BookOpenApiHeader getHeader();
 	
 
 }
