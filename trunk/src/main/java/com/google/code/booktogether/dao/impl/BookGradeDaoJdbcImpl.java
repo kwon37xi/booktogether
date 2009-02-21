@@ -91,4 +91,20 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 				new Object[] { bookIdNum, userIdNum });
 	}
 
+	@Override
+	public int getDbCountBookGrade(Integer bookIdNum) {
+		String sql = sqlparser.getSQL("bookGrade", "GET_DBCOUNT_BOOKGRADE_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { bookIdNum });
+	}
+
+	@Override
+	public int getDbCountMyBookGrade(Integer userIdNum) {
+		String sql = sqlparser.getSQL("bookGrade", "GET_DBCOUNT_MYBOOKGRADE_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { userIdNum });
+	}
+
 }

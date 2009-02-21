@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
+import com.google.code.booktogether.web.page.PageBean;
 
 public interface LibraryService {
 
@@ -52,12 +53,10 @@ public interface LibraryService {
 	 * 소유하고 있는 책 목록
 	 * 
 	 * @param userIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param pageBean
 	 * @return
 	 */
-	public List<PossessBook> getListPossessBook(String userId,
-			Integer startPage, Integer endPage);
+	public List<PossessBook> getListPossessBook(String userId, PageBean pageBean);
 
 	/**
 	 * 소유 책 정보 조회
@@ -92,7 +91,7 @@ public interface LibraryService {
 	 * @return
 	 */
 	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook,
-			Integer startPage, Integer endPage);
+			PageBean pageBean);
 
 	/**
 	 * 서재안의 책 수정

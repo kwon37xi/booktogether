@@ -13,6 +13,7 @@ import com.google.code.booktogether.dao.BookGradeDao;
 import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.BookGradeService;
 import com.google.code.booktogether.web.domain.BookGrade;
+import com.google.code.booktogether.web.page.PageBean;
 
 @Service("bookGradeService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
@@ -20,11 +21,9 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 	@Resource(name = "bookGradeJdbcDao")
 	private BookGradeDao bookGradeJdbcDao;
-	
-	
+
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
-	
 
 	@Override
 	@Transactional(readOnly = false)
@@ -69,18 +68,26 @@ public class BookGradeServiceImpl implements BookGradeService {
 	}
 
 	@Override
-	public List<BookGrade> getListBookGrade(Integer bookIdNum,
-			Integer startPage, Integer endPage) {
+	public List<BookGrade> getListBookGrade(Integer bookIdNum, PageBean pageBean) {
 
-		return bookGradeJdbcDao.getListBookGrade(bookIdNum, startPage, endPage);
+		int dbCount = bookGradeJdbcDao.getDbCountBookGrade(bookIdNum);
+
+		pageBean.setDbCount(dbCount);
+
+		return bookGradeJdbcDao.getListBookGrade(bookIdNum, pageBean
+				.getStartPage() - 1, pageBean.getEndPage());
 	}
 
 	@Override
 	public List<BookGrade> getListMyBookGrade(Integer userIdNum,
-			Integer startPage, Integer endPage) {
+			PageBean pageBean) {
 
-		return bookGradeJdbcDao.getListMyBookGrade(userIdNum, startPage,
-				endPage);
+		int dbCount = bookGradeJdbcDao.getDbCountMyBookGrade(userIdNum);
+
+		pageBean.setDbCount(dbCount);
+
+		return bookGradeJdbcDao.getListMyBookGrade(userIdNum, pageBean
+				.getStartPage() - 1, pageBean.getEndPage());
 
 	}
 

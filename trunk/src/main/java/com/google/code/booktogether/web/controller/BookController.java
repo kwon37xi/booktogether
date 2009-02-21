@@ -57,10 +57,9 @@ public class BookController extends AbstractController {
 	@Resource(name = "bookMarkService")
 	private BookMarkService bookMarkService;
 
-	//로그 표시를 위하여
+	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
-	
-	
+
 	/**
 	 * 책 정보 가지고 오기
 	 * 
@@ -84,12 +83,28 @@ public class BookController extends AbstractController {
 
 		} else {
 
+			boolean moreGrade = false;
+			boolean moreBookMark = false;
+			boolean moreReview = false;
+
+			PageBean pageBean = new PageBean();
+			pageBean.setPageNo(1);
+			pageBean.setPageSize(5);
+
 			List<BookGrade> bookGradeList = bookGradeService.getListBookGrade(
-					book.getIdNum(), 0, 5);
+					book.getIdNum(), pageBean);
+
+			moreGrade = pageBean.isNextPage();
+
 			List<BookReview> bookReviewList = bookReviewService
-					.getListBookReview(book.getIdNum(), 0, 5);
+					.getListBookReview(book.getIdNum(), pageBean);
+
+			moreBookMark = pageBean.isNextPage();
+
 			List<BookMark> bookMarkList = bookMarkService.getListBookMark(book
-					.getIdNum(), 0, 5);
+					.getIdNum(), pageBean);
+
+			moreReview = pageBean.isNextPage();
 
 			Integer userIdNum = getLoginUserIdNum();
 
@@ -110,6 +125,9 @@ public class BookController extends AbstractController {
 			mav.addObject("bookMarkList", bookMarkList);
 			mav.addObject("existGrade", existGrade);
 			mav.addObject("existReview", existReview);
+			mav.addObject("moreGrade", moreGrade);
+			mav.addObject("moreBookMark", moreBookMark);
+			mav.addObject("moreReview", moreReview);
 
 			return mav;
 		}

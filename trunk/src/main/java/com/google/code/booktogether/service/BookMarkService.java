@@ -3,6 +3,7 @@ package com.google.code.booktogether.service;
 import java.util.List;
 
 import com.google.code.booktogether.web.domain.BookMark;
+import com.google.code.booktogether.web.page.PageBean;
 
 public interface BookMarkService {
 
@@ -30,11 +31,10 @@ public interface BookMarkService {
 	/**
 	 * 인용구 목록(책 조회시)
 	 * @param bookIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param pageBean
 	 * @return
 	 */
-	public List<BookMark> getListBookMark(Integer bookIdNum, Integer startPage, Integer endPage);
+	public List<BookMark> getListBookMark(Integer bookIdNum, PageBean pageBean);
 	
 	/**
 	 * 내가 입력한 인용구 목록

@@ -155,7 +155,7 @@
 					<c:when test="${fn:length(bookReviewList)!=0}">
 						<c:forEach begin="0" items="${bookReviewList}" var="reviewInfo" varStatus="status">
 							<tr>
-								<td><a href="/book/getReview.do?bookIdNum=${reviewInfo.idNum}">${reviewInfo.title}</a></td>
+								<td><a href="/book/getReview.do?bookReviewIdNum=${reviewInfo.idNum}">${reviewInfo.title}</a></td>
 								<td>${reviewInfo.user.userId}(${reviewInfo.user.nickname})</td>
 								<td>추천수 : ${reviewInfo.recommend}</td>
 							</tr>	
@@ -215,8 +215,14 @@
 										<input type="button" value="삭제" onclick="deleteBookMark('${bookMarkInfo.idNum}','${bookInfo.idNum}')"/>
 									</c:if>
 								</td>
+								
 								<td>공감수 : ${bookMarkInfo.vibeNum}</td>
-								<td><input type="button" value="공감하기" onclick="modifyVibe('${bookMarkInfo.idNum}','${bookInfo.idNum}')"/></td>
+								
+								<c:if test="${sessionScope.idNum!=null}">
+									<td>
+											<input type="button" value="공감하기" onclick="modifyVibe('${bookMarkInfo.idNum}','${bookInfo.idNum}')"/>
+									</td>
+								</c:if>
 							</tr>	
 						</c:forEach>
 					</c:when>

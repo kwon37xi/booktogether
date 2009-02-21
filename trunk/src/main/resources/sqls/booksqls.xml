@@ -191,6 +191,19 @@
             ]]>
         </query>
      </sql>
+     
+     
+    <sql name="GET_DBCOUNT_BOOK_REF_BOOKMARK_SQL">
+        <description>내가 작성한 인용구에 대한 책 목록 갯수</description>
+        <query>
+            <![CDATA[
+            SELECT	COUNT(distinct(B.idNum)) 
+               FROM BOOK B, BOOKMARK BM 
+              WHERE B.idNum = BM.book_idNum 
+                AND BM.user_idNum = ? 
+            ]]>
+        </query>
+     </sql>
     
 
     

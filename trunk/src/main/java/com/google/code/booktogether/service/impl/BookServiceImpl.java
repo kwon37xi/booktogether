@@ -127,10 +127,14 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> getListBookRefBookMark(Integer userIdNum,
-			Integer startPage, Integer endPage) {
+			PageBean pageBean) {
+		
+		int dbCount=bookJdbcDao.getDbCountBookRefBookMark(userIdNum);
+		
+		pageBean.setDbCount(dbCount);
 
 		List<Book> bookList = bookJdbcDao.getListBookRefBookMark(userIdNum,
-				startPage, endPage);
+				pageBean.getStartPage()-1, pageBean.getEndPage());
 
 		if (bookList != null) {
 

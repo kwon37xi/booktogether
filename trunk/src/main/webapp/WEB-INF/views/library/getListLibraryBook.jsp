@@ -34,6 +34,7 @@
 							<tr>
 								<c:forEach begin="1" end="${columCount}" varStatus="istatus">
 									<c:set var="bookInfo" value="${libraryBookList[aIndex].book}"/>
+									<c:set var="userInfo" value="${libraryBookList[aIndex].library.user}"/>
 									<td>
 										<c:if test="${aIndex>bookListLength}">&nbsp;</c:if>
 										<c:if test="${aIndex<bookListLength}">
@@ -42,10 +43,14 @@
 												${bookInfo.name}
 											</a><br/>
 											${bookInfo.authors[0].name}<br/>
+											
+											<c:if test="${sessionScope.idNum!=null && userInfo.idNum==sessionScope.idNum}">
+												<a href="/library/modifyLibraryBookView.do?libraryBookIdNum=${libraryBookList[aIndex].idNum}">수정</a>
+												<a href="/library/deleteLibraryBook.do?libraryBookIdNum=${libraryBookList[aIndex].idNum}">삭제</a>
+											</c:if>
+											
 										</c:if>
 										
-										<a href="/library/modifyLibraryBookView.do?libraryBookIdNum=${libraryBookList[aIndex].idNum}">수정</a>
-										<a href="/library/deleteLibraryBook.do?libraryBookIdNum=${libraryBookList[aIndex].idNum}">삭제</a>
 										
 									</td>
 									<c:set var="aIndex" value="${aIndex+1}"/>

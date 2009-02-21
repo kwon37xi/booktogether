@@ -3,6 +3,7 @@ package com.google.code.booktogether.service;
 import java.util.List;
 
 import com.google.code.booktogether.web.domain.BookReview;
+import com.google.code.booktogether.web.page.PageBean;
 
 public interface BookReviewService {
 
@@ -46,20 +47,18 @@ public interface BookReviewService {
 	/**
 	 * 리뷰 목록(책 조회시)
 	 * @param bookIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param pageBean
 	 * @return
 	 */
-	public List<BookReview> getListBookReview(Integer bookIdNum, Integer startPage, Integer endPage);
+	public List<BookReview> getListBookReview(Integer bookIdNum, PageBean pageBean);
 	
 	/**
 	 * 내가 입력한 리뷰 목록
 	 * @param userIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param pageBean
 	 * @return
 	 */
-	public List<BookReview> getListMyBookReview(Integer userIdNum, Integer startPage, Integer endPage);
+	public List<BookReview> getListMyBookReview(Integer userIdNum, PageBean pageBean);
 	
 
 	 /**

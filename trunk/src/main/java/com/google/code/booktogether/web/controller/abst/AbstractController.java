@@ -1,7 +1,12 @@
 package com.google.code.booktogether.web.controller.abst;
 
+import javax.annotation.Resource;
+
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
+
+import com.google.code.booktogether.service.UserService;
+import com.google.code.booktogether.web.domain.User;
 
 /**
  * Controller 추상화 클래스
@@ -9,6 +14,12 @@ import org.springframework.web.context.request.RequestContextHolder;
  * @author ParkHaeCheol
  */
 public abstract class AbstractController {
+	
+	/**
+	 * UserService
+	 */
+	@Resource(name = "userService")
+	protected UserService userService;
 
 	public String getLoginUserId(){
 		
@@ -28,6 +39,15 @@ public abstract class AbstractController {
 				RequestAttributes.SCOPE_SESSION);
 		
 		return idNum;
+	}
+	
+	public User getLoginUser(){
+		
+		Integer userIdNum=getLoginUserIdNum();
+		
+		User user=userService.getUserDetail(userIdNum);
+		
+		return user;
 	}
 	
 }

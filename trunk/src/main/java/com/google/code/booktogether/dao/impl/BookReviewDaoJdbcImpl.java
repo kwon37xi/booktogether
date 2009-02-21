@@ -160,4 +160,24 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 						bookReview.getUser().getIdNum() });
 	}
 
+	@Override
+	public int getDbcountMyBookReview(Integer userIdNum) {
+
+		String sql = sqlparser.getSQL("bookReview",
+				"GET_DBCOUNT_MYBOOKREVIEW_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { userIdNum });
+	}
+
+	@Override
+	public int getDbcountBookReview(Integer bookIdNum) {
+
+		String sql = sqlparser.getSQL("bookReview",
+				"GET_DBCOUNT_BOOKREVIEW_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { bookIdNum });
+	}
+
 }

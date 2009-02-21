@@ -63,16 +63,31 @@
 		<description>서재에 책 목록</description>
 		<query>
             <![CDATA[
-             SELECT idnum
-                    ,read_date
-                    ,state
-                    ,ispossess
-                    ,book_idNum as bidnum
-                    ,library_idNum as lidnum 
-               FROM LIBRARYBOOK 
-              WHERE state = ? 
-                AND library_idNum = ? 
+             SELECT LB.idnum as idNum 
+                    ,LB.read_date as read_date 
+                    ,LB.state as state 
+                    ,LB.ispossess as ispossess 
+                    ,LB.book_idNum as bidnum 
+                    ,LB.library_idNum as lidnum  
+                    ,L.user_idNum as uidNUm 
+               FROM LIBRARYBOOK LB, LIBRARY L
+              WHERE LB.state = ? 
+                AND LB.library_idNum = ? 
+                AND LB.library_idNum = L.idNum  
               LIMIT ?, ?
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="GET_DBCOUNT_LIBRARYBOOK_SQL">
+		<description>서재에 책 목록 갯수</description>
+		<query>
+            <![CDATA[
+             SELECT COUNT(*) 
+               FROM LIBRARYBOOK 
+              WHERE state = ?
+                AND library_idNum = ?   
             ]]>
 		</query>
 	</sql>
@@ -111,14 +126,16 @@
 		<description>서재에 해당책 조회</description>
 		<query>
             <![CDATA[
-             SELECT idnum
-                    ,read_date
-                    ,state
-                    ,ispossess
-                    ,book_idNum as bidnum
-                    ,library_idNum as lidnum 
-               FROM LIBRARYBOOK 
-              WHERE idNum = ?
+             SELECT LB.idnum as idNum 
+                    ,LB.read_date as read_date 
+                    ,LB.state as state 
+                    ,LB.ispossess as ispossess 
+                    ,LB.book_idNum as bidnum 
+                    ,LB.library_idNum as lidnum  
+                    ,L.user_idNum as uidNUm 
+               FROM LIBRARYBOOK LB, LIBRARY L
+              WHERE LB.idNum = ? 
+                AND LB.library_idNum = L.idNum  
             ]]>
 		</query>
 	</sql>
@@ -172,6 +189,20 @@
                 AND U.isdelete = 0
                 AND U.idNum = POS.user_idNum 
               LIMIT ?, ?
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="GET_DBCOUNT_POSSESSBOOK_SQL">
+		<description>내가 소유한 책 목록 갯수</description>
+		<query>
+            <![CDATA[
+             SELECT COUNT(POS.idNum) 
+               FROM POSSESSBOOK POS, USER U  
+              WHERE U.user_id = ? 
+                AND U.isdelete = 0
+                AND U.idNum = POS.user_idNum 
             ]]>
 		</query>
 	</sql>

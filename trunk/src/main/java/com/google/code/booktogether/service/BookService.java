@@ -44,10 +44,9 @@ public interface BookService {
 	/**
 	 * 내가 작성한 인용구의 책 정보
 	 * @param userIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param pageBean
 	 * @return
 	 */
-	public List<Book> getListBookRefBookMark(Integer userIdNum, Integer startPage, Integer endPage);
+	public List<Book> getListBookRefBookMark(Integer userIdNum, PageBean pageBean);
 	
 }

@@ -52,4 +52,19 @@ public interface BookGradeDao {
 	 * @return
 	 */
 	public int isExistGrade(Integer bookIdNum,Integer userIdNum);
+	
+	/**
+	 * 내가 매긴 별점 목록 갯수
+	 * @param userIdNum
+	 * @return
+	 */
+	public int getDbCountMyBookGrade(Integer userIdNum);
+	
+	/**
+	 * 해당 책에 별점 목록 갯수
+	 * @param bookIdNum
+	 * @return
+	 */
+	public int getDbCountBookGrade(Integer bookIdNum);
+	
 }

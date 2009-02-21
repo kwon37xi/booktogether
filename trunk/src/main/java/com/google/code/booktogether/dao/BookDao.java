@@ -69,7 +69,7 @@ public interface BookDao {
 	public int getLastNumIncrement();
 
 	/**
-	 * 
+	 * 해당 책에 관련된 인용구 목록 
 	 * @param userIdNum
 	 * @param startPage
 	 * @param endPage
@@ -77,5 +77,12 @@ public interface BookDao {
 	 */
 	public List<Book> getListBookRefBookMark(Integer userIdNum,
 			Integer startPage, Integer endPage);
+	
+	/**
+	 * 해당 책에 관련된 인용구 목록 갯수
+	 * @param userIdNum
+	 * @return
+	 */
+	public int getDbCountBookRefBookMark(Integer userIdNum);
 
 }

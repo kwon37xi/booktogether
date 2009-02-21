@@ -35,6 +35,13 @@ public interface BookMarkDao {
 	 * @return
 	 */
 	public List<BookMark> getListBookMark(Integer bookIdNum,Integer startPage, Integer endPage);
+	
+	/**
+	 * 인용구 목록 갯수
+	 * @param bookIdNum
+	 * @return
+	 */
+	public int getDbCountBookMark(Integer bookIdNum);
 
 	/**
 	 * 내가 작성한 인용구 목록
