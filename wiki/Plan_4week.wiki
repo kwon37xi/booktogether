@@ -1,0 +1,14 @@
+#summary 4주차 회의 내용 정리
+
+= 수정사항 및 해야할 일=
+
+  # ServiceImple if ~ else 구문 정리 - 가독성 높이기
+  # BaseObject 부분 abstract로 변경
+  # requestContextHolder 이용하여 코드 간단하게 변경
+  # xss(Cross Site Scripting) 보안 처리
+   * {fn: } 이용해서 처리
+   * server 단에서 기본 사용자에게 기본 tag만 허용하도록 처리
+   * 사용자가 직접 작성하는 리뷰, 인용구의 경우게만 기본 tag 제공
+  # OpenAPI에서 공통으로 사용되는 값을 정의
+   * 공통되는 부분은 그대로 두고 API 종류에 따라 달라지는 것들만 Map을 이용해서 구현
+  # JQuery 공부하기 
