@@ -32,7 +32,7 @@
 				</tr>
 				<tr>
 					<td>책이름</td>
-					<td>${bookInfo.name}</td>
+					<td>${fn:escapeXml(bookInfo.name)}</td>
 				</tr>
 				<tr>
 					<td>지은이</td>

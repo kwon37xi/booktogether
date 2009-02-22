@@ -31,9 +31,7 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	public Library getLibrary(String userId) {
 
-		Library library = libraryDao.getLibrary(userId);
-
-		return library;
+		return libraryDao.getLibrary(userId);
 
 	}
 
@@ -61,9 +59,8 @@ public class LibraryServiceImpl implements LibraryService {
 
 		if (count != 1) {
 			throw new BooktogetherException("개인서재 등록 실패");
-		} else {
-			return true;
 		}
+		return true;
 	}
 
 	@Override
@@ -74,9 +71,9 @@ public class LibraryServiceImpl implements LibraryService {
 
 		if (count != 1) {
 			throw new BooktogetherException("개인서재 등록 실패");
-		} else {
-			return true;
 		}
+		return true;
+
 	}
 
 	@Override
@@ -97,6 +94,7 @@ public class LibraryServiceImpl implements LibraryService {
 		if (count != 1) {
 			throw new BooktogetherException("개인소유책 삭제 실패");
 		}
+
 		return true;
 
 	}
@@ -104,9 +102,7 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	public LibraryBook getLibraryBook(Integer libraryBookIdNum) {
 
-		LibraryBook libraryBook = libraryDao.getLibraryBook(libraryBookIdNum);
-
-		return libraryBook;
+		return libraryDao.getLibraryBook(libraryBookIdNum);
 
 	}
 
@@ -118,11 +114,8 @@ public class LibraryServiceImpl implements LibraryService {
 
 		pageBean.setDbCount(dbCount);
 
-		List<LibraryBook> libraryBookList = libraryDao
-				.getListLibraryBook(libraryBook, pageBean.getStartPage() - 1,
-						pageBean.getEndPage());
-
-		return libraryBookList;
+		return libraryDao.getListLibraryBook(libraryBook, pageBean
+				.getStartPage() - 1, pageBean.getEndPage());
 	}
 
 	@Override
@@ -132,19 +125,15 @@ public class LibraryServiceImpl implements LibraryService {
 
 		pageBean.setDbCount(dbCount);
 
-		List<PossessBook> possessBookList = libraryDao.getListPossessBook(
-				userId, pageBean.getStartPage() - 1, pageBean.getEndPage());
-
-		return possessBookList;
+		return libraryDao.getListPossessBook(userId,
+				pageBean.getStartPage() - 1, pageBean.getEndPage());
 
 	}
 
 	@Override
 	public PossessBook getPossessBook(Integer possessBookIdNum) {
 
-		PossessBook possessBook = libraryDao.getPossessBook(possessBookIdNum);
-
-		return possessBook;
+		return libraryDao.getPossessBook(possessBookIdNum);
 	}
 
 	@Override
@@ -155,9 +144,8 @@ public class LibraryServiceImpl implements LibraryService {
 
 		if (count != 1) {
 			throw new BooktogetherException("개인서재 등록 실패");
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
@@ -169,9 +157,8 @@ public class LibraryServiceImpl implements LibraryService {
 
 		if (count != 1) {
 			throw new BooktogetherException("소유한 책정보 등록 실패");
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
@@ -183,9 +170,9 @@ public class LibraryServiceImpl implements LibraryService {
 
 		if (count != 1) {
 			throw new BooktogetherException("개인서재 책 수정 실패");
-		} else {
-			return true;
 		}
+		return true;
+
 	}
 
 	@Override
@@ -197,7 +184,7 @@ public class LibraryServiceImpl implements LibraryService {
 			log.info("중복이다!!!");
 			return true;
 		}
-		
+
 		log.info("중복아니다.!!!");
 		return false;
 
@@ -211,9 +198,10 @@ public class LibraryServiceImpl implements LibraryService {
 
 		if (count != 1) {
 			throw new BooktogetherException("내소유책 수정 실패");
-		} else {
-			return true;
 		}
+		
+		return true;
+
 	}
 
 }

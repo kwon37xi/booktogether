@@ -33,14 +33,12 @@ public class UserServiceImpl implements UserService {
 	// 사용자 JDBC DAO DI
 	@Resource(name = "userJdbcDao")
 	private UserDao userJdbcDao;
-	
-	
+
 	/**
 	 * BookService
 	 */
 	@Resource(name = "libraryService")
 	private LibraryService libraryService;
-	
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -49,17 +47,13 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = false)
 	public boolean deleteUser(Integer idNum) {
 
-		boolean result = false;
-
 		int count = userJdbcDao.deleteUser(idNum);
 
 		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
-		} else {
-			result = true;
 		}
 
-		return result;
+		return true;
 	}
 
 	@Override
@@ -69,18 +63,14 @@ public class UserServiceImpl implements UserService {
 
 		pageBean.setDbCount(dbCount);
 
-		List<User> userList = userJdbcDao.getListUser(
-				pageBean.getStartPage() - 1, pageBean.getPageSize());
-
-		return userList;
+		return userJdbcDao.getListUser(pageBean.getStartPage() - 1, pageBean
+				.getPageSize());
 	}
 
 	@Override
 	public User getUser(Integer idNum) {
 
-		User user = userJdbcDao.getUser(idNum);
-
-		return user;
+		return userJdbcDao.getUser(idNum);
 	}
 
 	@Override
@@ -115,62 +105,58 @@ public class UserServiceImpl implements UserService {
 
 		int count = userJdbcDao.insertUser(user);
 
-		if (count != 0) {
+		if (count == 0) {
+			throw new BooktogetherException("비밀번호 등록 실패");
+		}
 
-			Integer idNum = userJdbcDao.getLastNumIncrement();
+		Integer idNum = userJdbcDao.getLastNumIncrement();
 
-			userPw.setUserIdNum(idNum);
-			userPw.setDigest(digest);
-			userPw.setSalt(salt);
+		userPw.setUserIdNum(idNum);
+		userPw.setDigest(digest);
+		userPw.setSalt(salt);
 
-			count = userJdbcDao.insertUserPw(userPw);
+		count = userJdbcDao.insertUserPw(userPw);
+
+		if (count != 1) {
+			throw new BooktogetherException("비밀번호 등록 실패");
+		}
+
+		user.getUserAddInfo().setUserIdNum(idNum);
+
+		count = userJdbcDao.insertUserAddInfo(user.getUserAddInfo());
+
+		if (count != 1) {
+			throw new BooktogetherException("사용자 추가정보 등록 실패");
+		}
+
+		for (Zone zone : user.getZones()) {
+
+			zone.setUserIdNum(idNum);
+			count = userJdbcDao.insertZone(zone);
 
 			if (count != 1) {
-				throw new BooktogetherException("비밀번호 등록 실패");
+				throw new BooktogetherException("생활반경 등록 실패");
 			}
-
-			user.getUserAddInfo().setUserIdNum(idNum);
-
-			count = userJdbcDao.insertUserAddInfo(user.getUserAddInfo());
-
-			if (count != 1) {
-				throw new BooktogetherException("사용자 추가정보 등록 실패");
-			}
-
-			for (Zone zone : user.getZones()) {
-
-				zone.setUserIdNum(idNum);
-				count = userJdbcDao.insertZone(zone);
-
-				if (count != 1) {
-					throw new BooktogetherException("생활반경 등록 실패");
-				}
-
-			}
-			
-			Library library=new Library();
-			library.getUser().setIdNum(idNum);
-			library.setIsOpen(0);
-			library.setNotice("등록된 인사말이 없습니다.");
-			
-			result=libraryService.insertLibrary(library);
-			
-			if(!result){
-				throw new BooktogetherException("사용자 개인서재 등록 실패");
-			}
-
-			result = true;
 
 		}
 
-		return result;
+		Library library = new Library();
+		library.getUser().setIdNum(idNum);
+		library.setIsOpen(0);
+		library.setNotice("등록된 인사말이 없습니다.");
+
+		result = libraryService.insertLibrary(library);
+
+		if (!result) {
+			throw new BooktogetherException("사용자 개인서재 등록 실패");
+		}
+
+		return true;
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public boolean modifyUser(User user) {
-
-		boolean result = false;
 
 		int count = userJdbcDao.modifyUser(user);
 
@@ -194,9 +180,7 @@ public class UserServiceImpl implements UserService {
 
 		}
 
-		result = true;
-
-		return result;
+		return true;
 	}
 
 	@Override
@@ -229,10 +213,6 @@ public class UserServiceImpl implements UserService {
 				user = null;
 			}
 
-		} else {
-			if (log.isInfoEnabled()) {
-				log.info("아이디가 없다.");
-			}
 		}
 
 		return user;
@@ -240,8 +220,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String findId(User user) {
-		String id = userJdbcDao.findId(user);
-		return id;
+		return userJdbcDao.findId(user);
 	}
 
 	@Override
@@ -294,15 +273,13 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = false)
 	public boolean modifyPw(User user, String newPw) {
 
-		boolean result = false;
-
 		byte[] salt = PasswordAuthenticator.generatorSalt();
 		byte[] digest = null;
 
 		try {
 			digest = PasswordAuthenticator.createPasswordDigest(newPw, salt);
 		} catch (Exception e) {
-			throw new BooktogetherException("비밀번호 암호화 실패");
+			throw new BooktogetherException("비밀번호 암호화 실패", e);
 		}
 
 		UserPw userPw = new UserPw();
@@ -314,11 +291,9 @@ public class UserServiceImpl implements UserService {
 
 		if (count != 1) {
 			throw new BooktogetherException("비밀번호 수정 실패");
-		} else {
-			result = true;
 		}
 
-		return result;
+		return false;
 	}
 
 	@Override
@@ -329,9 +304,9 @@ public class UserServiceImpl implements UserService {
 
 		if (count != 1) {
 			throw new BooktogetherException("생활 반경 삭제 실패");
-		} else {
-			return true;
 		}
+
+		return true;
 
 	}
 

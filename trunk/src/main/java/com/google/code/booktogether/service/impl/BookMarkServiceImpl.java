@@ -33,9 +33,8 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 		if (count != 1) {
 			throw new BooktogetherException("인용구 등록 실패");
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
@@ -47,9 +46,8 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
@@ -61,20 +59,20 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
 	@Override
 	public List<BookMark> getListBookMark(Integer bookIdNum, PageBean pageBean) {
-		
-		int dbCount=bookMarkJdbcDao.getDbCountBookMark(bookIdNum);
-		
+
+		int dbCount = bookMarkJdbcDao.getDbCountBookMark(bookIdNum);
+
 		pageBean.setDbCount(dbCount);
 
-		return bookMarkJdbcDao.getListBookMark(bookIdNum, pageBean.getStartPage()-1, pageBean.getEndPage());
+		return bookMarkJdbcDao.getListBookMark(bookIdNum, pageBean
+				.getStartPage() - 1, pageBean.getEndPage());
 	}
 
 	@Override
@@ -110,11 +108,10 @@ public class BookMarkServiceImpl implements BookMarkService {
 				throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 			}
 
-		} else {
-			return "이미 공감을 하셨습니다.";
 		}
+		
+		return "이미 공감을 하셨습니다.";
 
 	}
-
 
 }
