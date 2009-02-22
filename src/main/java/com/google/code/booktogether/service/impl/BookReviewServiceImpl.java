@@ -33,9 +33,8 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
@@ -47,9 +46,8 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
@@ -61,9 +59,8 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
@@ -76,7 +73,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 		pageBean.setDbCount(dbCount);
 
 		return bookReviewJdbcDao.getListBookReview(bookIdNum, pageBean
-				.getStartPage()-1, pageBean.getEndPage());
+				.getStartPage() - 1, pageBean.getEndPage());
 	}
 
 	@Override
@@ -88,7 +85,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 		pageBean.setDbCount(dbCount);
 
 		return bookReviewJdbcDao.getListMyBookReview(userIdNum, pageBean
-				.getStartPage()-1, pageBean.getEndPage());
+				.getStartPage() - 1, pageBean.getEndPage());
 
 	}
 
@@ -99,9 +96,8 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 		if (count == 0) {
 			return false;
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
@@ -141,11 +137,9 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 				throw new BooktogetherException("추천자 리스트 등록 실패");
 
-			} else {
-
-				message = "추천등록완료";
-
 			}
+
+			message = "추천등록완료";
 
 		} else {
 			message = "이미 추천하셨습니다.";

@@ -33,9 +33,8 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 		if (count != 1) {
 			throw new BooktogetherException("인용구 등록 실패");
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
@@ -47,9 +46,8 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 		if (count != 1) {
 			throw new BooktogetherException("인용구 등록 실패");
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
@@ -61,9 +59,8 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 		if (count != 1) {
 			throw new BooktogetherException("인용구 삭제 실패");
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
@@ -98,9 +95,8 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 		if (count == 0) {
 			return false;
-		} else {
-			return true;
 		}
+		return true;
 
 	}
 
