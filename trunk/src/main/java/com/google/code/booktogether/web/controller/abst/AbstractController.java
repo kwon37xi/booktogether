@@ -20,6 +20,9 @@ public abstract class AbstractController {
 	 */
 	@Resource(name = "userService")
 	protected UserService userService;
+	
+	
+	
 
 	public String getLoginUserId(){
 		

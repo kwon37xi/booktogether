@@ -53,13 +53,16 @@ public class LibraryServiceImpl implements LibraryService {
 	@Transactional(readOnly = false)
 	public boolean insertLibrary(Library library) {
 
-		log.info(library);
+		if (log.isInfoEnabled()) {
+			log.info(library);
+		}
 
 		int count = libraryDao.insertLibrary(library);
 
 		if (count != 1) {
 			throw new BooktogetherException("개인서재 등록 실패");
 		}
+
 		return true;
 	}
 
@@ -72,6 +75,7 @@ public class LibraryServiceImpl implements LibraryService {
 		if (count != 1) {
 			throw new BooktogetherException("개인서재 등록 실패");
 		}
+
 		return true;
 
 	}
@@ -88,8 +92,6 @@ public class LibraryServiceImpl implements LibraryService {
 		}
 
 		count = libraryDao.deletePossessBook(possessBookIdNum);
-
-		log.info(count);
 
 		if (count != 1) {
 			throw new BooktogetherException("개인소유책 삭제 실패");
@@ -181,11 +183,9 @@ public class LibraryServiceImpl implements LibraryService {
 		int count = libraryDao.duplicateLibraryBook(libraryIdNum, boolIdNum);
 
 		if (count == 1) {
-			log.info("중복이다!!!");
 			return true;
 		}
 
-		log.info("중복아니다.!!!");
 		return false;
 
 	}
@@ -199,7 +199,7 @@ public class LibraryServiceImpl implements LibraryService {
 		if (count != 1) {
 			throw new BooktogetherException("내소유책 수정 실패");
 		}
-		
+
 		return true;
 
 	}

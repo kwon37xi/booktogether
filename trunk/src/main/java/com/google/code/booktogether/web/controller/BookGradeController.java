@@ -5,12 +5,11 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.BookGradeService;
@@ -40,11 +39,8 @@ public class BookGradeController extends AbstractController {
 	@Resource(name = "bookService")
 	BookService bookService;
 
-	// 로그 표시를 위하여
-	private Logger log = Logger.getLogger(this.getClass());
-
 	/**
-	 * 별점 등록
+	 * 별점 등록 (로그인 필요)
 	 * 
 	 * @param req
 	 * @return
@@ -55,24 +51,20 @@ public class BookGradeController extends AbstractController {
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum,
 			@RequestParam(value = "grade", required = false) Integer grade) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
-		Integer userIdNum = getLoginUserIdNum();
-
 		BookGrade bookGrade = new BookGrade();
 		bookGrade.setGrade(grade);
 		bookGrade.getBook().setIdNum(bookIdNum);
-		bookGrade.getUser().setIdNum(userIdNum);
+		bookGrade.getUser().setIdNum(getLoginUserIdNum());
 
 		// 별점 등록
 		boolean result = bookGradeService.insertGrade(bookGrade);
 
 		if (result) {
-			sra.setAttribute("message", "별점 등록성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"별점 등록성공", RequestAttributes.SCOPE_SESSION);
 		} else {
-			sra.setAttribute("message", "별점 등록실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"별점 등록실패", RequestAttributes.SCOPE_SESSION);
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -81,7 +73,7 @@ public class BookGradeController extends AbstractController {
 	}
 
 	/**
-	 * 별점 삭제
+	 * 별점 삭제 (로그인필요)
 	 * 
 	 * @param req
 	 * @return
@@ -91,8 +83,6 @@ public class BookGradeController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "bookGradeIdNum", required = false) Integer bookGradeIdNum,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
-
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
 		// 파라미터 정보 변수에 세팅
 		Integer userIdNum = getLoginUserIdNum();
@@ -106,11 +96,11 @@ public class BookGradeController extends AbstractController {
 		boolean result = bookGradeService.deleteGrade(bookGrade);
 
 		if (result) {
-			sra.setAttribute("message", "별점 삭제성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"별점 삭제성공", RequestAttributes.SCOPE_SESSION);
 		} else {
-			sra.setAttribute("message", "별점 삭제실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"별점 삭제실패", RequestAttributes.SCOPE_SESSION);
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -147,7 +137,6 @@ public class BookGradeController extends AbstractController {
 				Book book = bookService.getBook(bookIdNum);
 
 				bookGradeList.get(i).setBook(book);
-
 			}
 
 		} else {

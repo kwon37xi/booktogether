@@ -5,7 +5,6 @@ import javax.activation.FileDataSource;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 
-import org.apache.log4j.Logger;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -24,9 +23,6 @@ import com.google.code.booktogether.web.domain.MailInfo;
 public class MimeMail {
 
 	private JavaMailSender mailSender;
-
-	// 로그 표시를 위하여
-	private Logger log = Logger.getLogger(this.getClass());
 
 	public void setMailSender(JavaMailSender mailSender) {
 

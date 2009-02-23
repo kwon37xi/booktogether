@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.BookService;
@@ -74,9 +74,7 @@ public class LibraryController extends AbstractController {
 	@RequestMapping("/library/modifyLibraryView.do")
 	public ModelAndView handleModifyLibraryView(HttpServletRequest req) {
 
-		String userId = getLoginUserId();
-
-		Library library = libraryService.getLibrary(userId);
+		Library library = libraryService.getLibrary(getLoginUserId());
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/modifyLibrary");
@@ -96,13 +94,11 @@ public class LibraryController extends AbstractController {
 	public ModelAndView handleModifyLibrary(HttpServletRequest req,
 			Library library) {
 
-		log.info(library);
+		if (log.isInfoEnabled()) {
+			log.info(library);
+		}
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
-		Integer userIdNum = getLoginUserIdNum();
-
-		library.getUser().setIdNum(userIdNum);
+		library.getUser().setIdNum(getLoginUserIdNum());
 
 		// 사용자 아이디, 비밀번호 일치 되는치 검사
 		boolean result = libraryService.modifyLibrary(library);
@@ -110,13 +106,13 @@ public class LibraryController extends AbstractController {
 		// 성공시
 		if (result) {
 
-			sra.setAttribute("message", "내서재 정보 수정 성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"내서재 정보 수정 성공", RequestAttributes.SCOPE_SESSION);
 
 		} else { // 실패시
 
-			sra.setAttribute("message", "내서재 정보 수정 실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"내서재 정보 수정 실패", RequestAttributes.SCOPE_SESSION);
 
 		}
 
@@ -147,17 +143,23 @@ public class LibraryController extends AbstractController {
 
 			library.setUser(user);
 
-			log.info(library);
+			if (log.isInfoEnabled()) {
+				log.info(library);
+			}
 
 		} else if (library != null && library.getIsOpen() == 1) { // 서재가 없을시
 
-			log.info("비공개다.");
+			if (log.isInfoEnabled()) {
+				log.info("비공개다.");
+			}
 
 			return new ModelAndView("redirect:/library/unOpenLibraryView.do");
 
 		} else {
 
-			log.info("해당 아이디가 없다.");
+			if (log.isInfoEnabled()) {
+				log.info("해당 아이디가 없다.");
+			}
 
 			return new ModelAndView("redirect:/");
 
@@ -183,20 +185,20 @@ public class LibraryController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
-		String userId = getLoginUserId();
-
 		Book book = bookService.getBook(bookIdNum);
 
-		Library library = libraryService.getLibrary(userId);
+		Library library = libraryService.getLibrary(getLoginUserId());
 
 		boolean result = libraryService.duplicateLibraryBook(
 				library.getIdNum(), book.getIdNum());
 
 		if (result) {
 
-			log.info("중복이야~~~");
+			if (log.isInfoEnabled()) {
+				log.info("중복이야~~~");
+			}
 
-			new ServletRequestAttributes(req).setAttribute("message",
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"이미 서재에 등록되어있습니다.", RequestAttributes.SCOPE_SESSION);
 
 			return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -204,7 +206,9 @@ public class LibraryController extends AbstractController {
 
 		} else {
 
-			log.info("중복아니다~~");
+			if (log.isInfoEnabled()) {
+				log.info("중복아니다~~");
+			}
 
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("library/insertLibraryBook");
@@ -242,9 +246,9 @@ public class LibraryController extends AbstractController {
 			@RequestParam(value = "quality", required = false) Integer quality,
 			@RequestParam(value = "bookstate", required = false) Integer bookstate) {
 
-		log.info(libraryBook);
-
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
+		if (log.isInfoEnabled()) {
+			log.info(libraryBook);
+		}
 
 		Calendar cal = Calendar.getInstance();
 
@@ -290,13 +294,13 @@ public class LibraryController extends AbstractController {
 		// 성공시
 		if (result) {
 
-			sra.setAttribute("message", "서재에 책 등록 성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"서재에 책 등록 성공", RequestAttributes.SCOPE_SESSION);
 
 		} else { // 실패시
 
-			sra.setAttribute("message", "서재에 책 등록 실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"서재에 책 등록 실패", RequestAttributes.SCOPE_SESSION);
 
 		}
 
@@ -345,8 +349,6 @@ public class LibraryController extends AbstractController {
 			@RequestParam(value = "readDateMonth", required = false) Integer readDateMonth,
 			@RequestParam(value = "readDateDate", required = false) Integer readDateDate) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
 		if (readDateYear == null || readDateMonth == null
 				|| readDateDate == null) {
 
@@ -369,13 +371,13 @@ public class LibraryController extends AbstractController {
 		// 성공시
 		if (result) {
 
-			sra.setAttribute("message", "서재에 책 수정 성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"서재에 책 수정 성공", RequestAttributes.SCOPE_SESSION);
 
 		} else { // 실패시
 
-			sra.setAttribute("message", "서재에 책 수정 실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"서재에 책 수정 실패", RequestAttributes.SCOPE_SESSION);
 
 		}
 
@@ -396,22 +398,22 @@ public class LibraryController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "libraryBookIdNum", required = false) Integer libraryBookIdNum) {
 
-		log.info("삭제 할려고한다.");
-
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
+		if (log.isInfoEnabled()) {
+			log.info("삭제 할려고한다.");
+		}
 
 		boolean result = libraryService.deleteLibraryBook(libraryBookIdNum);
 
 		// 성공시
 		if (result) {
 
-			sra.setAttribute("message", "서재에 책 삭제 성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"서재에 책 삭제 성공", RequestAttributes.SCOPE_SESSION);
 
 		} else { // 실패시
 
-			sra.setAttribute("message", "서재에 책 삭제 실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"서재에 책 삭제 실패", RequestAttributes.SCOPE_SESSION);
 
 		}
 
@@ -452,9 +454,7 @@ public class LibraryController extends AbstractController {
 
 				Integer bookIdNum = libraryBookList.get(i).getBook().getIdNum();
 
-				Book book = bookService.getBook(bookIdNum);
-
-				libraryBookList.get(i).setBook(book);
+				libraryBookList.get(i).setBook(bookService.getBook(bookIdNum));
 
 			}
 		}
@@ -481,8 +481,8 @@ public class LibraryController extends AbstractController {
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 
 		pageNo = (pageNo == null) ? 1 : pageNo;
-		
-		PageBean pageBean=new PageBean();
+
+		PageBean pageBean = new PageBean();
 		pageBean.setPageNo(pageNo);
 
 		List<PossessBook> possessBookList = libraryService.getListPossessBook(
@@ -491,11 +491,10 @@ public class LibraryController extends AbstractController {
 		if (possessBookList != null) {
 
 			for (int i = 0; i < possessBookList.size(); i++) {
+
 				Integer bookIdNum = possessBookList.get(i).getBook().getIdNum();
 
-				Book book = bookService.getBook(bookIdNum);
-
-				possessBookList.get(i).setBook(book);
+				possessBookList.get(i).setBook(bookService.getBook(bookIdNum));
 			}
 
 		}
@@ -527,9 +526,7 @@ public class LibraryController extends AbstractController {
 
 			Integer bookIdNum = possessBook.getBook().getIdNum();
 
-			Book book = bookService.getBook(bookIdNum);
-
-			possessBook.setBook(book);
+			possessBook.setBook(bookService.getBook(bookIdNum));
 
 		}
 
@@ -564,8 +561,6 @@ public class LibraryController extends AbstractController {
 			@RequestParam(value = "endReadMonth", required = false) Integer endReadMonth,
 			@RequestParam(value = "endReadDate", required = false) Integer endReadDate) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
 		Calendar cal = Calendar.getInstance();
 
 		possessBook.getUser().setIdNum(getLoginUserIdNum());
@@ -579,20 +574,22 @@ public class LibraryController extends AbstractController {
 		cal.set(endReadYear, endReadMonth - 1, endReadDate);
 		possessBook.setEndRead(cal.getTime());
 
-		log.info(possessBook);
+		if (log.isInfoEnabled()) {
+			log.info(possessBook);
+		}
 
 		boolean result = libraryService.modifyPossessBook(possessBook);
 
 		// 성공시
 		if (result) {
 
-			sra.setAttribute("message", "내소유 책 수정 성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"내소유 책 수정 성공", RequestAttributes.SCOPE_SESSION);
 
 		} else { // 실패시
 
-			sra.setAttribute("message", "내소유 책 수정 실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"내소유 책 수정 실패", RequestAttributes.SCOPE_SESSION);
 		}
 
 		// 경로 설정
@@ -616,7 +613,9 @@ public class LibraryController extends AbstractController {
 		boolean result = libraryService.deletePossessBook(getLoginUserIdNum(),
 				possessBookIdNum);
 
-		log.info(result);
+		if (log.isInfoEnabled()) {
+			log.info(result);
+		}
 
 		// 경로 설정
 		return new ModelAndView(

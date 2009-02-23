@@ -59,14 +59,12 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	}
 
 	@Override
-	public List<BookGrade> getListBookGrade(Integer bookIdNum, Integer startPage,
-			Integer endPage) {
-
-		BookGradeRowMapper bookGradeRowMapper = new BookGradeRowMapper();
+	public List<BookGrade> getListBookGrade(Integer bookIdNum,
+			Integer startPage, Integer endPage) {
 
 		String sql = sqlparser.getSQL("bookGrade", "LIST_BOOKGRADE_SQL");
 
-		return getSimpleJdbcTemplate().query(sql, bookGradeRowMapper,
+		return getSimpleJdbcTemplate().query(sql, new BookGradeRowMapper(),
 				new Object[] { bookIdNum, startPage, endPage });
 	}
 
@@ -74,11 +72,9 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	public List<BookGrade> getListMyBookGrade(Integer userIdNum,
 			Integer startPage, Integer endPage) {
 
-		MyBookGradeRowMapper myBookGradeRowMapper = new MyBookGradeRowMapper();
-
 		String sql = sqlparser.getSQL("bookGrade", "LIST_MYBOOKGRADE_SQL");
 
-		return getSimpleJdbcTemplate().query(sql, myBookGradeRowMapper,
+		return getSimpleJdbcTemplate().query(sql, new MyBookGradeRowMapper(),
 				new Object[] { userIdNum, startPage, endPage });
 	}
 
@@ -93,6 +89,7 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 	@Override
 	public int getDbCountBookGrade(Integer bookIdNum) {
+		
 		String sql = sqlparser.getSQL("bookGrade", "GET_DBCOUNT_BOOKGRADE_SQL");
 
 		return getSimpleJdbcTemplate().queryForInt(sql,
@@ -101,7 +98,9 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 	@Override
 	public int getDbCountMyBookGrade(Integer userIdNum) {
-		String sql = sqlparser.getSQL("bookGrade", "GET_DBCOUNT_MYBOOKGRADE_SQL");
+		
+		String sql = sqlparser.getSQL("bookGrade",
+				"GET_DBCOUNT_MYBOOKGRADE_SQL");
 
 		return getSimpleJdbcTemplate().queryForInt(sql,
 				new Object[] { userIdNum });

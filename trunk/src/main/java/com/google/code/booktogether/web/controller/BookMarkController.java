@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import org.springframework.web.servlet.ModelAndView;
 import com.google.code.booktogether.service.BookMarkService;
@@ -47,7 +47,7 @@ public class BookMarkController extends AbstractController {
 
 	/**
 	 * 인용구 등록
-	 * 
+	 * (로그인필요)
 	 * @param req
 	 * @return
 	 */
@@ -58,13 +58,9 @@ public class BookMarkController extends AbstractController {
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "content", required = false) String content) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
-		Integer userIdNum = getLoginUserIdNum();
-
 		BookMark bookMark = new BookMark();
 		bookMark.getBook().setIdNum(bookIdNum);
-		bookMark.getUser().setIdNum(userIdNum);
+		bookMark.getUser().setIdNum(getLoginUserIdNum());
 		bookMark.setVibeNum(0);
 		bookMark.setContent(content);
 		bookMark.setPage(page);
@@ -73,11 +69,11 @@ public class BookMarkController extends AbstractController {
 		boolean result = bookMarkService.insertBookMark(bookMark);
 
 		if (result) {
-			sra.setAttribute("message", "인용구 등록성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"인용구 등록성공", RequestAttributes.SCOPE_SESSION);
 		} else {
-			sra.setAttribute("message", "인용구 등록실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"인용구 등록실패", RequestAttributes.SCOPE_SESSION);
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -87,7 +83,7 @@ public class BookMarkController extends AbstractController {
 
 	/**
 	 * 별점 삭제
-	 * 
+	 * (로그인필요)
 	 * @param req
 	 * @return
 	 */
@@ -97,24 +93,20 @@ public class BookMarkController extends AbstractController {
 			@RequestParam(value = "bookMarkIdNum", required = false) Integer bookMarkIdNum,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
-		Integer userIdNum = getLoginUserIdNum();
-
 		BookMark bookMark = new BookMark();
 		bookMark.setIdNum(bookMarkIdNum);
 		bookMark.getBook().setIdNum(bookIdNum);
-		bookMark.getUser().setIdNum(userIdNum);
+		bookMark.getUser().setIdNum( getLoginUserIdNum());
 
 		// 인용구 삭제
 		boolean result = bookMarkService.deleteBookMark(bookMark);
 
 		if (result) {
-			sra.setAttribute("message", "인용구 삭제성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"인용구 삭제성공", RequestAttributes.SCOPE_SESSION);
 		} else {
-			sra.setAttribute("message", "인용구 삭제실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"인용구 삭제실패", RequestAttributes.SCOPE_SESSION);
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -124,7 +116,7 @@ public class BookMarkController extends AbstractController {
 
 	/**
 	 * 인용구 수정
-	 * 
+	 * (로그인필요)
 	 * @param req
 	 * @return
 	 */
@@ -135,25 +127,21 @@ public class BookMarkController extends AbstractController {
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "content", required = false) String content) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
-		Integer userIdNum = getLoginUserIdNum();
-
 		BookMark bookMark = new BookMark();
 		bookMark.setContent(content);
 		bookMark.setPage(page);
 		bookMark.getBook().setIdNum(bookIdNum);
-		bookMark.getUser().setIdNum(userIdNum);
+		bookMark.getUser().setIdNum(getLoginUserIdNum());
 
 		// 인용구 수정
 		boolean result = bookMarkService.modifyBookMark(bookMark);
 
 		if (result) {
-			sra.setAttribute("message", "인용구 수정성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"인용구 수정성공", RequestAttributes.SCOPE_SESSION);
 		} else {
-			sra.setAttribute("message", "인용구 수정실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"인용구 수정실패", RequestAttributes.SCOPE_SESSION);
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -163,7 +151,7 @@ public class BookMarkController extends AbstractController {
 
 	/**
 	 * 공감수 올리기
-	 * 
+	 * (로그인필요)
 	 * @param req
 	 * @return
 	 */
@@ -172,8 +160,6 @@ public class BookMarkController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "bookMarkIdNum", required = false) Integer bookMarkIdNum,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
-
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
 
 		Integer userIdNum = getLoginUserIdNum();
 
@@ -192,7 +178,8 @@ public class BookMarkController extends AbstractController {
 			message = "공감을 하실려면 로그인을 하셔야 합니다.";
 		}
 
-		sra.setAttribute("message", message, RequestAttributes.SCOPE_SESSION);
+		RequestContextHolder.getRequestAttributes().setAttribute("message",
+				message, RequestAttributes.SCOPE_SESSION);
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
 				+ bookIdNum);
@@ -215,7 +202,6 @@ public class BookMarkController extends AbstractController {
 
 		PageBean pageBean = new PageBean();
 		pageBean.setPageNo(pageNo);
-		
 
 		List<BookMarkList> bookListInBookMark = new ArrayList<BookMarkList>();
 

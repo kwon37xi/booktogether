@@ -2,7 +2,9 @@ package com.google.code.booktogether.web.domain;
 
 import java.util.List;
 
-public class BookMarkList {
+import com.google.code.booktogether.web.domain.base.BaseObject;
+
+public class BookMarkList extends BaseObject{
 
 	private Book book;
 	

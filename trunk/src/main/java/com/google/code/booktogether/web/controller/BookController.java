@@ -5,13 +5,11 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.BookGradeService;
@@ -57,9 +55,6 @@ public class BookController extends AbstractController {
 	 */
 	@Resource(name = "bookMarkService")
 	private BookMarkService bookMarkService;
-
-	// 로그 표시를 위하여
-	private Logger log = Logger.getLogger(this.getClass());
 
 	/**
 	 * 책 정보 가지고 오기

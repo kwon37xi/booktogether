@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.BookReviewService;
@@ -76,8 +76,6 @@ public class BookReviewController extends AbstractController {
 			@RequestParam(value = "title", required = false) String title,
 			@RequestParam(value = "review", required = false) String review) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
 		Integer userIdNum = getLoginUserIdNum();
 
 		BookReview bookReview = new BookReview();
@@ -91,11 +89,11 @@ public class BookReviewController extends AbstractController {
 		boolean result = bookReviewService.insertReview(bookReview);
 
 		if (result) {
-			sra.setAttribute("message", "등록 성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"등록 성공", RequestAttributes.SCOPE_SESSION);
 		} else {
-			sra.setAttribute("message", "등록 실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"등록 실패", RequestAttributes.SCOPE_SESSION);
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -114,23 +112,19 @@ public class BookReviewController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
-		Integer userIdNum = getLoginUserIdNum();
-
 		BookReview bookReview = new BookReview();
 		bookReview.getBook().setIdNum(bookIdNum);
-		bookReview.getUser().setIdNum(userIdNum);
+		bookReview.getUser().setIdNum(getLoginUserIdNum());
 
 		// 리뷰 삭제
 		boolean result = bookReviewService.deleteReview(bookReview);
 
 		if (result) {
-			sra.setAttribute("message", "삭제 성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"삭제 성공", RequestAttributes.SCOPE_SESSION);
 		} else {
-			sra.setAttribute("message", "삭제 실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"삭제 실패", RequestAttributes.SCOPE_SESSION);
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -149,11 +143,9 @@ public class BookReviewController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
-		Integer userIdNum = getLoginUserIdNum();
-
 		BookReview bookReview = new BookReview();
 		bookReview.getBook().setIdNum(bookIdNum);
-		bookReview.getUser().setIdNum(userIdNum);
+		bookReview.getUser().setIdNum(getLoginUserIdNum());
 
 		bookReview = bookReviewService.getReview(bookReview);
 
@@ -203,11 +195,9 @@ public class BookReviewController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
-		Integer userIdNum = getLoginUserIdNum();
-
 		BookReview bookReview = new BookReview();
 		bookReview.getBook().setIdNum(bookIdNum);
-		bookReview.getUser().setIdNum(userIdNum);
+		bookReview.getUser().setIdNum(getLoginUserIdNum());
 
 		bookReview = bookReviewService.getReview(bookReview);
 
@@ -236,8 +226,6 @@ public class BookReviewController extends AbstractController {
 			@RequestParam(value = "title", required = false) String title,
 			@RequestParam(value = "review", required = false) String review) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
 		BookReview bookReview = new BookReview();
 		bookReview.getBook().setIdNum(bookIdNum);
 		bookReview.getUser().setIdNum(bookIdNum);
@@ -249,11 +237,11 @@ public class BookReviewController extends AbstractController {
 		boolean result = bookReviewService.modifyReview(bookReview);
 
 		if (result) {
-			sra.setAttribute("message", "수정 성공",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"수정 성공", RequestAttributes.SCOPE_SESSION);
 		} else {
-			sra.setAttribute("message", "수정 실패",
-					RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"수정 실패", RequestAttributes.SCOPE_SESSION);
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -273,21 +261,20 @@ public class BookReviewController extends AbstractController {
 			@RequestParam(value = "bookReviewIdNum", required = false) Integer bookReviewIdNum,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
-		Integer userIdNum = getLoginUserIdNum();
-
 		BookReview bookReview = new BookReview();
 		bookReview.setIdNum(bookReviewIdNum);
 		bookReview.getBook().setIdNum(bookIdNum);
-		bookReview.getUser().setIdNum(userIdNum);
+		bookReview.getUser().setIdNum(getLoginUserIdNum());
 
-		log.info(bookReview);
+		if (log.isInfoEnabled()) {
+			log.info(bookReview);
+		}
 
 		// 리뷰 추천하기
 		String message = bookReviewService.modifyReviewRecommend(bookReview);
 
-		sra.setAttribute("message", message, RequestAttributes.SCOPE_SESSION);
+		RequestContextHolder.getRequestAttributes().setAttribute("message",
+				message, RequestAttributes.SCOPE_SESSION);
 
 		return new ModelAndView("redirect:/book/getReview.do?bookReviewIdNum="
 				+ bookReviewIdNum);
@@ -304,12 +291,11 @@ public class BookReviewController extends AbstractController {
 	public ModelAndView handleGetListMyReview(
 			HttpServletRequest req,
 			@RequestParam(value = "userIdNum", required = false) Integer userIdNum,
-			@RequestParam(value = "pageNo", required = false) Integer pageNo
-			) {
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 
 		pageNo = (pageNo == null) ? 1 : pageNo;
-		
-		PageBean pageBean=new PageBean();
+
+		PageBean pageBean = new PageBean();
 		pageBean.setPageNo(pageNo);
 
 		List<BookReview> bookReviewList = bookReviewService
@@ -321,14 +307,14 @@ public class BookReviewController extends AbstractController {
 
 				Integer bookIdNum = bookReviewList.get(i).getBook().getIdNum();
 
-				Book book = bookService.getBook(bookIdNum);
-
-				bookReviewList.get(i).setBook(book);
+				bookReviewList.get(i).setBook(bookService.getBook(bookIdNum));
 
 			}
 
 		} else {
-			log.info("결과가 없는거 같애요");
+			if (log.isInfoEnabled()) {
+				log.info("결과가 없는거 같애요");
+			}
 		}
 
 		ModelAndView mav = new ModelAndView();
