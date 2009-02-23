@@ -66,11 +66,9 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	public List<BookReview> getListBookReview(Integer bookIdNum,
 			Integer startPage, Integer endPage) {
 
-		BookReviewRowMapper bookReviewRowMapper = new BookReviewRowMapper();
-
 		String sql = sqlparser.getSQL("bookReview", "LIST_BOOKREVIEW_SQL");
 
-		return getSimpleJdbcTemplate().query(sql, bookReviewRowMapper,
+		return getSimpleJdbcTemplate().query(sql, new BookReviewRowMapper(),
 				new Object[] { bookIdNum, startPage, endPage });
 	}
 
@@ -78,11 +76,9 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	public List<BookReview> getListMyBookReview(Integer userIdNum,
 			Integer startPage, Integer endPage) {
 
-		MyBookReviewRowMapper myBookReviewRowMapper = new MyBookReviewRowMapper();
-
 		String sql = sqlparser.getSQL("bookReview", "LIST_MYBOOKREVIEW_SQL");
 
-		return getSimpleJdbcTemplate().query(sql, myBookReviewRowMapper,
+		return getSimpleJdbcTemplate().query(sql, new MyBookReviewRowMapper(),
 				new Object[] { userIdNum, startPage, endPage });
 	}
 
@@ -99,14 +95,12 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public BookReview getReview(BookReview bookReview) {
 
-		BookReviewDetailRowMapper bookReviewDetailRowMapper = new BookReviewDetailRowMapper();
-
 		String sql = sqlparser.getSQL("bookReview", "GET_MY_BOOKREVIEW_SQL");
 
 		return (BookReview) DataAccessUtils
 				.singleResult(getSimpleJdbcTemplate().query(
 						sql,
-						bookReviewDetailRowMapper,
+						new BookReviewDetailRowMapper(),
 						new Object[] { bookReview.getBook().getIdNum(),
 								bookReview.getUser().getIdNum() }));
 
@@ -115,13 +109,11 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public BookReview getReview(Integer bookReviewIdNum) {
 
-		BookReviewDetailRowMapper bookReviewDetailRowMapper = new BookReviewDetailRowMapper();
-
 		String sql = sqlparser.getSQL("bookReview", "GET_BOOKREVIEW_SQL");
 
 		return (BookReview) DataAccessUtils
 				.singleResult(getSimpleJdbcTemplate().query(sql,
-						bookReviewDetailRowMapper,
+						new BookReviewDetailRowMapper(),
 						new Object[] { bookReviewIdNum }));
 
 	}

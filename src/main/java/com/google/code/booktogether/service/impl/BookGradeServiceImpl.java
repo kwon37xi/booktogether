@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +21,6 @@ public class BookGradeServiceImpl implements BookGradeService {
 	@Resource(name = "bookGradeJdbcDao")
 	private BookGradeDao bookGradeJdbcDao;
 
-	// 로그 표시를 위하여
-	private Logger log = Logger.getLogger(this.getClass());
-
 	@Override
 	@Transactional(readOnly = false)
 	public boolean insertGrade(BookGrade bookGrade) {
@@ -34,6 +30,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 		if (count != 1) {
 			throw new BooktogetherException("인용구 등록 실패");
 		}
+
 		return true;
 
 	}
@@ -47,6 +44,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 		if (count != 1) {
 			throw new BooktogetherException("인용구 등록 실패");
 		}
+
 		return true;
 
 	}
@@ -67,9 +65,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 	@Override
 	public List<BookGrade> getListBookGrade(Integer bookIdNum, PageBean pageBean) {
 
-		int dbCount = bookGradeJdbcDao.getDbCountBookGrade(bookIdNum);
-
-		pageBean.setDbCount(dbCount);
+		pageBean.setDbCount(bookGradeJdbcDao.getDbCountBookGrade(bookIdNum));
 
 		return bookGradeJdbcDao.getListBookGrade(bookIdNum, pageBean
 				.getStartPage() - 1, pageBean.getEndPage());
@@ -79,9 +75,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 	public List<BookGrade> getListMyBookGrade(Integer userIdNum,
 			PageBean pageBean) {
 
-		int dbCount = bookGradeJdbcDao.getDbCountMyBookGrade(userIdNum);
-
-		pageBean.setDbCount(dbCount);
+		pageBean.setDbCount(bookGradeJdbcDao.getDbCountMyBookGrade(userIdNum));
 
 		return bookGradeJdbcDao.getListMyBookGrade(userIdNum, pageBean
 				.getStartPage() - 1, pageBean.getEndPage());
@@ -96,6 +90,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 		if (count == 0) {
 			return false;
 		}
+
 		return true;
 
 	}

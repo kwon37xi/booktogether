@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,9 +36,6 @@ public class UserController extends AbstractController {
 	 */
 	@Resource(name = "userService")
 	UserService userService;
-
-	// 로그 표시를 위하여
-	private Logger log = Logger.getLogger(this.getClass());
 
 	/**
 	 * 사용자 등록 화면
@@ -131,8 +127,8 @@ public class UserController extends AbstractController {
 		String message = (result) ? "가입성공" : "가입실패";
 
 		// 메세지 세션에 담기 new
-		new ServletRequestAttributes(req).setAttribute("message", message,
-				RequestAttributes.SCOPE_SESSION);
+		RequestContextHolder.getRequestAttributes().setAttribute("message",
+				message, RequestAttributes.SCOPE_SESSION);
 
 		return new ModelAndView("redirect:/user/login.do");
 
@@ -386,8 +382,6 @@ public class UserController extends AbstractController {
 	@RequestMapping("/user/deleteUser.do")
 	public ModelAndView handleDeleteUser(HttpServletRequest req) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
 		// 사용자 ID값
 		Integer userIdNum = getLoginUserIdNum();
 
@@ -398,7 +392,8 @@ public class UserController extends AbstractController {
 
 		String message = (result) ? "탈퇴성공" : "탈퇴실패";
 
-		sra.setAttribute("message", message, RequestAttributes.SCOPE_SESSION);
+		RequestContextHolder.getRequestAttributes().setAttribute("message",
+				message, RequestAttributes.SCOPE_SESSION);
 
 		return new ModelAndView("redirect:/user/login.do");
 
@@ -515,10 +510,7 @@ public class UserController extends AbstractController {
 			@RequestParam(value = "pw", required = false) String pw,
 			@RequestParam(value = "newPw", required = false) String newPw) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
-		String userId = (String) sra.getAttribute("userId",
-				RequestAttributes.SCOPE_SESSION);
+		String userId = getLoginUserId();
 
 		String message = "";
 
@@ -538,7 +530,8 @@ public class UserController extends AbstractController {
 			message = "입력하신 비밀번호가 일치 하지 않습니다.";
 		}
 
-		sra.setAttribute("message", message, RequestAttributes.SCOPE_SESSION);
+		RequestContextHolder.getRequestAttributes().setAttribute("message",
+				message, RequestAttributes.SCOPE_SESSION);
 
 		return new ModelAndView("redirect:/user/login.do");
 
@@ -554,8 +547,6 @@ public class UserController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "zoneIdNum", required = false) Integer zoneIdNum) {
 
-		ServletRequestAttributes sra = new ServletRequestAttributes(req);
-
 		// 사용자 userId값
 		Integer userIdNum = getLoginUserIdNum();
 
@@ -563,7 +554,8 @@ public class UserController extends AbstractController {
 
 		String message = (result) ? "삭제 되었습니다." : "삭제를 실패하였습니다.";
 
-		sra.setAttribute("message", message, RequestAttributes.SCOPE_SESSION);
+		RequestContextHolder.getRequestAttributes().setAttribute("message",
+				message, RequestAttributes.SCOPE_SESSION);
 
 		return new ModelAndView("redirect:/user/modifyUserView.do");
 

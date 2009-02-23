@@ -3,7 +3,6 @@ package com.google.code.booktogether.service.impl;
 import java.util.List;
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,9 +23,6 @@ public class BookServiceImpl implements BookService {
 	// 책 JDBC DAO DI
 	@Resource(name = "bookJdbcDao")
 	private BookDao bookJdbcDao;
-
-	// 로그 표시를 위하여
-	private Logger log = Logger.getLogger(this.getClass());
 
 	// 책 등록
 	@Override
@@ -89,8 +85,6 @@ public class BookServiceImpl implements BookService {
 			// OPEN API로 Book값 세팅
 			book = new BookOpenApiDaumImpl().viewBook(isbn);
 
-			log.info(book);
-
 			// DB에 넣기
 			this.insertBook(book);
 
@@ -117,8 +111,7 @@ public class BookServiceImpl implements BookService {
 		List<Book> bookList = boadi.searchBook(query, searchType, pageBean
 				.getPageNo());
 
-		BookOpenApiHeader header = (BookOpenApiHeader) boadi
-				.getHeader();
+		BookOpenApiHeader header = boadi.getHeader();
 
 		pageBean.setDbCount(Integer.parseInt(header.getTotalCount()));
 
@@ -128,13 +121,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> getListBookRefBookMark(Integer userIdNum,
 			PageBean pageBean) {
-		
-		int dbCount=bookJdbcDao.getDbCountBookRefBookMark(userIdNum);
-		
-		pageBean.setDbCount(dbCount);
+
+		pageBean.setDbCount(bookJdbcDao.getDbCountBookRefBookMark(userIdNum));
 
 		List<Book> bookList = bookJdbcDao.getListBookRefBookMark(userIdNum,
-				pageBean.getStartPage()-1, pageBean.getEndPage());
+				pageBean.getStartPage() - 1, pageBean.getEndPage());
 
 		if (bookList != null) {
 

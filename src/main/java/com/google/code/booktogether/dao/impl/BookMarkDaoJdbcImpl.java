@@ -63,22 +63,18 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	public List<BookMark> getListBookMark(Integer bookIdNum, Integer startPage,
 			Integer endPage) {
 
-		BookMarkRowMapper rowMapper = new BookMarkRowMapper();
-
 		String sql = sqlparser.getSQL("bookMark", "LIST_BOOKMARK_SQL");
 
-		return getSimpleJdbcTemplate().query(sql, rowMapper,
+		return getSimpleJdbcTemplate().query(sql, new BookMarkRowMapper(),
 				new Object[] { bookIdNum, startPage, endPage });
 	}
 
 	@Override
 	public List<BookMark> getListMyBookMark(Integer userIdNum, Integer bookIdNum) {
 
-		MyBookMarkRowMapper rowMapper = new MyBookMarkRowMapper();
-
 		String sql = sqlparser.getSQL("bookMark", "LIST_MYBOOKMARK_SQL");
 
-		return getSimpleJdbcTemplate().query(sql, rowMapper,
+		return getSimpleJdbcTemplate().query(sql, new MyBookMarkRowMapper(),
 				new Object[] { userIdNum, bookIdNum });
 	}
 

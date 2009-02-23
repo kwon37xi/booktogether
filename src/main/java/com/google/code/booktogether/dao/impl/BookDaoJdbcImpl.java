@@ -30,12 +30,10 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 	@Override
 	public Book getBook(Integer bookIdNum) {
 
-		BookRowMapper bookRowMapper = new BookRowMapper();
-
 		String sql = sqlparser.getSQL("book", "GET_BOOK_ID_SQL");
 
 		return (Book) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
-				.query(sql, bookRowMapper, new Object[] { bookIdNum }));
+				.query(sql, new BookRowMapper(), new Object[] { bookIdNum }));
 	}
 
 	// 책 등록
@@ -69,11 +67,9 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 	@Override
 	public List<Author> getAuthor(Book book) {
 
-		AuthorRowMapper authorRowMapper = new AuthorRowMapper();
-
 		String sql = sqlparser.getSQL("book", "GET_AUTHORS_SQL");
 
-		return getSimpleJdbcTemplate().query(sql, authorRowMapper,
+		return getSimpleJdbcTemplate().query(sql, new AuthorRowMapper(),
 				new Object[] { book.getIdNum() });
 	}
 
@@ -81,23 +77,20 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 	@Override
 	public Book getBook(String isbn) {
 
-		BookRowMapper bookRowMapper = new BookRowMapper();
-
 		String sql = sqlparser.getSQL("book", "GET_BOOK_ISBN_SQL");
 
 		return (Book) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
-				.query(sql, bookRowMapper, new Object[] { isbn, isbn }));
+				.query(sql, new BookRowMapper(), new Object[] { isbn, isbn }));
 	}
 
 	@Override
 	public Author getAuthor(Integer authorIdNum) {
 
-		AuthorRowMapper authorRowMapper = new AuthorRowMapper();
-
 		String sql = sqlparser.getSQL("book", "GET_AUTHOR_SQL");
 
-		return (Author) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
-				.query(sql, authorRowMapper, new Object[] { authorIdNum }));
+		return (Author) DataAccessUtils
+				.singleResult(getSimpleJdbcTemplate().query(sql,
+						new AuthorRowMapper(), new Object[] { authorIdNum }));
 
 	}
 
@@ -113,11 +106,9 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 	public List<Book> getListBookRefBookMark(Integer userIdNum,
 			Integer startPage, Integer endPage) {
 
-		BookSimpleRowMapper rowMapper = new BookSimpleRowMapper();
-
 		String sql = sqlparser.getSQL("book", "LIST_BOOK_REF_BOOKMARK_SQL");
 
-		return getSimpleJdbcTemplate().query(sql, rowMapper,
+		return getSimpleJdbcTemplate().query(sql, new BookSimpleRowMapper(),
 				new Object[] { userIdNum, startPage, endPage });
 	}
 

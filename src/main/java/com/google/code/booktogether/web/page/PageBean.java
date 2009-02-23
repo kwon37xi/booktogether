@@ -1,11 +1,9 @@
 package com.google.code.booktogether.web.page;
 
-import com.google.code.booktogether.web.domain.base.BaseObject;
-
 /**
  * 페이징 기법을 위한 클래스.
  */
-public class PageBean extends BaseObject {
+public class PageBean{
 
 	private static final long serialVersionUID = 1L;
 

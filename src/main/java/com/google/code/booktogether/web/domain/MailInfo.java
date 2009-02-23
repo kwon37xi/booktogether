@@ -1,6 +1,8 @@
 package com.google.code.booktogether.web.domain;
 
-public class MailInfo {
+import com.google.code.booktogether.web.domain.base.BaseObject;
+
+public class MailInfo extends BaseObject{
 	
 	/**
 	 * 받는사람

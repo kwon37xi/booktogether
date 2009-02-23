@@ -1,14 +1,13 @@
 package com.google.code.booktogether.web.openapi.header;
 
-import com.google.code.booktogether.web.domain.base.BaseObject;
-
+import java.util.Map;
 
 /**
  * 책헤더 도메인(다음)
  * @author ParkHaeCheol
  *
  */
-public class BookOpenApiHeader extends BaseObject{
+public class BookOpenApiHeader{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -37,7 +36,20 @@ public class BookOpenApiHeader extends BaseObject{
 	 */
 	private String pageNo;
 	
+	/**
+	 * 각기 다른 API의 차별된 정보 공간
+	 */
+	private Map<String, String> etcInfo;
 	
+	
+	public Map<String, String> getEtcInfo() {
+		return etcInfo;
+	}
+
+	public void setEtcInfo(Map<String, String> etcInfo) {
+		this.etcInfo = etcInfo;
+	}
+
 	public String getTitle() {
 		return title;
 	}
