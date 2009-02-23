@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			throw new BooktogetherException("비밀번호 암호화 실패");
 		}
-
+		
 		int count = userJdbcDao.insertUser(user);
 
 		if (count == 0) {

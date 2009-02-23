@@ -27,7 +27,7 @@ public class AnnotLoggingAspect {
 		return methodName;
 	}
 
-	@AfterReturning(pointcut = "execution(public * com.google.code.booktogether.service.*.*(..))", returning = "ret")
+	/*@AfterReturning(pointcut = "execution(public * com.google.code.booktogether.service.*.*(..))", returning = "ret")
 	public void returningLogging(JoinPoint joinPoint, Object ret) {
 
 		String methodName = joinPoint.getSignature().getName();
@@ -48,7 +48,6 @@ public class AnnotLoggingAspect {
 					+ ex.getClass().getName());
 		}
 	}
-
 	@After("execution(public * com.google.code.booktogether.service.*.*(..))")
 	public void afterLogging(JoinPoint joinPoint) {
 
@@ -61,4 +60,5 @@ public class AnnotLoggingAspect {
 					+ methodName);
 		}
 	}
+	 */
 }

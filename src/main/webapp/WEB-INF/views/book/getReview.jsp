@@ -29,7 +29,7 @@
 				</tr>
 				<tr>
 					<td>책이름</td>
-					<td>${bookInfo.name}</td>
+					<td>${fn:escapeXml(bookInfo.name)}</td>
 				</tr>
 				<tr>
 					<td>지은이</td>
@@ -74,10 +74,10 @@
 			<form method="post" name="reviewform" action="/book/modifyBookReviewView.do">
 				<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
 				<p>			
-					제목 : ${bookReviewInfo.title}
+					제목 : ${fn:escapeXml(bookReviewInfo.title)}
 				</p>
 				<p>
-					<c:out value="${bookReviewInfo.review}" escapeXml="true"/> 
+					<c:out value="${bookReviewInfo.review}" escapeXml="false"/> 
 				</p>
 				<c:if test="${bookReviewInfo.user.idNum==sessionScope.idNum}">
 					<input type="submit" value="수정"/>

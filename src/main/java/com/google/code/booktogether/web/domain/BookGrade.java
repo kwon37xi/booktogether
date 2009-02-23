@@ -1,13 +1,11 @@
 package com.google.code.booktogether.web.domain;
 
-import com.google.code.booktogether.web.domain.base.BaseObject;
-
 /**
  * 별점 도메인
  * @author ParkHaeCheol
  */
 
-public class BookGrade extends BaseObject{
+public class BookGrade {
 	
 	private static final long serialVersionUID = 1L;
 	

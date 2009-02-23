@@ -31,14 +31,15 @@ public class BookGradeController extends AbstractController {
 	 * BookGradeService
 	 */
 	@Resource(name = "bookGradeService")
-	BookGradeService bookGradeService;
+	private BookGradeService bookGradeService;
 
 	/**
 	 * BookService
 	 */
 	@Resource(name = "bookService")
-	BookService bookService;
+	private BookService bookService;
 
+	
 	/**
 	 * 별점 등록 (로그인 필요)
 	 * 

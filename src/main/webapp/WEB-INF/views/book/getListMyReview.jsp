@@ -33,7 +33,7 @@
 							<table>
 								<tr>
 									<td rowspan="4"><img src="${bookReview.book.bookCover}"/></td>
-									<td>제목 : ${bookReview.book.name} </td>
+									<td>제목 : ${fn:escapeXml(bookReview.book.name)} </td>
 								</tr>
 								<tr>
 									<td>지은이 : 
@@ -48,7 +48,7 @@
 								<tr>
 									<td>
 										리뷰제목 : <a href="/book/getReview.do?bookReviewIdNum=${bookReview.idNum}">
-													${bookReview.title}
+													${fn:escapeXml(bookReview.title)}
 												 </a>
 									</td>
 								</tr>

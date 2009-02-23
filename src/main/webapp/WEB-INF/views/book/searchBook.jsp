@@ -46,7 +46,7 @@
 										<c:if test="${aIndex<bookListLength}">
 											<img src="${bookList[aIndex].bookCover}" width="72" height="102" onclick="checkBook('${bookList[aIndex].ISBN10}')"/><br/>
 											<a href="javascript:checkBook('${bookList[aIndex].ISBN10}')">
-												${bookList[aIndex].name}
+												${fn:escapeXml(bookList[aIndex].name)}
 											</a><br/>
 											${bookList[aIndex].authors[0].name}<br/>
 										</c:if>

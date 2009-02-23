@@ -22,7 +22,6 @@ import com.google.code.booktogether.web.domain.BookGrade;
 import com.google.code.booktogether.web.domain.BookMark;
 import com.google.code.booktogether.web.domain.BookReview;
 import com.google.code.booktogether.web.page.PageBean;
-
 /**
  * Book에 관련된 Controller
  * 
@@ -86,7 +85,7 @@ public class BookController extends AbstractController {
 			PageBean pageBean = new PageBean();
 			pageBean.setPageNo(1);
 			pageBean.setPageSize(5);
-
+			
 			List<BookGrade> bookGradeList = bookGradeService.getListBookGrade(
 					book.getIdNum(), pageBean);
 
