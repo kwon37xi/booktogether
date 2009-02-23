@@ -56,9 +56,6 @@
 	</bean>
 
 
-
-
-
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF/views/" p:suffix=".jsp" />
@@ -68,7 +65,7 @@
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<props>
-				<prop key="java.lang.NullPointerException">exception/exception</prop>
+				<prop key="java.lang.Exception">exception/exception</prop>
 			</props>
 		</property>
 	</bean>

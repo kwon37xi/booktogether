@@ -1,8 +1,7 @@
 package com.google.code.booktogether.web.domain;
 
-import com.google.code.booktogether.web.domain.base.BaseObject;
 
-public class Zipcode extends BaseObject{
+public class Zipcode {
 	
 	/**
 	 * 일련번호

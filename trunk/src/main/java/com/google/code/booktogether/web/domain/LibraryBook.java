@@ -2,12 +2,10 @@ package com.google.code.booktogether.web.domain;
 
 import java.util.Date;
 
-import com.google.code.booktogether.web.domain.base.BaseObject;
-
 /**
  * 서재안의 등록된 책 도메인
  */
-public class LibraryBook extends BaseObject{
+public class LibraryBook {
 
 	/**
 	 * 

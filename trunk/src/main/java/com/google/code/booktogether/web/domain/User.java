@@ -2,14 +2,12 @@ package com.google.code.booktogether.web.domain;
 
 import java.util.Date;
 
-import com.google.code.booktogether.web.domain.base.BaseObject;
-
 /**
  * 사용자 도메인
  * @author ParkHaeCheol
  */
 
-public class User extends BaseObject{
+public class User {
 	
 	private static final long serialVersionUID = 1L;
 	

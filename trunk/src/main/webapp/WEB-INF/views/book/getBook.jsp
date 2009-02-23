@@ -155,7 +155,7 @@
 					<c:when test="${fn:length(bookReviewList)!=0}">
 						<c:forEach begin="0" items="${bookReviewList}" var="reviewInfo" varStatus="status">
 							<tr>
-								<td><a href="/book/getReview.do?bookReviewIdNum=${reviewInfo.idNum}">${reviewInfo.title}</a></td>
+								<td><a href="/book/getReview.do?bookReviewIdNum=${reviewInfo.idNum}">${fn:escapeXml(reviewInfo.title)}</a></td>
 								<td>${reviewInfo.user.userId}(${reviewInfo.user.nickname})</td>
 								<td>추천수 : ${reviewInfo.recommend}</td>
 							</tr>	
@@ -206,7 +206,7 @@
 					<c:when test="${fn:length(bookMarkList)!=0}">
 						<c:forEach begin="0" items="${bookMarkList}" var="bookMarkInfo" varStatus="status">
 							<tr>
-								<td>(p.${bookMarkInfo.page})${bookMarkInfo.content}/
+								<td>(p.${bookMarkInfo.page})${fn:escapeXml(bookMarkInfo.content)}/
 									<fmt:formatDate value="${bookMarkInfo.inputDate}" pattern="yyyy. MM. dd"/>
 								</td>
 								<td>

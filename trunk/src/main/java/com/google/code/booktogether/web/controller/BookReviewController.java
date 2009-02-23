@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.BookReviewService;
 import com.google.code.booktogether.service.BookService;
+import com.google.code.booktogether.service.util.HTMLInputFilter;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookReview;
@@ -39,6 +40,12 @@ public class BookReviewController extends AbstractController {
 	 */
 	@Resource(name = "bookService")
 	BookService bookService;
+
+	/**
+	 * html 필터
+	 */
+	@Resource(name = "htmlInputFilter")
+	private HTMLInputFilter htmlInputFilter;
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -82,8 +89,8 @@ public class BookReviewController extends AbstractController {
 		bookReview.getBook().setIdNum(bookIdNum);
 		bookReview.getUser().setIdNum(userIdNum);
 		bookReview.setRecommend(0);
-		bookReview.setTitle(title);
-		bookReview.setReview(review);
+		bookReview.setTitle(htmlInputFilter.stripHTML(title));
+		bookReview.setReview(htmlInputFilter.filter(review));
 
 		// 리뷰 등록
 		boolean result = bookReviewService.insertReview(bookReview);
@@ -230,8 +237,8 @@ public class BookReviewController extends AbstractController {
 		bookReview.getBook().setIdNum(bookIdNum);
 		bookReview.getUser().setIdNum(bookIdNum);
 		bookReview.setIdNum(bookReviewIdNum);
-		bookReview.setTitle(title);
-		bookReview.setReview(review);
+		bookReview.setTitle(htmlInputFilter.stripHTML(title));
+		bookReview.setReview(htmlInputFilter.filter(review));
 
 		// 별점 등록
 		boolean result = bookReviewService.modifyReview(bookReview);

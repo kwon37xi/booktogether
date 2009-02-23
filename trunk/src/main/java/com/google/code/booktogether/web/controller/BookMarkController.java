@@ -16,6 +16,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.code.booktogether.service.BookMarkService;
 import com.google.code.booktogether.service.BookService;
+import com.google.code.booktogether.service.util.HTMLInputFilter;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookMark;
@@ -41,6 +42,15 @@ public class BookMarkController extends AbstractController {
 	 */
 	@Resource(name = "bookService")
 	BookService bookService;
+	
+
+	/**
+	 * html 필터
+	 */
+	@Resource(name="htmlInputFilter")	
+	private HTMLInputFilter htmlInputFilter;
+	
+
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -62,7 +72,7 @@ public class BookMarkController extends AbstractController {
 		bookMark.getBook().setIdNum(bookIdNum);
 		bookMark.getUser().setIdNum(getLoginUserIdNum());
 		bookMark.setVibeNum(0);
-		bookMark.setContent(content);
+		bookMark.setContent(htmlInputFilter.filter(content));
 		bookMark.setPage(page);
 
 		// 인용구 등록
@@ -128,7 +138,7 @@ public class BookMarkController extends AbstractController {
 			@RequestParam(value = "content", required = false) String content) {
 
 		BookMark bookMark = new BookMark();
-		bookMark.setContent(content);
+		bookMark.setContent(htmlInputFilter.filter(content));
 		bookMark.setPage(page);
 		bookMark.getBook().setIdNum(bookIdNum);
 		bookMark.getUser().setIdNum(getLoginUserIdNum());

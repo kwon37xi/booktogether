@@ -2,14 +2,12 @@ package com.google.code.booktogether.web.domain;
 
 import java.util.Date;
 
-import com.google.code.booktogether.web.domain.base.BaseObject;
-
 /**
  * 소유책 도메인
  * @author ParkHaeCheol
  *
  */
-public class PossessBook extends BaseObject {
+public class PossessBook  {
 
 	/**
 	 * 

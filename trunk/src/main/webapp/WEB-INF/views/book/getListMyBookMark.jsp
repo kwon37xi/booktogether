@@ -53,7 +53,7 @@
 								<c:forEach begin="0" items="${bookList.bookMarkList}" var="bookMarkList">
 									<tr>
 										<td>p.${bookMarkList.page}</td>
-										<td>${bookMarkList.content}</td>
+										<td>${fn:escapeXml(bookMarkList.content)}</td>
 										<td>공감 : ${bookMarkList.vibeNum}</td>
 										<td>
 											<input type="button" value="삭제" onclick="deleteBookMark('${bookMarkList.idNum}','${bookList.book.idNum}')"/>
