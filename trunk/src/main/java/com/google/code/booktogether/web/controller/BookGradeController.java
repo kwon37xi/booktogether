@@ -104,7 +104,7 @@ public class BookGradeController extends AbstractController {
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
-				+ userIdNum);
+				+ bookIdNum);
 
 	}
 

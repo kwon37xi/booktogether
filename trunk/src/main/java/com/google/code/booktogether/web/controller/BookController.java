@@ -244,6 +244,8 @@ public class BookController extends AbstractController {
 
 	}
 
+	//파라미터값들을 한줄로 만들어주는 메서드
+	//현재 페이지 정보가 확실하지 않아 임시로 만들었음
 	public String makeParams(Map<String, String> mapParams) {
 
 		Set<String> key = mapParams.keySet();

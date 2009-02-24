@@ -35,10 +35,10 @@
 										<tbody>
 											<tr>
 												<td rowspan="4"><img src="${possessBook.book.bookCover}"/></td>
-												<td>제목 : ${possessBook.book.name}</td>
+												<td>제목 : <a href="javascript:getPossessBook('${possessBook.idNum}')">${possessBook.book.name}</a></td>
 											</tr>
 											<tr>
-												<td>소유자  : ${possessBook.user.name}(${possessBook.user.userId})</td>
+												<td>소유자  : ${possessBook.user.name}<a href="javascript:getLibrary('${possessBook.user.userId}')">(${possessBook.user.userId})</a></td>
 											</tr>
 											<tr>
 												<td>책상태 :

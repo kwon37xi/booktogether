@@ -31,7 +31,7 @@
 						<c:forEach begin="0" items="${bookGradeList}" var="bookGrade" varStatus="status">
 							<tr>
 								<td><img src="${bookGrade.book.bookCover}"/></td>
-								<td><a href="/book/getBook.do?bookIdNum=${bookGrade.book.idNum}">${bookGrade.book.name}</a></td>
+								<td><a href="javascript:getBook('${bookGrade.book.idNum}')">${bookGrade.book.name}</a></td>
 								<td>
 									<c:set var="count" value="0"/>
 									<c:forEach begin="1" end="${bookGrade.grade}" var="i" >

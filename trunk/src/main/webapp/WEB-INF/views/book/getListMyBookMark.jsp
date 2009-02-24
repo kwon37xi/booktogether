@@ -30,7 +30,7 @@
 						<tbody>	
 							<tr>
 								<td rowspan="3"><img src="${bookList.book.bookCover}"/></td>
-								<td>제목 : ${bookList.book.name} </td>
+								<td>제목 : <a href="javascript:getBook('${bookList.book.idNum}')">${bookList.book.name}</a></td>
 								<td>지은이 : 
 									<c:forEach begin="0" items="${bookList.book.authors}" var="authorInfo">
 										[${authorInfo.name}/
@@ -66,6 +66,7 @@
 						</tbody>
 						<tfoot></tfoot>
 					</table>
+					<br/>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>

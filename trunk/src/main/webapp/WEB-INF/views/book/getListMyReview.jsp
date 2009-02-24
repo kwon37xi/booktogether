@@ -34,7 +34,7 @@
 									<table>
 										<tr>
 											<td rowspan="4"><img src="${bookReview.book.bookCover}"/></td>
-											<td>제목 : ${fn:escapeXml(bookReview.book.name)} </td>
+											<td>제목 : <a href="javascript:getBook('${bookReview.book.idNum}')">${fn:escapeXml(bookReview.book.name)}</a></td>
 										</tr>
 										<tr>
 											<td>지은이 : 
