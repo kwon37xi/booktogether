@@ -39,7 +39,6 @@ public class BookGradeController extends AbstractController {
 	@Resource(name = "bookService")
 	private BookService bookService;
 
-	
 	/**
 	 * 별점 등록 (로그인 필요)
 	 * 

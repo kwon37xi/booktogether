@@ -23,7 +23,7 @@ public class BookServiceImpl implements BookService {
 	// 책 JDBC DAO DI
 	@Resource(name = "bookJdbcDao")
 	private BookDao bookJdbcDao;
-
+	
 	// 책 등록
 	@Override
 	@Transactional(readOnly = false)

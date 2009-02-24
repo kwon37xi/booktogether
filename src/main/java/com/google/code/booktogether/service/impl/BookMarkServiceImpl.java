@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.code.booktogether.dao.BookMarkDao;
 import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.BookMarkService;
+import com.google.code.booktogether.service.util.HTMLInputFilter;
 import com.google.code.booktogether.web.domain.BookMark;
 import com.google.code.booktogether.web.page.PageBean;
 
@@ -21,16 +22,25 @@ public class BookMarkServiceImpl implements BookMarkService {
 	@Resource(name = "bookMarkJdbcDao")
 	private BookMarkDao bookMarkJdbcDao;
 
+	/**
+	 * html 필터
+	 */
+	@Resource(name = "htmlInputFilter")
+	private HTMLInputFilter htmlInputFilter;
+
 	@Override
 	@Transactional(readOnly = false)
 	public boolean insertBookMark(BookMark bookMark) {
+
+		//스크립트 제거
+		bookMark.setContent(htmlInputFilter.stripHTML(bookMark.getContent()));
 
 		int count = bookMarkJdbcDao.insertBookMark(bookMark);
 
 		if (count != 1) {
 			throw new BooktogetherException("인용구 등록 실패");
 		}
-		
+
 		return true;
 
 	}
@@ -38,13 +48,16 @@ public class BookMarkServiceImpl implements BookMarkService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean modifyBookMark(BookMark bookMark) {
+		
+		//스크립트 제거
+		bookMark.setContent(htmlInputFilter.stripHTML(bookMark.getContent()));
 
 		int count = bookMarkJdbcDao.modifyBookMark(bookMark);
 
 		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 		}
-		
+
 		return true;
 
 	}
@@ -58,7 +71,7 @@ public class BookMarkServiceImpl implements BookMarkService {
 		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 		}
-		
+
 		return true;
 
 	}
@@ -108,7 +121,7 @@ public class BookMarkServiceImpl implements BookMarkService {
 			}
 
 		}
-		
+
 		return "이미 공감을 하셨습니다.";
 
 	}

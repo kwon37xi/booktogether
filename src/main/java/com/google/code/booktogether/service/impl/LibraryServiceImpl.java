@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.code.booktogether.dao.LibraryDao;
 import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.LibraryService;
+import com.google.code.booktogether.service.util.HTMLInputFilter;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
@@ -21,9 +22,17 @@ import com.google.code.booktogether.web.page.PageBean;
 @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 public class LibraryServiceImpl implements LibraryService {
 
-	// 서재 JDBC DAO DI
+	/**
+	 * 서재 JDBC DAO DI
+	 */
 	@Resource(name = "libraryJdbcDao")
 	private LibraryDao libraryDao;
+	
+	/**
+	 * html 필터
+	 */
+	@Resource(name="htmlInputFilter")	
+	private HTMLInputFilter htmlInputFilter;
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -38,6 +47,9 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean modifyLibrary(Library library) {
+		
+		//스크립트 제거-간단한 태그는 허용
+		library.setNotice(htmlInputFilter.filter(library.getNotice()));
 
 		int count = libraryDao.modifyLibrary(library);
 

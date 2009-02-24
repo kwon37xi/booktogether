@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.UserService;
-import com.google.code.booktogether.service.util.HTMLInputFilter;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserAddInfo;
@@ -37,12 +36,6 @@ public class UserController extends AbstractController {
 	 */
 	@Resource(name = "userService")
 	private UserService userService;
-	
-	/**
-	 * html 필터
-	 */
-	@Resource(name="htmlInputFilter")	
-	private HTMLInputFilter htmlInputFilter;
 	
 
 	/**
@@ -110,15 +103,15 @@ public class UserController extends AbstractController {
 
 		// 추가정보 빈에 세팅
 		UserAddInfo userAddInfo = new UserAddInfo();
-		userAddInfo.setBlog(htmlInputFilter.stripHTML(blog));
-		userAddInfo.setThumnail(htmlInputFilter.stripHTML(filename));
+		userAddInfo.setBlog(blog);
+		userAddInfo.setThumnail(filename);
 
 		// 사용자 기본정보 세팅
 		User user = new User();
-		user.setUserId(htmlInputFilter.stripHTML(userId));
-		user.setEmail(htmlInputFilter.stripHTML(email));
-		user.setNickname(htmlInputFilter.stripHTML(nickname));
-		user.setName(htmlInputFilter.stripHTML(name));
+		user.setUserId(userId);
+		user.setEmail(email);
+		user.setNickname(nickname);
+		user.setName(name);
 		user.setZones(zones);
 		user.setUserAddInfo(userAddInfo);
 
@@ -359,15 +352,15 @@ public class UserController extends AbstractController {
 		// 사용자 추가 정보
 		UserAddInfo userAddInfo = new UserAddInfo();
 		userAddInfo.setIdNum(userAddInfoIdNum);
-		userAddInfo.setBlog(htmlInputFilter.stripHTML(blog));
+		userAddInfo.setBlog(blog);
 		userAddInfo.setThumnail(filename);
 
 		// 사용자 기본 정보
 		User user = new User();
 		user.setIdNum(userIdNum);
-		user.setEmail(htmlInputFilter.stripHTML(email));
-		user.setNickname(htmlInputFilter.stripHTML(nickname));
-		user.setName(htmlInputFilter.stripHTML(name));
+		user.setEmail(email);
+		user.setNickname(nickname);
+		user.setName(name);
 		user.setZones(zones);// 지역명
 		user.setUserAddInfo(userAddInfo);// 추가정보
 

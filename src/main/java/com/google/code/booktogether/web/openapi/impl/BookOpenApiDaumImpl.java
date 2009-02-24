@@ -8,6 +8,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -164,8 +166,10 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 			String translator_name = item.getChild("translator").getText();
 			String isbn = item.getChild("isbn").getText();
 
-			if (isbn.indexOf("<b>") != -1) {
-				book.setISBN10(isbn.substring(3, 13));
+			isbn = stripHTML(isbn);
+
+			if (isbn.length() == 10) {
+				book.setISBN10(isbn);
 				book.setISBN13("");
 			} else {
 				book.setISBN10("");
@@ -259,6 +263,19 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 	@Override
 	public BookOpenApiHeader getHeader() {
 		return header;
+	}
+
+	private String stripHTML(String htmlStr) {
+
+		if (htmlStr == null || htmlStr.equals("")) {
+			return "";
+		}
+
+		Pattern p = Pattern.compile("<(?:.|\\s)*?>");
+		Matcher m = p.matcher(htmlStr);
+
+		return m.replaceAll("");
+
 	}
 
 }
