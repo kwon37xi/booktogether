@@ -30,11 +30,11 @@ public interface BookMarkDao {
 	/**
 	 * 인용구 목록(책 조회시)
 	 * @param bookIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param startRow
+	 * @param endRow
 	 * @return
 	 */
-	public List<BookMark> getListBookMark(Integer bookIdNum,Integer startPage, Integer endPage);
+	public List<BookMark> getListBookMark(Integer bookIdNum,Integer startRow, Integer endRow);
 	
 	/**
 	 * 인용구 목록 갯수
@@ -46,8 +46,7 @@ public interface BookMarkDao {
 	/**
 	 * 내가 작성한 인용구 목록
 	 * @param userIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param bookIdNum
 	 * @return
 	 */
 	public List<BookMark> getListMyBookMark(Integer userIdNum,Integer bookIdNum);

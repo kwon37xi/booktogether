@@ -68,7 +68,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 		pageBean.setDbCount(bookGradeJdbcDao.getDbCountBookGrade(bookIdNum));
 
 		return bookGradeJdbcDao.getListBookGrade(bookIdNum, pageBean
-				.getStartPage() - 1, pageBean.getEndPage());
+				.getStartRow() - 1, pageBean.getEndRow());
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 		pageBean.setDbCount(bookGradeJdbcDao.getDbCountMyBookGrade(userIdNum));
 
 		return bookGradeJdbcDao.getListMyBookGrade(userIdNum, pageBean
-				.getStartPage() - 1, pageBean.getEndPage());
+				.getStartRow() - 1, pageBean.getEndRow());
 
 	}
 

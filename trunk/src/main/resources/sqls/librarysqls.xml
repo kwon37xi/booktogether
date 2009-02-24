@@ -78,8 +78,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="GET_DBCOUNT_LIBRARYBOOK_SQL">
 		<description>서재에 책 목록 갯수</description>
 		<query>
@@ -192,8 +192,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="GET_DBCOUNT_POSSESSBOOK_SQL">
 		<description>내가 소유한 책 목록 갯수</description>
 		<query>
@@ -270,6 +270,64 @@
     						(SELECT idNum 
     						   FROM library 
     						  WHERE user_idNum= ?)
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="GET_LIST_ZONEBOOK_SQL">
+		<description>내 생활반경의 소유책 목록</description>
+		<query>
+            <![CDATA[
+             SELECT POS.idNum as idNum 
+			      , POS.state as state
+			      , B.idNum as bidNum
+			      , B.cover as bcover
+			      , B.name as bname
+			      , U.idNum as uidNum
+			      , U.name as uname
+			      , U.user_id as uid
+			      , concat(ZC.sido,' ',ZC.gugun,' ',ZC.dong) as zonename
+			  FROM POSSESSBOOK POS, USER U, BOOK B,ZIPCODE ZC, (SELECT distinct Z.user_idNum, Z.zone
+			 					   FROM ZONE Z 
+								  WHERE zone in (
+			              				 		 SELECT Z3.zone
+			              					   	   FROM ZONE Z3, USER U3,ZIPCODE ZC
+			              					   	  WHERE U3.user_id = ? 
+			              					   	    AND U3.idNum = Z3.user_idNum
+			              					   	)
+								) ZU
+			 WHERE POS.book_idNum=B.idNum 
+			   AND POS.user_idNum=ZU.user_idNum 
+			   AND U.idNUm= POS.user_idNum
+			   AND ZC.idNum=ZU.zone 
+			   AND U.user_id <> ?
+			 LIMIT ?, ?
+            ]]>
+		</query>
+	</sql>
+	
+	
+	
+	<sql name="GET_DBCOUNT_ZONEBOOK_SQL">
+		<description>내 생활반경의 소유책 목록</description>
+		<query>
+            <![CDATA[
+             SELECT COUNT(POS.idNum) 
+			   FROM POSSESSBOOK POS, USER U, BOOK B,ZIPCODE ZC, (SELECT distinct Z.user_idNum, Z.zone
+			 					   FROM ZONE Z 
+								  WHERE zone in (
+			              				 		 SELECT Z3.zone
+			              					   	   FROM ZONE Z3, USER U3,ZIPCODE ZC
+			              					   	  WHERE U3.user_id = ? 
+			              					   	    AND U3.idNum = Z3.user_idNum
+			              					   	)
+								) ZU
+			 WHERE POS.book_idNum=B.idNum 
+			   AND POS.user_idNum=ZU.user_idNum 
+			   AND U.idNUm= POS.user_idNum
+			   AND ZC.idNum=ZU.zone 
+			   AND U.user_id <> ?
             ]]>
 		</query>
 	</sql>

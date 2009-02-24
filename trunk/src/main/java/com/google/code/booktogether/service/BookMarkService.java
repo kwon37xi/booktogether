@@ -39,8 +39,7 @@ public interface BookMarkService {
 	/**
 	 * 내가 입력한 인용구 목록
 	 * @param userIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param bookIdNum
 	 * @return
 	 */
 	public List<BookMark> getListMyBookMark(Integer userIdNum, Integer bookIdNum);

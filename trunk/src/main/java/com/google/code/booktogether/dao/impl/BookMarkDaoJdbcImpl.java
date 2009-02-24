@@ -60,13 +60,13 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	}
 
 	@Override
-	public List<BookMark> getListBookMark(Integer bookIdNum, Integer startPage,
-			Integer endPage) {
+	public List<BookMark> getListBookMark(Integer bookIdNum, Integer startRow,
+			Integer endRow) {
 
 		String sql = sqlparser.getSQL("bookMark", "LIST_BOOKMARK_SQL");
 
 		return getSimpleJdbcTemplate().query(sql, new BookMarkRowMapper(),
-				new Object[] { bookIdNum, startPage, endPage });
+				new Object[] { bookIdNum, startRow, endRow });
 	}
 
 	@Override

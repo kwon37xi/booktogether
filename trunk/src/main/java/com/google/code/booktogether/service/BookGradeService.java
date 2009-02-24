@@ -31,8 +31,7 @@ public interface BookGradeService {
 	/**
 	 * 별점 목록(책 조회시)
 	 * @param bookIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param pageBean
 	 * @return
 	 */
 	public List<BookGrade> getListBookGrade(Integer bookIdNum, PageBean pageBean);
@@ -40,8 +39,7 @@ public interface BookGradeService {
 	/**
 	 * 내가 입력한 별점 목록
 	 * @param userIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param pageBean
 	 * @return
 	 */
 	public List<BookGrade> getListMyBookGrade(Integer userIdNum, PageBean pageBean);

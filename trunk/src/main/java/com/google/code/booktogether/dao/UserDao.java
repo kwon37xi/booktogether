@@ -68,11 +68,11 @@ public interface UserDao {
 	
 	/**
 	 * 사용자 목록
-	 * @param startPage 	보여줄 시작 줄번호
-	 * @param pageSize 	시작줄번호로 부터 몇개
+	 * @param startRow 	보여줄 시작 줄번호
+	 * @param endRow 	시작줄번호로 부터 몇개
 	 * @return
 	 */
-	public List<User> getListUser(Integer startPage, Integer pageSize);	
+	public List<User> getListUser(Integer startRow, Integer endRow);	
 	
 	/**
 	 * 사용자 전체 갯수

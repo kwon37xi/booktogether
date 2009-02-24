@@ -58,12 +58,12 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 	}
 
 	@Override
-	public List<User> getListUser(Integer startPage, Integer pageSize) {
+	public List<User> getListUser(Integer startRow, Integer endRow) {
 
 		String sql = sqlparser.getSQL("user", "LIST_USER_SQL");
 
 		return getSimpleJdbcTemplate().query(sql, new UserRowMapper(),
-				new Object[] { startPage, pageSize });
+				new Object[] { startRow, endRow });
 	}
 
 	@Override

@@ -84,7 +84,7 @@ public class BookMarkServiceImpl implements BookMarkService {
 		pageBean.setDbCount(dbCount);
 
 		return bookMarkJdbcDao.getListBookMark(bookIdNum, pageBean
-				.getStartPage() - 1, pageBean.getEndPage());
+				.getStartRow() - 1, pageBean.getEndRow());
 	}
 
 	@Override
