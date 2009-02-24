@@ -12,7 +12,7 @@ import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
-import com.google.code.booktogether.web.openapi.header.BookOpenApiHeader;
+import com.google.code.booktogether.web.domain.BookOpenApiHeader;
 import com.google.code.booktogether.web.openapi.impl.BookOpenApiDaumImpl;
 import com.google.code.booktogether.web.page.PageBean;
 
