@@ -244,4 +244,15 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 				new Object[] { userId, userId, startRow, endRow });
 
 	}
+
+	@Override
+	public PossessBook getPossessBook(Integer bookIdNum, Integer userIdNum) {
+		
+		String sql = sqlparser.getSQL("library", "GET_B_U_POSSESSBOOK_SQL");
+
+		return (PossessBook) DataAccessUtils
+				.singleResult(getSimpleJdbcTemplate().query(sql,
+						new PossessBookRowMapper(),
+						new Object[] { userIdNum,bookIdNum }));
+	}
 }

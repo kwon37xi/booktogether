@@ -229,4 +229,56 @@ public class LibraryServiceImpl implements LibraryService {
 		return possessBook;
 	}
 
+	@Override
+	public PossessBook getPossessBook(Integer bookIdNum, Integer userIdNum) {
+
+		return libraryDao.getPossessBook(bookIdNum, userIdNum);
+
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean modifyLibraryBook(LibraryBook libraryBook,
+			PossessBook possessBook, Integer serviceDiv) {
+
+		int count = 0;
+
+		if (serviceDiv == 0) { // 등록
+
+			count = libraryDao.insertPossessBook(possessBook);
+
+			if (count != 1) {
+				throw new BooktogetherException("소유책으로 등록 실패");
+			}
+
+		} else if (serviceDiv == 1) { // 삭제
+
+			count = libraryDao.deletePossessBook(possessBook.getIdNum());
+
+			if (count != 1) {
+				throw new BooktogetherException("가지고 있는 소유책 삭제 실패");
+			}
+
+		} else if (serviceDiv == 2) { // 수정
+
+			count=libraryDao.modifyPossessBook(possessBook);
+			
+			if (count != 1) {
+				throw new BooktogetherException("가지고 있는 소유책 수정 실패");
+			}
+
+		} else {
+
+			log.info("이건 막장이여.ㅋ");
+		}
+
+		count = libraryDao.modifyLibraryBook(libraryBook);
+
+		if (count != 1) {
+			throw new BooktogetherException("개인서재 책 수정 실패");
+		}
+
+		return true;
+	}
+
 }

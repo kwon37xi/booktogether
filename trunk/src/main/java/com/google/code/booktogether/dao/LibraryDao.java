@@ -117,6 +117,14 @@ public interface LibraryDao {
 	
 	
 	/**
+	 * 내가 소유한 책 조회
+	 * @param possessBookIdNum
+	 * @return
+	 */
+	public PossessBook getPossessBook(Integer bookIdNum, Integer userIdNum);
+	
+	
+	/**
 	 * 내가 소유한 책 삭제
 	 * @param possessBookIdNum
 	 * @return
