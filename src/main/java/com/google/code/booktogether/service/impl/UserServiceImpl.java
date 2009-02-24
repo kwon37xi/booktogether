@@ -76,8 +76,8 @@ public class UserServiceImpl implements UserService {
 
 		pageBean.setDbCount(dbCount);
 
-		return userJdbcDao.getListUser(pageBean.getStartPage() - 1, pageBean
-				.getPageSize());
+		return userJdbcDao.getListUser(pageBean.getStartRow() - 1, pageBean
+				.getEndRow());
 	}
 
 	@Override

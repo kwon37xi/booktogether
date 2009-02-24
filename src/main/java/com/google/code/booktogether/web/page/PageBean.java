@@ -35,7 +35,7 @@ public class PageBean{
 	/**
 	 * 보여줄 페이지 갯수
 	 */
-	private Integer pageSize = 3;
+	private Integer pageSize = 20;
 
 	/**
 	 * 총번호 수

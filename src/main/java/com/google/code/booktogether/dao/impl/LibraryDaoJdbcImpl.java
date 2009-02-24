@@ -13,6 +13,7 @@ import com.google.code.booktogether.dao.LibraryDao;
 import com.google.code.booktogether.dao.rowmapper.LibraryBookRowMapper;
 import com.google.code.booktogether.dao.rowmapper.LibraryRowMapper;
 import com.google.code.booktogether.dao.rowmapper.PossessBookRowMapper;
+import com.google.code.booktogether.dao.rowmapper.ZoneBookRowMapper;
 import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
@@ -76,7 +77,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 	@Override
 	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook,
-			Integer startPage, Integer endPage) {
+			Integer startRow, Integer endRow) {
 
 		String sql = sqlparser.getSQL("library", "LIST_LIBRARYBOOK_SQL");
 
@@ -85,8 +86,8 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 						sql,
 						new LibraryBookRowMapper(),
 						new Object[] { libraryBook.getState(),
-								libraryBook.getLibrary().getIdNum(), startPage,
-								endPage });
+								libraryBook.getLibrary().getIdNum(), startRow,
+								endRow });
 	}
 
 	@Override
@@ -151,12 +152,12 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 	@Override
 	public List<PossessBook> getListPossessBook(String userId,
-			Integer startPage, Integer endPage) {
+			Integer startRow, Integer endRow) {
 
 		String sql = sqlparser.getSQL("library", "LIST_POSSESSBOOK_SQL");
 
 		return getSimpleJdbcTemplate().query(sql, new PossessBookRowMapper(),
-				new Object[] { userId, startPage, endPage });
+				new Object[] { userId, startRow, endRow });
 	}
 
 	@Override
@@ -224,4 +225,23 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 				.queryForInt(sql, new Object[] { userId });
 	}
 
+	@Override
+	public int getDbCountListZoneBook(String userId) {
+
+		String sql = sqlparser.getSQL("library", "GET_DBCOUNT_ZONEBOOK_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { userId, userId });
+	}
+
+	@Override
+	public List<PossessBook> getListZoneBook(String userId, Integer startRow,
+			Integer endRow) {
+
+		String sql = sqlparser.getSQL("library", "GET_LIST_ZONEBOOK_SQL");
+
+		return getSimpleJdbcTemplate().query(sql, new ZoneBookRowMapper(),
+				new Object[] { userId, userId, startRow, endRow });
+
+	}
 }

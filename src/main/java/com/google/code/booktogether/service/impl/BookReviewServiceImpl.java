@@ -85,7 +85,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 		pageBean.setDbCount(dbCount);
 
 		return bookReviewJdbcDao.getListBookReview(bookIdNum, pageBean
-				.getStartPage() - 1, pageBean.getEndPage());
+				.getStartRow() - 1, pageBean.getEndRow());
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 		pageBean.setDbCount(dbCount);
 
 		return bookReviewJdbcDao.getListMyBookReview(userIdNum, pageBean
-				.getStartPage() - 1, pageBean.getEndPage());
+				.getStartRow() - 1, pageBean.getEndRow());
 
 	}
 

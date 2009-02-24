@@ -66,7 +66,7 @@
 								<td><a href="/library/getListPossessBook.do?userId=${library.user.userId}">내가 보유한 책</a></td>
 							</tr>
 							<tr>
-								<td>주위에 있는 책</td>
+								<td><a href="/library/getListZoneBook.do?userId=${library.user.userId}">주위에 있는 책</a></td>
 							</tr>
 							<tr>
 								<td>관심 서재</td>

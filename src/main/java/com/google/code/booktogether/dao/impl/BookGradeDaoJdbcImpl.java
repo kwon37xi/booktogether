@@ -60,22 +60,22 @@ public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 	@Override
 	public List<BookGrade> getListBookGrade(Integer bookIdNum,
-			Integer startPage, Integer endPage) {
+			Integer startRow, Integer endRow) {
 
 		String sql = sqlparser.getSQL("bookGrade", "LIST_BOOKGRADE_SQL");
 
 		return getSimpleJdbcTemplate().query(sql, new BookGradeRowMapper(),
-				new Object[] { bookIdNum, startPage, endPage });
+				new Object[] { bookIdNum, startRow, endRow });
 	}
 
 	@Override
 	public List<BookGrade> getListMyBookGrade(Integer userIdNum,
-			Integer startPage, Integer endPage) {
+			Integer startRow, Integer endRow) {
 
 		String sql = sqlparser.getSQL("bookGrade", "LIST_MYBOOKGRADE_SQL");
 
 		return getSimpleJdbcTemplate().query(sql, new MyBookGradeRowMapper(),
-				new Object[] { userIdNum, startPage, endPage });
+				new Object[] { userIdNum, startRow, endRow });
 	}
 
 	@Override

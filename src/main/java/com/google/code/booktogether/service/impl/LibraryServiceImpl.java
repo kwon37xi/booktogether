@@ -27,11 +27,11 @@ public class LibraryServiceImpl implements LibraryService {
 	 */
 	@Resource(name = "libraryJdbcDao")
 	private LibraryDao libraryDao;
-	
+
 	/**
 	 * html 필터
 	 */
-	@Resource(name="htmlInputFilter")	
+	@Resource(name = "htmlInputFilter")
 	private HTMLInputFilter htmlInputFilter;
 
 	// 로그 표시를 위하여
@@ -47,8 +47,8 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean modifyLibrary(Library library) {
-		
-		//스크립트 제거-간단한 태그는 허용
+
+		// 스크립트 제거-간단한 태그는 허용
 		library.setNotice(htmlInputFilter.filter(library.getNotice()));
 
 		int count = libraryDao.modifyLibrary(library);
@@ -129,7 +129,7 @@ public class LibraryServiceImpl implements LibraryService {
 		pageBean.setDbCount(dbCount);
 
 		return libraryDao.getListLibraryBook(libraryBook, pageBean
-				.getStartPage() - 1, pageBean.getEndPage());
+				.getStartRow() - 1, pageBean.getEndRow());
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class LibraryServiceImpl implements LibraryService {
 		pageBean.setDbCount(dbCount);
 
 		return libraryDao.getListPossessBook(userId,
-				pageBean.getStartPage() - 1, pageBean.getEndPage());
+				pageBean.getStartRow() - 1, pageBean.getEndRow());
 
 	}
 
@@ -214,6 +214,19 @@ public class LibraryServiceImpl implements LibraryService {
 
 		return true;
 
+	}
+
+	@Override
+	public List<PossessBook> getListZoneBook(String userId, PageBean pageBean) {
+
+		int dbCount = libraryDao.getDbCountListZoneBook(userId);
+
+		pageBean.setDbCount(dbCount);
+
+		List<PossessBook> possessBook = libraryDao.getListZoneBook(userId,
+				pageBean.getStartRow() - 1, pageBean.getEndRow());
+
+		return possessBook;
 	}
 
 }

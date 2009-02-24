@@ -47,21 +47,21 @@ public interface BookReviewDao {
 	/**
 	 * 리뷰 목록(책 조회시)
 	 * @param bookIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param startRow
+	 * @param endRow
 	 * @return
 	 */
-	public List<BookReview> getListBookReview(Integer bookIdNum,Integer startPage, Integer endPage);
+	public List<BookReview> getListBookReview(Integer bookIdNum,Integer startRow, Integer endRow);
 	
 	
 	/**
 	 * 내가 매긴 리뷰 목록
 	 * @param userIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param startRow
+	 * @param endRow
 	 * @return
 	 */
-	public List<BookReview> getListMyBookReview(Integer userIdNum,Integer startPage, Integer endPage);
+	public List<BookReview> getListMyBookReview(Integer userIdNum,Integer startRow, Integer endRow);
 	
 	
 	/**

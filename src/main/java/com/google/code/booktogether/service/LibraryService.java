@@ -86,8 +86,7 @@ public interface LibraryService {
 	 * 서재안의 책 목록
 	 * 
 	 * @param libraryBook
-	 * @param startPage
-	 * @param endPage
+	 * @param pageBean
 	 * @return
 	 */
 	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook,
@@ -125,5 +124,14 @@ public interface LibraryService {
 	 * @return
 	 */
 	public boolean duplicateLibraryBook(Integer libraryIdNum, Integer boolIdNum);
+	
+	
+	/**
+	 * 내 생활반경의 책 목록 가지고 오기
+	 * @param userId
+	 * @param pageBean
+	 * @return
+	 */
+	public List<PossessBook> getListZoneBook(String userId, PageBean pageBean);
 
 }

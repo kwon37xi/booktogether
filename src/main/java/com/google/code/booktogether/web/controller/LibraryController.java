@@ -51,7 +51,7 @@ public class LibraryController extends AbstractController {
 	 */
 	@Resource(name = "bookService")
 	private BookService bookService;
-	
+
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
 
@@ -282,16 +282,30 @@ public class LibraryController extends AbstractController {
 			possessBook.getBook().setIdNum(libraryBook.getBook().getIdNum());
 			possessBook.getUser().setIdNum(getLoginUserIdNum());
 
-			cal.set(purchaseDateYear, purchaseDateMonth - 1, purchaseDateDate);
-			possessBook.setPurchaseDate(cal.getTime());
+			if (purchaseDateYear != null || purchaseDateMonth != null
+					|| purchaseDateDate != null) {
 
-			cal.set(beginReadYear, beginReadMonth - 1, beginReadDate);
-			possessBook.setBeginRead(cal.getTime());
+				cal.set(purchaseDateYear, purchaseDateMonth - 1,
+						purchaseDateDate);
+				possessBook.setPurchaseDate(cal.getTime());
 
-			cal.set(endReadYear, endReadMonth - 1, endReadDate);
-			possessBook.setEndRead(cal.getTime());
+			}
 
-			log.info(possessBook);
+			if (beginReadYear != null || beginReadMonth != null
+					|| beginReadDate != null) {
+
+				cal.set(beginReadYear, beginReadMonth - 1, beginReadDate);
+				possessBook.setBeginRead(cal.getTime());
+
+			}
+
+			if (endReadYear != null || endReadMonth != null
+					|| endReadDate != null) {
+
+				cal.set(endReadYear, endReadMonth - 1, endReadDate);
+				possessBook.setEndRead(cal.getTime());
+
+			}
 
 			result = libraryService.insertPossessBook(possessBook);
 
@@ -371,7 +385,7 @@ public class LibraryController extends AbstractController {
 		}
 
 		log.info(libraryBook);
-		
+
 		boolean result = libraryService.modifyLibraryBook(libraryBook);
 
 		// 성공시
@@ -440,7 +454,9 @@ public class LibraryController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum,
 			@RequestParam(value = "state", required = false) Integer state,
-			@RequestParam(value = "state", required = false) Integer pageNo) {
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+
+		pageNo = (pageNo == null) ? 1 : pageNo;
 
 		LibraryBook libraryBook = new LibraryBook();
 		libraryBook.getLibrary().setIdNum(libraryIdNum);
@@ -490,6 +506,7 @@ public class LibraryController extends AbstractController {
 
 		PageBean pageBean = new PageBean();
 		pageBean.setPageNo(pageNo);
+		pageBean.setPageSize(20);
 
 		List<PossessBook> possessBookList = libraryService.getListPossessBook(
 				userId, pageBean);
@@ -504,6 +521,8 @@ public class LibraryController extends AbstractController {
 			}
 
 		}
+
+		System.out.println(possessBookList);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/getListPossessBook");
@@ -627,6 +646,34 @@ public class LibraryController extends AbstractController {
 		return new ModelAndView(
 				"redirect:/library/getListPossessBook.do?userId="
 						+ getLoginUserId());
+
+	}
+
+	/**
+	 * 내 생활반경의 책가지고 오기
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/library/getListZoneBook.do")
+	public ModelAndView handleGetListZoneBook(HttpServletRequest req,
+			@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+
+		pageNo = (pageNo == null) ? 1 : pageNo;
+
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNo(pageNo);
+		pageBean.setPageSize(20);
+
+		List<PossessBook> possessBookList = libraryService.getListZoneBook(
+				userId, pageBean);
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("library/getListZoneBook");
+		mav.addObject("possessBookList", possessBookList);
+
+		return mav;
 
 	}
 

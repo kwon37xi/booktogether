@@ -44,11 +44,11 @@ public interface LibraryDao {
 	/**
 	 * 내서재에 있는 책 목록
 	 * @param libraryBook
-	 * @param startPage
-	 * @param endPage
+	 * @param startRow
+	 * @param endRow
 	 * @return
 	 */
-	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook, Integer startPage, Integer endPage);	
+	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook, Integer startRow, Integer endRow);	
 	
 	/**
 	 * 내서재에 해당 이미 있는지 검사
@@ -93,11 +93,11 @@ public interface LibraryDao {
 	/**
 	 * 내가 소유한 책 목록
 	 * @param userId
-	 * @param startPage
-	 * @param endpage
+	 * @param startRow
+	 * @param endRow
 	 * @return
 	 */
-	public List<PossessBook> getListPossessBook(String userId, Integer startPage, Integer endPage);
+	public List<PossessBook> getListPossessBook(String userId, Integer startRow, Integer endRow);
 	
 	
 	/**
@@ -144,4 +144,24 @@ public interface LibraryDao {
 	 * @return
 	 */
 	public int getDbCountPossessBook(String userId);
+	
+	
+	/**
+	 * 내생활반경의 책목록 조회 갯수
+	 * @param userId
+	 * @return
+	 */
+	public int getDbCountListZoneBook(String userId);
+	
+	/**
+	 * 내 생활 반경의 책목록
+	 * @param userId
+	 * @param startRow
+	 * @param endRow
+	 * @return
+	 */
+	public List<PossessBook> getListZoneBook(String userId, Integer startRow, Integer endRow);
+	
+	
+	
 }

@@ -30,20 +30,20 @@ public interface BookGradeDao {
 	/**
 	 * 별점 목록(책 조회시)
 	 * @param book_id
-	 * @param startPage
-	 * @param endPage
+	 * @param startRow
+	 * @param endRow
 	 * @return
 	 */
-	public List<BookGrade> getListBookGrade(Integer bookIdNum,Integer startPage, Integer endPage);
+	public List<BookGrade> getListBookGrade(Integer bookIdNum,Integer startRow, Integer endRow);
 	
 	/**
 	 * 내가 매긴 별점 목록
 	 * @param user_id
-	 * @param startPage
-	 * @param endPage
+	 * @param startRow
+	 * @param endRow
 	 * @return
 	 */
-	public List<BookGrade> getListMyBookGrade(Integer userIdNum,Integer startPage, Integer endPage);
+	public List<BookGrade> getListMyBookGrade(Integer userIdNum,Integer startRow, Integer endRow);
 	
 	/**
 	 * 내가 매긴 별점이 있는지 체크

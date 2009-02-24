@@ -64,22 +64,22 @@ public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 	@Override
 	public List<BookReview> getListBookReview(Integer bookIdNum,
-			Integer startPage, Integer endPage) {
+			Integer startRow, Integer endRow) {
 
 		String sql = sqlparser.getSQL("bookReview", "LIST_BOOKREVIEW_SQL");
 
 		return getSimpleJdbcTemplate().query(sql, new BookReviewRowMapper(),
-				new Object[] { bookIdNum, startPage, endPage });
+				new Object[] { bookIdNum, startRow, endRow });
 	}
 
 	@Override
 	public List<BookReview> getListMyBookReview(Integer userIdNum,
-			Integer startPage, Integer endPage) {
+			Integer startRow, Integer endRow) {
 
 		String sql = sqlparser.getSQL("bookReview", "LIST_MYBOOKREVIEW_SQL");
 
 		return getSimpleJdbcTemplate().query(sql, new MyBookReviewRowMapper(),
-				new Object[] { userIdNum, startPage, endPage });
+				new Object[] { userIdNum, startRow, endRow });
 	}
 
 	@Override

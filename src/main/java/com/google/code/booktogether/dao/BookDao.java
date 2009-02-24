@@ -71,12 +71,12 @@ public interface BookDao {
 	/**
 	 * 해당 책에 관련된 인용구 목록 
 	 * @param userIdNum
-	 * @param startPage
-	 * @param endPage
+	 * @param startRow
+	 * @param endRow
 	 * @return
 	 */
 	public List<Book> getListBookRefBookMark(Integer userIdNum,
-			Integer startPage, Integer endPage);
+			Integer startRow, Integer endRow);
 	
 	/**
 	 * 해당 책에 관련된 인용구 목록 갯수
