@@ -20,7 +20,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 	@Resource(name = "bookGradeJdbcDao")
 	private BookGradeDao bookGradeJdbcDao;
-
+	
 	@Override
 	@Transactional(readOnly = false)
 	public boolean insertGrade(BookGrade bookGrade) {
@@ -28,7 +28,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 		int count = bookGradeJdbcDao.insertGrade(bookGrade);
 
 		if (count != 1) {
-			throw new BooktogetherException("인용구 등록 실패");
+			throw new BooktogetherException("별점 등록 실패");
 		}
 
 		return true;
@@ -42,7 +42,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 		int count = bookGradeJdbcDao.modifyGrade(bookGrade);
 
 		if (count != 1) {
-			throw new BooktogetherException("인용구 등록 실패");
+			throw new BooktogetherException("별점 수정 실패");
 		}
 
 		return true;
@@ -56,7 +56,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 		int count = bookGradeJdbcDao.deleteGrade(bookGrade);
 
 		if (count != 1) {
-			throw new BooktogetherException("인용구 삭제 실패");
+			throw new BooktogetherException("별점 삭제 실패");
 		}
 		return true;
 

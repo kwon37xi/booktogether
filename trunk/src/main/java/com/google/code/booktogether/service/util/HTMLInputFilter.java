@@ -19,49 +19,49 @@ public class HTMLInputFilter {
 	 * "<b> text </b>"). If set to false, unbalanced angle brackets will be html
 	 * escaped.
 	 */
-	protected static final boolean ALWAYS_MAKE_TAGS = true;
+	private static final boolean ALWAYS_MAKE_TAGS = true;
 
 	/**
 	 * flag determing whether comments are allowed in input String.
 	 */
-	protected static final boolean STRIP_COMMENTS = true;
+	private static final boolean STRIP_COMMENTS = true;
 
 	/** regex flag union representing /si modifiers in php **/
-	protected static final int REGEX_FLAGS_SI = Pattern.CASE_INSENSITIVE
+	private static final int REGEX_FLAGS_SI = Pattern.CASE_INSENSITIVE
 			| Pattern.DOTALL;
 
 	/**
 	 * set of allowed html elements, along with allowed attributes for each
 	 * element
 	 **/
-	protected Map<String, List<String>> vAllowed;
+	private Map<String, List<String>> vAllowed;
 
 	/** counts of open tags for each (allowable) html element **/
-	protected Map<String, Integer> vTagCounts;
+	private Map<String, Integer> vTagCounts;
 
 	/** html elements which must always be self-closing (e.g. "<img />") **/
-	protected String[] vSelfClosingTags;
+	private String[] vSelfClosingTags;
 
 	/**
 	 * html elements which must always have separate opening and closing tags
 	 * (e.g. "<b></b>")
 	 **/
-	protected String[] vNeedClosingTags;
+	private String[] vNeedClosingTags;
 
 	/** attributes which should be checked for valid protocols **/
-	protected String[] vProtocolAtts;
+	private String[] vProtocolAtts;
 
 	/** allowed protocols **/
-	protected String[] vAllowedProtocols;
+	private String[] vAllowedProtocols;
 
 	/**
 	 * tags which should be removed if they contain no content (e.g. "<b></b>"
 	 * or "<b />")
 	 **/
-	protected String[] vRemoveBlanks;
+	private String[] vRemoveBlanks;
 
 	/** entities allowed within html markup **/
-	protected String[] vAllowedEntities;
+	private String[] vAllowedEntities;
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -98,11 +98,11 @@ public class HTMLInputFilter {
 		vAllowedEntities = new String[] { "amp", "gt", "lt", "quot" };
 	}
 
-	protected void reset() {
+	private void reset() {
 		vTagCounts = new HashMap<String, Integer>();
 	}
 
-	protected void debug(String msg) {
+	private void debug(String msg) {
 		if (log.isInfoEnabled()) {
 			log.info(msg);
 		}
@@ -111,11 +111,11 @@ public class HTMLInputFilter {
 	// ---------------------------------------------------------------
 	// my versions of some PHP library functions
 
-	public static String chr(int decimal) {
+	public String chr(int decimal) {
 		return String.valueOf((char) decimal);
 	}
 
-	public static String htmlSpecialChars(String s) {
+	public String htmlSpecialChars(String s) {
 		s = s.replaceAll("&", "&amp;");
 		s = s.replaceAll("\"", "&quot;");
 		s = s.replaceAll("<", "&lt;");
@@ -164,7 +164,7 @@ public class HTMLInputFilter {
 
 	}
 
-	protected String escapeComments(String s) {
+	private String escapeComments(String s) {
 
 		Pattern p = Pattern.compile("<!--(.*?)-->", Pattern.DOTALL);
 		Matcher m = p.matcher(s);
@@ -182,7 +182,7 @@ public class HTMLInputFilter {
 
 	}
 
-	protected String balanceHTML(String s) {
+	private String balanceHTML(String s) {
 
 		if (ALWAYS_MAKE_TAGS) {
 			//
@@ -210,7 +210,7 @@ public class HTMLInputFilter {
 		return s;
 	}
 
-	protected String checkTags(String s) {
+	private String checkTags(String s) {
 		Pattern p = Pattern.compile("<(.*?)>", Pattern.DOTALL);
 		Matcher m = p.matcher(s);
 
@@ -235,7 +235,7 @@ public class HTMLInputFilter {
 		return s;
 	}
 
-	protected String processRemoveBlanks(String s) {
+	private String processRemoveBlanks(String s) {
 
 		for (String tag : vRemoveBlanks) {
 			s = regexReplace("<" + tag + "(\\s[^>]*)?></" + tag + ">", "", s);
@@ -245,14 +245,14 @@ public class HTMLInputFilter {
 		return s;
 	}
 
-	protected String regexReplace(String regex_pattern, String replacement,
+	private String regexReplace(String regex_pattern, String replacement,
 			String s) {
 		Pattern p = Pattern.compile(regex_pattern);
 		Matcher m = p.matcher(s);
 		return m.replaceAll(replacement);
 	}
 
-	protected String processTag(String s) {
+	private String processTag(String s) {
 		// ending tags
 		Pattern p = Pattern.compile("^/([a-z0-9]+)", REGEX_FLAGS_SI);
 		Matcher m = p.matcher(s);
@@ -354,7 +354,7 @@ public class HTMLInputFilter {
 		return "";
 	}
 
-	protected String processParamProtocol(String s) {
+	private String processParamProtocol(String s) {
 		s = decodeEntities(s);
 		Pattern p = Pattern.compile("^([^:]+):", REGEX_FLAGS_SI);
 		Matcher m = p.matcher(s);
@@ -371,7 +371,7 @@ public class HTMLInputFilter {
 		return s;
 	}
 
-	protected String decodeEntities(String s) {
+	private String decodeEntities(String s) {
 		StringBuffer buf = new StringBuffer();
 
 		Pattern p = Pattern.compile("&#(\\d+);?");
@@ -410,7 +410,7 @@ public class HTMLInputFilter {
 		return s;
 	}
 
-	protected String validateEntities(String s) {
+	private String validateEntities(String s) {
 		// validate entities throughout the string
 		Pattern p = Pattern.compile("&([^&;]*)(?=(;|&|$))");
 		Matcher m = p.matcher(s);
@@ -436,7 +436,7 @@ public class HTMLInputFilter {
 		return s;
 	}
 
-	protected String checkEntity(String preamble, String term) {
+	private String checkEntity(String preamble, String term) {
 		if (!term.equals(";")) {
 			return "&amp;" + preamble;
 		}
@@ -448,7 +448,7 @@ public class HTMLInputFilter {
 		return "&amp;" + preamble;
 	}
 
-	protected boolean isValidEntity(String entity) {
+	private boolean isValidEntity(String entity) {
 		return inArray(entity, vAllowedEntities);
 	}
 

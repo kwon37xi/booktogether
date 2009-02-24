@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.service.LibraryService;
 import com.google.code.booktogether.service.UserService;
-import com.google.code.booktogether.service.util.HTMLInputFilter;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.Library;
@@ -53,12 +52,6 @@ public class LibraryController extends AbstractController {
 	@Resource(name = "bookService")
 	private BookService bookService;
 	
-	/**
-	 * html 필터
-	 */
-	@Resource(name="htmlInputFilter")	
-	private HTMLInputFilter htmlInputFilter;
-
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
 
@@ -112,12 +105,6 @@ public class LibraryController extends AbstractController {
 		}
 
 		library.getUser().setIdNum(getLoginUserIdNum());
-
-		String notice = library.getNotice();
-		
-		notice=htmlInputFilter.filter(notice);
-		
-		library.setNotice(notice);
 
 		// 사용자 아이디, 비밀번호 일치 되는치 검사
 		boolean result = libraryService.modifyLibrary(library);

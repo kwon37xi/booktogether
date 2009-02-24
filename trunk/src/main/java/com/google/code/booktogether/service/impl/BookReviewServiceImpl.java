@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.code.booktogether.dao.BookReviewDao;
 import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.BookReviewService;
+import com.google.code.booktogether.service.util.HTMLInputFilter;
 import com.google.code.booktogether.web.domain.BookReview;
 import com.google.code.booktogether.web.page.PageBean;
 
@@ -21,16 +22,25 @@ public class BookReviewServiceImpl implements BookReviewService {
 	@Resource(name = "bookReviewJdbcDao")
 	private BookReviewDao bookReviewJdbcDao;
 
+	/**
+	 * html 필터
+	 */
+	@Resource(name = "htmlInputFilter")
+	private HTMLInputFilter htmlInputFilter;
+
 	@Override
 	@Transactional(readOnly = false)
 	public boolean insertReview(BookReview bookReview) {
+
+		bookReview.setTitle(htmlInputFilter.stripHTML(bookReview.getTitle()));
+		bookReview.setReview(htmlInputFilter.filter(bookReview.getReview()));
 
 		int count = bookReviewJdbcDao.insertReview(bookReview);
 
 		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 		}
-		
+
 		return true;
 
 	}
@@ -39,12 +49,15 @@ public class BookReviewServiceImpl implements BookReviewService {
 	@Transactional(readOnly = false)
 	public boolean modifyReview(BookReview bookReview) {
 
+		bookReview.setTitle(htmlInputFilter.stripHTML(bookReview.getTitle()));
+		bookReview.setReview(htmlInputFilter.filter(bookReview.getReview()));
+
 		int count = bookReviewJdbcDao.modifyReview(bookReview);
 
 		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 		}
-		
+
 		return true;
 
 	}
@@ -58,7 +71,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 		}
-		
+
 		return true;
 
 	}
@@ -96,7 +109,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 		if (count == 0) {
 			return false;
 		}
-		
+
 		return true;
 
 	}
@@ -134,9 +147,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 			count = bookReviewJdbcDao.insertRecommend(bookReview);
 
 			if (count != 1) {
-
 				throw new BooktogetherException("추천자 리스트 등록 실패");
-
 			}
 
 			message = "추천등록완료";
