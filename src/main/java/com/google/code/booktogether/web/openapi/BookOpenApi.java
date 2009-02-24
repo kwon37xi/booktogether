@@ -3,7 +3,7 @@ package com.google.code.booktogether.web.openapi;
 
 import java.util.List;
 import com.google.code.booktogether.web.domain.Book;
-import com.google.code.booktogether.web.openapi.header.BookOpenApiHeader;
+import com.google.code.booktogether.web.domain.BookOpenApiHeader;
 
 
 /**

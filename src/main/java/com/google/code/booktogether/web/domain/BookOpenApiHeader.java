@@ -1,4 +1,4 @@
-package com.google.code.booktogether.web.openapi.header;
+package com.google.code.booktogether.web.domain;
 
 import java.util.Map;
 
