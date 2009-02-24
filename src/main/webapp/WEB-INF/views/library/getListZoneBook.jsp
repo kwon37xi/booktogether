@@ -10,7 +10,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
-		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/library/library.js"></script>
 		<title>내 생활반경 소유책 목록</title>
 	</head>
 	<body>
@@ -72,15 +72,15 @@
 		
 		<div id='page_div'>
 			<c:if test="${pageBean.prePage}">
-				<a href="javascript:go_page_search('${pageBean.startPage-pageBean.limit}')">이전</a>
+				<a href="javascript:go_page_zonebook('${pageBean.startPage-pageBean.limit}','${param.userId}')">이전</a>
 			</c:if>
 			
 			<c:forEach begin="${pageBean.startPage}" end="${pageBean.endPage}" var='i'>
-				<a href="javascript:go_page_search('${i}')">[ ${i} ]</a>
+				<a href="javascript:go_page_zonebook('${i}','${param.userId}')">[ ${i} ]</a>
 			</c:forEach>
 				
 			<c:if test="${pageBean.nextPage}">
-				<a href="javascript:go_page_search('${pageBean.startPage+pageBean.limit}')">다음</a>
+				<a href="javascript:go_page_zonebook('${pageBean.startPage+pageBean.limit}','${param.userId}')">다음</a>
 			</c:if>
 		</div>
 		

@@ -96,7 +96,7 @@
 								<td>
 									${gradeInfo.user.userId}(${gradeInfo.user.nickname})
 									<c:if test="${gradeInfo.user.userId==sessionScope.userId}">
-										<a href="/book/deleteBookGrade.do?bookGradeIdNum=${gradeInfo.idNum}&bookIdNum=${gradeInfo.book.idNum}">삭제</a>
+										<a href="javascript:deleteBookGrade('${gradeInfo.idNum}','${gradeInfo.book.idNum}','${param.pageNo}','${param.query}','${param.searchType}')">삭제</a>
 									</c:if>
 								</td>
 							</tr>	
@@ -115,6 +115,9 @@
 		<c:if test="${sessionScope.idNum!=null && !existGrade}">
 			<form name="bookgradeform" method="post" action="/book/insertBookGrade.do">
 				<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
+				<input type="hidden" name="pageNo" value="${param.pageNo}"/>
+				<input type="hidden" name="query" value="${param.query}"/>
+				<input type="hidden" name="searchType" value="${param.searchType}"/>
 				<table border="1">
 					<thead>
 						<tr>
@@ -276,7 +279,7 @@
 		
 		<div id=''>
 			<a href="javascript:history.go(-1)">뒤로</a>
-			<a href="/book/searchBook.do">목록</a>
+			<a href="javascript:go_searchBook('${param.pageNo}','${param.query}','${param.searchType}')">목록</a>
 			<a href="/library/insertLibraryBookView.do?bookIdNum=${bookInfo.idNum}">내서재에 등록</a>
 		</div>
 		

@@ -25,7 +25,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 
 		Integer idNum = (Integer) ra.getAttribute("idNum",
 				RequestAttributes.SCOPE_SESSION);
-
+		
 		if (idNum != null) {
 			log.info("로그인 되어있다.");
 		} else {

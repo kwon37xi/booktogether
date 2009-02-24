@@ -7,7 +7,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
-		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/library/library.js"></script>
 		<title>서재 책 목록</title>
 	</head>
 	<body>
@@ -19,7 +19,6 @@
 			<c:when test="${state==2}">읽은 책</c:when>
 		</c:choose>
 	
-		
 		<table border="1">
 			<thead></thead>
 			<tbody>
@@ -70,15 +69,15 @@
 		
 		<div id='page_div'>
 			<c:if test="${pageBean.prePage}">
-				<a href="javascript:go_page_search('${pageBean.startPage-pageBean.limit}')">이전</a>
+				<a href="javascript:go_page_librarybook('${pageBean.startPage-pageBean.limit}','${libraryIdNum}','${state}')">이전</a>
 			</c:if>
 			
 			<c:forEach begin="${pageBean.startPage}" end="${pageBean.endPage}" var='i'>
-				<a href="javascript:go_page_search('${i}')">[ ${i} ]</a>
+				<a href="javascript:go_page_librarybook('${i}','${libraryIdNum}','${state}')">[ ${i} ]</a>
 			</c:forEach>
 				
 			<c:if test="${pageBean.nextPage}">
-				<a href="javascript:go_page_search('${pageBean.startPage+pageBean.limit}')">다음</a>
+				<a href="javascript:go_page_librarybook('${pageBean.startPage+pageBean.limit}','${libraryIdNum}','${state}')">다음</a>
 			</c:if>
 		</div>
 		

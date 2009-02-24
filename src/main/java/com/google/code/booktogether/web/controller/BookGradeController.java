@@ -147,6 +147,7 @@ public class BookGradeController extends AbstractController {
 		mav.setViewName("book/getListMyGrade");
 		mav.addObject("bookGradeList", bookGradeList);
 		mav.addObject("pageBean", pageBean);
+		mav.addObject("userIdNum", userIdNum);
 
 		return mav;
 

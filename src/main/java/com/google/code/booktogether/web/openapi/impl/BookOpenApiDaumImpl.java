@@ -217,7 +217,7 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 
 			item = (Element) itemList.get(i);
 
-			String title = item.getChild("title").getText();
+			String title = stripHTML(item.getChild("title").getText());
 
 			if (title.length() > 13) {
 				book.setName(title.substring(0, 14) + "...");

@@ -87,7 +87,7 @@
 		</div>
 		
 		<div>
-			<a href="javascript:go_bookView('${bookInfo.idNum}')">뒤로</a>
+			<a href="javascript:history.go(-1)">뒤로</a>
 			
 			<c:if test="${sessionScope.idNum!=null && bookReviewInfo.user.idNum!=sessionScope.idNum}">
 				<input type="button" value="추천하기" onclick="recommend('${bookInfo.idNum}','${bookReviewInfo.idNum}')"/>

@@ -236,6 +236,7 @@ public class BookMarkController extends AbstractController {
 		mav.setViewName("book/getListMyBookMark");
 		mav.addObject("bookListInBookMark", bookListInBookMark);
 		mav.addObject("pageBean", pageBean);
+		mav.addObject("userIdNum", userIdNum);
 
 		return mav;
 	}
