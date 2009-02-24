@@ -12,6 +12,14 @@
 	</head>
 	<body>
 	
+		<c:if test="${sessionScope.message!=null}">
+			<script>
+				alert('${sessionScope.message}');
+			</script>
+			<c:remove scope="session" var="message"/>
+		</c:if>
+	
+	
 		<form name="searchBookform" action="/book/searchBook.do" method="post">
 			<input type="hidden" name="pageNo" value="1"/>
 			<select name="searchType">
@@ -45,7 +53,7 @@
 										<c:if test="${aIndex>bookListLength}">&nbsp;</c:if>
 										<c:if test="${aIndex<bookListLength}">
 											<img src="${bookList[aIndex].bookCover}" width="72" height="102" onclick="checkBook('${bookList[aIndex].ISBN10}')"/><br/>
-											<a href="javascript:checkBook('${bookList[aIndex].ISBN10}')">
+											<a href="javascript:checkBook('${bookList[aIndex].ISBN10}','${pageNo}','${query}','${searchType}')">
 												${fn:escapeXml(bookList[aIndex].name)}
 											</a><br/>
 											${bookList[aIndex].authors[0].name}<br/>

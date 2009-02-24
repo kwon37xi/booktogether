@@ -1,6 +1,11 @@
 package com.google.code.booktogether.web.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +17,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.BookGradeService;
 import com.google.code.booktogether.service.BookMarkService;
 import com.google.code.booktogether.service.BookReviewService;
@@ -65,6 +71,9 @@ public class BookController extends AbstractController {
 	@RequestMapping("/book/getBook.do")
 	public ModelAndView handleGetBook(
 			HttpServletRequest req,
+			@RequestParam(value = "query", required = false) String query,
+			@RequestParam(value = "searchType", required = false) String searchType,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
 		// 책 정보 가지고 오기
@@ -171,7 +180,6 @@ public class BookController extends AbstractController {
 		PageBean pageBean = new PageBean();
 		pageBean.setPageNo(pageNo);
 		pageBean.setLimit(5);
-		pageBean.setPageSize(20);
 
 		// 책검색 목록 가지고 오기
 		List<Book> bookList = bookService.searchBook(query, searchType,
@@ -182,6 +190,9 @@ public class BookController extends AbstractController {
 		mav.setViewName("book/searchBook");
 		mav.addObject("bookList", bookList);
 		mav.addObject("pageBean", pageBean);
+		mav.addObject("query", query);
+		mav.addObject("searchType", searchType);
+		mav.addObject("pageNo", pageNo);
 
 		return mav;
 
@@ -193,14 +204,69 @@ public class BookController extends AbstractController {
 	 * @param req
 	 */
 	@RequestMapping("/book/checkBook.do")
-	public ModelAndView handleCheckBook(HttpServletRequest req,
+	public ModelAndView handleCheckBook(
+			HttpServletRequest req,
+			@RequestParam(value = "query", required = false) String query,
+			@RequestParam(value = "searchType", required = false) String searchType,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo,
 			@RequestParam(value = "ISBN", required = false) String isbn) {
+
+		Map<String, String> mapParams = new HashMap<String, String>();
+
+		try {
+			query = URLEncoder.encode(query, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			throw new BooktogetherException("OpenApi Query UTF-8로 인코딩에러", e1);
+		}
+
+		if (isbn == null || isbn == "") {
+			mapParams.put("query", query);
+			mapParams.put("searchType", searchType);
+			mapParams.put("pageNo", String.valueOf(pageNo));
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"ISBN이 등록 되지 않아 조회하실 수 없습니다.",
+					RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/book/searchBook.do"
+					+ makeParams(mapParams));
+		}
 
 		// 책 정보 가지고 오기
 		Book book = bookService.checkBook(isbn);
 
-		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
-				+ book.getIdNum());
+		mapParams.put("query", query);
+		mapParams.put("searchType", searchType);
+		mapParams.put("pageNo", String.valueOf(pageNo));
+		mapParams.put("isbn", String.valueOf(isbn));
+		mapParams.put("bookIdNum", String.valueOf(book.getIdNum()));
+
+		return new ModelAndView("redirect:/book/getBook.do"
+				+ makeParams(mapParams));
+
+	}
+
+	public String makeParams(Map<String, String> mapParams) {
+
+		Set<String> key = mapParams.keySet();
+
+		String params = "";
+
+		int i = 0;
+
+		for (String param : key) {
+
+			if (i == 0) {
+
+				params += "?" + param + "=" + mapParams.get(param);
+
+			} else {
+
+				params += "&" + param + "=" + mapParams.get(param);
+			}
+
+			i++;
+		}
+
+		return params;
 
 	}
 

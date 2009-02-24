@@ -2,14 +2,26 @@
 //검색
 function go_page_search(pageno){
 	
-	document.searchBookform.pageno.value=pageno;
+	document.searchBookform.pageNo.value=pageno;
 	document.searchBookform.submit();
 	
 }
 
+
+function go_searchBook(pageno, query, searchType){
+	
+	var params="pageNo="+pageno+"&query="+query+"&searchType="+searchType;
+	
+	location.href="/book/searchBook.do?"+params;
+	
+}
+
 //책 조회
-function checkBook(isbn){
-	location.href='/book/checkBook.do?ISBN='+isbn;
+function checkBook(isbn,pageNo, query, searchType){
+	
+	var params="ISBN="+isbn+"&pageNo="+pageNo+"&query="+query+"&searchType="+searchType;
+	
+	location.href="/book/checkBook.do?"+params;
 }
 
 
@@ -81,6 +93,20 @@ function modifyVibe(bookMarkIdNum,bookIdNum){
 	
 	if(confirm("공감하시겠습니까?")){
 		location.href="/book/modifyVibe.do?bookMarkIdNum="+bookMarkIdNum+"&bookIdNum="+bookIdNum;
+	}
+	
+}
+
+
+//별점 삭제
+function deleteBookGrade(bookGradeIdNum,bookIdNum,pageno,query,searchType){
+
+	if(confirm("삭제하시겠습니까?")){
+		
+		var params="bookGradeIdNum="+bookGradeIdNum+"&bookIdNum="+bookIdNum+"&pageno="+pageno+"&query="+query+"&searchType="+searchType;
+		
+		location.href="/book/modifyVibe.do?"+params;
+		
 	}
 	
 }

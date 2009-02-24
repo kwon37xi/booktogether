@@ -321,6 +321,7 @@ public class BookReviewController extends AbstractController {
 		mav.setViewName("book/getListMyReview");
 		mav.addObject("bookReviewList", bookReviewList);
 		mav.addObject("pageBean", pageBean);
+		mav.addObject("userIdNum", userIdNum);
 
 		return mav;
 
