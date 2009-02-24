@@ -65,6 +65,16 @@ public interface LibraryService {
 	 * @return
 	 */
 	public PossessBook getPossessBook(Integer possessBookIdNum);
+	
+	
+	/**
+	 * 소유 책 정보 조회
+	 * 
+	 * @param bookIdNum
+	 * @param userIdNum
+	 * @return
+	 */
+	public PossessBook getPossessBook(Integer bookIdNum, Integer userIdNum);
 
 	/**
 	 * 내소유책 수정
@@ -99,6 +109,16 @@ public interface LibraryService {
 	 * @return
 	 */
 	public boolean modifyLibraryBook(LibraryBook libraryBook);
+	
+	/**
+	 * 서재안의 책 수정
+	 * 
+	 * @param libraryBook
+	 * @param possessBook
+	 * @param serviceDiv
+	 * @return
+	 */
+	public boolean modifyLibraryBook(LibraryBook libraryBook, PossessBook possessBook, Integer serviceDiv);
 
 	/**
 	 * 서재안의 책 삭제

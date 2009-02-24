@@ -139,6 +139,26 @@
             ]]>
 		</query>
 	</sql>
+	
+	<sql name="GET_B_U_POSSESSBOOK_SQL">
+		<description>서재에 해당책 조회(사용자, 책 일련번호)</description>
+		<query>
+            <![CDATA[
+             SELECT idNum as idNum
+                    , book_idNum as bidNum
+                    , user_idNum as uidNum
+                    , purchase_Date as pdate
+                    , purchase_Price as price
+                    , begin_Read as bread
+                    , end_Read as eread
+                    , quality as quality
+                    , state as state
+               FROM POSSESSBOOK 
+              WHERE user_idNum = ?
+                AND book_idNum = ? 
+            ]]>
+		</query>
+	</sql>
 
 
 	<sql name="DELETE_LIBRARYBOOK_SQL">

@@ -344,12 +344,20 @@ public class LibraryController extends AbstractController {
 		LibraryBook libraryBook = libraryService
 				.getLibraryBook(libraryBookIdNum);
 
+		PossessBook possessBook = null;
+
+		if (libraryBook.getIsPossess() != null) {
+			possessBook = libraryService.getPossessBook(libraryBook.getBook()
+					.getIdNum(), getLoginUserIdNum());
+		}
+
 		Book book = bookService.getBook(libraryBook.getBook().getIdNum());
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/modifyLibraryBook");
 		mav.addObject("libraryBook", libraryBook);
 		mav.addObject("bookInfo", book);
+		mav.addObject("possessBook", possessBook);
 
 		return mav;
 
@@ -365,9 +373,28 @@ public class LibraryController extends AbstractController {
 	public ModelAndView handleModifyLibraryBook(
 			HttpServletRequest req,
 			LibraryBook libraryBook,
+			@RequestParam(value = "beforeIsPossess", required = false) Integer beforeIsPossess,
+			@RequestParam(value = "possessIdNum", required = false) Integer possessIdNum,
 			@RequestParam(value = "readDateYear", required = false) Integer readDateYear,
 			@RequestParam(value = "readDateMonth", required = false) Integer readDateMonth,
-			@RequestParam(value = "readDateDate", required = false) Integer readDateDate) {
+			@RequestParam(value = "readDateDate", required = false) Integer readDateDate,
+			@RequestParam(value = "purchaseDateYear", required = false) Integer purchaseDateYear,
+			@RequestParam(value = "purchaseDateMonth", required = false) Integer purchaseDateMonth,
+			@RequestParam(value = "purchaseDateDate", required = false) Integer purchaseDateDate,
+			@RequestParam(value = "purchasePrice", required = false) Integer purchasePrice,
+			@RequestParam(value = "beginReadYear", required = false) Integer beginReadYear,
+			@RequestParam(value = "beginReadMonth", required = false) Integer beginReadMonth,
+			@RequestParam(value = "beginReadDate", required = false) Integer beginReadDate,
+			@RequestParam(value = "endReadYear", required = false) Integer endReadYear,
+			@RequestParam(value = "endReadMonth", required = false) Integer endReadMonth,
+			@RequestParam(value = "endReadDate", required = false) Integer endReadDate,
+			@RequestParam(value = "quality", required = false) Integer quality,
+			@RequestParam(value = "bookstate", required = false) Integer bookstate) {
+
+		// 0은 등록, 1은 삭제, 2는 수정
+		Integer serviceDiv = 1;
+
+		Calendar cal = Calendar.getInstance();
 
 		if (readDateYear == null || readDateMonth == null
 				|| readDateDate == null) {
@@ -376,17 +403,74 @@ public class LibraryController extends AbstractController {
 
 		} else {
 
-			Calendar cal = Calendar.getInstance();
-
 			cal.set(readDateYear, readDateMonth - 1, readDateDate);
 
 			libraryBook.setReadDate(cal.getTime());
 
 		}
 
-		log.info(libraryBook);
+		PossessBook possessBook = new PossessBook();
 
-		boolean result = libraryService.modifyLibraryBook(libraryBook);
+		possessBook.setIdNum(possessIdNum);
+		possessBook.setPurchasePrice(purchasePrice);
+		possessBook.setState(bookstate);
+		possessBook.setQuality(quality);
+		possessBook.getBook().setIdNum(libraryBook.getBook().getIdNum());
+		possessBook.getUser().setIdNum(getLoginUserIdNum());
+
+		if (purchaseDateYear != null || purchaseDateMonth != null
+				|| purchaseDateDate != null) {
+
+			cal.set(purchaseDateYear, purchaseDateMonth - 1, purchaseDateDate);
+			possessBook.setPurchaseDate(cal.getTime());
+
+		}
+
+		if (beginReadYear != null || beginReadMonth != null
+				|| beginReadDate != null) {
+
+			cal.set(beginReadYear, beginReadMonth - 1, beginReadDate);
+			possessBook.setBeginRead(cal.getTime());
+
+		}
+
+		if (endReadYear != null || endReadMonth != null || endReadDate != null) {
+
+			cal.set(endReadYear, endReadMonth - 1, endReadDate);
+			possessBook.setEndRead(cal.getTime());
+
+		}
+
+		boolean result = false;
+
+		Integer isPossess = libraryBook.getIsPossess();
+
+		isPossess = (isPossess == null) ? 0 : isPossess;
+
+		beforeIsPossess = (beforeIsPossess == null) ? 0 : beforeIsPossess;
+
+		if (isPossess.intValue() != beforeIsPossess.intValue()) {
+
+			if (libraryBook.getIsPossess() == null) {
+
+				serviceDiv = 1;
+
+			} else if (libraryBook.getIsPossess() == 1) {
+
+				serviceDiv = 0;
+
+			}
+
+			result = libraryService.modifyLibraryBook(libraryBook, possessBook,
+					serviceDiv);
+
+		} else {
+
+			serviceDiv = 2;
+
+			result = libraryService.modifyLibraryBook(libraryBook, possessBook,
+					serviceDiv);
+		}
 
 		// 성공시
 		if (result) {
@@ -587,16 +671,28 @@ public class LibraryController extends AbstractController {
 
 		Calendar cal = Calendar.getInstance();
 
-		possessBook.getUser().setIdNum(getLoginUserIdNum());
+		if (purchaseDateYear != null || purchaseDateMonth != null
+				|| purchaseDateDate != null) {
 
-		cal.set(purchaseDateYear, purchaseDateMonth - 1, purchaseDateDate);
-		possessBook.setPurchaseDate(cal.getTime());
+			cal.set(purchaseDateYear, purchaseDateMonth - 1, purchaseDateDate);
+			possessBook.setPurchaseDate(cal.getTime());
 
-		cal.set(beginReadYear, beginReadMonth - 1, beginReadDate);
-		possessBook.setBeginRead(cal.getTime());
+		}
 
-		cal.set(endReadYear, endReadMonth - 1, endReadDate);
-		possessBook.setEndRead(cal.getTime());
+		if (beginReadYear != null || beginReadMonth != null
+				|| beginReadDate != null) {
+
+			cal.set(beginReadYear, beginReadMonth - 1, beginReadDate);
+			possessBook.setBeginRead(cal.getTime());
+
+		}
+
+		if (endReadYear != null || endReadMonth != null || endReadDate != null) {
+
+			cal.set(endReadYear, endReadMonth - 1, endReadDate);
+			possessBook.setEndRead(cal.getTime());
+
+		}
 
 		if (log.isInfoEnabled()) {
 			log.info(possessBook);
