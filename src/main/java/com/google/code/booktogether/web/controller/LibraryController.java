@@ -527,7 +527,6 @@ public class LibraryController extends AbstractController {
 		mav.addObject("possessBookList", possessBookList);
 		mav.addObject("pageBean", pageBean);
 		mav.addObject("userId", userId);
-		
 
 		return mav;
 
@@ -621,6 +620,36 @@ public class LibraryController extends AbstractController {
 		return new ModelAndView(
 				"redirect:/library/getListPossessBook.do?userId="
 						+ getLoginUserId());
+
+	}
+
+	/**
+	 * 내가 보유한 책 조회
+	 * 
+	 * @param req
+	 * @return 내가 보유한 책 조회화면
+	 */
+	@RequestMapping("/library/getPossessBook.do")
+	public ModelAndView handleGetPossessBook(
+			HttpServletRequest req,
+			@RequestParam(value = "possessBookIdNum", required = false) Integer possessBookIdNum) {
+
+		PossessBook possessBook = libraryService
+				.getPossessBook(possessBookIdNum);
+
+		if (possessBook != null) {
+
+			Integer bookIdNum = possessBook.getBook().getIdNum();
+
+			possessBook.setBook(bookService.getBook(bookIdNum));
+
+		}
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("library/getPossessBook");
+		mav.addObject("possessBook", possessBook);
+
+		return mav;
 
 	}
 

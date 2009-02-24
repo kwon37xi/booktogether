@@ -38,7 +38,7 @@
 										<c:if test="${aIndex>bookListLength}">&nbsp;</c:if>
 										<c:if test="${aIndex<bookListLength}">
 											<img src="${bookInfo.bookCover}" width="72" height="102" onclick="checkBook('${bookInfo.ISBN10}')"/><br/>
-											<a href="javascript:checkBook('${bookInfo.ISBN10}')">
+											<a href="javascript:getBook('${bookInfo.idNum}')">
 												${bookInfo.name}
 											</a><br/>
 											${bookInfo.authors[0].name}<br/>

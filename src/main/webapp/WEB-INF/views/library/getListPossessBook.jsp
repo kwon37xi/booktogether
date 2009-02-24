@@ -35,7 +35,7 @@
 										<tbody>
 											<tr>
 												<td rowspan="4"><img src="${possessBook.book.bookCover}"/></td>
-												<td>제목 : ${possessBook.book.name}</td>
+												<td>제목 : <a href="javascript:getPossessBook('${possessBook.idNum}')">${possessBook.book.name}</a></td>
 												<td>지은이 :
 													<c:forEach begin="0" items="${possessBook.book.authors}" var="authorInfo">
 														[${authorInfo.name}/

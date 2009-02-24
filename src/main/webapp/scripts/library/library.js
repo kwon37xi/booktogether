@@ -60,5 +60,23 @@ function go_page_go_page_myreview(pageNo,userIdNum){
 }
 
 
+function getBook(bookIdNum){
+	
+	location.href="/book/getBook.do?bookIdNum="+bookIdNum;
+	
+}
+
+
+function getPossessBook(possessBookIdNum){
+	
+	location.href="/library/getPossessBook.do?possessBookIdNum="+possessBookIdNum;
+	
+}
+
+function getLibrary(userId){
+	
+	location.href="/library/getLibrary.do?userId="+userId;
+	
+}
 
 

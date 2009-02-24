@@ -105,7 +105,7 @@ function deleteBookGrade(bookGradeIdNum,bookIdNum,pageno,query,searchType){
 		
 		var params="bookGradeIdNum="+bookGradeIdNum+"&bookIdNum="+bookIdNum+"&pageno="+pageno+"&query="+query+"&searchType="+searchType;
 		
-		location.href="/book/modifyVibe.do?"+params;
+		location.href="/book/deleteBookGrade.do?"+params;
 		
 	}
 	
