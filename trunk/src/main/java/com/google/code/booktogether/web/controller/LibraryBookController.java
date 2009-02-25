@@ -85,7 +85,7 @@ public class LibraryBookController extends AbstractController {
 			}
 
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("library/insertLibraryBook");
+			mav.setViewName("librarybook/insertLibraryBook");
 			mav.addObject("library", library);
 			mav.addObject("bookInfo", book);
 
@@ -222,7 +222,7 @@ public class LibraryBookController extends AbstractController {
 		Book book = bookService.getBook(libraryBook.getBook().getIdNum());
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("library/modifyLibraryBook");
+		mav.setViewName("librarybook/modifyLibraryBook");
 		mav.addObject("libraryBook", libraryBook);
 		mav.addObject("bookInfo", book);
 		mav.addObject("possessBook", possessBook);
@@ -421,7 +421,7 @@ public class LibraryBookController extends AbstractController {
 				libraryBook, pageBean);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("library/getListLibraryBook");
+		mav.setViewName("librarybook/getListLibraryBook");
 		mav.addObject("libraryBookList", libraryBookList);
 		mav.addObject("state", state);
 		mav.addObject("libraryIdNum", libraryIdNum);
