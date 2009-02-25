@@ -13,11 +13,13 @@ import com.google.code.booktogether.dao.LibraryDao;
 import com.google.code.booktogether.dao.rowmapper.LibraryBookRowMapper;
 import com.google.code.booktogether.dao.rowmapper.LibraryRowMapper;
 import com.google.code.booktogether.dao.rowmapper.PossessBookRowMapper;
+import com.google.code.booktogether.dao.rowmapper.UserRowMapper;
 import com.google.code.booktogether.dao.rowmapper.ZoneBookRowMapper;
 import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
+import com.google.code.booktogether.web.domain.User;
 
 @Repository("libraryJdbcDao")
 public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
@@ -284,6 +286,16 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		return getSimpleJdbcTemplate()
 				.queryForInt(sql, new Object[] { userId });
+	}
+
+	@Override
+	public List<User> getListSearchLibrary(String userId, String name,
+			String nickname) {
+
+		String sql = sqlparser.getSQL("library", "LIST_SEARCH_LIBRARY_SQL");
+
+		return getSimpleJdbcTemplate().query(sql, new UserRowMapper(),
+				new Object[] { userId, name, nickname });
 	}
 
 }

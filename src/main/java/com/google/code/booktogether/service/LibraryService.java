@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
+import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.page.PageBean;
 
 public interface LibraryService {
@@ -165,5 +166,12 @@ public interface LibraryService {
 	 */
 	public List<PossessBook> getListZoneBook(String userId, PageBean pageBean);
 	
+	/**
+	 * 서재 검색
+	 * @param query
+	 * @param searchType
+	 * @return
+	 */
+	public List<User> getListSearchLibrary(String query, String searchType);
 
 }
