@@ -204,6 +204,7 @@ public class LibraryController extends AbstractController {
 		mav.addObject("moreLibraryBookList", moreLibraryBookList);
 		mav.addObject("morePossessBookList", morePossessBookList);
 		mav.addObject("libraryIdNum", libraryIdNum);
+		mav.addObject("bookName", bookName);
 
 		return mav;
 

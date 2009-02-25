@@ -430,5 +430,40 @@ public class LibraryBookController extends AbstractController {
 		return mav;
 
 	}
+	
+	/**
+	 * 서재내 책 검색(읽고 싶은책, 읽은책, 읽고 있는책)
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/library/searchLibraryBookInLibrary.do")
+	public ModelAndView handleSearchBookInLibrary(
+			HttpServletRequest req,
+			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum,
+			@RequestParam(value = "bookName", required = false) String bookName,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+
+		pageNo = (pageNo == null) ? 1 : pageNo;
+		bookName = (bookName == null) ? "" : bookName.trim();
+
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNo(pageNo);
+		pageBean.setPageSize(10);
+
+		List<LibraryBook> libraryBookList = libraryService.getListLibraryBook(
+				libraryIdNum, bookName, pageBean);
+
+		log.info(pageBean.getDbCount());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("librarybook/searchLibraryBook");
+		mav.addObject("libraryBookList", libraryBookList);
+		mav.addObject("libraryIdNum", libraryIdNum);
+		mav.addObject("pageBean", pageBean);
+
+		return mav;
+
+	}
 
 }
