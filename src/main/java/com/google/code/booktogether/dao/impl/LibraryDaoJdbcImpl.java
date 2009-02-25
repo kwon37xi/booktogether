@@ -211,7 +211,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	public int modifyLibraryBookIsPossess(Integer userIdNum,
 			Integer possessBookIdNum) {
 
-		String sql = sqlparser.getSQL("possessBook",
+		String sql = sqlparser.getSQL("libraryBook",
 				"MODIFY_ISPOSSESS_LIBRARYBOOK_SQL");
 
 		return getSimpleJdbcTemplate().update(sql,
@@ -221,7 +221,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int getDbCountLibraryBook(LibraryBook libraryBook) {
 
-		String sql = sqlparser.getSQL("possessBook",
+		String sql = sqlparser.getSQL("libraryBook",
 				"GET_DBCOUNT_LIBRARYBOOK_SQL");
 
 		return getSimpleJdbcTemplate().queryForInt(
@@ -315,8 +315,6 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		String sql = sqlparser.getSQL("libraryBook",
 				"LIST_DBCOUNT_SEARCH_LIBRARYBOOK_SQL");
-
-		System.out.println(sql);
 
 		return getSimpleJdbcTemplate().queryForInt(sql,
 				new Object[] { "%" + bookName + "%", libraryIdNum });
