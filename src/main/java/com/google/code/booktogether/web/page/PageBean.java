@@ -3,7 +3,7 @@ package com.google.code.booktogether.web.page;
 /**
  * 페이징 기법을 위한 클래스.
  */
-public class PageBean{
+public class PageBean {
 
 	private static final long serialVersionUID = 1L;
 

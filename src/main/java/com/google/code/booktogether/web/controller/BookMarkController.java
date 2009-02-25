@@ -41,14 +41,13 @@ public class BookMarkController extends AbstractController {
 	 */
 	@Resource(name = "bookService")
 	BookService bookService;
-	
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
 
 	/**
-	 * 인용구 등록
-	 * (로그인필요)
+	 * 인용구 등록 (로그인필요)
+	 * 
 	 * @param req
 	 * @return
 	 */
@@ -83,8 +82,8 @@ public class BookMarkController extends AbstractController {
 	}
 
 	/**
-	 * 별점 삭제
-	 * (로그인필요)
+	 * 별점 삭제 (로그인필요)
+	 * 
 	 * @param req
 	 * @return
 	 */
@@ -97,7 +96,7 @@ public class BookMarkController extends AbstractController {
 		BookMark bookMark = new BookMark();
 		bookMark.setIdNum(bookMarkIdNum);
 		bookMark.getBook().setIdNum(bookIdNum);
-		bookMark.getUser().setIdNum( getLoginUserIdNum());
+		bookMark.getUser().setIdNum(getLoginUserIdNum());
 
 		// 인용구 삭제
 		boolean result = bookMarkService.deleteBookMark(bookMark);
@@ -116,8 +115,8 @@ public class BookMarkController extends AbstractController {
 	}
 
 	/**
-	 * 인용구 수정
-	 * (로그인필요)
+	 * 인용구 수정 (로그인필요)
+	 * 
 	 * @param req
 	 * @return
 	 */
@@ -151,8 +150,8 @@ public class BookMarkController extends AbstractController {
 	}
 
 	/**
-	 * 공감수 올리기
-	 * (로그인필요)
+	 * 공감수 올리기 (로그인필요)
+	 * 
 	 * @param req
 	 * @return
 	 */
@@ -221,6 +220,14 @@ public class BookMarkController extends AbstractController {
 
 				List<BookMark> bookMarkList = bookMarkService
 						.getListMyBookMark(userIdNum, bookIdNum);
+
+				for (int j = 0; j < bookMarkList.size(); j++) {
+
+					bookMarkList.get(j).setContent(
+							bookMarkList.get(j).getContent().replaceAll("\r\n",
+									"<br/>"));
+
+				}
 
 				list.setBookMarkList(bookMarkList);
 

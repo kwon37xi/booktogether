@@ -41,6 +41,17 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	}
 
 	@Override
+	public Library getLibrary(Integer libraryIdNum) {
+
+		String sql = sqlparser.getSQL("library", "GET_LIBRARY_IDNUM_SQL");
+
+		return (Library) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
+				.query(sql, new LibraryRowMapper(),
+						new Object[] { libraryIdNum }));
+
+	}
+
+	@Override
 	public int modifyLibrary(Library library) {
 
 		String sql = sqlparser.getSQL("library", "MODIFY_LIBRARY_SQL");
@@ -247,12 +258,32 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 	@Override
 	public PossessBook getPossessBook(Integer bookIdNum, Integer userIdNum) {
-		
+
 		String sql = sqlparser.getSQL("library", "GET_B_U_POSSESSBOOK_SQL");
 
 		return (PossessBook) DataAccessUtils
 				.singleResult(getSimpleJdbcTemplate().query(sql,
 						new PossessBookRowMapper(),
-						new Object[] { userIdNum,bookIdNum }));
+						new Object[] { userIdNum, bookIdNum }));
 	}
+
+	@Override
+	public int isOpenLibrary(Integer libraryIdNum) {
+
+		String sql = sqlparser
+				.getSQL("library", "IS_OPEN_LIBIDNUM_LIBRARY_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { libraryIdNum });
+	}
+
+	@Override
+	public int isOpenLibrary(String userId) {
+
+		String sql = sqlparser.getSQL("library", "IS_OPEN_USERID_LIBRARY_SQL");
+
+		return getSimpleJdbcTemplate()
+				.queryForInt(sql, new Object[] { userId });
+	}
+
 }

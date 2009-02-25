@@ -10,10 +10,37 @@
                     ,L.notice as notice
                     ,L.isOpen as isOpen
                     ,U.idNum as uidNum
-               FROM LIBRARY L, USER U 
+                    ,U.name as uname
+                    ,U.nickname as unickname
+                    ,U.user_id as uid
+                    ,UAI.thumnail as thumnail
+               FROM LIBRARY L, USER U, USERADDINFO UAI 
               WHERE L.user_idNum = U.idNum 
               	AND U.user_id = ? 
                 AND U.isdelete = 0 
+                AND U.idNum = UAI.user_idNum 
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="GET_LIBRARY_IDNUM_SQL">
+		<description>서재 정보 가지고 오기</description>
+		<query>
+            <![CDATA[
+             SELECT L.idNUm as idNum
+                    ,L.notice as notice
+                    ,L.isOpen as isOpen
+                    ,U.idNum as uidNum
+                    ,U.name as uname
+                    ,U.nickname as unickname
+                    ,U.user_id as uid
+                    ,UAI.thumnail as thumnail
+               FROM LIBRARY L, USER U, USERADDINFO UAI 
+              WHERE L.user_idNum = U.idNum 
+              	AND L.idNum = ? 
+                AND U.isdelete = 0 
+                AND U.idNum = UAI.user_idNum 
             ]]>
 		</query>
 	</sql>
@@ -265,6 +292,30 @@
 	</sql>
 
 
+	<sql name="IS_OPEN_LIBIDNUM_LIBRARY_SQL">
+		<description>서재 공개 여부(서재 일련번호로 조회)</description>
+		<query>
+            <![CDATA[
+             SELECT isopen
+               FROM LIBRARY 
+              WHERE idNum = ? 
+            ]]>
+		</query>
+	</sql>
+	
+	<sql name="IS_OPEN_USERID_LIBRARY_SQL">
+		<description>서재 공개 여부(서재 주인 아이디로 조회)</description>
+		<query>
+            <![CDATA[
+             SELECT isopen
+               FROM LIBRARY L, USER U 
+              WHERE U.user_id = ?
+                AND L.user_idNum= U.idNum 
+            ]]>
+		</query>
+	</sql>
+	
+	
 	<sql name="DELETE_POSSESSBOOK_SQL">
 		<description>내가 소유한 책 삭제</description>
 		<query>

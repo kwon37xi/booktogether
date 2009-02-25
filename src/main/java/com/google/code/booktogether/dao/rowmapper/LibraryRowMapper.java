@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 import com.google.code.booktogether.web.domain.Library;
+import com.google.code.booktogether.web.domain.UserAddInfo;
 
 
 /**
@@ -28,7 +29,15 @@ public class LibraryRowMapper implements ParameterizedRowMapper<Library>,Seriali
 		library.setIdNum(rs.getInt("IDNUM"));
 		library.setNotice(rs.getString("NOTICE"));
 		library.setIsOpen(rs.getInt("ISOPEN"));
+		
 		library.getUser().setIdNum(rs.getInt("UIDNUM"));
+		library.getUser().setName(rs.getString("UNAME"));
+		library.getUser().setNickname(rs.getString("UNICKNAME"));
+		library.getUser().setUserId(rs.getString("UID"));
+		library.getUser().setIdNum(rs.getInt("UIDNUM"));
+		
+		library.getUser().setUserAddInfo(new UserAddInfo());
+		library.getUser().getUserAddInfo().setThumnail(rs.getString("thumnail"));
 		
 		return library;
 	}

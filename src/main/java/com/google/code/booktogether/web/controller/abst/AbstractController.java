@@ -6,6 +6,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import com.google.code.booktogether.service.UserService;
+import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.User;
 
 /**
@@ -14,43 +15,41 @@ import com.google.code.booktogether.web.domain.User;
  * @author ParkHaeCheol
  */
 public abstract class AbstractController {
-	
+
 	/**
 	 * UserService
 	 */
 	@Resource(name = "userService")
 	protected UserService userService;
-	
-	
-	
 
-	public String getLoginUserId(){
-		
-		RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+	public String getLoginUserId() {
 
-		String userId = (String) ra.getAttribute("userId",
-				RequestAttributes.SCOPE_SESSION);
-		
+		String userId = (String) RequestContextHolder.getRequestAttributes()
+				.getAttribute("userId", RequestAttributes.SCOPE_SESSION);
+
 		return userId;
 	}
-	
-	public Integer getLoginUserIdNum(){
-		
-		RequestAttributes ra = RequestContextHolder.getRequestAttributes();
-		
-		Integer idNum = (Integer) ra.getAttribute("idNum",
-				RequestAttributes.SCOPE_SESSION);
-		
+
+	public Integer getLoginUserIdNum() {
+
+		Integer idNum = (Integer) RequestContextHolder.getRequestAttributes()
+				.getAttribute("idNum", RequestAttributes.SCOPE_SESSION);
+
 		return idNum;
 	}
-	
-	public User getLoginUser(){
-		
-		Integer userIdNum=getLoginUserIdNum();
-		
-		User user=userService.getUserDetail(userIdNum);
-		
-		return user;
+
+	public User getLoginUser() {
+
+		Integer userIdNum = getLoginUserIdNum();
+
+		return userService.getUserDetail(userIdNum);
 	}
-	
+
+	public Library getLibrary() {
+
+		return (Library) RequestContextHolder.getRequestAttributes()
+				.getAttribute("library", RequestAttributes.SCOPE_REQUEST);
+
+	}
+
 }

@@ -44,6 +44,24 @@
 			</list>
 		</property>
 	</bean>
+	
+	
+	<bean id="publicMapper1"
+		class="com.google.code.booktogether.web.interceptor.handler.SelectedAnnotationHandlerMapping">
+		<property name="order" value="1" />
+		<property name="urls">
+			<list>
+				<value>/library/getLibrary.do</value>
+				<value>/library/getListLibraryBook.do</value>
+				<value>/library/getListPossessBook.do</value>
+			</list>
+		</property>
+		<property name="interceptors">
+			<list>
+				<ref bean="openLibraryCheckInterceptor" />
+			</list>
+		</property>
+	</bean>
 
 
 

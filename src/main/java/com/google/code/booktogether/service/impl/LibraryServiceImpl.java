@@ -38,9 +38,40 @@ public class LibraryServiceImpl implements LibraryService {
 	private Logger log = Logger.getLogger(this.getClass());
 
 	@Override
-	public Library getLibrary(String userId) {
+	public Library getLibrary(String userId, Integer userIdNum) {
 
-		return libraryDao.getLibrary(userId);
+		Library library = libraryDao.getLibrary(userId);
+
+		if (library != null) {
+
+			// 공개인지 아닌지 검사
+
+			// 공개가 아닐경우
+			if (library.getIsOpen() == 1) {
+
+				userIdNum = (userIdNum == null) ? 0 : userIdNum;
+
+				// 주인일경우
+				if (library.getUser().getIdNum().intValue() == userIdNum
+						.intValue()) { 
+
+					library.setNotice(library.getNotice().replaceAll("\r\n",
+							"<br/>"));
+					
+				} else {	//주인이 아닐경우
+					
+					library.setIsOpen(2);
+
+				}
+
+			} else {  //공개일경우
+				library.setNotice(library.getNotice().replaceAll("\r\n",
+						"<br/>"));
+			}
+
+		}
+
+		return library;
 
 	}
 
@@ -261,8 +292,8 @@ public class LibraryServiceImpl implements LibraryService {
 
 		} else if (serviceDiv == 2) { // 수정
 
-			count=libraryDao.modifyPossessBook(possessBook);
-			
+			count = libraryDao.modifyPossessBook(possessBook);
+
 			if (count != 1) {
 				throw new BooktogetherException("가지고 있는 소유책 수정 실패");
 			}
@@ -279,6 +310,43 @@ public class LibraryServiceImpl implements LibraryService {
 		}
 
 		return true;
+	}
+
+	@Override
+	public Library getLibrary(Integer libraryIdNum, Integer userIdNum) {
+
+		Library library = libraryDao.getLibrary(libraryIdNum);
+
+		if (library != null) {
+
+			// 공개인지 아닌지 검사
+
+			// 공개가 아닐경우
+			if (library.getIsOpen() == 1) {
+
+				userIdNum = (userIdNum == null) ? 0 : userIdNum;
+
+				// 주인일경우
+				if (library.getUser().getIdNum().intValue() == userIdNum
+						.intValue()) { 
+
+					library.setNotice(library.getNotice().replaceAll("\r\n",
+							"<br/>"));
+					
+				} else {	//주인이 아닐경우
+					
+					library.setIsOpen(2);
+
+				}
+
+			} else {  //공개일경우
+				library.setNotice(library.getNotice().replaceAll("\r\n",
+						"<br/>"));
+			}
+
+		}
+
+		return library;
 	}
 
 }

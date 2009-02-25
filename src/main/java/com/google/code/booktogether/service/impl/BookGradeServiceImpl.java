@@ -20,7 +20,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 	@Resource(name = "bookGradeJdbcDao")
 	private BookGradeDao bookGradeJdbcDao;
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public boolean insertGrade(BookGrade bookGrade) {
