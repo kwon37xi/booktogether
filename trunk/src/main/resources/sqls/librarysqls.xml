@@ -402,6 +402,37 @@
             ]]>
 		</query>
 	</sql>
+	
+	
+	<sql name="LIST_SEARCH_LIBRARY_SQL">
+		<description>서재 검색</description>
+		<query>
+            <![CDATA[
+             SELECT U.idNum as idnum
+             		,U.user_id as user_id
+             		,U.email as email
+             		,U.nickname as nickname
+             		,U.name as name
+             		,U.isdelete as isdelete
+             		,U.input_date as input_date
+             		,UAI.idNum as uai_idnum
+             		,UAI.blog as blog
+             		,UAI.thumnail as thumnail 
+               FROM LIBRARY L, USER U, USERADDINFO UAI 
+              WHERE L.user_idNum = U.idNum
+                AND U.idNum = UAI.user_idNum 
+                AND (
+                	 U.user_id LIKE ?
+		     		 OR U.name LIKE ? 
+                     OR U.nickname LIKE ? 
+                    )
+                AND L.isopen=0
+              ORDER BY U.input_date DESC
+            ]]>
+		</query>
+	</sql>
+
+
 
 
 

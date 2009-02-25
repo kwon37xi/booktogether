@@ -22,6 +22,7 @@ import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
+import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.page.PageBean;
 
 /**
@@ -761,6 +762,39 @@ public class LibraryController extends AbstractController {
 		mav.addObject("possessBookList", possessBookList);
 		mav.addObject("pageBean", pageBean);
 		mav.addObject("userId", userId);
+
+		return mav;
+
+	}
+
+	/**
+	 * 서재 검색
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/library/searchLibrary.do")
+	public ModelAndView handleSearchLibrary(
+			HttpServletRequest req,
+			@RequestParam(value = "query", required = false) String query,
+			@RequestParam(value = "searchType", required = false) String searchType) {
+
+		List<User> userList = null;
+
+		if (query != null && searchType != null) {
+			
+			if(log.isInfoEnabled()){
+				log.info(query);
+				log.info(searchType);
+			}
+
+			userList = libraryService.getListSearchLibrary(query, searchType);
+
+		}
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("library/searchLibrary");
+		mav.addObject("userList", userList);
 
 		return mav;
 

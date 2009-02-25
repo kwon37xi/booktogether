@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
+import com.google.code.booktogether.web.domain.User;
 
 public interface LibraryDao {
 
@@ -203,5 +204,15 @@ public interface LibraryDao {
 	 * @return
 	 */
 	public int isOpenLibrary(String userId);
+	
+	
+	/**
+	 * 서재 검색
+	 * @param userId
+	 * @param name
+	 * @param nickname
+	 * @return
+	 */
+	public List<User> getListSearchLibrary(String userId, String name, String nickname);
 
 }

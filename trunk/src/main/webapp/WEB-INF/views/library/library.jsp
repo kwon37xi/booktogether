@@ -34,7 +34,7 @@
 					<td>
 						<table>
 							<tr>
-								<td rowspan="3"><img src="/images/user/thumanil/${library.user.userAddInfo.thumnail}"/></td>
+								<td rowspan="3"><img src="/images/user/thumnail/${library.user.userAddInfo.thumnail}"/></td>
 								<td>이름 : ${library.user.name}</td>
 							</tr>
 							<tr>

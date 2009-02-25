@@ -16,6 +16,7 @@ import com.google.code.booktogether.service.util.HTMLInputFilter;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
+import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.page.PageBean;
 
 @Service("libraryService")
@@ -53,18 +54,18 @@ public class LibraryServiceImpl implements LibraryService {
 
 				// 주인일경우
 				if (library.getUser().getIdNum().intValue() == userIdNum
-						.intValue()) { 
+						.intValue()) {
 
 					library.setNotice(library.getNotice().replaceAll("\r\n",
 							"<br/>"));
-					
-				} else {	//주인이 아닐경우
-					
+
+				} else { // 주인이 아닐경우
+
 					library.setIsOpen(2);
 
 				}
 
-			} else {  //공개일경우
+			} else { // 공개일경우
 				library.setNotice(library.getNotice().replaceAll("\r\n",
 						"<br/>"));
 			}
@@ -328,18 +329,18 @@ public class LibraryServiceImpl implements LibraryService {
 
 				// 주인일경우
 				if (library.getUser().getIdNum().intValue() == userIdNum
-						.intValue()) { 
+						.intValue()) {
 
 					library.setNotice(library.getNotice().replaceAll("\r\n",
 							"<br/>"));
-					
-				} else {	//주인이 아닐경우
-					
+
+				} else { // 주인이 아닐경우
+
 					library.setIsOpen(2);
 
 				}
 
-			} else {  //공개일경우
+			} else { // 공개일경우
 				library.setNotice(library.getNotice().replaceAll("\r\n",
 						"<br/>"));
 			}
@@ -347,6 +348,36 @@ public class LibraryServiceImpl implements LibraryService {
 		}
 
 		return library;
+	}
+
+	@Override
+	public List<User> getListSearchLibrary(String query, String searchType) {
+
+		List<User> userList = null;
+
+		if (searchType.equals("userId")) {
+
+			userList = libraryDao.getListSearchLibrary("%" + query + "%", null,
+					null);
+
+		} else if (searchType.equals("name")) {
+
+			userList = libraryDao.getListSearchLibrary(null, "%" + query + "%",
+					null);
+
+		} else if (searchType.equals("nickname")) {
+
+			userList = libraryDao.getListSearchLibrary(null, null, "%" + query
+					+ "%");
+
+		}
+
+		if (log.isInfoEnabled()) {
+			log.info(userList);
+		}
+
+		return userList;
+
 	}
 
 }
