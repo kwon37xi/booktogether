@@ -233,4 +233,37 @@ public class PossessBookController extends AbstractController {
 
 	}
 
+	/**
+	 * 서재내 책 검색(소유책)
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/library/searchPossessBookInLibrary.do")
+	public ModelAndView handleSearchBookInLibrary(
+			HttpServletRequest req,
+			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum,
+			@RequestParam(value = "bookName", required = false) String bookName,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+
+		pageNo = (pageNo == null) ? 1 : pageNo;
+		bookName = (bookName == null) ? "" : bookName.trim();
+
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNo(pageNo);
+		pageBean.setPageSize(10);
+
+		List<PossessBook> possessBookList = libraryService.getListPossessBook(
+				libraryIdNum, bookName, pageBean);
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("possessbook/searchPossessBook");
+		mav.addObject("possessBookList", possessBookList);
+		mav.addObject("libraryIdNum", libraryIdNum);
+		mav.addObject("pageBean", pageBean);
+
+		return mav;
+
+	}
+
 }
