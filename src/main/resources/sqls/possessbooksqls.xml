@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sqls name="possessBook">
+
+	<sql name="GET_B_U_POSSESSBOOK_SQL">
+		<description>서재에 해당책 조회(사용자, 책 일련번호)</description>
+		<query>
+            <![CDATA[
+             SELECT idNum as idNum
+                    , book_idNum as bidNum
+                    , user_idNum as uidNum
+                    , purchase_Date as pdate
+                    , purchase_Price as price
+                    , begin_Read as bread
+                    , end_Read as eread
+                    , quality as quality
+                    , state as state
+               FROM POSSESSBOOK 
+              WHERE user_idNum = ?
+                AND book_idNum = ? 
+            ]]>
+		</query>
+	</sql>
+
+	<sql name="INSERT_POSSESSBOOK_SQL">
+		<description>내가 소유한 책 등록</description>
+		<query>
+            <![CDATA[
+             INSERT INTO POSSESSBOOK(book_idNum
+             						 , user_idNum
+             						 , purchase_date
+             						 , purchase_price
+             						 , begin_read
+             						 , end_read
+             						 , quality
+             						 , state)   
+             VALUES(?, ?, ?, ?, ?, ?, ?, ?)
+            ]]>
+		</query>
+	</sql>
+
+	<sql name="LIST_POSSESSBOOK_SQL">
+		<description>내가 소유한 책 목록</description>
+		<query>
+            <![CDATA[
+             SELECT POS.idNum as idNum
+                    ,POS.user_idNum as uidNum
+                    ,POS.purchase_Date as pdate
+                    ,POS.purchase_Price as price
+                    ,POS.begin_Read as bread
+                    ,POS.end_Read as eread 
+                    ,POS.quality as quality
+                    ,POS.state  as state
+                    ,B.idNum as bidnum
+                    ,B.name as bname
+                    ,B.isbn10 as isbn10
+                    ,B.isbn13 as isbn13
+                    ,B.publish_comp as bcomp
+                    ,B.publish_date as bdate
+                    ,B.price as bprice
+                    ,B.cover as bcover
+                    ,B.category as category
+				    ,A.name as author
+               FROM POSSESSBOOK POS, USER U, BOOK B, AUTHOR A
+              WHERE U.user_id = ? 
+                AND U.isdelete = 0
+				AND POS.book_idNum=B.idNum
+				AND B.idNum=A.book_idNum
+				AND A.author_div = 0
+                AND U.idNum = POS.user_idNum 
+              LIMIT ?, ?
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="GET_DBCOUNT_POSSESSBOOK_SQL">
+		<description>내가 소유한 책 목록 갯수</description>
+		<query>
+            <![CDATA[
+             SELECT COUNT(POS.idNum) 
+               FROM POSSESSBOOK POS, USER U  
+              WHERE U.user_id = ? 
+                AND U.isdelete = 0
+                AND U.idNum = POS.user_idNum 
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="MODIFY_POSSESSBOOK_SQL">
+		<description>내가 소유한 책 수정</description>
+		<query>
+            <![CDATA[
+             UPDATE POSSESSBOOK 
+                SET purchase_date = ?
+                	,purchase_price = ?
+                    , begin_read = ?
+                    , end_read = ?
+                    , quality = ?
+                    , state = ?
+              WHERE idnum = ? 
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="GET_POSSESSBOOK_SQL">
+		<description>내가 소유한 책 조회</description>
+		<query>
+            <![CDATA[
+             SELECT POS.idNum as idNum
+                    , POS.book_idNum as bidNum
+                    , POS.user_idNum as uidNum
+                    , POS.purchase_Date as pdate
+                    , POS.purchase_Price as price
+                    , POS.begin_Read as bread
+                    , POS.end_Read as eread
+                    , POS.quality as quality
+                    , POS.state as state
+                    , B.idNum as bidnum
+                    , B.name as bname
+                    , B.isbn10 as isbn10
+                    , B.isbn13 as isbn13
+                    , B.publish_comp as bcomp
+                    , B.publish_date as bdate
+                    , B.price as bprice
+                    , B.cover as bcover
+                    , B.category as category
+				    , A.name as author
+               FROM POSSESSBOOK POS, BOOK B, AUTHOR A
+              WHERE POS.idNum= ?
+                AND POS.book_idNum = B.idNum
+				AND B.idNum = A.book_idNum
+				AND A.author_div = 0 
+            ]]>
+		</query>
+	</sql>
+
+	<sql name="DELETE_POSSESSBOOK_SQL">
+		<description>내가 소유한 책 삭제</description>
+		<query>
+            <![CDATA[
+             DELETE FROM POSSESSBOOK
+              WHERE idNum = ?
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="MODIFY_ISPOSSESS_LIBRARYBOOK_SQL">
+		<description>서재 책의 소유 정보 수정</description>
+		<query>
+            <![CDATA[
+             UPDATE LIBRARYBOOK 
+    			SET ispossess = NULL
+    		  WHERE book_idNum = 
+    		  				(SELECT book_idNum 
+    		  				   FROM possessbook
+    		  				  WHERE idNum = ?) 
+    			AND library_idNum = 
+    						(SELECT idNum 
+    						   FROM library 
+    						  WHERE user_idNum= ?)
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="GET_LIST_ZONEBOOK_SQL">
+		<description>내 생활반경의 소유책 목록</description>
+		<query>
+            <![CDATA[
+             SELECT POS.idNum as idNum 
+			      , POS.state as state
+			      , B.idNum as bidNum
+			      , B.cover as bcover
+			      , B.name as bname
+			      , U.idNum as uidNum
+			      , U.name as uname
+			      , U.user_id as uid
+			      , concat(ZC.sido,' ',ZC.gugun,' ',ZC.dong) as zonename
+			  FROM POSSESSBOOK POS, USER U, BOOK B,ZIPCODE ZC, (SELECT distinct Z.user_idNum, Z.zone
+			 					   FROM ZONE Z 
+								  WHERE zone in (
+			              				 		 SELECT Z3.zone
+			              					   	   FROM ZONE Z3, USER U3,ZIPCODE ZC
+			              					   	  WHERE U3.user_id = ? 
+			              					   	    AND U3.idNum = Z3.user_idNum
+			              					   	)
+								) ZU
+			 WHERE POS.book_idNum=B.idNum 
+			   AND POS.user_idNum=ZU.user_idNum 
+			   AND U.idNUm= POS.user_idNum
+			   AND ZC.idNum=ZU.zone 
+			   AND U.user_id <> ?
+			 LIMIT ?, ?
+            ]]>
+		</query>
+	</sql>
+
+
+
+	<sql name="GET_DBCOUNT_ZONEBOOK_SQL">
+		<description>내 생활반경의 소유책 목록</description>
+		<query>
+            <![CDATA[
+             SELECT COUNT(POS.idNum) 
+			   FROM POSSESSBOOK POS, USER U, BOOK B,ZIPCODE ZC, (SELECT distinct Z.user_idNum, Z.zone
+			 					   FROM ZONE Z 
+								  WHERE zone in (
+			              				 		 SELECT Z3.zone
+			              					   	   FROM ZONE Z3, USER U3,ZIPCODE ZC
+			              					   	  WHERE U3.user_id = ? 
+			              					   	    AND U3.idNum = Z3.user_idNum
+			              					   	)
+								) ZU
+			 WHERE POS.book_idNum=B.idNum 
+			   AND POS.user_idNum=ZU.user_idNum 
+			   AND U.idNUm= POS.user_idNum
+			   AND ZC.idNum=ZU.zone 
+			   AND U.user_id <> ?
+            ]]>
+		</query>
+	</sql>
+
+	<sql name="LIST_SEARCH_POSSESSBOOK_SQL">
+		<description>서재 검색(소유책)</description>
+		<query>
+            <![CDATA[
+				SELECT POS.idNum as idNum
+				       , POS.purchase_Date as pdate
+				       , POS.purchase_Price as price
+				       , POS.begin_read as bread 
+				       , POS.end_read as eread
+				       , POS.quality as quality
+				       , POS.state as state
+				       , L.user_idNum as uidnum
+				       , B.idNum as bidnum
+                       , B.name as bname
+                       , B.isbn10 as isbn10
+                       , B.isbn13 as isbn13
+                       , B.publish_comp as bcomp
+                       , B.publish_date as bdate
+                       , B.price as bprice
+                       , B.cover as bcover
+                       , B.category as category
+				       , A.name as author
+				  FROM POSSESSBOOK POS ,(
+										 SELECT *
+										   FROM BOOK 
+									          WHERE name LIKE ?
+										) B
+				       ,LIBRARY L, AUTHOR A 
+				 WHERE POS.book_idNum=B.idNum 
+				   AND POS.user_idNum = L.user_idNum
+				   AND L.idNum = ?
+				   AND B.idNum = A.book_idNum
+				   AND A.author_div = 0  
+				 LIMIT ?, ?
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="LIST_DBCOUNT_SEARCH_POSSESSBOOK_SQL">
+		<description>서재 검색(소유책) 갯수</description>
+		<query>
+            <![CDATA[
+				SELECT COUNT(POS.idNum) 
+				  FROM POSSESSBOOK POS ,(
+										 SELECT *
+										   FROM BOOK 
+									          WHERE name LIKE ?
+										) B
+				       ,LIBRARY L 
+				 WHERE POS.book_idNum=B.idNum 
+				   AND POS.user_idNum = L.user_idNum
+				   AND L.idNum = ?
+            ]]>
+		</query>
+	</sql>
+
+</sqls>

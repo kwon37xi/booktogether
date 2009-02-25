@@ -157,8 +157,11 @@ public class LibraryServiceImpl implements LibraryService {
 
 		pageBean.setDbCount(dbCount);
 
-		return libraryDao.getListLibraryBook(libraryBook, pageBean
-				.getStartRow() - 1, pageBean.getEndRow());
+		List<LibraryBook> libraryBookList = libraryDao.getListLibraryBook(
+				libraryBook, pageBean.getStartRow() - 1, pageBean.getEndRow());
+
+		return libraryBookList;
+
 	}
 
 	@Override
@@ -168,15 +171,19 @@ public class LibraryServiceImpl implements LibraryService {
 
 		pageBean.setDbCount(dbCount);
 
-		return libraryDao.getListPossessBook(userId,
-				pageBean.getStartRow() - 1, pageBean.getEndRow());
+		List<PossessBook> possessBookList = libraryDao.getListPossessBook(
+				userId, pageBean.getStartRow() - 1, pageBean.getEndRow());
+
+		return possessBookList;
 
 	}
 
 	@Override
 	public PossessBook getPossessBook(Integer possessBookIdNum) {
 
-		return libraryDao.getPossessBook(possessBookIdNum);
+		PossessBook possessBook = libraryDao.getPossessBook(possessBookIdNum);
+
+		return possessBook;
 	}
 
 	@Override

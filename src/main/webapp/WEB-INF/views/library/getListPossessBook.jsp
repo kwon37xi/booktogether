@@ -27,7 +27,6 @@
 			<tbody>
 				<c:choose>
 					<c:when test="${fn:length(possessBookList)!=0}">
-					
 						<c:forEach begin="0" items="${possessBookList}" var="possessBook" varStatus="status">
 							<tr>
 								<td>
@@ -36,14 +35,7 @@
 											<tr>
 												<td rowspan="4"><img src="${possessBook.book.bookCover}"/></td>
 												<td>제목 : <a href="javascript:getPossessBook('${possessBook.idNum}')">${possessBook.book.name}</a></td>
-												<td>지은이 :
-													<c:forEach begin="0" items="${possessBook.book.authors}" var="authorInfo">
-														[${authorInfo.name}/
-														<c:if test="${authorInfo.authorDiv==0}">지음</c:if>
-														<c:if test="${authorInfo.authorDiv==1}">옮김</c:if>
-														]  
-													</c:forEach>
-												</td>
+												<td>지은이 : ${possessBook.book.authors[0].name} 지음	</td>
 											</tr>
 											<tr>
 												<td>구입날짜 : <fmt:formatDate value="${possessBook.purchaseDate}" pattern="yyyy.MM.dd"/></td>

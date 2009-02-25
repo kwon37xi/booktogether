@@ -519,19 +519,6 @@ public class LibraryController extends AbstractController {
 		List<LibraryBook> libraryBookList = libraryService.getListLibraryBook(
 				libraryBook, pageBean);
 
-		if (libraryBookList != null) {
-
-			libraryBook = null;
-
-			for (int i = 0; i < libraryBookList.size(); i++) {
-
-				Integer bookIdNum = libraryBookList.get(i).getBook().getIdNum();
-
-				libraryBookList.get(i).setBook(bookService.getBook(bookIdNum));
-
-			}
-		}
-
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/getListLibraryBook");
 		mav.addObject("libraryBookList", libraryBookList);
@@ -562,17 +549,6 @@ public class LibraryController extends AbstractController {
 		List<PossessBook> possessBookList = libraryService.getListPossessBook(
 				userId, pageBean);
 
-		if (possessBookList != null) {
-
-			for (int i = 0; i < possessBookList.size(); i++) {
-
-				Integer bookIdNum = possessBookList.get(i).getBook().getIdNum();
-
-				possessBookList.get(i).setBook(bookService.getBook(bookIdNum));
-			}
-
-		}
-
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/getListPossessBook");
 		mav.addObject("possessBookList", possessBookList);
@@ -596,14 +572,6 @@ public class LibraryController extends AbstractController {
 
 		PossessBook possessBook = libraryService
 				.getPossessBook(possessBookIdNum);
-
-		if (possessBook != null) {
-
-			Integer bookIdNum = possessBook.getBook().getIdNum();
-
-			possessBook.setBook(bookService.getBook(bookIdNum));
-
-		}
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/modifyPossessBook");
@@ -661,10 +629,6 @@ public class LibraryController extends AbstractController {
 
 		}
 
-		if (log.isInfoEnabled()) {
-			log.info(possessBook);
-		}
-
 		boolean result = libraryService.modifyPossessBook(possessBook);
 
 		// 성공시
@@ -699,14 +663,6 @@ public class LibraryController extends AbstractController {
 
 		PossessBook possessBook = libraryService
 				.getPossessBook(possessBookIdNum);
-
-		if (possessBook != null) {
-
-			Integer bookIdNum = possessBook.getBook().getIdNum();
-
-			possessBook.setBook(bookService.getBook(bookIdNum));
-
-		}
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/getPossessBook");
@@ -787,11 +743,6 @@ public class LibraryController extends AbstractController {
 
 		if (query != null && searchType != null) {
 
-			if (log.isInfoEnabled()) {
-				log.info(query);
-				log.info(searchType);
-			}
-
 			userList = libraryService.getListSearchLibrary(query, searchType);
 
 		}
@@ -824,49 +775,25 @@ public class LibraryController extends AbstractController {
 		pageBean.setPageNo(pageNo);
 		pageBean.setPageSize(5);
 
-		boolean moreLibraryBookList = false;
-		boolean morePosssessBookList = false;
-
 		List<LibraryBook> libraryBookList = libraryService.getListLibraryBook(
 				libraryIdNum, bookName, pageBean);
 
-		if (libraryBookList != null) {
-
-			for (int i = 0; i < libraryBookList.size(); i++) {
-
-				Book book = bookService.getBook(libraryBookList.get(i)
-						.getBook().getIdNum());
-
-				libraryBookList.get(i).setBook(book);
-
-			}
-		}
-		moreLibraryBookList = (libraryBookList.size() >= pageBean.getPageSize()) ? true
+		
+		boolean moreLibraryBookList = (libraryBookList.size() >= pageBean.getPageSize()) ? true
 				: false;
 
-		List<PossessBook> posssessBookList = libraryService.getListPossessBook(
+		List<PossessBook> possessBookList = libraryService.getListPossessBook(
 				libraryIdNum, bookName, pageBean);
 
-		if (posssessBookList != null) {
-			for (int i = 0; i < posssessBookList.size(); i++) {
-
-				Book book = bookService.getBook(posssessBookList.get(i)
-						.getBook().getIdNum());
-
-				posssessBookList.get(i).setBook(book);
-
-			}
-		}
-
-		morePosssessBookList = (posssessBookList.size() >= pageBean.getPageSize()) ? true
-				: false;
+		boolean morePossessBookList = (possessBookList.size() >= pageBean
+				.getPageSize()) ? true : false;
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/searchBookInLibrary");
 		mav.addObject("libraryBookList", libraryBookList);
-		mav.addObject("posssessBookList", posssessBookList);
+		mav.addObject("possessBookList", possessBookList);
 		mav.addObject("moreLibraryBookList", moreLibraryBookList);
-		mav.addObject("morePosssessBookList", morePosssessBookList);
+		mav.addObject("morePossessBookList", morePossessBookList);
 		mav.addObject("libraryIdNum", libraryIdNum);
 
 		return mav;

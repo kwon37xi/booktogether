@@ -78,7 +78,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int insertLibraryBook(LibraryBook libraryBook) {
 
-		String sql = sqlparser.getSQL("library", "INSERT_LIBRARYBOOK_SQL");
+		String sql = sqlparser.getSQL("libraryBook", "INSERT_LIBRARYBOOK_SQL");
 
 		return getSimpleJdbcTemplate().update(
 				sql,
@@ -92,7 +92,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook,
 			Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("library", "LIST_LIBRARYBOOK_SQL");
+		String sql = sqlparser.getSQL("libraryBook", "LIST_LIBRARYBOOK_SQL");
 
 		return getSimpleJdbcTemplate()
 				.query(
@@ -106,7 +106,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int duplicateLibraryBook(Integer libraryIdNum, Integer bookIdNum) {
 
-		String sql = sqlparser.getSQL("library",
+		String sql = sqlparser.getSQL("libraryBook",
 				"GET_DUPLICATE_LIBRARYBOOK_SQL");
 
 		return getSimpleJdbcTemplate().queryForInt(sql,
@@ -116,7 +116,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int modifyLibraryBook(LibraryBook libraryBook) {
 
-		String sql = sqlparser.getSQL("library", "MODIFY_LIBRARYBOOK_SQL");
+		String sql = sqlparser.getSQL("libraryBook", "MODIFY_LIBRARYBOOK_SQL");
 
 		return getSimpleJdbcTemplate().update(
 				sql,
@@ -131,7 +131,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public LibraryBook getLibraryBook(Integer librarBookIdNum) {
 
-		String sql = sqlparser.getSQL("library", "GET_LIBRARYBOOK_SQL");
+		String sql = sqlparser.getSQL("libraryBook", "GET_LIBRARYBOOK_SQL");
 
 		return (LibraryBook) DataAccessUtils
 				.singleResult(getSimpleJdbcTemplate().query(sql,
@@ -142,7 +142,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int deleteLibraryBook(Integer libraryBookIdNum) {
 
-		String sql = sqlparser.getSQL("library", "DELETE_LIBRARYBOOK_SQL");
+		String sql = sqlparser.getSQL("libraryBook", "DELETE_LIBRARYBOOK_SQL");
 
 		return getSimpleJdbcTemplate().update(sql,
 				new Object[] { libraryBookIdNum });
@@ -151,7 +151,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int insertPossessBook(PossessBook possessBook) {
 
-		String sql = sqlparser.getSQL("library", "INSERT_POSSESSBOOK_SQL");
+		String sql = sqlparser.getSQL("possessBook", "INSERT_POSSESSBOOK_SQL");
 
 		return getSimpleJdbcTemplate().update(
 				sql,
@@ -167,7 +167,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	public List<PossessBook> getListPossessBook(String userId,
 			Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("library", "LIST_POSSESSBOOK_SQL");
+		String sql = sqlparser.getSQL("possessBook", "LIST_POSSESSBOOK_SQL");
 
 		return getSimpleJdbcTemplate().query(sql, new PossessBookRowMapper(),
 				new Object[] { userId, startRow, endRow });
@@ -176,7 +176,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int modifyPossessBook(PossessBook possessBook) {
 
-		String sql = sqlparser.getSQL("library", "MODIFY_POSSESSBOOK_SQL");
+		String sql = sqlparser.getSQL("possessBook", "MODIFY_POSSESSBOOK_SQL");
 
 		return getSimpleJdbcTemplate().update(
 				sql,
@@ -190,7 +190,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public PossessBook getPossessBook(Integer possessBookIdNum) {
 
-		String sql = sqlparser.getSQL("library", "GET_POSSESSBOOK_SQL");
+		String sql = sqlparser.getSQL("possessBook", "GET_POSSESSBOOK_SQL");
 
 		return (PossessBook) DataAccessUtils
 				.singleResult(getSimpleJdbcTemplate().query(sql,
@@ -201,7 +201,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int deletePossessBook(Integer possessBookIdNum) {
 
-		String sql = sqlparser.getSQL("library", "DELETE_POSSESSBOOK_SQL");
+		String sql = sqlparser.getSQL("possessBook", "DELETE_POSSESSBOOK_SQL");
 
 		return getSimpleJdbcTemplate().update(sql,
 				new Object[] { possessBookIdNum });
@@ -211,7 +211,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	public int modifyLibraryBookIsPossess(Integer userIdNum,
 			Integer possessBookIdNum) {
 
-		String sql = sqlparser.getSQL("library",
+		String sql = sqlparser.getSQL("possessBook",
 				"MODIFY_ISPOSSESS_LIBRARYBOOK_SQL");
 
 		return getSimpleJdbcTemplate().update(sql,
@@ -221,7 +221,8 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int getDbCountLibraryBook(LibraryBook libraryBook) {
 
-		String sql = sqlparser.getSQL("library", "GET_DBCOUNT_LIBRARYBOOK_SQL");
+		String sql = sqlparser.getSQL("possessBook",
+				"GET_DBCOUNT_LIBRARYBOOK_SQL");
 
 		return getSimpleJdbcTemplate().queryForInt(
 				sql,
@@ -232,7 +233,8 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int getDbCountPossessBook(String userId) {
 
-		String sql = sqlparser.getSQL("library", "GET_DBCOUNT_POSSESSBOOK_SQL");
+		String sql = sqlparser.getSQL("possessBook",
+				"GET_DBCOUNT_POSSESSBOOK_SQL");
 
 		return getSimpleJdbcTemplate()
 				.queryForInt(sql, new Object[] { userId });
@@ -241,7 +243,8 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int getDbCountListZoneBook(String userId) {
 
-		String sql = sqlparser.getSQL("library", "GET_DBCOUNT_ZONEBOOK_SQL");
+		String sql = sqlparser
+				.getSQL("possessBook", "GET_DBCOUNT_ZONEBOOK_SQL");
 
 		return getSimpleJdbcTemplate().queryForInt(sql,
 				new Object[] { userId, userId });
@@ -251,7 +254,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	public List<PossessBook> getListZoneBook(String userId, Integer startRow,
 			Integer endRow) {
 
-		String sql = sqlparser.getSQL("library", "GET_LIST_ZONEBOOK_SQL");
+		String sql = sqlparser.getSQL("possessBook", "GET_LIST_ZONEBOOK_SQL");
 
 		return getSimpleJdbcTemplate().query(sql, new ZoneBookRowMapper(),
 				new Object[] { userId, userId, startRow, endRow });
@@ -261,31 +264,12 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public PossessBook getPossessBook(Integer bookIdNum, Integer userIdNum) {
 
-		String sql = sqlparser.getSQL("library", "GET_B_U_POSSESSBOOK_SQL");
+		String sql = sqlparser.getSQL("possessBook", "GET_B_U_POSSESSBOOK_SQL");
 
 		return (PossessBook) DataAccessUtils
 				.singleResult(getSimpleJdbcTemplate().query(sql,
 						new PossessBookRowMapper(),
 						new Object[] { userIdNum, bookIdNum }));
-	}
-
-	@Override
-	public int isOpenLibrary(Integer libraryIdNum) {
-
-		String sql = sqlparser
-				.getSQL("library", "IS_OPEN_LIBIDNUM_LIBRARY_SQL");
-
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { libraryIdNum });
-	}
-
-	@Override
-	public int isOpenLibrary(String userId) {
-
-		String sql = sqlparser.getSQL("library", "IS_OPEN_USERID_LIBRARY_SQL");
-
-		return getSimpleJdbcTemplate()
-				.queryForInt(sql, new Object[] { userId });
 	}
 
 	@Override
@@ -302,7 +286,8 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	public List<LibraryBook> getListLibraryBook(Integer libraryIdNum,
 			String bookName, Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("library", "LIST_SEARCH_LIBRARYBOOK_SQL");
+		String sql = sqlparser.getSQL("libraryBook",
+				"LIST_SEARCH_LIBRARYBOOK_SQL");
 
 		return getSimpleJdbcTemplate().query(
 				sql,
@@ -315,7 +300,8 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	public List<PossessBook> getListPossessBook(Integer libraryIdNum,
 			String bookName, Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("library", "LIST_SEARCH_POSSESSBOOK_SQL");
+		String sql = sqlparser.getSQL("possessBook",
+				"LIST_SEARCH_POSSESSBOOK_SQL");
 
 		return getSimpleJdbcTemplate().query(
 				sql,
@@ -327,9 +313,9 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int getDbCountListLibraryBook(Integer libraryIdNum, String bookName) {
 
-		String sql = sqlparser.getSQL("library",
+		String sql = sqlparser.getSQL("libraryBook",
 				"LIST_DBCOUNT_SEARCH_LIBRARYBOOK_SQL");
-		
+
 		System.out.println(sql);
 
 		return getSimpleJdbcTemplate().queryForInt(sql,
@@ -339,7 +325,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	@Override
 	public int getDbCountListPossessBook(Integer libraryIdNum, String bookName) {
 
-		String sql = sqlparser.getSQL("library",
+		String sql = sqlparser.getSQL("libraryBook",
 				"LIST_DBCOUNT_SEARCH_LIBRARYBOOK_SQL");
 
 		return getSimpleJdbcTemplate().queryForInt(sql,
