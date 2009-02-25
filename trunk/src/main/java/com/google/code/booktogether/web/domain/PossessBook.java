@@ -2,65 +2,130 @@ package com.google.code.booktogether.web.domain;
 
 import java.util.Date;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.google.code.booktogether.web.domain.base.BaseObject;
+
 /**
  * 소유책 도메인
+ * 
  * @author ParkHaeCheol
- *
+ * 
  */
-public class PossessBook  {
+public class PossessBook extends BaseObject {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * 소유책 일련번호
 	 */
 	private Integer idNum;
-	
+
 	/**
 	 * 소유한 책 정보
 	 */
-	private Book book=new Book();
-	
+	private Book book = new Book();
+
 	/**
 	 * 소유자 정보
 	 */
-	private User user=new User();
-	
+	private User user = new User();
+
 	/**
 	 * 구입 날짜
 	 */
 	private Date purchaseDate;
-	
+
 	/**
 	 * 구입 가격
 	 */
 	private Integer purchasePrice;
-	
+
 	/**
 	 * 독서 시작일
 	 */
 	private Date beginRead;
-	
+
 	/**
 	 * 독서 종료일
 	 */
 	private Date endRead;
-	
+
 	/**
 	 * 책 품질
 	 */
 	private Integer quality;
-	
-	
+
 	/**
 	 * 책 상태
 	 */
 	private Integer state;
-	
-	
+
+	@Override
+	public boolean equals(Object o) {
+
+		if (o instanceof PossessBook == false) {
+			return false;
+		}
+
+		if (this == o) {
+			return true;
+		}
+
+		PossessBook rhs = (PossessBook) o;
+
+		EqualsBuilder equb = new EqualsBuilder();
+		equb.append(idNum, rhs.getIdNum());
+		equb.append(purchaseDate, rhs.getPurchaseDate());
+		equb.append(purchasePrice, rhs.getPurchasePrice());
+		equb.append(beginRead, rhs.getBeginRead());
+		equb.append(endRead, rhs.getEndRead());
+		equb.append(quality, rhs.getQuality());
+		equb.append(state, rhs.getState());
+
+		return equb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+
+		HashCodeBuilder hashcode = new HashCodeBuilder(2, 17);
+		hashcode.append(idNum);
+		hashcode.append(purchaseDate);
+		hashcode.append(purchasePrice);
+		hashcode.append(beginRead);
+		hashcode.append(endRead);
+		hashcode.append(quality);
+		hashcode.append(state);
+
+		return hashcode.toHashCode();
+	}
+
+	@Override
+	public String toString() {
+
+		ToStringBuilder tob = new ToStringBuilder(this,
+				ToStringStyle.MULTI_LINE_STYLE);
+
+		tob.append("idNum", idNum);
+		tob.append("purchaseDate", purchaseDate);
+		tob.append("purchasePrice", purchasePrice);
+		tob.append("beginRead", beginRead);
+		tob.append("endRead", endRead);
+		tob.append("quality", quality);
+		tob.append("state", state);
+		tob.append("BOOK : ", book.toString());
+		tob.append("USER : ", user.toString());
+
+		return tob.toString();
+
+	}
 
 	public Integer getIdNum() {
 		return idNum;
@@ -133,7 +198,5 @@ public class PossessBook  {
 	public void setPurchasePrice(Integer purchasePrice) {
 		this.purchasePrice = purchasePrice;
 	}
-	
-	
-	
+
 }

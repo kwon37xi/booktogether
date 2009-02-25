@@ -1,12 +1,19 @@
 package com.google.code.booktogether.web.domain;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.google.code.booktogether.web.domain.base.BaseObject;
+
 /**
  * 책 도메인
  * 
  * @author ParkHaeCheol
  * 
  */
-public class Book {
+public class Book extends BaseObject {
 
 	private static final long serialVersionUID = 1L;
 
@@ -64,6 +71,81 @@ public class Book {
 	 * 책 설명
 	 */
 	private String description;
+
+	@Override
+	public boolean equals(Object o) {
+
+		if (o instanceof Book == false) {
+			return false;
+		}
+
+		if (this == o) {
+			return true;
+		}
+
+		Book rhs = (Book) o;
+
+		EqualsBuilder equb = new EqualsBuilder();
+		equb.append(idNum, rhs.getIdNum());
+		equb.append(name, rhs.getName());
+		equb.append(ISBN10, rhs.getISBN10());
+		equb.append(ISBN13, rhs.getISBN13());
+		equb.append(publishComp, rhs.getPublishComp());
+		equb.append(publishDate, rhs.getPublishDate());
+		equb.append(price, rhs.getPrice());
+		equb.append(category, rhs.getCategory());
+		equb.append(bookCover, rhs.getBookCover());
+		equb.append(description, rhs.getDescription());
+
+		return equb.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+
+		HashCodeBuilder hashcode = new HashCodeBuilder(59, 113);
+		hashcode.append(idNum);
+		hashcode.append(name);
+		hashcode.append(ISBN10);
+		hashcode.append(ISBN13);
+		hashcode.append(publishComp);
+		hashcode.append(publishDate);
+		hashcode.append(price);
+		hashcode.append(category);
+		hashcode.append(bookCover);
+		hashcode.append(description);
+
+		return hashcode.toHashCode();
+	}
+
+	@Override
+	public String toString() {
+
+		ToStringBuilder tob = new ToStringBuilder(this,
+				ToStringStyle.MULTI_LINE_STYLE);
+
+		tob.append("idNum", idNum);
+		tob.append("name", name);
+		tob.append("ISBN10", ISBN10);
+		tob.append("ISBN13", ISBN13);
+		tob.append("publishComp", publishComp);
+		tob.append("publishDate", publishDate);
+		tob.append("price", price);
+		tob.append("category", category);
+		tob.append("bookCover", bookCover);
+		tob.append("description", description);
+
+		if (authors != null) {
+
+			for (Author author : authors) {
+				tob.append("AUTHOR", author.toString());
+			}
+
+		}
+
+		return tob.toString();
+
+	}
 
 	public Integer getIdNum() {
 		return idNum;
