@@ -17,13 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.service.LibraryService;
-import com.google.code.booktogether.service.UserService;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
-import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.page.PageBean;
 
 /**
@@ -39,12 +37,6 @@ public class LibraryController extends AbstractController {
 	 */
 	@Resource(name = "libraryService")
 	private LibraryService libraryService;
-
-	/**
-	 * UserService
-	 */
-	@Resource(name = "userService")
-	private UserService userService;
 
 	/**
 	 * BookService
@@ -80,7 +72,8 @@ public class LibraryController extends AbstractController {
 	@RequestMapping("/library/modifyLibraryView.do")
 	public ModelAndView handleModifyLibraryView(HttpServletRequest req) {
 
-		Library library = libraryService.getLibrary(getLoginUserId());
+		Library library = libraryService.getLibrary(getLoginUserId(),
+				getLoginUserIdNum());
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/modifyLibrary");
@@ -135,41 +128,9 @@ public class LibraryController extends AbstractController {
 	 * @return 조회화면
 	 */
 	@RequestMapping("/library/getLibrary.do")
-	public ModelAndView handleGetLibrary(HttpServletRequest req,
-			@RequestParam(value = "userId", required = false) String userId) {
+	public ModelAndView handleGetLibrary(HttpServletRequest req) {
 
-		Library library = libraryService.getLibrary(userId);
-
-		// 서재가 있을시
-		if (library != null && library.getIsOpen() == 0) {
-
-			Integer userIdNum = library.getUser().getIdNum();
-
-			User user = userService.getUser(userIdNum);
-
-			library.setUser(user);
-
-			if (log.isInfoEnabled()) {
-				log.info(library);
-			}
-
-		} else if (library != null && library.getIsOpen() == 1) { // 서재가 없을시
-
-			if (log.isInfoEnabled()) {
-				log.info("비공개다.");
-			}
-
-			return new ModelAndView("redirect:/library/unOpenLibraryView.do");
-
-		} else {
-
-			if (log.isInfoEnabled()) {
-				log.info("해당 아이디가 없다.");
-			}
-
-			return new ModelAndView("redirect:/");
-
-		}
+		Library library = getLibrary();
 
 		// 경로 설정
 		ModelAndView mav = new ModelAndView();
@@ -193,7 +154,8 @@ public class LibraryController extends AbstractController {
 
 		Book book = bookService.getBook(bookIdNum);
 
-		Library library = libraryService.getLibrary(getLoginUserId());
+		Library library = libraryService.getLibrary(getLoginUserId(),
+				getLoginUserIdNum());
 
 		boolean result = libraryService.duplicateLibraryBook(
 				library.getIdNum(), book.getIdNum());

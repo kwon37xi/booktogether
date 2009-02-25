@@ -1,5 +1,5 @@
 
-/*1.지은이 */
+
 
 CREATE TABLE `author` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -9,7 +9,10 @@ CREATE TABLE `author` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*2.책 */
+
+
+
+
 
 CREATE TABLE `book` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -19,13 +22,16 @@ CREATE TABLE `book` (
   `publish_comp` varchar(20) NOT NULL,
   `publish_date` varchar(10) NOT NULL,
   `price` int(5) DEFAULT NULL,
-  `corver` varchar(100) DEFAULT NULL,
+  `cover` varchar(100) DEFAULT NULL,
   `category` varchar(50) DEFAULT NULL,
   `description` text,
   PRIMARY KEY (`idNum`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-/*3.책 별점 */
+
+
+
+
 
 CREATE TABLE `bookgrade` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -35,7 +41,10 @@ CREATE TABLE `bookgrade` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*4. 인용구 */
+
+
+
+
 
 CREATE TABLE `bookmark` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -48,7 +57,10 @@ CREATE TABLE `bookmark` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*5. 리뷰  */
+
+
+
+
 
 CREATE TABLE `bookreview` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -60,17 +72,23 @@ CREATE TABLE `bookreview` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*6. 내서재 */
+
+
+
+
 
 CREATE TABLE `library` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `user_idNum` int(11) NOT NULL,
   `isopen` int(1) NOT NULL,
-  `notice` varchar(200) DEFAULT NULL,
+  `notice` text,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*7. 내서재 */
+
+
+
+
 
 CREATE TABLE `librarybook` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -82,13 +100,17 @@ CREATE TABLE `librarybook` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*8. 보유하고 있는 책 */
+
+
+
+
 
 CREATE TABLE `possessbook` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `book_idNum` int(11) NOT NULL,
+  `user_idNum` int(11) NOT NULL,
   `purchase_date` datetime DEFAULT NULL,
-  `purchase_price` datetime DEFAULT NULL,
+  `purchase_price` int(11) DEFAULT NULL,
   `begin_read` datetime DEFAULT NULL,
   `end_read` datetime DEFAULT NULL,
   `quality` int(1) DEFAULT NULL,
@@ -96,7 +118,10 @@ CREATE TABLE `possessbook` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*9. 리뷰 추천 */
+
+
+
+
 
 CREATE TABLE `recommend` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -105,7 +130,10 @@ CREATE TABLE `recommend` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*10.사용자 */
+
+
+
+
 
 CREATE TABLE `user` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -118,7 +146,10 @@ CREATE TABLE `user` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*11.사용자 비밀번호 */
+
+
+
+
 
 CREATE TABLE `user_pw` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -128,7 +159,10 @@ CREATE TABLE `user_pw` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*12.사용자 추가정보*/
+
+
+
+
 
 CREATE TABLE `useraddinfo` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -138,7 +172,10 @@ CREATE TABLE `useraddinfo` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*13.인용구 북마크 */
+
+
+
+
 
 CREATE TABLE `vibe` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -147,7 +184,9 @@ CREATE TABLE `vibe` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*14. 우편번호 */
+
+
+
 
 CREATE TABLE `zipcode` (
   `idNum` int(11) NOT NULL,
@@ -158,7 +197,9 @@ CREATE TABLE `zipcode` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*15.생활반경 */
+
+
+
 
 CREATE TABLE `zone` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,

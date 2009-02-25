@@ -173,7 +173,22 @@ public class BookReviewController extends AbstractController {
 
 		BookReview bookReview = bookReviewService.getReview(bookReviewIdNum);
 
-		Book book = bookService.getBook(bookReview.getBook().getIdNum());
+		Book book = null;
+
+		if (bookReview != null) {
+
+			bookReview.setReview(bookReview.getReview().replaceAll("\r\n",
+					"<br/>"));
+
+			book = bookService.getBook(bookReview.getBook().getIdNum());
+
+		} else {
+
+			if (log.isInfoEnabled()) {
+				log.info("조회하고자하는 리뷰가 없습니다.");
+			}
+
+		}
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("book/getReview");

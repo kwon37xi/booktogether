@@ -21,9 +21,20 @@ public interface LibraryService {
 	 * 서재 조회하기
 	 * 
 	 * @param userId
+	 * @param userIdNum
 	 * @return
 	 */
-	public Library getLibrary(String userId);
+	public Library getLibrary(String userId,Integer userIdNum);
+	
+	
+	/**
+	 * 서재 조회하기
+	 * 
+	 * @param libraryIdNum
+	 * @param userIdNum
+	 * @return
+	 */
+	public Library getLibrary(Integer libraryIdNum, Integer userIdNum);
 
 	/**
 	 * 서재 등록하기
@@ -153,5 +164,6 @@ public interface LibraryService {
 	 * @return
 	 */
 	public List<PossessBook> getListZoneBook(String userId, PageBean pageBean);
+	
 
 }

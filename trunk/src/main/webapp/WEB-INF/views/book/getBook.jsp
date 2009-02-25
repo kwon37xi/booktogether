@@ -209,7 +209,7 @@
 					<c:when test="${fn:length(bookMarkList)!=0}">
 						<c:forEach begin="0" items="${bookMarkList}" var="bookMarkInfo" varStatus="status">
 							<tr>
-								<td>(p.${bookMarkInfo.page})${fn:escapeXml(bookMarkInfo.content)}/
+								<td>(p.${bookMarkInfo.page})${bookMarkInfo.content}/
 									<fmt:formatDate value="${bookMarkInfo.inputDate}" pattern="yyyy. MM. dd"/>
 								</td>
 								<td>
