@@ -15,6 +15,7 @@
   # OpenAPI에서 공통으로 사용되는 값을 정의
    * 공통되는 부분은 그대로 두고 API 종류에 따라 달라지는 것들만 Map을 이용해서 구현
   # JQuery 공부하기 
+   * JQuery 강좌 링크 : http://blog.naver.com/guruby?Redirect=Log&logNo=140058679107
   # 기타 구현할 기능 마무리
    * 내 생활반경에 등록된 책 리스트 조회
    * 내 관심서재 등록
