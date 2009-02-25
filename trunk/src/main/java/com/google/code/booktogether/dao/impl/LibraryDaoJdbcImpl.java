@@ -298,4 +298,52 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 				new Object[] { userId, name, nickname });
 	}
 
+	@Override
+	public List<LibraryBook> getListLibraryBook(Integer libraryIdNum,
+			String bookName, Integer startRow, Integer endRow) {
+
+		String sql = sqlparser.getSQL("library", "LIST_SEARCH_LIBRARYBOOK_SQL");
+
+		return getSimpleJdbcTemplate().query(
+				sql,
+				new LibraryBookRowMapper(),
+				new Object[] { "%" + bookName + "%", libraryIdNum, startRow,
+						endRow });
+	}
+
+	@Override
+	public List<PossessBook> getListPossessBook(Integer libraryIdNum,
+			String bookName, Integer startRow, Integer endRow) {
+
+		String sql = sqlparser.getSQL("library", "LIST_SEARCH_POSSESSBOOK_SQL");
+
+		return getSimpleJdbcTemplate().query(
+				sql,
+				new PossessBookRowMapper(),
+				new Object[] { "%" + bookName + "%", libraryIdNum, startRow,
+						endRow });
+	}
+
+	@Override
+	public int getDbCountListLibraryBook(Integer libraryIdNum, String bookName) {
+
+		String sql = sqlparser.getSQL("library",
+				"LIST_DBCOUNT_SEARCH_LIBRARYBOOK_SQL");
+		
+		System.out.println(sql);
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { "%" + bookName + "%", libraryIdNum });
+	}
+
+	@Override
+	public int getDbCountListPossessBook(Integer libraryIdNum, String bookName) {
+
+		String sql = sqlparser.getSQL("library",
+				"LIST_DBCOUNT_SEARCH_LIBRARYBOOK_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { "%" + bookName + "%", libraryIdNum });
+	}
+
 }

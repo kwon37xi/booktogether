@@ -54,6 +54,7 @@
 				<value>/library/getLibrary.do</value>
 				<value>/library/getListLibraryBook.do</value>
 				<value>/library/getListPossessBook.do</value>
+				<value>/library/searchBookInLibrary.do</value>
 			</list>
 		</property>
 		<property name="interceptors">

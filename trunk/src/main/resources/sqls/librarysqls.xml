@@ -431,6 +431,97 @@
             ]]>
 		</query>
 	</sql>
+	
+	<sql name="LIST_SEARCH_LIBRARYBOOK_SQL">
+		<description>서재 검색(읽고싶은책, 읽은책, 읽고 있는 책)</description>
+		<query>
+            <![CDATA[
+				SELECT LB.idNum as idNum
+				       ,LB.read_date as read_date
+				       ,LB.state as state
+				       ,LB.ispossess as ispossess
+				       ,B.idnum as bidnum
+				       ,LB.library_idnum as lidnum
+				       ,L.user_idNum as uidnum
+				  FROM LIBRARYBOOK LB ,(
+										 SELECT *
+										   FROM BOOK 
+									          WHERE name LIKE ?
+										) B
+					   , LIBRARY L  
+				 WHERE B.idNum = LB.book_idNum
+				   AND LB.library_idNum = ? 
+				   AND LB.library_idNum = L.idNum 
+				 LIMIT ? , ?
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="LIST_DBCOUNT_SEARCH_LIBRARYBOOK_SQL">
+		<description>서재 검색(읽고싶은책, 읽은책, 읽고 있는 책) 갯수</description>
+		<query>
+            <![CDATA[
+				SELECT COUNT(LB.idNum) 
+				  FROM LIBRARYBOOK LB ,(
+										 SELECT *
+										   FROM BOOK 
+									          WHERE name LIKE ?
+										) B
+					   , LIBRARY L  
+				 WHERE B.idNum = LB.book_idNum
+				   AND LB.library_idNum = ? 
+				   AND LB.library_idNum = L.idNum 
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="LIST_SEARCH_POSSESSBOOK_SQL">
+		<description>서재 검색(소유책)</description>
+		<query>
+            <![CDATA[
+				SELECT POS.idNum as idNum
+				       ,POS.purchase_Date as pdate
+				       ,POS.purchase_Price as price
+				       ,POS.begin_read as bread 
+				       ,POS.end_read as eread
+				       ,POS.quality as quality
+				       ,POS.state as state
+				       ,B.idnum bidnum
+				       ,L.user_idNum as uidnum
+				  FROM POSSESSBOOK POS ,(
+										 SELECT *
+										   FROM BOOK 
+									          WHERE name LIKE ?
+										) B
+				       ,LIBRARY L 
+				 WHERE POS.book_idNum=B.idNum 
+				   AND POS.user_idNum = L.user_idNum
+				   AND L.idNum = ?
+				 LIMIT ?, ?
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="LIST_DBCOUNT_SEARCH_POSSESSBOOK_SQL">
+		<description>서재 검색(소유책) 갯수</description>
+		<query>
+            <![CDATA[
+				SELECT COUNT(POS.idNum) 
+				  FROM POSSESSBOOK POS ,(
+										 SELECT *
+										   FROM BOOK 
+									          WHERE name LIKE ?
+										) B
+				       ,LIBRARY L 
+				 WHERE POS.book_idNum=B.idNum 
+				   AND POS.user_idNum = L.user_idNum
+				   AND L.idNum = ?
+            ]]>
+		</query>
+	</sql>
 
 
 
