@@ -41,6 +41,8 @@
 				<value>classpath:sqls/reviewsqls.xml</value>
 				<value>classpath:sqls/usersqls.xml</value>
 				<value>classpath:sqls/librarysqls.xml</value>
+				<value>classpath:sqls/librarybooksqls.xml</value>
+				<value>classpath:sqls/possessbooksqls.xml</value>
 			</list>
 		</constructor-arg>
 	</bean>

@@ -112,7 +112,7 @@
 				</tr>	
 				<tr>
 					<td>
-						<c:if test="${morePosssessBookList}">
+						<c:if test="${morePossessBookList}">
 							<a href="/library/searchPossessBookInLibrary.do">더보기</a>
 						</c:if>
 					</td>
@@ -120,16 +120,16 @@
 			</thead>
 			<tbody>
 				<c:choose>
-					<c:when test="${fn:length(posssessBookList)!=0}">
-						<c:forEach begin="0" items="${posssessBookList}" varStatus="status" var="posssessBookInfo">
+					<c:when test="${fn:length(possessBookList)!=0}">
+						<c:forEach begin="0" items="${possessBookList}" varStatus="status" var="possessBookInfo">
 							<tr>
 								<td>
 									<table>
 										<tr>
-											<td rowspan="4"><img src="${posssessBookInfo.book.bookCover}"/></td>
-											<td>제목 : <a href="javascript:getPossessBook('${posssessBookInfo.idNum}')">${posssessBookInfo.book.name}</a></td>
+											<td rowspan="4"><img src="${possessBookInfo.book.bookCover}"/></td>
+											<td>제목 : <a href="javascript:getPossessBook('${possessBookInfo.idNum}')">${possessBookInfo.book.name}</a></td>
 											<td>지은이 :
-												<c:forEach begin="0" items="${posssessBookInfo.book.authors}" var="authorInfo">
+												<c:forEach begin="0" items="${possessBookInfo.book.authors}" var="authorInfo">
 													[${authorInfo.name}/
 													<c:if test="${authorInfo.authorDiv==0}">지음</c:if>
 													<c:if test="${authorInfo.authorDiv==1}">옮김</c:if>
@@ -138,26 +138,26 @@
 											</td>
 										</tr>
 										<tr>
-											<td>구입날짜 : <fmt:formatDate value="${posssessBookInfo.purchaseDate}" pattern="yyyy.MM.dd"/></td>
-											<td>구입가격 : <fmt:formatNumber value="${posssessBookInfo.purchasePrice}" pattern=",###"/>원</td>
+											<td>구입날짜 : <fmt:formatDate value="${possessBookInfo.purchaseDate}" pattern="yyyy.MM.dd"/></td>
+											<td>구입가격 : <fmt:formatNumber value="${possessBookInfo.purchasePrice}" pattern=",###"/>원</td>
 										</tr>
 										<tr>
-											<td>독서시작 : <fmt:formatDate value="${posssessBookInfo.beginRead}" pattern="yyyy.MM.dd"/></td>
-											<td>독서종료 : <fmt:formatDate value="${posssessBookInfo.endRead}" pattern="yyyy.MM.dd"/></td>
+											<td>독서시작 : <fmt:formatDate value="${possessBookInfo.beginRead}" pattern="yyyy.MM.dd"/></td>
+											<td>독서종료 : <fmt:formatDate value="${possessBookInfo.endRead}" pattern="yyyy.MM.dd"/></td>
 										</tr>
 										<tr>
 											<td>책품질 :
 												<c:choose>
-													<c:when test="${posssessBookInfo.quality==0}">상</c:when>
-													<c:when test="${posssessBookInfo.quality==1}">중</c:when>
-													<c:when test="${posssessBookInfo.quality==2}">하</c:when>
+													<c:when test="${possessBookInfo.quality==0}">상</c:when>
+													<c:when test="${possessBookInfo.quality==1}">중</c:when>
+													<c:when test="${possessBookInfo.quality==2}">하</c:when>
 												</c:choose>
 											</td>
 											<td>책상태 :
 												<c:choose>
-													<c:when test="${posssessBookInfo.state==0}">소유</c:when>
-													<c:when test="${posssessBookInfo.state==1}">대여중</c:when>
-													<c:when test="${posssessBookInfo.state==2}">교환중</c:when>
+													<c:when test="${possessBookInfo.state==0}">소유</c:when>
+													<c:when test="${possessBookInfo.state==1}">대여중</c:when>
+													<c:when test="${possessBookInfo.state==2}">교환중</c:when>
 												</c:choose>
 											 </td>
 										</tr>

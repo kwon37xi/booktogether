@@ -190,23 +190,6 @@ public interface LibraryDao {
 			Integer endRow);
 
 	/**
-	 * 비공개 여부 확인
-	 * 
-	 * @param libraryIdNum
-	 * @return
-	 */
-	public int isOpenLibrary(Integer libraryIdNum);
-
-	/**
-	 * 비공개 여부 확인
-	 * 
-	 * @param userId
-	 * @return
-	 */
-	public int isOpenLibrary(String userId);
-	
-	
-	/**
 	 * 서재 검색
 	 * @param userId
 	 * @param name

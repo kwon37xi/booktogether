@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
+import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.PossessBook;
 
 /**
@@ -36,6 +37,22 @@ public class PossessBookRowMapper implements
 		possessBook.setState(rs.getInt("STATE"));
 		
 		possessBook.getBook().setIdNum(rs.getInt("BIDNUM"));
+		possessBook.getBook().setName(rs.getString("BNAME"));
+		possessBook.getBook().setISBN10(rs.getString("ISBN10"));
+		possessBook.getBook().setISBN13(rs.getString("ISBN13"));
+		possessBook.getBook().setPublishComp(rs.getString("BCOMP"));
+		possessBook.getBook().setPublishDate(rs.getString("BDATE"));
+		possessBook.getBook().setPrice(rs.getInt("BPRICE"));
+		possessBook.getBook().setBookCover(rs.getString("BCOVER"));
+		possessBook.getBook().setCategory(rs.getString("CATEGORY"));
+		
+		possessBook.getBook().setAuthors(new Author[1]);
+		
+		Author author=new Author();
+		author.setName(rs.getString("AUTHOR"));
+		
+		possessBook.getBook().getAuthors()[0]=author;
+		
 		possessBook.getUser().setIdNum(rs.getInt("UIDNUM"));
 		
 		return possessBook;

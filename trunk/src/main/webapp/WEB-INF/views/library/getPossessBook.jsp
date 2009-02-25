@@ -36,14 +36,7 @@
 				</tr>
 				<tr>
 					<td>지은이</td>
-					<td>
-						<c:forEach begin="0" items="${possessBook.book.authors}" var="authorInfo">
-							[${authorInfo.name}/
-							<c:if test="${authorInfo.authorDiv==0}">지음</c:if>
-							<c:if test="${authorInfo.authorDiv==1}">옮김</c:if>
-							]  
-						</c:forEach>
-					</td>
+					<td>${possessBook.book.authors[0].name} 지음	</td>
 				</tr>
 				<tr>
 					<td>ISBN</td>
@@ -64,10 +57,6 @@
 				<tr>
 					<td>카테고리</td>
 					<td>${possessBook.book.category}</td>
-				</tr>
-				<tr>
-					<td>설명</td>
-					<td>${possessBook.book.description}</td>
 				</tr>
 			</tbody>
 			<tfoot></tfoot>
