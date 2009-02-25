@@ -56,7 +56,7 @@ public class PossessBookController extends AbstractController {
 				userId, pageBean);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("library/getListPossessBook");
+		mav.setViewName("possessbook/getListPossessBook");
 		mav.addObject("possessBookList", possessBookList);
 		mav.addObject("pageBean", pageBean);
 		mav.addObject("userId", userId);
@@ -80,7 +80,7 @@ public class PossessBookController extends AbstractController {
 				.getPossessBook(possessBookIdNum);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("library/modifyPossessBook");
+		mav.setViewName("possessbook/modifyPossessBook");
 		mav.addObject("possessBook", possessBook);
 
 		return mav;
@@ -151,7 +151,7 @@ public class PossessBookController extends AbstractController {
 
 		// 경로 설정
 		return new ModelAndView(
-				"redirect:/library/getListPossessBook.do?userId="
+				"redirect:/possessbook/getListPossessBook.do?userId="
 						+ getLoginUserId());
 
 	}
@@ -171,7 +171,7 @@ public class PossessBookController extends AbstractController {
 				.getPossessBook(possessBookIdNum);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("library/getPossessBook");
+		mav.setViewName("possessbook/getPossessBook");
 		mav.addObject("possessBook", possessBook);
 
 		return mav;
@@ -198,7 +198,7 @@ public class PossessBookController extends AbstractController {
 
 		// 경로 설정
 		return new ModelAndView(
-				"redirect:/library/getListPossessBook.do?userId="
+				"redirect:/possessbook/getListPossessBook.do?userId="
 						+ getLoginUserId());
 
 	}
@@ -224,7 +224,7 @@ public class PossessBookController extends AbstractController {
 				userId, pageBean);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("library/getListZoneBook");
+		mav.setViewName("possessbook/getListZoneBook");
 		mav.addObject("possessBookList", possessBookList);
 		mav.addObject("pageBean", pageBean);
 		mav.addObject("userId", userId);
