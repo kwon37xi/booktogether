@@ -76,7 +76,7 @@ public class LibraryController extends AbstractController {
 		Library library = libraryService.getLibrary(getLoginUserId(),
 				getLoginUserIdNum());
 
-		library.setNotice(library.getNotice().replaceAll("\r\n", "<br/>"));
+		// library.setNotice(library.getNotice().replaceAll("\r\n", "<br/>"));
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/modifyLibrary");
@@ -804,4 +804,72 @@ public class LibraryController extends AbstractController {
 
 	}
 
+	/**
+	 * 서재 검색
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/library/searchBookInLibrary.do")
+	public ModelAndView handleSearchBookInLibrary(
+			HttpServletRequest req,
+			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum,
+			@RequestParam(value = "bookName", required = false) String bookName,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+
+		pageNo = (pageNo == null) ? 1 : pageNo;
+		bookName = (bookName == null) ? "" : bookName.trim();
+
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNo(pageNo);
+		pageBean.setPageSize(5);
+
+		boolean moreLibraryBookList = false;
+		boolean morePosssessBookList = false;
+
+		List<LibraryBook> libraryBookList = libraryService.getListLibraryBook(
+				libraryIdNum, bookName, pageBean);
+
+		if (libraryBookList != null) {
+
+			for (int i = 0; i < libraryBookList.size(); i++) {
+
+				Book book = bookService.getBook(libraryBookList.get(i)
+						.getBook().getIdNum());
+
+				libraryBookList.get(i).setBook(book);
+
+			}
+		}
+		moreLibraryBookList = (libraryBookList.size() >= pageBean.getPageSize()) ? true
+				: false;
+
+		List<PossessBook> posssessBookList = libraryService.getListPossessBook(
+				libraryIdNum, bookName, pageBean);
+
+		if (posssessBookList != null) {
+			for (int i = 0; i < posssessBookList.size(); i++) {
+
+				Book book = bookService.getBook(posssessBookList.get(i)
+						.getBook().getIdNum());
+
+				posssessBookList.get(i).setBook(book);
+
+			}
+		}
+
+		morePosssessBookList = (posssessBookList.size() >= pageBean.getPageSize()) ? true
+				: false;
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("library/searchBookInLibrary");
+		mav.addObject("libraryBookList", libraryBookList);
+		mav.addObject("posssessBookList", posssessBookList);
+		mav.addObject("moreLibraryBookList", moreLibraryBookList);
+		mav.addObject("morePosssessBookList", morePosssessBookList);
+		mav.addObject("libraryIdNum", libraryIdNum);
+
+		return mav;
+
+	}
 }

@@ -51,10 +51,6 @@ public class OpenLibraryCheckInterceptor extends HandlerInterceptorAdapter {
 		// 서재가 있을시
 		if (library != null) {
 
-			if (log.isInfoEnabled()) {
-				log.info(library);
-			}
-
 			if (library.getIsOpen() == 2) {
 
 				// 주인이 아닐경우

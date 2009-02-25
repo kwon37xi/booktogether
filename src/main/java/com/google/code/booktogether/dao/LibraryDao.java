@@ -214,5 +214,49 @@ public interface LibraryDao {
 	 * @return
 	 */
 	public List<User> getListSearchLibrary(String userId, String name, String nickname);
+	
+	
+	
+	/**
+	 * 서재내 책 검색(읽고 싶은책, 읽은책, 읽고 있는책)
+	 * @param libraryIdNum
+	 * @param bookName
+	 * @param startRow
+	 * @param endRow
+	 * @return
+	 */
+	public List<LibraryBook> getListLibraryBook(Integer libraryIdNum, String bookName, Integer startRow, Integer endRow);
+	
+	
+	
+	/**
+	 * 서재내 책 검색(소유책)
+	 * @param libraryIdNum
+	 * @param bookName
+	 * @param startRow
+	 * @param endRow
+	 * @return
+	 */
+	public List<PossessBook> getListPossessBook(Integer libraryIdNum, String bookName, Integer startRow, Integer endRow);
+	
+
+	
+	/**
+	 * 서재내 책 검색(읽고 싶은책, 읽은책, 읽고 있는책) - 갯수!
+	 * @param libraryIdNum
+	 * @param bookName
+	 * @return
+	 */
+	public int getDbCountListLibraryBook(Integer libraryIdNum, String bookName);
+	
+	
+	/**
+	 * 서재내 책 검색(소유책) - 갯수!
+	 * @param libraryIdNum
+	 * @param bookName
+	 * @return
+	 */
+	public int getDbCountListPossessBook(Integer libraryIdNum, String bookName);
+	
 
 }

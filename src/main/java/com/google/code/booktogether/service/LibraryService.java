@@ -147,6 +147,28 @@ public interface LibraryService {
 	 * @return
 	 */
 	public LibraryBook getLibraryBook(Integer libraryBookIdNum);
+	
+	
+	/**
+	 * 서재안의 책 검색(읽고 싶은책, 읽고 있는책, 읽은책)
+	 * 
+	 * @param libraryIdNum
+	 * @param bookName
+	 * @param pageBean
+	 * @return
+	 */
+	public List<LibraryBook> getListLibraryBook(Integer libraryIdNum,String bookName, PageBean pageBean);
+	
+	
+	/**
+	 * 서재안의 책 검색(소유책)
+	 * 
+	 * @param libraryIdNum
+	 * @param bookName
+	 * @param pageBean
+	 * @return
+	 */
+	public List<PossessBook> getListPossessBook(Integer libraryIdNum,String bookName, PageBean pageBean);
 
 	/**
 	 * 내서재에 등록되어있는 책인지 검사

@@ -94,6 +94,21 @@
 			<tfoot></tfoot>
 		</table>
 		
+		<form action="/library/searchBookInLibrary.do" name="searchBookInLibraryform" method="post">
+			<input type="hidden" name="libraryIdNum" value="${library.idNum}"/>
+			<table>
+				<tr>
+					<td>${library.user.name}님 서재 책검색</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" name="bookName" size="20" />
+						<input type="submit" value="검색"/>
+					</td>
+				</tr>
+			</table>
+		</form>
+		
 		<div id=''>
 			<a href="javascript:history.go(-1)">뒤로</a>
 			<a href="/book/searchBook.do">목록</a>

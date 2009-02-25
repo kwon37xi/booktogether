@@ -377,4 +377,36 @@ public class LibraryServiceImpl implements LibraryService {
 
 	}
 
+	@Override
+	public List<LibraryBook> getListLibraryBook(Integer libraryIdNum,
+			String bookName, PageBean pageBean) {
+
+		int dbCount = libraryDao.getDbCountListLibraryBook(libraryIdNum,
+				bookName);
+
+		pageBean.setDbCount(dbCount);
+
+		List<LibraryBook> libraryBookList = libraryDao.getListLibraryBook(
+				libraryIdNum, bookName, pageBean.getStartRow() - 1, pageBean
+						.getEndRow());
+
+		return libraryBookList;
+	}
+
+	@Override
+	public List<PossessBook> getListPossessBook(Integer libraryIdNum,
+			String bookName, PageBean pageBean) {
+
+		int dbCount = libraryDao.getDbCountListPossessBook(libraryIdNum,
+				bookName);
+
+		pageBean.setDbCount(dbCount);
+
+		List<PossessBook> possessBookList = libraryDao.getListPossessBook(
+				libraryIdNum, bookName, pageBean.getStartRow() - 1, pageBean
+						.getEndRow());
+
+		return possessBookList;
+	}
+
 }
