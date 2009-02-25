@@ -76,6 +76,8 @@ public class LibraryController extends AbstractController {
 		Library library = libraryService.getLibrary(getLoginUserId(),
 				getLoginUserIdNum());
 
+		library.setNotice(library.getNotice().replaceAll("\r\n", "<br/>"));
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/modifyLibrary");
 		mav.addObject("library", library);
@@ -132,6 +134,8 @@ public class LibraryController extends AbstractController {
 	public ModelAndView handleGetLibrary(HttpServletRequest req) {
 
 		Library library = getLibrary();
+
+		library.setNotice(library.getNotice().replaceAll("\r\n", "<br/>"));
 
 		// 경로 설정
 		ModelAndView mav = new ModelAndView();
@@ -782,8 +786,8 @@ public class LibraryController extends AbstractController {
 		List<User> userList = null;
 
 		if (query != null && searchType != null) {
-			
-			if(log.isInfoEnabled()){
+
+			if (log.isInfoEnabled()) {
 				log.info(query);
 				log.info(searchType);
 			}

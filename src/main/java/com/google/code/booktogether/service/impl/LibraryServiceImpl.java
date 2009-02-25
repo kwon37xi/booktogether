@@ -56,9 +56,6 @@ public class LibraryServiceImpl implements LibraryService {
 				if (library.getUser().getIdNum().intValue() == userIdNum
 						.intValue()) {
 
-					library.setNotice(library.getNotice().replaceAll("\r\n",
-							"<br/>"));
-
 				} else { // 주인이 아닐경우
 
 					library.setIsOpen(2);
