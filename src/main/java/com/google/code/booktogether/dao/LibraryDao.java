@@ -242,4 +242,11 @@ public interface LibraryDao {
 	public int getDbCountListPossessBook(Integer libraryIdNum, String bookName);
 	
 
+	
+	/**
+	 * 개인서재 순위 목록
+	 * @return
+	 */
+	public List<User> getLibraryRank();
+	
 }

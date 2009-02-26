@@ -195,5 +195,11 @@ public interface LibraryService {
 	 * @return
 	 */
 	public List<User> getListSearchLibrary(String query, String searchType);
+	
+	/**
+	 * 서재 순위 가지고 오기
+	 * @return
+	 */
+	public List<User> getLibraryRank();
 
 }

@@ -416,4 +416,12 @@ public class LibraryServiceImpl implements LibraryService {
 		return possessBookList;
 	}
 
+	@Override
+	public List<User> getLibraryRank() {
+
+		List<User> libraryRankList = libraryDao.getLibraryRank();
+		
+		return libraryRankList;
+	}
+
 }

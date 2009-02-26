@@ -1,11 +1,15 @@
 package com.google.code.booktogether.dao.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +24,7 @@ import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
 import com.google.code.booktogether.web.domain.User;
+import com.google.code.booktogether.web.domain.UserAddInfo;
 
 @Repository("libraryJdbcDao")
 public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
@@ -330,4 +335,30 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 				new Object[] { "%" + bookName + "%", libraryIdNum });
 	}
 
+	@Override
+	public List<User> getLibraryRank() {
+		String sql = sqlparser.getSQL("library", "LIST_RANK_LIBRARY_SQL");
+
+		List<User> libraryRankList = getSimpleJdbcTemplate().query(sql,
+				new ParameterizedRowMapper<User>() {
+
+					@Override
+					public User mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+
+						User user = new User();
+						user.setUserAddInfo(new UserAddInfo());
+
+						user.setIdNum(rs.getInt("IDNUM"));
+						user.setUserId(rs.getString("USER_ID"));
+						user.setEmail(rs.getString("EMAIL"));
+						user.setNickname(rs.getString("NICKNAME"));
+						user.setName(rs.getString("NAME"));
+						
+						return user;
+					}
+				}, new Object[] {});
+
+		return libraryRankList;
+	}
 }

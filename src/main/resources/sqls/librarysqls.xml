@@ -97,4 +97,64 @@
             ]]>
 		</query>
 	</sql>
+	
+	
+	<sql name="INSERT_RANK_LIBRARY_SQL">
+		<description>서재 순위 (1~10)</description>
+		<query>
+            <![CDATA[
+    	        INSERT INTO libraryrank (idNum, user_id, email, nickname, name,total)
+				SELECT U.idNum,U.user_id, U.email, U.nickname, U.name, RESULT.total
+				  FROM USER U,
+					(SELECT idNum, (grade+bookmark+bookreview+possessbook+recommend+vibe) as total
+					  FROM 
+						(SELECT U.*, COUNT(VI.idNUm) as vibe
+						  FROM
+							(SELECT U.*, COUNT(RC.idNum) as recommend
+							  FROM 
+								(SELECT U.*, COUNT(POS.idNum) as possessbook
+								  FROM
+									(SELECT U.*, COUNT(BR.idNum) as bookreview
+									  FROM
+										(SELECT U.*, COUNT(BM.idNum) as bookmark
+										  FROM 
+											(SELECT U.idNum,COUNT(BG.grade) as grade
+											  FROM USER U
+											  LEFT OUTER JOIN BOOKGRADE BG
+											    ON U.idNum = BG.user_idNum 
+											 WHERE U.isdelete = 0
+											 GROUP BY U.idNum) U
+										  LEFT OUTER JOIN BOOKMARK BM
+										    ON U.idNum = BM.user_idNum 
+										 GROUP BY U.idNUm) U
+									  LEFT OUTER JOIN BOOKREVIEW BR
+									    ON U.idNum = BR.user_idNum 
+									 GROUP BY U.idNum) U
+								  LEFT OUTER JOIN POSSESSBOOK POS
+								    ON U.idNum = POS.user_idNum
+								 GROUP BY U.idNum) U
+							  LEFT OUTER JOIN RECOMMEND RC
+							    ON U.idNum = RC.user_idNum
+							 GROUP BY U.idNum) U
+						  LEFT OUTER JOIN VIBE VI
+						    ON U.idNum = VI.user_idNum
+						 GROUP BY U.idNum) U
+					 LIMIT 0,10) RESULT
+				 WHERE U.idNum=RESULT.idNum
+				 ORDER BY total DESC
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="LIST_RANK_LIBRARY_SQL">
+		<description>서재 순위 (1~10) 목록</description>
+		<query>
+            <![CDATA[
+    	        SELECT idNum, user_id, email, nickname, name 
+    	          FROM LIBRARYRANK
+    	      ORDER BY total DESC
+            ]]>
+		</query>
+	</sql>
 </sqls>
