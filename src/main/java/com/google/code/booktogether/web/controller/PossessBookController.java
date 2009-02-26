@@ -14,8 +14,11 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.service.LibraryService;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
+import com.google.code.booktogether.web.domain.Book;
+import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.PossessBook;
 import com.google.code.booktogether.web.page.PageBean;
 
@@ -32,6 +35,12 @@ public class PossessBookController extends AbstractController {
 	 */
 	@Resource(name = "libraryService")
 	private LibraryService libraryService;
+
+	/**
+	 * BookService
+	 */
+	@Resource(name = "bookService")
+	private BookService bookService;
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -153,6 +162,97 @@ public class PossessBookController extends AbstractController {
 		return new ModelAndView(
 				"redirect:/possessbook/getListPossessBook.do?userId="
 						+ getLoginUserId());
+
+	}
+
+	/**
+	 * 내 소유책으로 등록 화면 조회
+	 * 
+	 * @param req
+	 * @return 내소유책 등록화면
+	 */
+	@RequestMapping("/library/insertPossessBookView.do")
+	public ModelAndView handleInsertPossessBookView(
+			HttpServletRequest req,
+			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
+
+		Book book = bookService.getBook(bookIdNum);
+		Library library = libraryService.getLibrary(getLoginUserId(),
+				getLoginUserIdNum());
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("possessbook/insertPossessBook");
+		mav.addObject("bookInfo", book);
+		mav.addObject("library", library);
+
+		return mav;
+
+	}
+
+	/**
+	 * 내 소유책으로 등록
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/library/insertPossessBook.do")
+	public ModelAndView handleInsertPossessBook(
+			HttpServletRequest req,
+			PossessBook possessBook,
+			@RequestParam(value = "purchaseDateYear", required = false) Integer purchaseDateYear,
+			@RequestParam(value = "purchaseDateMonth", required = false) Integer purchaseDateMonth,
+			@RequestParam(value = "purchaseDateDate", required = false) Integer purchaseDateDate,
+			@RequestParam(value = "beginReadYear", required = false) Integer beginReadYear,
+			@RequestParam(value = "beginReadMonth", required = false) Integer beginReadMonth,
+			@RequestParam(value = "beginReadDate", required = false) Integer beginReadDate,
+			@RequestParam(value = "endReadYear", required = false) Integer endReadYear,
+			@RequestParam(value = "endReadMonth", required = false) Integer endReadMonth,
+			@RequestParam(value = "endReadDate", required = false) Integer endReadDate) {
+
+		Calendar cal = Calendar.getInstance();
+
+		if (purchaseDateYear != null || purchaseDateMonth != null
+				|| purchaseDateDate != null) {
+
+			cal.set(purchaseDateYear, purchaseDateMonth - 1, purchaseDateDate);
+			possessBook.setPurchaseDate(cal.getTime());
+
+		}
+
+		if (beginReadYear != null || beginReadMonth != null
+				|| beginReadDate != null) {
+
+			cal.set(beginReadYear, beginReadMonth - 1, beginReadDate);
+			possessBook.setBeginRead(cal.getTime());
+
+		}
+
+		if (endReadYear != null || endReadMonth != null || endReadDate != null) {
+
+			cal.set(endReadYear, endReadMonth - 1, endReadDate);
+			possessBook.setEndRead(cal.getTime());
+
+		}
+
+		possessBook.getUser().setIdNum(getLoginUserIdNum());
+
+		boolean result = libraryService.insertPossessBook(possessBook);
+
+		// 성공시
+		if (result) {
+
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"내소유 책 등록 성공", RequestAttributes.SCOPE_SESSION);
+
+		} else { // 실패시
+
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"내소유 책 등록 실패", RequestAttributes.SCOPE_SESSION);
+		}
+
+		// 경로 설정
+		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
+				+ possessBook.getBook().getIdNum());
 
 	}
 
