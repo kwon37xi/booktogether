@@ -155,10 +155,14 @@ public class LibraryController extends AbstractController {
 			userList = libraryService.getListSearchLibrary(query, searchType);
 
 		}
+		
+		List<User> libraryRankList=libraryService.getLibraryRank();
+		
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/searchLibrary");
 		mav.addObject("userList", userList);
+		mav.addObject("libraryRankList", libraryRankList);
 
 		return mav;
 

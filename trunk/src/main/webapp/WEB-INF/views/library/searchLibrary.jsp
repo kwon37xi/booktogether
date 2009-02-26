@@ -75,5 +75,25 @@
 				</table>	
 			</c:otherwise>
 		</c:choose>
+		
+		<br/>
+		<br/>
+		<br/>
+		
+		<table>
+			<thead>
+				<tr>
+					<td>활동 높은 사용자</td>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach begin="0" items="${libraryRankList}" var="libraryRankInfo" varStatus="status">
+					<tr>
+						<td>${status.index + 1}</td>
+						<td><a href="/library/getLibrary.do?userId=${libraryRankInfo.userId}">${libraryRankInfo.name}(${libraryRankInfo.nickname})</a></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</body>
 </html>
