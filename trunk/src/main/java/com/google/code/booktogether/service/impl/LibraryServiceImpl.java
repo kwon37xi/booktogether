@@ -420,8 +420,55 @@ public class LibraryServiceImpl implements LibraryService {
 	public List<User> getLibraryRank() {
 
 		List<User> libraryRankList = libraryDao.getLibraryRank();
-		
+
 		return libraryRankList;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean insertInterestLibrary(Integer target, Integer userIdNum) {
+
+		int count = libraryDao.insertInterestLibrary(target, userIdNum);
+
+		if (count != 1) {
+			throw new BooktogetherException("관심 서재 등록 실패");
+		}
+
+		return true;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean deleteInterestLibrary(Integer target, Integer userIdNum) {
+
+		int count = libraryDao.deleteInterestLibrary(target, userIdNum);
+
+		if (count != 1) {
+			throw new BooktogetherException("관심 서재 삭제 실패");
+		}
+
+		return true;
+	}
+
+	@Override
+	public List<User> getListInterestLibrary(Integer userIdNum) {
+
+		List<User> interestLibraryList = libraryDao
+				.getListInterestLibrary(userIdNum);
+
+		return interestLibraryList;
+	}
+
+	@Override
+	public boolean duplicateInterestLibrary(Integer target, Integer userIdNum) {
+
+		int count = libraryDao.duplicateInterestLibrary(target, userIdNum);
+
+		if (count != 0) {
+			return true;
+		}
+
+		return false;
 	}
 
 }

@@ -25,9 +25,8 @@ public interface LibraryService {
 	 * @param userIdNum
 	 * @return
 	 */
-	public Library getLibrary(String userId,Integer userIdNum);
-	
-	
+	public Library getLibrary(String userId, Integer userIdNum);
+
 	/**
 	 * 서재 조회하기
 	 * 
@@ -77,8 +76,7 @@ public interface LibraryService {
 	 * @return
 	 */
 	public PossessBook getPossessBook(Integer possessBookIdNum);
-	
-	
+
 	/**
 	 * 소유 책 정보 조회
 	 * 
@@ -121,7 +119,7 @@ public interface LibraryService {
 	 * @return
 	 */
 	public boolean modifyLibraryBook(LibraryBook libraryBook);
-	
+
 	/**
 	 * 서재안의 책 수정
 	 * 
@@ -130,7 +128,8 @@ public interface LibraryService {
 	 * @param serviceDiv
 	 * @return
 	 */
-	public boolean modifyLibraryBook(LibraryBook libraryBook, PossessBook possessBook, Integer serviceDiv);
+	public boolean modifyLibraryBook(LibraryBook libraryBook,
+			PossessBook possessBook, Integer serviceDiv);
 
 	/**
 	 * 서재안의 책 삭제
@@ -147,8 +146,7 @@ public interface LibraryService {
 	 * @return
 	 */
 	public LibraryBook getLibraryBook(Integer libraryBookIdNum);
-	
-	
+
 	/**
 	 * 서재안의 책 검색(읽고 싶은책, 읽고 있는책, 읽은책)
 	 * 
@@ -157,9 +155,9 @@ public interface LibraryService {
 	 * @param pageBean
 	 * @return
 	 */
-	public List<LibraryBook> getListLibraryBook(Integer libraryIdNum,String bookName, PageBean pageBean);
-	
-	
+	public List<LibraryBook> getListLibraryBook(Integer libraryIdNum,
+			String bookName, PageBean pageBean);
+
 	/**
 	 * 서재안의 책 검색(소유책)
 	 * 
@@ -168,7 +166,8 @@ public interface LibraryService {
 	 * @param pageBean
 	 * @return
 	 */
-	public List<PossessBook> getListPossessBook(Integer libraryIdNum,String bookName, PageBean pageBean);
+	public List<PossessBook> getListPossessBook(Integer libraryIdNum,
+			String bookName, PageBean pageBean);
 
 	/**
 	 * 내서재에 등록되어있는 책인지 검사
@@ -178,28 +177,64 @@ public interface LibraryService {
 	 * @return
 	 */
 	public boolean duplicateLibraryBook(Integer libraryIdNum, Integer boolIdNum);
-	
-	
+
 	/**
 	 * 내 생활반경의 책 목록 가지고 오기
+	 * 
 	 * @param userId
 	 * @param pageBean
 	 * @return
 	 */
 	public List<PossessBook> getListZoneBook(String userId, PageBean pageBean);
-	
+
 	/**
 	 * 서재 검색
+	 * 
 	 * @param query
 	 * @param searchType
 	 * @return
 	 */
 	public List<User> getListSearchLibrary(String query, String searchType);
-	
+
 	/**
 	 * 서재 순위 가지고 오기
+	 * 
 	 * @return
 	 */
 	public List<User> getLibraryRank();
+
+	/**
+	 * 관심 서재 등록
+	 * 
+	 * @param target
+	 * @param userIdNum
+	 * @return
+	 */
+	public boolean insertInterestLibrary(Integer target, Integer userIdNum);
+
+	/**
+	 * 관심 서재 삭제
+	 * 
+	 * @param idNum
+	 * @param userIdNum
+	 * @return
+	 */
+	public boolean deleteInterestLibrary(Integer target, Integer userIdNum);
+
+	/**
+	 * 관심 서재 목록
+	 * 
+	 * @param userIdNum
+	 * @return
+	 */
+	public List<User> getListInterestLibrary(Integer userIdNum);
+	
+	/**
+	 * 관심 서재에 등록여부(이미 있는지 체크)
+	 * @param target
+	 * @param userIdNum
+	 * @return
+	 */
+	public boolean duplicateInterestLibrary(Integer target, Integer userIdNum);
 
 }

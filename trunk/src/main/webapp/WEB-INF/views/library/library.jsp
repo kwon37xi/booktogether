@@ -41,10 +41,13 @@
 								<td>닉네임 : ${library.user.nickname}</td>
 							</tr>
 							<tr>
-								<td>아이디 : ${library.user.userId }</td>
+								<td>아이디 : ${library.user.userId}</td>
 							</tr>
 							<tr>
-								<td colspan="2"><a href="/library/modifyLibraryView.do">서재정보 수정</a> / 관심 서재 등록</td>
+								<td colspan="2">
+									<a href="/library/modifyLibraryView.do">서재정보 수정</a> /
+								 	<a href="/library/insertInterestLibrary.do?target=${library.user.idNum}&userId=${library.user.userId}">관심 서재 등록</a>
+								 </td>
 							</tr>
 							<tr>
 								<td colspan="2">${library.user.name}님 서재에 오신걸 환영합니다.</td>
@@ -69,7 +72,7 @@
 								<td><a href="/library/getListZoneBook.do?userId=${library.user.userId}">주위에 있는 책</a></td>
 							</tr>
 							<tr>
-								<td>관심 서재</td>
+								<td><a href="/library/getListInterestLibrary.do?userIdNum=${library.user.idNum}">관심 서재</a></td>
 							</tr>
 							<tr>
 								<td><a href="/book/searchBook.do">책 검색</a></td>

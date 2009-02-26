@@ -157,4 +157,57 @@
             ]]>
 		</query>
 	</sql>
+	
+	
+	<sql name="INSERT_INTEREST_LIBRARY_SQL">
+		<description>관심 서재 등록</description>
+		<query>
+            <![CDATA[
+    	        INSERT INTO INTERESTLIBRARY(standard, target) 
+    	        VALUES (?, ?)
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="DELETE_INTEREST_LIBRARY_SQL">
+		<description>관심 서재 삭제</description>
+		<query>
+            <![CDATA[
+    	        DELETE FROM INTERESTLIBRARY 
+    	         WHERE target = ?
+    	           AND standard = ? 
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="LIST_INTEREST_LIBRARY_SQL">
+		<description>관심 서재 목록</description>
+		<query>
+            <![CDATA[
+    	       SELECT U.idNum
+    	       		  , U.user_id
+    	       		  , U.email
+    	       		  , U.nickname
+    	       		  , U.name 
+    	         FROM INTERESTLIBRARY IRL, USER U
+    	        WHERE IRL.target=U.idNum
+    	          AND IRL.standard = ?    	 
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="DUPLICATE_INTEREST_LIBRARY_SQL">
+		<description>관심 서재 등록 여부 검사</description>
+		<query>
+            <![CDATA[
+    	       SELECT COUNT(*)
+    	         FROM INTERESTLIBRARY IRL
+    	        WHERE IRL.target = ?
+    	          AND IRL.standard = ?    	 
+            ]]>
+		</query>
+	</sql>
 </sqls>
