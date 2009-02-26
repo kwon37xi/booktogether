@@ -84,5 +84,26 @@ public interface BookDao {
 	 * @return
 	 */
 	public int getDbCountBookRefBookMark(Integer userIdNum);
+	
+	/**
+	 * 검색 단어 순위 가지고 오기
+	 * @return
+	 */
+	public List<String> getListSearchRankQuery();
+	
+	/**
+	 * 새로운 검색 단어 등록
+	 * @param query
+	 * @return
+	 */
+	public int insertSearchRankQuery(String query);
+	
+	
+	/**
+	 * 새로운 검색 단어 검색수 수정
+	 * @param query
+	 * @return
+	 */
+	public int modifySearchRankQuery(String query);
 
 }

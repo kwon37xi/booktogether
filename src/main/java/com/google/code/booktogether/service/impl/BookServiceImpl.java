@@ -3,7 +3,6 @@ package com.google.code.booktogether.service.impl;
 import java.util.List;
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,10 +23,7 @@ public class BookServiceImpl implements BookService {
 	// 책 JDBC DAO DI
 	@Resource(name = "bookJdbcDao")
 	private BookDao bookJdbcDao;
-	
-	// 로그 표시를 위하여
-	private Logger log = Logger.getLogger(this.getClass());
-	
+
 	// 책 등록
 	@Override
 	@Transactional(readOnly = false)
@@ -125,22 +121,14 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> getListBookRefBookMark(Integer userIdNum,
 			PageBean pageBean) {
-		
-		int dbCount=bookJdbcDao.getDbCountBookRefBookMark(userIdNum);
+
+		int dbCount = bookJdbcDao.getDbCountBookRefBookMark(userIdNum);
 
 		pageBean.setDbCount(dbCount);
-		
-		int a=pageBean.getStartRow() - 1;
-		int b=pageBean.getEndRow();
-		
 
-		log.info(dbCount);
-		log.info(a);
-		log.info(b);
-		
 		List<Book> bookList = bookJdbcDao.getListBookRefBookMark(userIdNum,
 				pageBean.getStartRow() - 1, pageBean.getEndRow());
-		
+
 		if (bookList != null) {
 
 			for (int i = 0; i < bookList.size(); i++) {
@@ -158,5 +146,30 @@ public class BookServiceImpl implements BookService {
 		}
 
 		return bookList;
+	}
+
+	@Override
+	public List<String> getListSearchRankQuery() {
+
+		List<String> searchRankQueryList = bookJdbcDao.getListSearchRankQuery();
+
+		return searchRankQueryList;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean insertSearchRankQuery(String query) {
+
+		int count = bookJdbcDao.modifySearchRankQuery(query);
+
+		if (count == 0) {
+			count = bookJdbcDao.insertSearchRankQuery(query);
+		}
+
+		if (count == 0) {
+			throw new BooktogetherException("검색 단어 등록 실패");
+		}
+
+		return true;
 	}
 }
