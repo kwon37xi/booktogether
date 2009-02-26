@@ -58,6 +58,7 @@
 				<value>/library/searchBookInLibrary.do</value>
 				<value>/library/searchLibraryBookInLibrary.do</value>
 				<value>/library/searchPossessBookInLibrary.do</value>
+				<value>/libraryboard/getListLibraryBoard.do</value>
 			</list>
 		</property>
 		<property name="interceptors">
