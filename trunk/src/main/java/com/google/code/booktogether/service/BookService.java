@@ -49,4 +49,23 @@ public interface BookService {
 	 */
 	public List<Book> getListBookRefBookMark(Integer userIdNum, PageBean pageBean);
 	
+	
+	
+	/**
+	 * 새롭게 검색 했을시 검색단어 집어 넣기
+	 * @param query
+	 * @return
+	 */
+	public boolean insertSearchRankQuery(String query);
+	
+	
+	/**
+	 * 검색 순위 나오게 하기
+	 * @return
+	 */
+	public List<String> getListSearchRankQuery();
+	
+	
+	
+	
 }

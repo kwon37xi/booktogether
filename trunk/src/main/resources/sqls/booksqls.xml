@@ -193,7 +193,7 @@
      </sql>
      
      
-    <sql name="GET_DBCOUNT_BOOK_REF_BOOKMARK_SQL">
+     <sql name="GET_DBCOUNT_BOOK_REF_BOOKMARK_SQL">
         <description>내가 작성한 인용구에 대한 책 목록 갯수</description>
         <query>
             <![CDATA[
@@ -201,6 +201,41 @@
                FROM BOOK B, BOOKMARK BM 
               WHERE B.idNum = BM.book_idNum 
                 AND BM.user_idNum = ? 
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="MODIFY_SEARCH_QUERY_RANK_SQL">
+        <description>검색수 수정</description>
+        <query>
+            <![CDATA[
+            UPDATE SEARCHQUERY
+               SET search_num=search_num+1 
+             WHERE query = ?
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="INSERT_QUERY_RANK_SQL">
+        <description>검색수 등록</description>
+        <query>
+            <![CDATA[
+            INSERT INTO SEARCHQUERY(query,search_num)
+            VALUES (?, 1) 
+            ]]>
+        </query>
+     </sql>
+     
+     <sql name="LIST_SEARCH_QUERY_RANK_SQL">
+        <description>검색수 등록</description>
+        <query>
+            <![CDATA[
+            SELECT query
+              FROM SEARCHQUERY
+             ORDER BY search_num DESC  
+             LIMIT 0,10
             ]]>
         </query>
      </sql>

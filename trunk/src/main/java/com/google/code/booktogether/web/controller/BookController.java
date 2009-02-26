@@ -170,10 +170,13 @@ public class BookController extends AbstractController {
 	public ModelAndView handleSearchBook(
 			HttpServletRequest req,
 			@RequestParam(value = "query", required = false) String query,
+			@RequestParam(value = "beforeQuery", required = false) String beforeQuery,
 			@RequestParam(value = "searchType", required = false) String searchType,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 
-		query = (query == null || query.equals("")) ? "스프링" : query;
+		beforeQuery = (beforeQuery == null || beforeQuery.equals("")) ? null
+				: beforeQuery;
+		query = (query == null || query.equals("")) ? null : query;
 		searchType = (searchType == null) ? "all" : searchType;
 		pageNo = (pageNo == null) ? 1 : pageNo;
 
@@ -181,9 +184,24 @@ public class BookController extends AbstractController {
 		pageBean.setPageNo(pageNo);
 		pageBean.setLimit(5);
 
-		// 책검색 목록 가지고 오기
-		List<Book> bookList = bookService.searchBook(query, searchType,
-				pageBean);
+		if (beforeQuery != null && query != null && !beforeQuery.equals(query)) {
+
+			boolean result = bookService.insertSearchRankQuery(query);
+
+			System.out.println(result);
+
+		}
+
+		List<String> searchRankQuerys = bookService.getListSearchRankQuery();
+
+		List<Book> bookList = null;
+
+		if (query != null) {
+			// 책검색 목록 가지고 오기
+			bookList = bookService.searchBook(query, searchType, pageBean);
+		} else {
+			pageBean.setDbCount(0);
+		}
 
 		// 경로 설정 및 Attribute 설정
 		ModelAndView mav = new ModelAndView();
@@ -193,6 +211,7 @@ public class BookController extends AbstractController {
 		mav.addObject("query", query);
 		mav.addObject("searchType", searchType);
 		mav.addObject("pageNo", pageNo);
+		mav.addObject("searchRankQuerys", searchRankQuerys);
 
 		return mav;
 
@@ -244,8 +263,8 @@ public class BookController extends AbstractController {
 
 	}
 
-	//파라미터값들을 한줄로 만들어주는 메서드
-	//현재 페이지 정보가 확실하지 않아 임시로 만들었음
+	// 파라미터값들을 한줄로 만들어주는 메서드
+	// 현재 페이지 정보가 확실하지 않아 임시로 만들었음
 	public String makeParams(Map<String, String> mapParams) {
 
 		Set<String> key = mapParams.keySet();

@@ -1,10 +1,13 @@
 package com.google.code.booktogether.dao.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.BookDao;
@@ -105,7 +108,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 	@Override
 	public List<Book> getListBookRefBookMark(Integer userIdNum,
 			Integer startRow, Integer endRow) {
-		
+
 		String sql = sqlparser.getSQL("book", "LIST_BOOK_REF_BOOKMARK_SQL");
 
 		return getSimpleJdbcTemplate().query(sql, new BookSimpleRowMapper(),
@@ -121,6 +124,39 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 		return getSimpleJdbcTemplate().queryForInt(sql,
 				new Object[] { userIdNum });
 
+	}
+
+	@Override
+	public List<String> getListSearchRankQuery() {
+		String sql = sqlparser.getSQL("book", "LIST_SEARCH_QUERY_RANK_SQL");
+
+		List<String> libraryBoardList = getSimpleJdbcTemplate().query(sql,
+				new ParameterizedRowMapper<String>() {
+
+					@Override
+					public String mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return rs.getString("QUERY");
+					}
+				}, new Object[] {});
+
+		return libraryBoardList;
+	}
+
+	@Override
+	public int insertSearchRankQuery(String query) {
+
+		String sql = sqlparser.getSQL("book", "INSERT_QUERY_RANK_SQL");
+
+		return getSimpleJdbcTemplate().update(sql, new Object[] { query });
+	}
+
+	@Override
+	public int modifySearchRankQuery(String query) {
+
+		String sql = sqlparser.getSQL("book", "MODIFY_SEARCH_QUERY_RANK_SQL");
+
+		return getSimpleJdbcTemplate().update(sql, new Object[] { query });
 	}
 
 }
