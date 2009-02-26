@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -354,11 +353,67 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 						user.setEmail(rs.getString("EMAIL"));
 						user.setNickname(rs.getString("NICKNAME"));
 						user.setName(rs.getString("NAME"));
-						
+
 						return user;
 					}
 				}, new Object[] {});
 
 		return libraryRankList;
+	}
+
+	@Override
+	public int deleteInterestLibrary(Integer target, Integer userIdNum) {
+
+		String sql = sqlparser.getSQL("library", "DELETE_INTEREST_LIBRARY_SQL");
+
+		return getSimpleJdbcTemplate().update(sql,
+				new Object[] { target, userIdNum });
+
+	}
+
+	@Override
+	public List<User> getListInterestLibrary(Integer userIdNum) {
+
+		String sql = sqlparser.getSQL("library", "LIST_INTEREST_LIBRARY_SQL");
+
+		List<User> interestLibraryList = getSimpleJdbcTemplate().query(sql,
+				new ParameterizedRowMapper<User>() {
+
+					@Override
+					public User mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+
+						User user = new User();
+						user.setUserAddInfo(new UserAddInfo());
+
+						user.setIdNum(rs.getInt("IDNUM"));
+						user.setUserId(rs.getString("USER_ID"));
+						user.setEmail(rs.getString("EMAIL"));
+						user.setNickname(rs.getString("NICKNAME"));
+						user.setName(rs.getString("NAME"));
+
+						return user;
+					}
+				}, new Object[] { userIdNum });
+
+		return interestLibraryList;
+	}
+
+	@Override
+	public int insertInterestLibrary(Integer target, Integer userIdNum) {
+
+		String sql = sqlparser.getSQL("library", "INSERT_INTEREST_LIBRARY_SQL");
+
+		return getSimpleJdbcTemplate().update(sql,
+				new Object[] { target, userIdNum });
+	}
+
+	@Override
+	public int duplicateInterestLibrary(Integer target, Integer userIdNum) {
+		String sql = sqlparser.getSQL("library",
+				"DUPLICATE_INTEREST_LIBRARY_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { target, userIdNum });
 	}
 }

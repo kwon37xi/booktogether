@@ -16,8 +16,7 @@ public interface LibraryDao {
 	 * @return
 	 */
 	public Library getLibrary(String userId);
-	
-	
+
 	/**
 	 * 서재 정보 조회
 	 * 
@@ -191,62 +190,95 @@ public interface LibraryDao {
 
 	/**
 	 * 서재 검색
+	 * 
 	 * @param userId
 	 * @param name
 	 * @param nickname
 	 * @return
 	 */
-	public List<User> getListSearchLibrary(String userId, String name, String nickname);
-	
-	
-	
+	public List<User> getListSearchLibrary(String userId, String name,
+			String nickname);
+
 	/**
 	 * 서재내 책 검색(읽고 싶은책, 읽은책, 읽고 있는책)
+	 * 
 	 * @param libraryIdNum
 	 * @param bookName
 	 * @param startRow
 	 * @param endRow
 	 * @return
 	 */
-	public List<LibraryBook> getListLibraryBook(Integer libraryIdNum, String bookName, Integer startRow, Integer endRow);
-	
-	
-	
+	public List<LibraryBook> getListLibraryBook(Integer libraryIdNum,
+			String bookName, Integer startRow, Integer endRow);
+
 	/**
 	 * 서재내 책 검색(소유책)
+	 * 
 	 * @param libraryIdNum
 	 * @param bookName
 	 * @param startRow
 	 * @param endRow
 	 * @return
 	 */
-	public List<PossessBook> getListPossessBook(Integer libraryIdNum, String bookName, Integer startRow, Integer endRow);
-	
+	public List<PossessBook> getListPossessBook(Integer libraryIdNum,
+			String bookName, Integer startRow, Integer endRow);
 
-	
 	/**
 	 * 서재내 책 검색(읽고 싶은책, 읽은책, 읽고 있는책) - 갯수!
+	 * 
 	 * @param libraryIdNum
 	 * @param bookName
 	 * @return
 	 */
 	public int getDbCountListLibraryBook(Integer libraryIdNum, String bookName);
-	
-	
+
 	/**
 	 * 서재내 책 검색(소유책) - 갯수!
+	 * 
 	 * @param libraryIdNum
 	 * @param bookName
 	 * @return
 	 */
 	public int getDbCountListPossessBook(Integer libraryIdNum, String bookName);
-	
 
-	
 	/**
 	 * 개인서재 순위 목록
+	 * 
 	 * @return
 	 */
 	public List<User> getLibraryRank();
+
+	/**
+	 * 관심서재 등록
+	 * 
+	 * @param target
+	 * @param userIdNum
+	 * @return
+	 */
+	public int insertInterestLibrary(Integer target, Integer userIdNum);
+
+	/**
+	 * 관심서재 목록
+	 * 
+	 * @param userIdNum
+	 * @return
+	 */
+	public List<User> getListInterestLibrary(Integer userIdNum);
+
+	/**
+	 * 관심서재 삭제
+	 * 
+	 * @param userIdNum
+	 * @return
+	 */
+	public int deleteInterestLibrary(Integer idNum,Integer userIdNum);
 	
+	/**
+	 * 관심 서재에 이미 등록이 되어있는지 체크
+	 * @param target
+	 * @param userIdNum
+	 * @return
+	 */
+	public int duplicateInterestLibrary(Integer target, Integer userIdNum);
+
 }

@@ -155,9 +155,8 @@ public class LibraryController extends AbstractController {
 			userList = libraryService.getListSearchLibrary(query, searchType);
 
 		}
-		
-		List<User> libraryRankList=libraryService.getLibraryRank();
-		
+
+		List<User> libraryRankList = libraryService.getLibraryRank();
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/searchLibrary");
@@ -191,9 +190,8 @@ public class LibraryController extends AbstractController {
 		List<LibraryBook> libraryBookList = libraryService.getListLibraryBook(
 				libraryIdNum, bookName, pageBean);
 
-		
-		boolean moreLibraryBookList = (libraryBookList.size() >= pageBean.getPageSize()) ? true
-				: false;
+		boolean moreLibraryBookList = (libraryBookList.size() >= pageBean
+				.getPageSize()) ? true : false;
 
 		List<PossessBook> possessBookList = libraryService.getListPossessBook(
 				libraryIdNum, bookName, pageBean);
@@ -209,6 +207,111 @@ public class LibraryController extends AbstractController {
 		mav.addObject("morePossessBookList", morePossessBookList);
 		mav.addObject("libraryIdNum", libraryIdNum);
 		mav.addObject("bookName", bookName);
+
+		return mav;
+
+	}
+
+	/**
+	 * 관심 서재 등록
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/library/insertInterestLibrary.do")
+	public ModelAndView handleInsertInterestLibrary(HttpServletRequest req,
+			@RequestParam(value = "target", required = false) Integer target,
+			@RequestParam(value = "userId", required = false) String userId) {
+
+		Integer userIdNum = getLoginUserIdNum();
+
+		boolean result = false;
+
+		if (target == userIdNum) {
+			
+			log.info("자기 자신을 관심서재로 등록할 수 없습니다");
+			
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"자기 자신을 관심서재로 등록할 수 없습니다", RequestAttributes.SCOPE_SESSION);
+			// 경로 설정
+			return new ModelAndView("redirect:/library/getLibrary.do?userId="
+					+ userId);
+		}
+
+		result = libraryService.duplicateInterestLibrary(target, userIdNum);
+
+		// 중복이다!!
+		if (result) {
+
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"이미 등록 되어있습니다", RequestAttributes.SCOPE_SESSION);
+
+		} else { // 중복 아니다!!
+
+			result = libraryService.insertInterestLibrary(userIdNum, target);
+
+			if (result) {
+				RequestContextHolder.getRequestAttributes().setAttribute(
+						"message", "등록 성공", RequestAttributes.SCOPE_SESSION);
+			} else {
+				RequestContextHolder.getRequestAttributes().setAttribute(
+						"message", "등록 실패", RequestAttributes.SCOPE_SESSION);
+			}
+		}
+
+		// 경로 설정
+		return new ModelAndView("redirect:/library/getLibrary.do?userId="
+				+ userId);
+
+	}
+
+	/**
+	 * 관심 서재 삭제
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/library/deleteInterestLibrary.do")
+	public ModelAndView handleDeleteInterestLibrary(HttpServletRequest req,
+			@RequestParam(value = "target", required = false) Integer target) {
+
+		Integer userIdNum = getLoginUserIdNum();
+
+		boolean result = libraryService
+				.deleteInterestLibrary(target, userIdNum);
+
+		if (result) {
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"삭제 성공", RequestAttributes.SCOPE_SESSION);
+		} else {
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"삭제 실패", RequestAttributes.SCOPE_SESSION);
+		}
+
+		// 경로 설정
+		return new ModelAndView(
+				"redirect:/library/getListInterestLibrary.do?userIdNum="
+						+ userIdNum);
+
+	}
+
+	/**
+	 * 관심 서재 목록
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/library/getListInterestLibrary.do")
+	public ModelAndView handleListInterestLibrary(
+			HttpServletRequest req,
+			@RequestParam(value = "userIdNum", required = false) Integer userIdNum) {
+
+		List<User> interestLibraryList = libraryService
+				.getListInterestLibrary(userIdNum);
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("library/getListInterestLibrary");
+		mav.addObject("interestLibraryList", interestLibraryList);
 
 		return mav;
 
