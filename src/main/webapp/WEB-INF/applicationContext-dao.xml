@@ -43,6 +43,7 @@
 				<value>classpath:sqls/librarysqls.xml</value>
 				<value>classpath:sqls/librarybooksqls.xml</value>
 				<value>classpath:sqls/possessbooksqls.xml</value>
+				<value>classpath:sqls/libraryboardsqls.xml</value>
 			</list>
 		</constructor-arg>
 	</bean>

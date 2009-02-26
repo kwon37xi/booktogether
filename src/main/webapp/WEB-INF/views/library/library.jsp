@@ -89,6 +89,9 @@
 							<tr>
 								<td><a href="/book/getListMyBookMark.do?userIdNum=${library.user.idNum}">인용구 목록</a></td>
 							</tr>
+							<tr>
+								<td><a href="/libraryboard/getListLibraryBoard.do?libraryIdNum=${library.idNum}">방명록</a></td>
+							</tr>
 						</table>
 					</td>
 					<td>${library.notice}</td>
