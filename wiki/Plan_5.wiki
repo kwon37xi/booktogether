@@ -1,0 +1,4 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+Thumbnail : http://schmidt.devlib.org/java/creating-thumbnails-with-java.html
