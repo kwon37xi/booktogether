@@ -93,5 +93,11 @@
 			</props>
 		</property>
 	</bean>
+	
+	
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    	<property name="cacheSeconds" value="0" />
+	</bean>
 
 </beans>
