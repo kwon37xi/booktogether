@@ -38,21 +38,18 @@ public class UserServiceImpl implements UserService {
 	@Resource(name = "userJdbcDao")
 	private UserDao userJdbcDao;
 
-	
 	/**
 	 * html 필터
 	 */
 	@Resource(name = "htmlInputFilter")
 	private HTMLInputFilter htmlInputFilter;
 
-	
 	/**
 	 * BookService
 	 */
 	@Resource(name = "libraryService")
 	private LibraryService libraryService;
 
-	
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
 
@@ -145,12 +142,12 @@ public class UserServiceImpl implements UserService {
 			throw new BooktogetherException("비밀번호 등록 실패");
 		}
 
-		//사용자 추가 정보 세팅
+		// 사용자 추가 정보 세팅
 		user.getUserAddInfo().setUserIdNum(idNum);
 
 		UserAddInfo userAddInfo = user.getUserAddInfo();
-		
-		//스크립트 제거
+
+		// 스크립트 제거
 		userAddInfo.setBlog(htmlInputFilter.stripHTML(userAddInfo.getBlog()));
 		userAddInfo.setThumnail(htmlInputFilter.stripHTML(userAddInfo
 				.getThumnail()));
@@ -161,7 +158,7 @@ public class UserServiceImpl implements UserService {
 			throw new BooktogetherException("사용자 추가정보 등록 실패");
 		}
 
-		//지역명 등록(생활반경)
+		// 지역명 등록(생활반경)
 		for (Zone zone : user.getZones()) {
 
 			zone.setUserIdNum(idNum);
@@ -173,7 +170,7 @@ public class UserServiceImpl implements UserService {
 
 		}
 
-		//개인서제 등록
+		// 개인서제 등록
 		Library library = new Library();
 		library.getUser().setIdNum(idNum);
 		library.setIsOpen(0);
@@ -192,21 +189,20 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = false)
 	public boolean modifyUser(User user) {
 
-		
 		// 스크립트 제거
 		user.setEmail(htmlInputFilter.stripHTML(user.getEmail()));
 		user.setName(htmlInputFilter.stripHTML(user.getName()));
 		user.setNickname(htmlInputFilter.stripHTML(user.getNickname()));
 
 		int count = userJdbcDao.modifyUser(user);
-		
+
 		if (count != 1) {
 			throw new BooktogetherException("사용자 기본정보 수정 실패");
 		}
-		
+
 		UserAddInfo userAddInfo = user.getUserAddInfo();
-		
-		//스크립트 제거
+
+		// 스크립트 제거
 		userAddInfo.setBlog(htmlInputFilter.stripHTML(userAddInfo.getBlog()));
 		userAddInfo.setThumnail(htmlInputFilter.stripHTML(userAddInfo
 				.getThumnail()));
@@ -217,7 +213,7 @@ public class UserServiceImpl implements UserService {
 			throw new BooktogetherException("사용자 추가 정보 수정실패");
 		}
 
-		//생호라 반경 등록
+		// 생호라 반경 등록
 		for (Zone zone : user.getZones()) {
 
 			count = userJdbcDao.insertZone(zone);
@@ -297,7 +293,7 @@ public class UserServiceImpl implements UserService {
 				return message;
 			}
 
-			//임시 암호 저장
+			// 임시 암호 저장
 			UserPw userPw = new UserPw();
 			userPw.setDigest(digest);
 			userPw.setSalt(salt);
@@ -332,8 +328,8 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			throw new BooktogetherException("비밀번호 암호화 실패", e);
 		}
-		
-		//비밀번호 변경 내용(암호화) 저장
+
+		// 비밀번호 변경 내용(암호화) 저장
 		UserPw userPw = new UserPw();
 		userPw.setDigest(digest);
 		userPw.setSalt(salt);
@@ -372,7 +368,7 @@ public class UserServiceImpl implements UserService {
 		try {
 
 			ImageResize.createImageResize(file.getInputStream(), realPath
-					+ File.separatorChar + filename, 100);
+					+ File.separatorChar + filename, 100, 100);
 
 		} catch (Exception e) {
 			filename = "";
@@ -386,7 +382,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean deleteThumnail(String realPath, String filename) {
 
-		boolean result= new File(realPath + File.separatorChar + filename).delete();
+		boolean result = new File(realPath + File.separatorChar + filename)
+				.delete();
 
 		if (result) {
 			throw new BooktogetherException("썸네일 이미지 파일 삭제 오류");
@@ -410,8 +407,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Zipcode> getListAddr(String addr) {
 
-		return  userJdbcDao.getListZipcode(addr);
-		
+		return userJdbcDao.getListZipcode(addr);
+
 	}
 
 }

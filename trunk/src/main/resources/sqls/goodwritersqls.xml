@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sqls name="user">
+
+
+	<sql name="DELETE_GOODWRITER_SQL">
+		<description>지역명 삭제</description>
+		<query>
+            <![CDATA[
+            ]]>
+		</query>
+	</sql>
+
+	<sql name="GET_GOODWRITER_SQL">
+		<description>사용자 목록</description>
+		<query>
+            <![CDATA[
+             SELECT * 
+  			   FROM GOODWRITER 
+              WHERE WEEK(input_date,1) = WEEK(now(),1)
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="INSERT_GOODWRITER_SQL">
+		<description>주소찾기</description>
+		<query>
+            <![CDATA[
+            INSERT INTO GOODWRITER (input_date, content) 
+            VALUES(now(), ?)
+            ]]>
+		</query>
+	</sql>
+
+
+</sqls>

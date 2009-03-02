@@ -150,8 +150,8 @@ public class LibraryBookController extends AbstractController {
 			possessBook.getBook().setIdNum(libraryBook.getBook().getIdNum());
 			possessBook.getUser().setIdNum(getLoginUserIdNum());
 
-			if (purchaseDateYear != null || purchaseDateMonth != null
-					|| purchaseDateDate != null) {
+			if (purchaseDateYear != null && purchaseDateMonth != null
+					&& purchaseDateDate != null) {
 
 				cal.set(purchaseDateYear, purchaseDateMonth - 1,
 						purchaseDateDate);
@@ -159,16 +159,16 @@ public class LibraryBookController extends AbstractController {
 
 			}
 
-			if (beginReadYear != null || beginReadMonth != null
-					|| beginReadDate != null) {
+			if (beginReadYear != null && beginReadMonth != null
+					&& beginReadDate != null) {
 
 				cal.set(beginReadYear, beginReadMonth - 1, beginReadDate);
 				possessBook.setBeginRead(cal.getTime());
 
 			}
 
-			if (endReadYear != null || endReadMonth != null
-					|| endReadDate != null) {
+			if (endReadYear != null && endReadMonth != null
+					&& endReadDate != null) {
 
 				cal.set(endReadYear, endReadMonth - 1, endReadDate);
 				possessBook.setEndRead(cal.getTime());
@@ -286,23 +286,23 @@ public class LibraryBookController extends AbstractController {
 		possessBook.getBook().setIdNum(libraryBook.getBook().getIdNum());
 		possessBook.getUser().setIdNum(getLoginUserIdNum());
 
-		if (purchaseDateYear != null || purchaseDateMonth != null
-				|| purchaseDateDate != null) {
+		if (purchaseDateYear != null && purchaseDateMonth != null
+				&& purchaseDateDate != null) {
 
 			cal.set(purchaseDateYear, purchaseDateMonth - 1, purchaseDateDate);
 			possessBook.setPurchaseDate(cal.getTime());
 
 		}
 
-		if (beginReadYear != null || beginReadMonth != null
-				|| beginReadDate != null) {
+		if (beginReadYear != null && beginReadMonth != null
+				&& beginReadDate != null) {
 
 			cal.set(beginReadYear, beginReadMonth - 1, beginReadDate);
 			possessBook.setBeginRead(cal.getTime());
 
 		}
 
-		if (endReadYear != null || endReadMonth != null || endReadDate != null) {
+		if (endReadYear != null && endReadMonth != null && endReadDate != null) {
 
 			cal.set(endReadYear, endReadMonth - 1, endReadDate);
 			possessBook.setEndRead(cal.getTime());
@@ -430,7 +430,7 @@ public class LibraryBookController extends AbstractController {
 		return mav;
 
 	}
-	
+
 	/**
 	 * 서재내 책 검색(읽고 싶은책, 읽은책, 읽고 있는책)
 	 * 
@@ -455,7 +455,7 @@ public class LibraryBookController extends AbstractController {
 				libraryIdNum, bookName, pageBean);
 
 		log.info(pageBean.getDbCount());
-		
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("librarybook/searchLibraryBook");
 		mav.addObject("libraryBookList", libraryBookList);

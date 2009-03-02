@@ -1,4 +1,3 @@
-
 CREATE TABLE `author` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
@@ -6,7 +5,6 @@ CREATE TABLE `author` (
   `book_idNum` int(11) NOT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 
 CREATE TABLE `book` (
@@ -23,9 +21,6 @@ CREATE TABLE `book` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
-
 CREATE TABLE `bookgrade` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `book_idNum` int(11) NOT NULL,
@@ -33,8 +28,6 @@ CREATE TABLE `bookgrade` (
   `grade` int(1) NOT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 CREATE TABLE `bookmark` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -47,8 +40,6 @@ CREATE TABLE `bookmark` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
 CREATE TABLE `bookreview` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `book_idNum` int(11) NOT NULL,
@@ -59,7 +50,12 @@ CREATE TABLE `bookreview` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+CREATE TABLE `goodwriter` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `input_date` datetime NOT NULL,
+  `content` varchar(200) NOT NULL,
+  PRIMARY KEY (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `interestlibrary` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -67,8 +63,6 @@ CREATE TABLE `interestlibrary` (
   `target` int(11) NOT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 CREATE TABLE `library` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -78,8 +72,6 @@ CREATE TABLE `library` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
 CREATE TABLE `libraryboard` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `library_idNum` int(11) NOT NULL,
@@ -88,8 +80,6 @@ CREATE TABLE `libraryboard` (
   `input_date` datetime NOT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 CREATE TABLE `librarybook` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -101,8 +91,6 @@ CREATE TABLE `librarybook` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
 CREATE TABLE `libraryrank` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` varchar(15) NOT NULL,
@@ -112,7 +100,6 @@ CREATE TABLE `libraryrank` (
   `total` int(11) NOT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 CREATE TABLE `possessbook` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -127,8 +114,6 @@ CREATE TABLE `possessbook` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
 CREATE TABLE `recommend` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `user_idNum` int(11) NOT NULL,
@@ -136,15 +121,11 @@ CREATE TABLE `recommend` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
 CREATE TABLE `searchquery` (
   `query` varchar(50) NOT NULL,
   `search_num` int(11) NOT NULL,
   PRIMARY KEY (`query`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 CREATE TABLE `user` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -157,8 +138,6 @@ CREATE TABLE `user` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
 CREATE TABLE `user_pw` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `user_idNum` int(11) NOT NULL,
@@ -166,8 +145,6 @@ CREATE TABLE `user_pw` (
   `salt` varbinary(50) NOT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 CREATE TABLE `useraddinfo` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -177,16 +154,12 @@ CREATE TABLE `useraddinfo` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
 CREATE TABLE `vibe` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `user_idNum` int(11) NOT NULL,
   `bookmark_idNum` int(11) NOT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 CREATE TABLE `zipcode` (
   `idNum` int(11) NOT NULL,
@@ -196,8 +169,6 @@ CREATE TABLE `zipcode` (
   `dong` varchar(52) DEFAULT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 CREATE TABLE `zone` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,

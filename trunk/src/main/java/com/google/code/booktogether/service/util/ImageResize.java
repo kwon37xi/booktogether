@@ -1,15 +1,12 @@
 package com.google.code.booktogether.service.util;
 
-import java.awt.Image;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.awt.image.PixelGrabber;
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.InputStream;
 
-import javax.swing.ImageIcon;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import javax.imageio.ImageIO;
 
 public class ImageResize {
 
@@ -25,42 +22,22 @@ public class ImageResize {
 	 * @throws Exception
 	 */
 	public static void createImageResize(InputStream source, String target,
-			int targetW) throws Exception { // 파일경로,저장위치,크기
+			int targetW, int targetH) throws Exception { // 파일경로,저장위치,크기
 
-		byte[] image = new byte[source.available()];
+		BufferedImage originalImage = ImageIO.read(source);
 
-		source.read(image);
+		BufferedImage thumbnailImage = new BufferedImage(targetW, targetH,
+				BufferedImage.TYPE_INT_RGB);
 
-		Image imgSource = new ImageIcon(image).getImage();
+		Graphics2D graphics2D = thumbnailImage.createGraphics();
 
-		int oldW = imgSource.getWidth(null);
-		int oldH = imgSource.getHeight(null);
+		graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
-		int newW = targetW;
-		int newH = (targetW * oldH) / oldW;
+		graphics2D.drawImage(originalImage, 0, 0, targetW, targetH, null);
 
-		Image imgTarget = imgSource.getScaledInstance(newW, newH,
-				Image.SCALE_SMOOTH);
+		ImageIO.write(thumbnailImage, "jpg", new File(target));
 
-		int pixels[] = new int[newW * newH];
-
-		PixelGrabber pg = new PixelGrabber(imgTarget, 0, 0, newW, newH, pixels,
-				0, newW);
-		pg.grabPixels();
-
-		BufferedImage bi = new BufferedImage(newW, newH,
-				BufferedImage.TYPE_INT_BGR);
-		bi.setRGB(0, 0, newW, newH, pixels, 0, newW);
-
-		FileOutputStream fos = new FileOutputStream(target);
-
-		JPEGImageEncoder jpeg = JPEGCodec.createJPEGEncoder(fos);
-
-		JPEGEncodeParam jep = jpeg.getDefaultJPEGEncodeParam(bi);
-		jep.setQuality(0.8f, false);
-		jpeg.encode(bi, jep);
-
-		fos.close();
 	}
 
 }

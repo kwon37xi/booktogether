@@ -238,7 +238,7 @@ public class BookController extends AbstractController {
 			throw new BooktogetherException("OpenApi Query UTF-8로 인코딩에러", e1);
 		}
 
-		if (isbn == null || isbn == "") {
+		if (isbn == null || isbn.equals("")) {
 			mapParams.put("query", query);
 			mapParams.put("searchType", searchType);
 			mapParams.put("pageNo", String.valueOf(pageNo));
