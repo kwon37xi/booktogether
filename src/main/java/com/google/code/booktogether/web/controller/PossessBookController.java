@@ -121,23 +121,23 @@ public class PossessBookController extends AbstractController {
 
 		Calendar cal = Calendar.getInstance();
 
-		if (purchaseDateYear != null || purchaseDateMonth != null
-				|| purchaseDateDate != null) {
+		if (purchaseDateYear != null && purchaseDateMonth != null
+				&& purchaseDateDate != null) {
 
 			cal.set(purchaseDateYear, purchaseDateMonth - 1, purchaseDateDate);
 			possessBook.setPurchaseDate(cal.getTime());
 
 		}
 
-		if (beginReadYear != null || beginReadMonth != null
-				|| beginReadDate != null) {
+		if (beginReadYear != null && beginReadMonth != null
+				&& beginReadDate != null) {
 
 			cal.set(beginReadYear, beginReadMonth - 1, beginReadDate);
 			possessBook.setBeginRead(cal.getTime());
 
 		}
 
-		if (endReadYear != null || endReadMonth != null || endReadDate != null) {
+		if (endReadYear != null && endReadMonth != null && endReadDate != null) {
 
 			cal.set(endReadYear, endReadMonth - 1, endReadDate);
 			possessBook.setEndRead(cal.getTime());
@@ -211,23 +211,23 @@ public class PossessBookController extends AbstractController {
 
 		Calendar cal = Calendar.getInstance();
 
-		if (purchaseDateYear != null || purchaseDateMonth != null
-				|| purchaseDateDate != null) {
+		if (purchaseDateYear != null && purchaseDateMonth != null
+				&& purchaseDateDate != null) {
 
 			cal.set(purchaseDateYear, purchaseDateMonth - 1, purchaseDateDate);
 			possessBook.setPurchaseDate(cal.getTime());
 
 		}
 
-		if (beginReadYear != null || beginReadMonth != null
-				|| beginReadDate != null) {
+		if (beginReadYear != null && beginReadMonth != null
+				&& beginReadDate != null) {
 
 			cal.set(beginReadYear, beginReadMonth - 1, beginReadDate);
 			possessBook.setBeginRead(cal.getTime());
 
 		}
 
-		if (endReadYear != null || endReadMonth != null || endReadDate != null) {
+		if (endReadYear != null && endReadMonth != null && endReadDate != null) {
 
 			cal.set(endReadYear, endReadMonth - 1, endReadDate);
 			possessBook.setEndRead(cal.getTime());

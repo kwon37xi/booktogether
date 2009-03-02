@@ -227,7 +227,7 @@ public class LibraryController extends AbstractController {
 
 		boolean result = false;
 
-		if (target == userIdNum) {
+		if (target.equals(userIdNum)) {
 			
 			log.info("자기 자신을 관심서재로 등록할 수 없습니다");
 			

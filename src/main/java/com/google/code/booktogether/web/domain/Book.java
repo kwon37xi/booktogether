@@ -30,7 +30,7 @@ public class Book extends BaseObject {
 	/**
 	 * 책지은이들
 	 */
-	private Author[] authors;
+	private Author[] authors=null;
 
 	/**
 	 * ISBN 10자리

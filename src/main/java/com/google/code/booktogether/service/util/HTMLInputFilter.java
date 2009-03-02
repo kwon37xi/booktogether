@@ -343,12 +343,7 @@ public class HTMLInputFilter {
 		p = Pattern.compile("^!--(.*)--$", REGEX_FLAGS_SI);
 		m = p.matcher(s);
 		if (m.find()) {
-			String comment = m.group();
-			if (STRIP_COMMENTS) {
-				return "";
-			} else {
-				return "<" + comment + ">";
-			}
+			return "";
 		}
 
 		return "";

@@ -30,10 +30,10 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 	private static final long serialVersionUID = 1L;
 
 	// 다음 APIEKY
-	private final String DAUM_API_KEY = "4cf1b8e1876394d1334d699b0568f32ef762db19";
+	private final static String DAUM_API_KEY = "4cf1b8e1876394d1334d699b0568f32ef762db19";
 
 	// 다음 검색 주소
-	private final String DAUM_SEARCH_URL = "http://apis.daum.net/search/book";
+	private final static String DAUM_SEARCH_URL = "http://apis.daum.net/search/book";
 
 	private SAXBuilder builder = null;
 	private StringReader stringXml = null;
