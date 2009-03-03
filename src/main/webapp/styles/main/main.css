@@ -1,0 +1,13 @@
+#layout td {
+	padding: 10px 10px 10px 10px;
+}
+
+form label {
+	font-weight: bold;
+	padding-right: 5px;
+	width: 10px;
+}
+
+.imgpoinger {
+	cursor:pointer;
+}

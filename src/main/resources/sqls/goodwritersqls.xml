@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<sqls name="user">
+<sqls name="goodwriter">
 
 
 	<sql name="DELETE_GOODWRITER_SQL">
-		<description>지역명 삭제</description>
+		<description>좋은글 삭제</description>
 		<query>
             <![CDATA[
             ]]>
@@ -12,7 +12,7 @@
 	</sql>
 
 	<sql name="GET_GOODWRITER_SQL">
-		<description>사용자 목록</description>
+		<description>좋은글 조회</description>
 		<query>
             <![CDATA[
              SELECT * 
@@ -24,7 +24,7 @@
 
 
 	<sql name="INSERT_GOODWRITER_SQL">
-		<description>주소찾기</description>
+		<description>좋은글 등록</description>
 		<query>
             <![CDATA[
             INSERT INTO GOODWRITER (input_date, content) 

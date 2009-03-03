@@ -1,0 +1,34 @@
+#left_main {
+	border: 1px #DCDCDC solid;
+	margin-bottom: 20px;
+}
+
+#searchRank {
+	padding: 3px 3px;
+	border: 1px #DCDCDC solid;
+	margin-bottom: 20px;
+}
+
+#libraryRank {
+	padding: 3px 3px;
+	border: 1px #DCDCDC solid;
+	margin-bottom: 20px;
+}
+
+#topBookHits {
+	padding: 3px 3px;
+	border: 1px #DCDCDC solid;
+	margin-bottom: 20px;
+}
+
+#searchRank li,#libraryRank li,#topBookHits li {
+	margin: 3px 0;
+}
+
+#login li {
+	list-style-type: none;
+}
+
+#login ul {
+	display: inline;
+}

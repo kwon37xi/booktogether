@@ -48,6 +48,13 @@ public class BookServiceImpl implements BookService {
 			}
 		}
 
+		// 책정보 등록
+		count = bookJdbcDao.insertBookHits(bookIdNum);
+
+		if (count != 1) {
+			throw new BooktogetherException("책 등록시 조회수 테이블 정보 입력");
+		}
+
 		return true;
 
 	}
@@ -90,6 +97,16 @@ public class BookServiceImpl implements BookService {
 
 			// ISBN으로 값가지고 오기
 			book = bookJdbcDao.getBook(isbn);
+
+			if (book != null) {
+				
+				int count = bookJdbcDao.modifyBookHits(book.getIdNum());
+
+				if (count != 1) {
+					throw new BooktogetherException("책 조회수 수정 에러");
+				}
+
+			}
 
 		}
 
@@ -171,5 +188,13 @@ public class BookServiceImpl implements BookService {
 		}
 
 		return true;
+	}
+
+	@Override
+	public List<Book> getListTopBookHits() {
+		
+		List<Book> topBookHitsList = bookJdbcDao.getListTopBookHits();
+
+		return topBookHitsList;
 	}
 }

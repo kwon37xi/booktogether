@@ -159,4 +159,48 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 		return getSimpleJdbcTemplate().update(sql, new Object[] { query });
 	}
 
+	@Override
+	public int insertBookHits(Integer bookIdNum) {
+
+		String sql = sqlparser.getSQL("book", "INSERT_BOOKHITS_SQL");
+
+		return getSimpleJdbcTemplate().update(sql, new Object[] { bookIdNum });
+
+	}
+
+	@Override
+	public int modifyBookHits(Integer bookIdNum) {
+
+		String sql = sqlparser.getSQL("book", "MODIFY_BOOKHITS_SQL");
+
+		return getSimpleJdbcTemplate().update(sql, new Object[] { bookIdNum });
+
+	}
+
+	@Override
+	public List<Book> getListTopBookHits() {
+
+		String sql = sqlparser.getSQL("book", "LIST_TOPBOOKHITS_SQL");
+
+		return getSimpleJdbcTemplate().query(sql,
+				new ParameterizedRowMapper<Book>() {
+
+					@Override
+					public Book mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						
+						Book book=new Book();
+						
+						book.setIdNum(rs.getInt("IDNUM"));
+						book.setISBN10(rs.getString("ISBN10"));
+						book.setISBN13(rs.getString("ISBN13"));
+						book.setName(rs.getString("NAME"));
+						
+						return book;
+					}
+					
+				}, new Object[] {});
+
+	}
+
 }

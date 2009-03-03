@@ -1,0 +1,37 @@
+#layout td {
+	padding: 10px 10px 10px 10px;
+}
+
+form label {
+	font-weight: bold;
+	padding-right: 5px;
+	width: 10px;
+}
+
+#goodWriter {
+	width: 500px;
+	border:1px #DCDCDC solid;
+	margin-bottom: 20px;
+}
+
+#bestsellers {
+	width: 500px;
+	border:1px #DCDCDC solid;
+	margin-bottom: 20px;
+}
+
+#recommendBook {
+	width: 500px;
+	border:1px #DCDCDC solid;
+	margin-bottom: 20px;
+}
+
+#bestsellers li,#recommendBook li {
+	padding:3px 0;
+	list-style-type: none;
+}
+
+#bestsellers ul,#recommendBook ul {
+	display: inline;
+}
+
