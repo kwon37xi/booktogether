@@ -197,6 +197,7 @@ public class UserController extends AbstractController {
 					RequestAttributes.SCOPE_SESSION);
 			sra.setAttribute("userId", user.getUserId(),
 					RequestAttributes.SCOPE_SESSION);
+			sra.setAttribute("thumnail", user.getUserAddInfo().getThumnail(), RequestAttributes.SCOPE_SESSION);
 
 		} else { // 실패시
 
@@ -206,7 +207,7 @@ public class UserController extends AbstractController {
 		}
 
 		// 경로 설정
-		return new ModelAndView("redirect:/user/login.do");
+		return new ModelAndView("redirect:/index.do");
 
 	}
 

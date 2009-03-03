@@ -30,6 +30,7 @@ public class GoodWriterServiceImpl implements GoodWriterService {
 
 	
 	@Override
+	@Transactional(readOnly = false)
 	public boolean insertGoodWriter(GoodWriter goodWriter) {
 
 		int count=goodWriterJdbcDao.insertGoodWriter(goodWriter);

@@ -105,5 +105,25 @@ public interface BookDao {
 	 * @return
 	 */
 	public int modifySearchRankQuery(String query);
+	
+	/**
+	 * 책 조회수 수정
+	 * @param bookIdNum
+	 * @return
+	 */
+	public int modifyBookHits(Integer bookIdNum);
+	
+	/**
+	 * 책 조회수 정보 등록
+	 * @param bookIdNum
+	 * @return
+	 */
+	public int insertBookHits(Integer bookIdNum);
+	
+	/**
+	 * 책 인기 순위
+	 * @return
+	 */
+	public List<Book> getListTopBookHits();
 
 }

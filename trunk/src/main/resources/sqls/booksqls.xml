@@ -239,6 +239,58 @@
             ]]>
         </query>
      </sql>
+     
+     
+     <sql name="LIST_SEARCH_QUERY_RANK_SQL">
+        <description>검색수 등록</description>
+        <query>
+            <![CDATA[
+            SELECT query
+              FROM SEARCHQUERY
+             ORDER BY search_num DESC  
+             LIMIT 0,10
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="INSERT_BOOKHITS_SQL">
+        <description>책 조회수 등록</description>
+        <query>
+            <![CDATA[
+            INSERT INTO BOOKHITS (hits, book_idNum) 
+            VALUES(0, ?)
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="MODIFY_BOOKHITS_SQL">
+        <description>책 조회수 수정</description>
+        <query>
+            <![CDATA[
+            UPDATE BOOKHITS 
+               SET hits=hits+1 
+             WHERE book_idNum = ?
+            ]]>
+        </query>
+     </sql>
+     
+     <sql name="LIST_TOPBOOKHITS_SQL">
+        <description>인기책 목록</description>
+        <query>
+            <![CDATA[
+            SELECT B.idNum as idNum
+                   ,B.isbn10 as isbn10
+                   ,B.isbn13 as isbn13
+                   ,B.name as name
+              FROM BOOKHITS BH, BOOK B
+             WHERE BH.book_idNum = B.idNum
+             ORDER BY BH.hits DESC 
+             LIMIT 0,10 
+            ]]>
+        </query>
+     </sql>
     
 
     

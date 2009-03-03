@@ -65,6 +65,12 @@ public interface BookService {
 	 */
 	public List<String> getListSearchRankQuery();
 	
+	/**
+	 * 책 인기 순위(책 조회수가 많으면 인기순위로 올라감)
+	 * @return
+	 */
+	public List<Book> getListTopBookHits();
+	
 	
 	
 	

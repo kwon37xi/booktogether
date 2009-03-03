@@ -38,7 +38,8 @@ public class GoodWriteDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 	@Override
 	public GoodWriter getGoodWriter() {
-		String sql = sqlparser.getSQL("goodwrite", "GET_GOODWRITER_SQL");
+		
+		String sql = sqlparser.getSQL("goodwriter", "GET_GOODWRITER_SQL");
 
 		return (GoodWriter) DataAccessUtils
 				.singleResult(getSimpleJdbcTemplate().query(sql,
@@ -51,18 +52,17 @@ public class GoodWriteDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 								GoodWriter goodWriter = new GoodWriter();
 								goodWriter.setIdNum(rs.getInt("IDNUM"));
 								goodWriter
-										.setInputDate(rs.getDate("INPUTDATE"));
+										.setInputDate(rs.getDate("INPUT_DATE"));
 								goodWriter.setContent(rs.getString("CONTENT"));
 
 								return goodWriter;
 							}
-						}, new Object() {
-						}));
+						}, new Object[] {}));
 	}
 
 	@Override
 	public int insertGoodWriter(GoodWriter goodwriter) {
-		String sql = sqlparser.getSQL("goodwrite", "INSERT_GOODWRITER_SQL");
+		String sql = sqlparser.getSQL("goodwriter", "INSERT_GOODWRITER_SQL");
 
 		return getSimpleJdbcTemplate().update(sql,
 				new Object[] { goodwriter.getContent() });

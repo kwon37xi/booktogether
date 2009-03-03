@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sqls name="bestsellers">
+
+
+	<sql name="LIST_BESTSELLERS_SQL">
+		<description>베스트셀러 목록</description>
+		<query>
+            <![CDATA[
+             SELECT book_idNum as BIDNUM
+  			   FROM BESTSELLERS 
+              WHERE MONTHNAME(input_date) = MONTHNAME(now())
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="INSERT_GOODWRITER_SQL">
+		<description>베스트 셀러 등록</description>
+		<query>
+            <![CDATA[
+            INSERT INTO BESTSELLERS (input_date, book_idNum) 
+            VALUES(now(), ?)
+            ]]>
+		</query>
+	</sql>
+
+
+</sqls>

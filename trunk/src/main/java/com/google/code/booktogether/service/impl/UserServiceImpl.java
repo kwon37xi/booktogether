@@ -254,9 +254,9 @@ public class UserServiceImpl implements UserService {
 				if (log.isInfoEnabled()) {
 					log.info("일치하지 않는다.");
 				}
-				user = null;
+				return null;
 			}
-
+			
 		}
 
 		return user;
