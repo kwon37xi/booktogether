@@ -91,7 +91,7 @@ public class MainController extends AbstractController {
 
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("layout/index");
+		mav.setViewName("main/main");
 		mav.addObject("searchRankQuerys", searchRankQuerys);
 		mav.addObject("topBookHitsList", topBookHitsList);
 		mav.addObject("goodWriter", goodWriter);

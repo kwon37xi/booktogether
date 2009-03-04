@@ -1,4 +1,4 @@
-#layout td {
+#main_layout td {
 	padding: 10px 10px 10px 10px;
 }
 
@@ -8,6 +8,10 @@ form label {
 	width: 10px;
 }
 
-.imgpoinger {
-	cursor:pointer;
+#main_left_td {
+	width: 180px;
+}
+
+#main_right_td {
+	width: 550px;
 }

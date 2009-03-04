@@ -1,7 +1,3 @@
-#layout td {
-	padding: 10px 10px 10px 10px;
-}
-
 form label {
 	font-weight: bold;
 	padding-right: 5px;
@@ -9,29 +5,29 @@ form label {
 }
 
 #goodWriter {
+	background-color: #e1f0f5;
 	width: 500px;
-	border:1px #DCDCDC solid;
+	border: 1px #e1f0f5 solid;
 	margin-bottom: 20px;
+	padding: 0px 10px;
 }
 
 #bestsellers {
 	width: 500px;
-	border:1px #DCDCDC solid;
+	border: 1px #e1f0f5 solid;
+	background-color: #e1f0f5;
 	margin-bottom: 20px;
+	padding: 0px 10px;
 }
 
 #recommendBook {
 	width: 500px;
-	border:1px #DCDCDC solid;
+	border: 1px #e1f0f5 solid;
+	background-color: #e1f0f5;
 	margin-bottom: 20px;
+	padding: 0px 10px;
 }
 
-#bestsellers li,#recommendBook li {
-	padding:3px 0;
-	list-style-type: none;
+.book_info {
+	margin: 5px 0px;
 }
-
-#bestsellers ul,#recommendBook ul {
-	display: inline;
-}
-
