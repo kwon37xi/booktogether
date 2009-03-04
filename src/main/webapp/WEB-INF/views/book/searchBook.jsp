@@ -6,19 +6,11 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/book/searchBook.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
 		<title>책 검색</title>
 	</head>
 	<body>
-	
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
-	
 	
 		<form name="searchBookform" action="/book/searchBook.do" method="post">
 			<input type="hidden" name="pageNo" value="1"/>
@@ -48,12 +40,7 @@
 		
 		<c:choose>
 			<c:when test="${bookList!=null}">
-				<table border="1">
-					<thead>
-						<tr>
-							<td colspan="4">결과물</td>
-						</tr>	
-					</thead>
+				<table id="searchResultTable">
 					<tbody>
 						<c:choose>
 							<c:when test="${fn:length(bookList)!=0}">
