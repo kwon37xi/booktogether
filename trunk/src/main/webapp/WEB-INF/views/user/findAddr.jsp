@@ -7,16 +7,13 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
-		<script type="text/javascript" charset="utf-8" src="/scripts/common/prototype.js"></script>
-		<script type="text/javascript" charset="utf-8" src="/scripts/common/common.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
 		
 		<title>주소찾기</title>
 		
 	</head>
 	<body>
-		<form action="/user/findAddr.do" onsubmit="" name="findAddrform">
+		<form action="/user/findAddr.do" onsubmit="" name="findAddrform" method="post">
 			<input type="hidden" name="eleSeq" value="${requestScope.eleSeq}"/>
 			<table>
 				<thead>

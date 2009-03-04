@@ -58,9 +58,9 @@
 									<p>
 										<label for="pw">PW</label><input type="password" name="pw" size="15"/>
 									</p>
-									<p>
-										<input type="submit" value="로그인"/>
-										<input type="button" value="회원가입" onclick="join()"/>
+									<p class="but_g1">
+										<img src="/images/main/login_b.png" onclick="login()" class="img_button"/>
+										<img src="/images/main/join_b.png" onclick="join()" class="img_button"/>
 									</p>
 									<p>
 										<a href="/user/findIdView.do">아이디 찾기</a> 
@@ -79,7 +79,16 @@
 						인기 검색 순위
 						<ol>
 							<c:forEach begin="0" items="${searchRankQuerys}" var="queryInfo" varStatus="status">
-								<li>${queryInfo}</li>
+								<li>
+									<c:choose>
+										<c:when test="${fn:length(queryInfo)>10}">
+											${fn:substring(fn:escapeXml(queryInfo),0,10)}...
+										</c:when>
+										<c:otherwise>
+											${fn:escapeXml(queryInfo)}
+										</c:otherwise>
+									</c:choose>
+								</li>
 							</c:forEach>
 						</ol>
 					</div>
@@ -131,7 +140,16 @@
 										<img src="${bestBookInfo.bookCover}" class="img_button" onclick="go_bookView('${bestBookInfo.idNum}')"/>
 									</td>
 									<td>
-										<p class="book_info">${fn:escapeXml(bestBookInfo.name)}</p>
+										<p class="book_info">
+											<c:choose>
+												<c:when test="${fn:length(bestBookInfo.name)>30}">
+													${fn:substring(fn:escapeXml(bestBookInfo.name),0,30)}...
+												</c:when>
+												<c:otherwise>
+													${fn:escapeXml(bestBookInfo.name)}
+												</c:otherwise>
+											</c:choose>
+										</p>
 										<p class="book_info">
 											<c:forEach begin="0" items="${bestBookInfo.authors}" var="authorInfo">
 												[${authorInfo.name}/
@@ -164,7 +182,16 @@
 										<img src="${recommendBookInfo.bookCover}" class="img_button" onclick="go_bookView('${recommendBookInfo.idNum}')"/>
 									</td>
 									<td>
-										<p class="book_info"> ${fn:escapeXml(recommendBookInfo.name)}</p>
+										<p class="book_info">
+											<c:choose>
+												<c:when test="${fn:length(recommendBookInfo.name)>30}">
+													${fn:substring(fn:escapeXml(recommendBookInfo.name),0,30)}...
+												</c:when>
+												<c:otherwise>
+													${fn:escapeXml(recommendBookInfo.name)}
+												</c:otherwise>
+											</c:choose>
+										</p>
 										<p class="book_info"><c:forEach begin="0" items="${recommendBookInfo.authors}" var="authorInfo">
 												[${authorInfo.name}/
 												<c:if test="${authorInfo.authorDiv==0}">지음</c:if>
