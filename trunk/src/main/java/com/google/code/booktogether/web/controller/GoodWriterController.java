@@ -48,6 +48,7 @@ public class GoodWriterController extends AbstractController {
 	@RequestMapping("/goodwriter/insertGoodWriter.do")
 	public ModelAndView handleInsertGoodWriter(HttpServletRequest req,
 			GoodWriter goodWriter) {
+		
 
 		boolean result = goodWriterService.insertGoodWriter(goodWriter);
 

@@ -24,7 +24,7 @@
 				<td valign="top">
 					<jsp:include page="./leftmain.jsp" flush="false"></jsp:include>
 				</td>
-				<td>
+				<td valign="top">
 					<jsp:include page="./rightmain.jsp" flush="false"></jsp:include>
 				</td>
 			</tr>

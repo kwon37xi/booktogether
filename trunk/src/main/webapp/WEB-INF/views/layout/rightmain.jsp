@@ -59,7 +59,7 @@
 		<fieldset id="recommendBook">
 			<legend>추천책</legend>
 			<table>
-				<c:forEach begin="0" items="${bestSellerList}" var="recommendBookInfo">
+				<c:forEach begin="0" items="${recoBookList}" var="recommendBookInfo">
 					<tr>
 						<td>
 							<img src="${recommendBookInfo.bookCover}" class="imgpoinger" onclick="go_bookView('${recommendBookInfo.idNum}')"/>

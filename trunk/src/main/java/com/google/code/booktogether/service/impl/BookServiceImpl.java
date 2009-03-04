@@ -99,7 +99,7 @@ public class BookServiceImpl implements BookService {
 			book = bookJdbcDao.getBook(isbn);
 
 			if (book != null) {
-				
+
 				int count = bookJdbcDao.modifyBookHits(book.getIdNum());
 
 				if (count != 1) {
@@ -113,8 +113,10 @@ public class BookServiceImpl implements BookService {
 		// 지은이 정보 가지고 오기
 		List<Author> authorList = bookJdbcDao.getAuthor(book);
 
-		book.setAuthors((Author[]) authorList.toArray(new Author[authorList
-				.size()]));
+		if (authorList != null) {
+			book.setAuthors((Author[]) authorList.toArray(new Author[authorList
+					.size()]));
+		}
 
 		return book;
 	}
@@ -192,7 +194,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> getListTopBookHits() {
-		
+
 		List<Book> topBookHitsList = bookJdbcDao.getListTopBookHits();
 
 		return topBookHitsList;

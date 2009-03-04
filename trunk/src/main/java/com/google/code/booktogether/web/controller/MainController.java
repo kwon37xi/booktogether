@@ -13,6 +13,7 @@ import com.google.code.booktogether.service.BestSellersService;
 import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.service.GoodWriterService;
 import com.google.code.booktogether.service.LibraryService;
+import com.google.code.booktogether.service.RecoBookService;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.GoodWriter;
@@ -37,6 +38,13 @@ public class MainController extends AbstractController {
 	 */
 	@Resource(name = "bestSellersService")
 	private BestSellersService bestSellersService;
+	
+	
+	/**
+	 * RecoBookService
+	 */
+	@Resource(name = "recoBookService")
+	private RecoBookService recoBookService;
 
 	/**
 	 * UserService
@@ -61,14 +69,22 @@ public class MainController extends AbstractController {
 		//베스트 셀러 목록
 		List<Book> bestSellerList=bestSellersService.getListBestSellers();
 		
+		
+		//추천책
+		List<Book> recoBookList=recoBookService.getListRecoBook();
+		
+		
 		//서재 인기 순위
 		List<User> libraryRankList=libraryService.getLibraryRank();
+		
 		
 		//좋은 글 
 		GoodWriter goodWriter=goodWriterService.getGoodWriter();
 		
+		
 		//인기 책 순위
 		List<Book> topBookHitsList=bookService.getListTopBookHits();
+		
 		
 		//인기 검색 순위
 		List<String> searchRankQuerys=bookService.getListSearchRankQuery();
@@ -81,6 +97,7 @@ public class MainController extends AbstractController {
 		mav.addObject("goodWriter", goodWriter);
 		mav.addObject("libraryRankList", libraryRankList);
 		mav.addObject("bestSellerList", bestSellerList);
+		mav.addObject("recoBookList", recoBookList);
 
 		return mav;
 
