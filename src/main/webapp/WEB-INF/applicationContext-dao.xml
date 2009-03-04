@@ -46,6 +46,7 @@
 				<value>classpath:sqls/libraryboardsqls.xml</value>
 				<value>classpath:sqls/goodwritersqls.xml</value>
 				<value>classpath:sqls/bestsellerssqls.xml</value>
+				<value>classpath:sqls/recobooksqls.xml</value>
 			</list>
 		</constructor-arg>
 	</bean>
