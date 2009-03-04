@@ -17,6 +17,14 @@
 		<decorator:head />
 	</head>
 	<body>
+	
+		<c:if test="${sessionScope.message!=null}">
+			<script>
+				alert('${sessionScope.message}');
+			</script>
+			<c:remove scope="session" var="message"/>
+		</c:if>
+	
 		<table id="layout">
 			<tr>
 				<td>Top 부분</td>	
