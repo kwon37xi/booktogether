@@ -164,7 +164,7 @@ public class UserController extends AbstractController {
 		req.getSession().invalidate();
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("user/login");
+		mav.setViewName("main/main");
 
 		return mav;
 

@@ -161,11 +161,14 @@ public class UserServiceImpl implements UserService {
 		// 지역명 등록(생활반경)
 		for (Zone zone : user.getZones()) {
 
-			zone.setUserIdNum(idNum);
-			count = userJdbcDao.insertZone(zone);
+			if (zone != null) {
 
-			if (count != 1) {
-				throw new BooktogetherException("생활반경 등록 실패");
+				zone.setUserIdNum(idNum);
+				count = userJdbcDao.insertZone(zone);
+
+				if (count != 1) {
+					throw new BooktogetherException("생활반경 등록 실패");
+				}
 			}
 
 		}
@@ -256,7 +259,7 @@ public class UserServiceImpl implements UserService {
 				}
 				return null;
 			}
-			
+
 		}
 
 		return user;
