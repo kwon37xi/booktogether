@@ -19,13 +19,27 @@
 		<div id="login">
 			<c:choose>
 				<c:when test="${sessionScope.idNum!=null}">
-					${sessionScope.nickname}님 환영합니다
-					<img src="/images/user/thumnail/${sessionScope.thumnail}"/>
-					<ul>
-						<li><a href="/user/getUser.do">회원조회</a></li>
-						<li><a href="/library/getLibrary.do?userId=${sessionScope.userId}">내서재가기</a></li>
-						<li><a href="/user/logout.do">로그아웃</a></li>
-					</ul>
+					<table id='user'>
+						<tr>
+							<td class='user_thumnail'>
+								<img src="/images/user/thumnail/${sessionScope.thumnail}"/>
+							</td>
+							<td class='user_info'>
+								<p>
+									&lt;${sessionScope.nickname}&gt;
+								</p>
+								<p>
+									<a href="/user/getUser.do">회원조회</a>
+								</p>
+								<p>
+									<a href="/library/getLibrary.do?userId=${sessionScope.userId}">내서재가기</a>
+								</p>
+								<p>
+									<a href="/user/logout.do">로그아웃</a>
+								</p>
+							</td>
+						</tr>
+					</table>					
 				</c:when>
 				<c:otherwise>
 					<form name="loginform" method="post" action="/user/valiadIdPwUser.do">
@@ -50,6 +64,8 @@
 			</c:choose>
 		</div>
 		
+		<hr class="horizen"/>
+		
 		<!-- 인기검색순위 -->
 		<div id="searchRank">
 			인기 검색 순위
@@ -59,6 +75,8 @@
 				</c:forEach>
 			</ol>
 		</div>
+		
+		<hr class="horizen"/>
 		
 		<!-- 활동 높은 서재 -->
 		<div id="libraryRank">
@@ -71,6 +89,10 @@
 				</c:forEach>
 			</ol>
 		</div>
+		
+		
+		<hr class="horizen"/>
+		
 		
 		<!-- 인기책 -->
 		<div id="topBookHits">
