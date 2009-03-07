@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-	Nifty("div#goodWriter","big");
-	Nifty("div#goodWriter","big");
-	Nifty("div#goodWriter","big");
+	$("#goodWriter").cornerz();
+	$("#bestsellers").cornerz();
+	$("#recommendBook").cornerz();
 });

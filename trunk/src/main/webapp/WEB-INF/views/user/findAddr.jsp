@@ -15,6 +15,8 @@
 	<body>
 		<form action="/user/findAddr.do" onsubmit="" name="findAddrform" method="post">
 			<input type="hidden" name="eleSeq" value="${requestScope.eleSeq}"/>
+			<input type="hidden" name="decorator" value="popup"/>
+			<input type="hidden" name="confirm" value="true"/>
 			<table>
 				<thead>
 					<tr>

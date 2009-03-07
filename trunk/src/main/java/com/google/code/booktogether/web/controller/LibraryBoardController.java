@@ -41,7 +41,7 @@ public class LibraryBoardController extends AbstractController {
 	 * @param libraryIdNum
 	 * @return
 	 */
-	@RequestMapping("/libraryboard/getListLibraryBoard.do")
+	@RequestMapping("/library/getListLibraryBoard.do")
 	public ModelAndView handleListBookInLibrary(
 			HttpServletRequest req,
 			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum) {
@@ -68,7 +68,7 @@ public class LibraryBoardController extends AbstractController {
 	 * @param libraryIdNum
 	 * @return
 	 */
-	@RequestMapping("/libraryboard/insertLibraryBoard.do")
+	@RequestMapping("/library/insertLibraryBoard.do")
 	public ModelAndView handleInsertLibraryBoard(
 			HttpServletRequest req,
 			@RequestParam(value = "content", required = false) String content,
@@ -97,7 +97,7 @@ public class LibraryBoardController extends AbstractController {
 		}
 
 		return new ModelAndView(
-				"redirect:/libraryboard/getListLibraryBoard.do?libraryIdNum="
+				"redirect:/library/getListLibraryBoard.do?libraryIdNum="
 						+ libraryIdNum);
 
 	}
@@ -110,7 +110,7 @@ public class LibraryBoardController extends AbstractController {
 	 * @param libraryIdNum
 	 * @return
 	 */
-	@RequestMapping("/libraryboard/deleteLibraryBoard.do")
+	@RequestMapping("/library/deleteLibraryBoard.do")
 	public ModelAndView handleDeleteLibraryBoard(
 			HttpServletRequest req,
 			@RequestParam(value = "boardIdNum", required = false) Integer boardIdNum,
@@ -139,7 +139,7 @@ public class LibraryBoardController extends AbstractController {
 		}
 
 		return new ModelAndView(
-				"redirect:/libraryboard/getListLibraryBoard.do?libraryIdNum="
+				"redirect:/library/getListLibraryBoard.do?libraryIdNum="
 						+ libraryIdNum);
 
 	}

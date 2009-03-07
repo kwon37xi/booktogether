@@ -114,7 +114,7 @@ public class BookGradeController extends AbstractController {
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping("/book/getListMyBookGrade.do")
+	@RequestMapping("/library/getListMyBookGrade.do")
 	public ModelAndView handleListBookGrade(
 			HttpServletRequest req,
 			@RequestParam(value = "userIdNum", required = false) Integer userIdNum,

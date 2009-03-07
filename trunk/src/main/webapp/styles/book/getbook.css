@@ -1,0 +1,113 @@
+table{
+	margin-top:30px;
+	}
+
+.b_label {
+	padding: 5px 0;
+	text-align: center;
+	background-color: #e1f0f5;
+	width: 150px;
+}
+
+.b_label_c {
+	padding-left: 10px;
+	width: 400px;
+}
+
+#bookinfo {
+	width: 650px;
+	border: 1px #e1f0f5 dashed;
+	margin-left: 50px;
+}
+
+#bookinfo thead td {
+	padding: 10px 0;
+}
+
+#gradebook {
+	width: 650px;
+	border: 1px #e1f0f5 dashed;
+	margin-left: 50px;
+}
+
+#gradebook thead td {
+	padding: 10px 0;
+}
+
+.nocontent {
+	height: 50px;
+	padding: 20px 20px;
+}
+
+#reviewbook {
+	width: 650px;
+	border: 1px #e1f0f5 dashed;
+	margin-left: 50px;
+}
+
+#reviewbook thead td {
+	padding: 10px 0;
+}
+
+.btitle {
+	width: 200px;
+}
+
+.buserid {
+	width: 100px;
+}
+
+.brecommend {
+	width: 100px;
+}
+
+#bookmark {
+	width: 650px;
+	border: 1px #e1f0f5 dashed;
+	margin-left: 50px;
+}
+
+#bookmark thead td {
+	padding: 10px 0;
+}
+
+.bmcontent {
+	width: 200px;
+}
+
+.bmnickname {
+	width: 100px;
+}
+
+.bmvibe {
+	width: 50px;
+}
+
+.bmnickname {
+	width: 100px;
+}
+
+#bookmark_write {
+	width:100%;
+	margin-top:5px;
+	border: 1px #e1f0f5 dashed;
+}
+
+#bookmark_write tfoot td{
+	text-align: center;
+}
+
+#navigator {
+	text-align: center;
+	margin-top: 50px;
+}
+
+#navigator a {
+	margin: 0 5px;
+}
+
+#insertgrade {
+	text-align: center; margin-left : 20px;
+	border: 1px #e1f0f5 dashed;
+	margin-left: 20px;
+}

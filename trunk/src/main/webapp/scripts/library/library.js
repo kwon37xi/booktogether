@@ -67,9 +67,9 @@ function getBook(bookIdNum){
 }
 
 
-function getPossessBook(possessBookIdNum){
+function getPossessBook(possessBookIdNum,libraryIdNum,userIdNum){
 	
-	location.href="/library/getPossessBook.do?possessBookIdNum="+possessBookIdNum;
+	location.href="/library/getPossessBook.do?userIdNum="+userIdNum+"&libraryIdNum="+libraryIdNum+"&possessBookIdNum="+possessBookIdNum;
 	
 }
 

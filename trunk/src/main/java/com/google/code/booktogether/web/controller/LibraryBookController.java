@@ -207,8 +207,11 @@ public class LibraryBookController extends AbstractController {
 	@RequestMapping("/library/modifyLibraryBookView.do")
 	public ModelAndView handleModifyLibraryBookView(
 			HttpServletRequest req,
+			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum,
 			@RequestParam(value = "libraryBookIdNum", required = false) Integer libraryBookIdNum) {
 
+		Library library=libraryService.getLibrary(libraryIdNum, getLoginUserIdNum());
+		
 		LibraryBook libraryBook = libraryService
 				.getLibraryBook(libraryBookIdNum);
 
@@ -224,6 +227,7 @@ public class LibraryBookController extends AbstractController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("librarybook/modifyLibraryBook");
 		mav.addObject("libraryBook", libraryBook);
+		mav.addObject("library", library);
 		mav.addObject("bookInfo", book);
 		mav.addObject("possessBook", possessBook);
 
@@ -419,7 +423,7 @@ public class LibraryBookController extends AbstractController {
 
 		List<LibraryBook> libraryBookList = libraryService.getListLibraryBook(
 				libraryBook, pageBean);
-
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("librarybook/getListLibraryBook");
 		mav.addObject("libraryBookList", libraryBookList);

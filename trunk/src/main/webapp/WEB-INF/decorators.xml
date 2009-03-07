@@ -10,6 +10,10 @@
 		<pattern>/*</pattern>
 	</decorator>
 	
+	<decorator name="library" page="librarylayout.jsp">
+		<pattern>/library/*</pattern>
+	</decorator>
+	
 	<decorator name="popup" page="popup.jsp" />
 	<decorator name="printable" page="printable.jsp" />
 	<decorator name="black" page="black.jsp" />

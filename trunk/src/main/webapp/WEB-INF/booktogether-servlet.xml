@@ -31,13 +31,16 @@
 				<value>/user/deleteUser.do</value>
 				<value>/user/modifyPw.do</value>
 				<value>/user/deleteZone.do</value>
+				<value>/book/modifyBookReview.do</value>
 				<value>/library/modifyLibraryView.do</value>
 				<value>/library/modifyLibrary.do</value>
 				<value>/library/insertLibraryBookView.do</value>
 				<value>/library/insertLibraryBook.do</value>
 				<value>/library/modifyLibraryBook.do</value>
+				<value>/library/modifyLibraryBookView.do</value>
 				<value>/library/deleteInterestLibrary.do</value>
 				<value>/library/insertPossessBookView.do</value>
+				<value>/user/modifyUserPWView.do</value>
 			</list>
 		</property>
 		<property name="interceptors">
@@ -56,10 +59,17 @@
 				<value>/library/getLibrary.do</value>
 				<value>/library/getListLibraryBook.do</value>
 				<value>/library/getListPossessBook.do</value>
+				<value>/library/getPossessBook.do</value>
+				<value>/library/getListZoneBook.do</value>
+				<value>/library/getListInterestLibrary.do</value>
 				<value>/library/searchBookInLibrary.do</value>
 				<value>/library/searchLibraryBookInLibrary.do</value>
 				<value>/library/searchPossessBookInLibrary.do</value>
 				<value>/libraryboard/getListLibraryBoard.do</value>
+				<value>/library/getListMyReview.do</value>
+				<value>/library/getListMyBookGrade.do</value>
+				<value>/library/getListMyBookMark.do</value>
+				<value>/library/getListLibraryBoard.do</value>
 			</list>
 		</property>
 		<property name="interceptors">

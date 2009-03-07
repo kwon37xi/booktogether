@@ -6,72 +6,70 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="/styles/user/getuser.css" />
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/getuser.js"></script>
 		<title>사용자 조회</title>
 	</head>
 	<body>
 	
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
-		
-		기본정보
-		<table border='1'>
-			<thead></thead>
+		<table id="user_info">
+			<thead>
+				<tr>
+					<td colspan="2">기본정보</td>
+				</tr>
+			</thead>
 			<tbody>
 				<tr>
-					<td>아이디</td>
-					<td>${userInfo.userId}</td>
+					<td class="u_label">아이디</td>
+					<td class="u_label_c">${userInfo.userId}</td>
 				</tr>
 				<tr>
-					<td>이름</td>
-					<td>${userInfo.name}</td>
+					<td class="u_label">이름</td>
+					<td class="u_label_c">${userInfo.name}</td>
 				</tr>
 				<tr>
-					<td>닉네임</td>
-					<td>${userInfo.nickname}</td>
+					<td class="u_label">닉네임</td>
+					<td class="u_label_c">${userInfo.nickname}</td>
 				</tr>
 				<tr>
-					<td>이메일</td>
-					<td>${userInfo.email}</td>
+					<td class="u_label">이메일</td>
+					<td class="u_label_c">${userInfo.email}</td>
 				</tr>
 				<tr>
-					<td>가입일</td>
-					<td>${userInfo.inputDate}</td>
+					<td class="u_label">가입일</td>
+					<td class="u_label_c">${userInfo.inputDate}</td>
 				</tr>
 			</tbody>
-			<tfoot></tfoot>
 		</table>
 		
+		<hr/>
 		
-		추가정보
-		<table border='1'>
-			<thead></thead>
+		<table id="user_add_info">
+			<thead>
+				<tr>
+					<td colspan="2">추가정보</td>
+				</tr>
+			</thead>
 			<tbody>
 				<tr>
-					<td>블로그</td>
-					<td>${userInfo.userAddInfo.blog}</td>
+					<td class="u_label">블로그</td>
+					<td class="u_label_c">${userInfo.userAddInfo.blog}</td>
 				</tr>
 				<tr>
-					<td>썸네일</td>
-					<td><img src="/images/user/thumnail/${userInfo.userAddInfo.thumnail}"/></td>
+					<td class="u_label">썸네일</td>
+					<td class="u_label_c"><img src="/images/user/thumnail/${userInfo.userAddInfo.thumnail}"/></td>
 				</tr>
 				
 				<c:forEach begin="0" items="${userInfo.zones}" var="zoneInfo" varStatus="status">
 					<tr>
-						<td>생활 반경</td>
-						<td>${zoneInfo.zoneName}</td>
+						<td class="u_label">생활 반경</td>
+						<td class="u_label_c">${zoneInfo.zoneName}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
-			<tfoot></tfoot>
 		</table>
 		
-		
-		<div id=''>
+		<div id='navigator'>
 			<a href="javascript:history.go(-1)">뒤로</a>
 			<a href="/user/modifyUserPWView.do">비밀번호수정</a>
 			<a href="/user/modifyUserView.do">수정</a>

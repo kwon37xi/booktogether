@@ -8,6 +8,8 @@
 	</head>
 	<body>
 		<form name="findIdform" method="post" action="/user/findId.do">
+			<input type="hidden" name="decorator" value="popup"/>
+			<input type="hidden" name="confirm" value="true"/>
 			<table>
 				<thead>
 					<tr>

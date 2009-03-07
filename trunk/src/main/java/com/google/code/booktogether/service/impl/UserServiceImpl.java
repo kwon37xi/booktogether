@@ -344,7 +344,7 @@ public class UserServiceImpl implements UserService {
 			throw new BooktogetherException("비밀번호 수정 실패");
 		}
 
-		return false;
+		return true;
 	}
 
 	@Override
@@ -387,10 +387,6 @@ public class UserServiceImpl implements UserService {
 
 		boolean result = new File(realPath + File.separatorChar + filename)
 				.delete();
-
-		if (result) {
-			throw new BooktogetherException("썸네일 이미지 파일 삭제 오류");
-		}
 
 		return result;
 	}

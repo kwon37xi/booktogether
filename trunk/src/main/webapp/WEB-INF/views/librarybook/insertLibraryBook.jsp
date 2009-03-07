@@ -9,34 +9,30 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/library/library.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
 		<title>서재에 등록하기</title>
 	</head>
 	<body>
 		
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
-		
-		책정보
-		<table border='1'>
-			<thead></thead>
+		<table id="bookinfo">
+			<thead>
+				<tr>
+					<td colspan="2">책정보</td>
+				</tr>
+			</thead>
 			<tbody>
 				<tr>
-					<td>책표지</td>
-					<td><img src="${bookInfo.bookCover}"/></td>
+					<td class="b_label">책표지</td>
+					<td class="b_label_c"><img src="${bookInfo.bookCover}"/></td>
 				</tr>
 				<tr>
-					<td>책이름</td>
-					<td>${bookInfo.name}</td>
+					<td class="b_label">책이름</td>
+					<td class="b_label_c">${fn:escapeXml(bookInfo.name)}</td>
 				</tr>
 				<tr>
-					<td>지은이</td>
-					<td>
+					<td class="b_label">지은이</td>
+					<td class="b_label_c">
 						<c:forEach begin="0" items="${bookInfo.authors}" var="authorInfo">
 							[${authorInfo.name}/
 							<c:if test="${authorInfo.authorDiv==0}">지음</c:if>
@@ -46,54 +42,54 @@
 					</td>
 				</tr>
 				<tr>
-					<td>ISBN</td>
-					<td>${bookInfo.ISBN10}</td>
+					<td class="b_label">ISBN</td>
+					<td class="b_label_c">${bookInfo.ISBN10}</td>
 				</tr>
 				<tr>
-					<td>출판사/출판일</td>
-					<td>${bookInfo.publishComp}/
+					<td class="b_label">출판사/출판일</td>
+					<td class="b_label_c">${bookInfo.publishComp}/
 						${fn:substring(bookInfo.publishDate,0,4)}년 
 						${fn:substring(bookInfo.publishDate,4,6)}월 
 						${fn:substring(bookInfo.publishDate,6,8)}일
 					</td>
 				</tr>
 				<tr>
-					<td>가격</td>
-					<td><fmt:formatNumber value="${bookInfo.price}" pattern=",###"/>원</td>
+					<td class="b_label">가격</td>
+					<td class="b_label_c"><fmt:formatNumber value="${bookInfo.price}" pattern=",###"/>원</td>
 				</tr>
 				<tr>
-					<td>카테고리</td>
-					<td>${bookInfo.category}</td>
+					<td class="b_label">카테고리</td>
+					<td class="b_label_c">${bookInfo.category}</td>
 				</tr>
 				<tr>
-					<td>설명</td>
-					<td>${bookInfo.description}</td>
+					<td class="b_label">설명</td>
+					<td class="b_label_c">${bookInfo.description}</td>
 				</tr>
 			</tbody>
-			<tfoot></tfoot>
 		</table>
 		
-		서재에 등록
+		
 		<form name="insertBookMyLibraryform" method="post" action="/library/insertLibraryBook.do">
 		
 			<input type="hidden" name="book.idNum" value="${bookInfo.idNum}"/>
 			<input type="hidden" name="library.idNum" value="${library.idNum}"/>
 			
-			<table border='1'>
-				<thead></thead>
+			<table id="insertlibrarybook">
+				<thead>
+					<tr>
+						<td>서재에 등록</td>
+					</tr>
+				</thead>
 				<tbody>
 					<tr>
 						<td>어느쪽으로 책 분류 하시겠습니까?</td>
 					</tr>
 					<tr>
-						<td>
-							<input type="radio" name="state" value="0"/>읽고 싶은책<br/>
-							<input type="radio" name="state" value="1"/>읽고 있는책<br/>
-							<input type="radio" name="state" value="2"/>읽은 책<br/>
-						</td>
-					</tr>
-					<tr>
-						<td>
+						<td> 
+							<input type="radio" name="state" value="0"/>읽고 싶은책 
+							<input type="radio" name="state" value="1"/>읽고 있는책 
+							<input type="radio" name="state" value="2"/>읽은 책 
+							&nbsp;&nbsp;
 							<input type="text" name="readDateYear" size="4"/>
 							<input type="text" name="readDateMonth" size="2"/>
 							<input type="text" name="readDateDate" size="2"/>
@@ -101,61 +97,63 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="checkbox" name="isPossess" value="1"/>소유여부
-							<div>
-								<table>
-									<tr>
-										<td>구입날짜</td>
-										<td>
-											<input type="text" name="purchaseDateYear" size="4"/>
-											<input type="text" name="purchaseDateMonth" size="2"/>
-											<input type="text" name="purchaseDateDate" size="2"/>
-										</td>
-									</tr>
-									<tr>
-										<td>구입가격</td>
-										<td>
-											<input type="text" name="purchasePrice" size="20"/>
-										</td>
-									</tr>
-									<tr>
-										<td>독서시작일</td>
-										<td>
-											<input type="text" name="beginReadYear" size="4"/>
-											<input type="text" name="beginReadMonth" size="2"/>
-											<input type="text" name="beginReadDate" size="2"/>
-										</td>
-									</tr>
-									<tr>
-										<td>독서종료일</td>
-										<td>
-											<input type="text" name="endReadYear" size="4"/>
-											<input type="text" name="endReadMonth" size="2"/>
-											<input type="text" name="endReadDate" size="2"/>
-										</td>
-									</tr>
-									<tr>
-										<td>책품질</td>
-										<td>
-											<select name="quality">
-												<option value="0">상</option>
-												<option value="1">중</option>
-												<option value="2">하</option>
-											</select>
-										</td>
-									</tr>
-									<tr>
-										<td>책상태</td>
-										<td>
-											<select name="bookstate">
-												<option value="0">소유</option>
-												<option value="1">대여중</option>
-												<option value="2">교환중</option>
-											</select>
-										</td>
-									</tr>
-								</table>
-							</div>
+							<table id="insertpossessbook">
+								<tr>
+									<td colspan="2">
+										<input type="checkbox" name="isPossess" value="1"/>소유여부
+									</td>
+								</tr>
+								<tr>
+									<td class="b_label">구입날짜</td>
+									<td class="b_label_c">
+										<input type="text" name="purchaseDateYear" size="4"/>년 
+										<input type="text" name="purchaseDateMonth" size="2"/>월 
+										<input type="text" name="purchaseDateDate" size="2"/>일
+									</td>
+								</tr>
+								<tr>
+									<td class="b_label">구입가격</td>
+									<td class="b_label_c">
+										<input type="text" name="purchasePrice" size="10"/>원
+									</td>
+								</tr>
+								<tr>
+									<td class="b_label">독서시작일</td>
+									<td class="b_label_c">
+										<input type="text" name="beginReadYear" size="4"/>년  
+										<input type="text" name="beginReadMonth" size="2"/>월 
+										<input type="text" name="beginReadDate" size="2"/>일
+									</td>
+								</tr>
+								<tr>
+									<td class="b_label">독서종료일</td>
+									<td class="b_label_c">
+										<input type="text" name="endReadYear" size="4"/>년 
+										<input type="text" name="endReadMonth" size="2"/>월 
+										<input type="text" name="endReadDate" size="2"/>일
+									</td>
+								</tr>
+								<tr>
+									<td class="b_label">책품질</td>
+									<td class="b_label_c">
+										<select name="quality">
+											<option value="0"> 상 </option>
+											<option value="1"> 중 </option>
+											<option value="2"> 하 </option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="b_label">책상태</td>
+									<td class="b_label_c">
+										<select name="bookstate">
+											<option value="0">소유</option>
+											<option value="1">대여중</option>
+											<option value="2">교환중</option>
+										</select>
+									</td>
+								</tr>
+							</table>
 						</td>
 					</tr>
 				</tbody>
@@ -168,7 +166,8 @@
 				</tfoot>
 			</table>
 		</form>
-		<div id=''>
+		
+		<div id='navigator'>
 			<a href="javascript:history.go(-1)">뒤로</a>
 		</div>
 		

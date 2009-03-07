@@ -63,7 +63,7 @@ public class PossessBookController extends AbstractController {
 
 		List<PossessBook> possessBookList = libraryService.getListPossessBook(
 				userId, pageBean);
-
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("possessbook/getListPossessBook");
 		mav.addObject("possessBookList", possessBookList);
@@ -83,14 +83,18 @@ public class PossessBookController extends AbstractController {
 	@RequestMapping("/library/modifyPossessBookView.do")
 	public ModelAndView handleModifyPossessBookView(
 			HttpServletRequest req,
+			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum,
 			@RequestParam(value = "possessBookIdNum", required = false) Integer possessBookIdNum) {
 
 		PossessBook possessBook = libraryService
 				.getPossessBook(possessBookIdNum);
+		
+		Library library=libraryService.getLibrary(libraryIdNum, getLoginUserIdNum());
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("possessbook/modifyPossessBook");
 		mav.addObject("possessBook", possessBook);
+		mav.addObject("library", library);
 
 		return mav;
 
@@ -265,14 +269,20 @@ public class PossessBookController extends AbstractController {
 	@RequestMapping("/library/getPossessBook.do")
 	public ModelAndView handleGetPossessBook(
 			HttpServletRequest req,
+			
+			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum,
+			@RequestParam(value = "userIdNum", required = false) Integer userIdNum,
 			@RequestParam(value = "possessBookIdNum", required = false) Integer possessBookIdNum) {
 
 		PossessBook possessBook = libraryService
 				.getPossessBook(possessBookIdNum);
+		
+		Library library=libraryService.getLibrary(libraryIdNum, userIdNum);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("possessbook/getPossessBook");
 		mav.addObject("possessBook", possessBook);
+		mav.addObject("library", library);
 
 		return mav;
 

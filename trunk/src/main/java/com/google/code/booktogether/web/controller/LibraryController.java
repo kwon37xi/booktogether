@@ -308,7 +308,7 @@ public class LibraryController extends AbstractController {
 
 		List<User> interestLibraryList = libraryService
 				.getListInterestLibrary(userIdNum);
-
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/getListInterestLibrary");
 		mav.addObject("interestLibraryList", interestLibraryList);
