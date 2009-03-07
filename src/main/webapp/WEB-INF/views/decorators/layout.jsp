@@ -28,15 +28,57 @@
 	
 		<table id="layout">
 			<tr>
-				<td>Top 부분</td>	
-			</tr>
+				<td align="center">
+					<table width="760" border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<td height="10"> </td>
+						</tr>
+						<tr>
+						    <td width="55" align="center" valign="middle"><img src="/images/main/logo_LBT.gif" width="43" height="44"></td>
+    						<td width="326" align="left" valign="middle"> Love,<br> Book Together</td>
+    						<td width="67" align="center" valign="middle"><img src="/images/main/btn_about.png" width="67" height="29"></td>
+   	 						<td width="75" align="center" valign="middle"><img src="/images/main/btn_sitemap.png" width="75" height="29"></td>
+    						<td width="110" align="center" valign="middle"><img src="/images/main/btn_personalInfo.png" width="110" height="29"></td>
+    						<td width="51" align="center" valign="middle"><img src="/images/main/btn_help.png" width="51" height="29"></td>
+    						<td width="60" align="center" valign="middle"><img src="/images/main/btn_login.png" width="60" height="29"></td>
+						</tr>
+					</table>
+					
+					<table  width="760" border="0">
+						<tr>
+							<td height="10"> </td>
+						</tr>
+					</table>
+				
+					<table width="760" cellspacing=0>
+						<tr bgcolor="#6eaec9">
+						    <td width="391" height="37" valign="middle" bgcolor="#6eaec9"><span class="style5">&nbsp;&nbsp; count : </span></td>
+						    <td width="346" valign="middle">
+								<form name="form1" method="post" action="">
+							        <input type="radio" name="searchSelect" value="book" checked>책&nbsp;&nbsp;
+									<input type="radio" name="searchSelect" value="library">서재 &nbsp;&nbsp;
+									<input type="input" name="keyword" value="search" size="25"> 돋보기
+								</form> 
+							</td>
+						</tr>
+					</table>
+				</td>	
+			</tr>			
 			<tr>
 				<td>
 					<decorator:body/>
 				</td>
 			</tr>
 			<tr>
-				<td>Footer 부분</td>
+				<td>
+					<table width="760" border="0" cellspacing="0">
+  						<tr bgcolor="#6eaec9">
+							<td width="760" height="50" valign="middle" bgcolor="#6eaec9" align="center">
+								<font color="white"><b> Copyright @ LoveBookTogether :D </b></font>
+							</td>
+						</tr>
+					</table>
+				</td>
 			</tr>
 		</table>
 	</body>
