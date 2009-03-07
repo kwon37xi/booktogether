@@ -4,6 +4,7 @@
 
 	<excludes>
 		<pattern>/user/findAddrView.do</pattern>
+		<pattern>/user/duplicateUserIdAjax.do</pattern>
 	</excludes>
 
 	<decorator name="main" page="layout.jsp">

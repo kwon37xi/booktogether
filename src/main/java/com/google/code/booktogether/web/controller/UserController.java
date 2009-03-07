@@ -1,9 +1,13 @@
 package com.google.code.booktogether.web.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +18,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.UserService;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.User;
@@ -606,6 +611,34 @@ public class UserController extends AbstractController {
 
 		return mav;
 
+	}
+	@RequestMapping("/user/duplicateUserIdAjax.do")
+	public void duplicateUserIdAjax(HttpServletRequest req, HttpServletResponse res,
+								@RequestParam(value = "userId", required = false) String userId) {
+		System.out.println("duplicateUserId2 :: start");
+		JSONObject json = new JSONObject();
+		boolean result = userService.duplicateUserId(userId);
+		
+		String message = null;
+		String retValue = null;
+
+		if (result) {
+			message = "사용 가능합니다.";
+			retValue = "success";
+		} else {
+			message = "아이디 중복입니다.";
+			retValue = "falure";
+		}
+		
+		json.element("message", message);
+		json.element("status", retValue);
+		try {
+			res.setContentType("text/html;charset=utf-8");
+			res.getWriter().print(json.toString());
+		} catch(IOException e) {
+			throw new BooktogetherException("아이디 중복처리 실패", e);
+		}
+		System.out.println("duplicateUserId2 :: end");
 	}
 
 	/**
