@@ -79,6 +79,8 @@ public class OpenLibraryCheckInterceptor extends HandlerInterceptorAdapter {
 			return false;
 
 		}
+		
+		log.info(library);
 
 		request.setAttribute("library", library);
 

@@ -12,6 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="/styles/common/default.css" />
 		
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/cornerz.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/common.js"></script>
 		
 		<decorator:head />

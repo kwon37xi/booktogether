@@ -8,32 +8,29 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/book/review.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
-		<script type="text/javascript" charset="utf-8" src="/scripts/common/common.js"></script>
-		<title>책조회</title>
+		<title>리뷰 조회</title>
 	</head>
 	<body>
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
-		<table border='1'>
-			<thead></thead>
+		<table id="bookinfo">
+			<thead>
+				<tr>
+					<td colspan="2">책정보</td>
+				</tr>
+			</thead>
 			<tbody>
 				<tr>
-					<td>책표지</td>
-					<td><img src="${bookInfo.bookCover}"/></td>
+					<td class="b_label">책표지</td>
+					<td class="b_label_c"><img src="${bookInfo.bookCover}"/></td>
 				</tr>
 				<tr>
-					<td>책이름</td>
-					<td>${fn:escapeXml(bookInfo.name)}</td>
+					<td class="b_label">책이름</td>
+					<td class="b_label_c">${fn:escapeXml(bookInfo.name)}</td>
 				</tr>
 				<tr>
-					<td>지은이</td>
-					<td>
+					<td class="b_label">지은이</td>
+					<td class="b_label_c">
 						<c:forEach begin="0" items="${bookInfo.authors}" var="authorInfo">
 							[${authorInfo.name}/
 							<c:if test="${authorInfo.authorDiv==0}">지음</c:if>
@@ -43,50 +40,68 @@
 					</td>
 				</tr>
 				<tr>
-					<td>ISBN</td>
-					<td>${bookInfo.ISBN10}</td>
+					<td class="b_label">ISBN</td>
+					<td class="b_label_c">${bookInfo.ISBN10}</td>
 				</tr>
 				<tr>
-					<td>출판사/출판일</td>
-					<td>${bookInfo.publishComp}/
+					<td class="b_label">출판사/출판일</td>
+					<td class="b_label_c">${bookInfo.publishComp}/
 						${fn:substring(bookInfo.publishDate,0,4)}년 
 						${fn:substring(bookInfo.publishDate,4,6)}월 
 						${fn:substring(bookInfo.publishDate,6,8)}일
 					</td>
 				</tr>
 				<tr>
-					<td>가격</td>
-					<td><fmt:formatNumber value="${bookInfo.price}" pattern=",###"/>원</td>
+					<td class="b_label">가격</td>
+					<td class="b_label_c"><fmt:formatNumber value="${bookInfo.price}" pattern=",###"/>원</td>
 				</tr>
 				<tr>
-					<td>카테고리</td>
-					<td>${bookInfo.category}</td>
+					<td class="b_label">카테고리</td>
+					<td class="b_label_c">${bookInfo.category}</td>
 				</tr>
 				<tr>
-					<td>설명</td>
-					<td>${bookInfo.description}</td>
+					<td class="b_label">설명</td>
+					<td class="b_label_c">${bookInfo.description}</td>
 				</tr>
 			</tbody>
-			<tfoot></tfoot>
 		</table>
 		
-		<div>
-			<form method="post" name="reviewform" action="/book/modifyBookReviewView.do">
-				<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
-				<p>			
-					제목 : ${fn:escapeXml(bookReviewInfo.title)}
-				</p>
-				<p>
-					<c:out value="${bookReviewInfo.review}" escapeXml="false"/> 
-				</p>
-				<c:if test="${bookReviewInfo.user.idNum==sessionScope.idNum}">
-					<input type="submit" value="수정"/>
-				</c:if>
-				
-			</form>
-		</div>
+		<form method="post" name="reviewform" action="/book/modifyBookReviewView.do">
+			<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
+			<table id="reviewview">
+				<thead>
+					<tr>
+						<td colspan="2">리뷰조회</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="b_label">제목</td>
+						<td class="b_label_c">
+							${fn:escapeXml(bookReviewInfo.title)}
+						</td>
+					</tr>
+					<tr>
+						<td class="b_label">내용</td>
+						<td class="b_label_c">
+							<c:out value="${bookReviewInfo.review}" escapeXml="false"/> 
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="2">
+							<c:if test="${bookReviewInfo.user.idNum==sessionScope.idNum}">
+								<input type="submit" value="수정"/>
+							</c:if>
+						</td>
+					</tr>
+				</tfoot>
+			</table>					
+		</form>
 		
-		<div>
+		<div id="navigator">
+		
 			<a href="javascript:history.go(-1)">뒤로</a>
 			
 			<c:if test="${sessionScope.idNum!=null && bookReviewInfo.user.idNum!=sessionScope.idNum}">

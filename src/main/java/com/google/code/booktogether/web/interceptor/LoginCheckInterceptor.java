@@ -31,7 +31,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 		} else {
 			ra.setAttribute("message", "로그인 되어있지 않습니다.",
 					RequestAttributes.SCOPE_SESSION);
-			response.sendRedirect("/user/login.do");
+			response.sendRedirect("/index.do");
 			return false;
 		}
 

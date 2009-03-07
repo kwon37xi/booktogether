@@ -3,12 +3,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/user/pwmodify.css" rel="stylesheet" type="text/css"/>
 		<title>비밀번호 찾기</title>
 	</head>
 	<body>
 		<form name="findPwform" method="post" action="/user/modifyPw.do">
-			<table>
+			<table id="pw_modify">
 				<thead>
 					<tr>
 						<td colspan="2">비밀번호 변경</td>
@@ -16,16 +16,16 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><label for="pw">기존 비밀번호</label></td>
-						<td><input type="password" name="pw" size="20"/></td>
+						<td class="u_label"><label for="pw">기존 비밀번호</label></td>
+						<td class="u_label_c"><input type="password" name="pw" size="30"/></td>
 					</tr>
 					<tr>
-						<td><label for="pw_c">비밀번호 변경</label></td>
-						<td><input type="password" name="newPw" size="20"/></td>
+						<td class="u_label"><label for="pw_c">비밀번호 변경</label></td>
+						<td class="u_label_c"><input type="password" name="newPw" size="30"/></td>
 					</tr>
 					<tr>
-						<td><label for="pw_c_again">비밀번호 변경확인</label></td>
-						<td><input type="password" name="newPwAgain" size="20"/></td>
+						<td class="u_label"><label for="pw_c_again">비밀번호 변경확인</label></td>
+						<td class="u_label_c"><input type="password" name="newPwAgain" size="30"/></td>
 					</tr>
 				</tbody>
 				<tfoot>

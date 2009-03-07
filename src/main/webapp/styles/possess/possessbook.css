@@ -1,0 +1,41 @@
+table {
+	margin-top: 10px;
+}
+
+table thead td {
+	height: 20px;
+	background-color: #e1f0f5;
+}
+
+.p_label {
+	padding: 5px 0;
+	text-align: center;
+	background-color: #e1f0f5;
+	width: 100px;
+}
+
+#bookinfo_simple {
+	width: 450px;
+	border: 1px #e1f0f5 dashed;
+}
+
+#listpossessbook {
+	border: 1px #6eaec9 dashed;
+}
+
+#possessbok_info {
+	width: 450px;
+	margin: 20px 0;
+	border: 1px #e1f0f5 dashed;
+}
+
+#zonepossesslist {
+	width: 450px;
+	margin: 20px 0;
+	border: 1px #e1f0f5 dashed;
+}
+
+#interestlibrary {
+	width: 450px;
+	border: 1px #e1f0f5 dashed;
+}

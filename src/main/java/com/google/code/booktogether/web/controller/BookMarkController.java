@@ -192,7 +192,7 @@ public class BookMarkController extends AbstractController {
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping("/book/getListMyBookMark.do")
+	@RequestMapping("/library/getListMyBookMark.do")
 	public ModelAndView handleGetListMyBookMark(
 			HttpServletRequest req,
 			@RequestParam(value = "userIdNum", required = false) Integer userIdNum,

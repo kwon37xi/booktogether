@@ -243,7 +243,7 @@ public class BookReviewController extends AbstractController {
 
 		BookReview bookReview = new BookReview();
 		bookReview.getBook().setIdNum(bookIdNum);
-		bookReview.getUser().setIdNum(bookIdNum);
+		bookReview.getUser().setIdNum(getLoginUserIdNum());
 		bookReview.setIdNum(bookReviewIdNum);
 		bookReview.setTitle(title);
 		bookReview.setReview(review);
@@ -302,7 +302,7 @@ public class BookReviewController extends AbstractController {
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping("/book/getListMyReview.do")
+	@RequestMapping("/library/getListMyReview.do")
 	public ModelAndView handleGetListMyReview(
 			HttpServletRequest req,
 			@RequestParam(value = "userIdNum", required = false) Integer userIdNum,

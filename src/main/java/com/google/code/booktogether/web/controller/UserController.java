@@ -163,10 +163,7 @@ public class UserController extends AbstractController {
 		// 세션 삭제-전부
 		req.getSession().invalidate();
 
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main/main");
-
-		return mav;
+		return new ModelAndView("redirect:/index.do");
 
 	}
 
@@ -535,7 +532,7 @@ public class UserController extends AbstractController {
 		RequestContextHolder.getRequestAttributes().setAttribute("message",
 				message, RequestAttributes.SCOPE_SESSION);
 
-		return new ModelAndView("redirect:/user/login.do");
+		return new ModelAndView("redirect:/index.do");
 
 	}
 

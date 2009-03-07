@@ -17,19 +17,19 @@ function deleteZone(zoneIdNum){
 function addThumnail(){
 	
 	var file_tag=document.createElement("input");
-	
 	file_tag.setAttribute("type", "file");
 	file_tag.setAttribute("name", "thumnail");
-	file_tag.setAttribute("size", "20");
+	file_tag.setAttribute("size", "25");
 	
 	var button_tag=document.createElement("input");
 	button_tag.setAttribute("type", "button");
 	button_tag.setAttribute("value", "삭제");
 	button_tag.setAttribute("onclick", "removeThumnail()");
 	
-	$('modifythumnaildiv').innerHTML="";
-	$('modifythumnaildiv').appendChild(file_tag);
-	$('modifythumnaildiv').appendChild(button_tag);
+	$('#modifythumnaildiv').empty();
+	$('#modifythumnaildiv').append(file_tag);
+	$('#modifythumnaildiv').append("&nbsp;");
+	$('#modifythumnaildiv').append(button_tag);
 	
 }
 
@@ -42,7 +42,7 @@ function findAddr(ele_seq){
 
 function removeThumnail(){
 	
-	$('modifythumnaildiv').innerHTML="";
+	$('#modifythumnaildiv').empty();
 	
 }
 

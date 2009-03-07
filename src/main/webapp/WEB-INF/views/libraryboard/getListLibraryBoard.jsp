@@ -8,7 +8,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/library/board.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/library/library.js"></script>
 		<title>방명록</title>
 	</head>
@@ -26,7 +26,7 @@
 			<c:forEach begin="0" items="${libraryBoardList}" var="libraryBoardInfo" varStatus="status">
 				<li>${libraryBoardInfo.content} / ${libraryBoardInfo.writerUserId} / ${libraryBoardInfo.inputDate}
 					<c:if test="${libraryBoardInfo.writer==sessionScope.idNum}">
-						<a href="/libraryboard/deleteLibraryBoard.do?boardIdNum=${libraryBoardInfo.idNum}&libraryIdNum=${libraryBoardInfo.libraryIdNum}">삭제</a>
+						<a href="/library/deleteLibraryBoard.do?boardIdNum=${libraryBoardInfo.idNum}&libraryIdNum=${libraryBoardInfo.libraryIdNum}">삭제</a>
 					</c:if>
 				</li>
 			</c:forEach>
@@ -34,7 +34,7 @@
 		
 		<c:choose>
 			<c:when test="${sessionScope.idNum!=null}">
-				<form action="/libraryboard/insertLibraryBoard.do" method="post" name="insertLibraryBoardform">
+				<form action="/library/insertLibraryBoard.do" method="post" name="insertLibraryBoardform">
 				
 					<input type="hidden" name="libraryIdNum" value="${libraryIdNum}"/>
 					

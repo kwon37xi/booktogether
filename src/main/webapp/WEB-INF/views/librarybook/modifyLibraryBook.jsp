@@ -11,31 +11,27 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
-		<title>서재에 등록하기</title>
+		<title>서재 책 수정하기</title>
 	</head>
 	<body>
 		
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
-		
-		책정보
-		<table border='1'>
-			<thead></thead>
+		<table id="bookinfo_simple">
+			<thead>
+				<tr>
+					<td colspan="2">책정보</td>
+				</tr>
+			</thead>
 			<tbody>
 				<tr>
-					<td>책표지</td>
+					<td class="b_label">책표지</td>
 					<td><img src="${bookInfo.bookCover}"/></td>
 				</tr>
 				<tr>
-					<td>책이름</td>
+					<td class="b_label">책이름</td>
 					<td>${bookInfo.name}</td>
 				</tr>
 				<tr>
-					<td>지은이</td>
+					<td class="b_label">지은이</td>
 					<td>
 						<c:forEach begin="0" items="${bookInfo.authors}" var="authorInfo">
 							[${authorInfo.name}/
@@ -46,34 +42,18 @@
 					</td>
 				</tr>
 				<tr>
-					<td>ISBN</td>
-					<td>${bookInfo.ISBN10}</td>
-				</tr>
-				<tr>
-					<td>출판사/출판일</td>
+					<td class="b_label">출판사/출판일</td>
 					<td>${bookInfo.publishComp}/
 						${fn:substring(bookInfo.publishDate,0,4)}년 
 						${fn:substring(bookInfo.publishDate,4,6)}월 
 						${fn:substring(bookInfo.publishDate,6,8)}일
 					</td>
 				</tr>
-				<tr>
-					<td>가격</td>
-					<td><fmt:formatNumber value="${bookInfo.price}" pattern=",###"/>원</td>
-				</tr>
-				<tr>
-					<td>카테고리</td>
-					<td>${bookInfo.category}</td>
-				</tr>
-				<tr>
-					<td>설명</td>
-					<td>${bookInfo.description}</td>
-				</tr>
 			</tbody>
 			<tfoot></tfoot>
 		</table>
 		
-		수정하기
+		
 		<form name="modifyBookMyLibraryform" method="post" action="/library/modifyLibraryBook.do">
 		
 			<input type="hidden" name="book.idNum" value="${bookInfo.idNum}"/>
@@ -82,21 +62,22 @@
 			<input type="hidden" name="possessIdNum" value="${possessBook.idNum}"/>
 			<input type="hidden" name="beforeIsPossess" value="${libraryBook.isPossess}" />
 			
-			<table border='1'>
-				<thead></thead>
+			<table id="modifypossessbook">
+				<thead>
+					<tr>
+						<td>수정하기</td>
+					</tr>
+				</thead>
 				<tbody>
 					<tr>
 						<td>어느쪽으로 책 분류 하시겠습니까?</td>
 					</tr>
 					<tr>
 						<td>
-							<input type="radio" name="state" value="0" ${libraryBook.state==0 ? 'checked' : ''}/>읽고 싶은책<br/>
-							<input type="radio" name="state" value="1" ${libraryBook.state==1 ? 'checked' : ''}/>읽고 있는책<br/>
-							<input type="radio" name="state" value="2" ${libraryBook.state==2 ? 'checked' : ''}/>읽은 책<br/>
-						</td>
-					</tr>
-					<tr>
-						<td>
+							<input type="radio" name="state" value="0" ${libraryBook.state==0 ? 'checked' : ''}/>읽고 싶은책 
+							<input type="radio" name="state" value="1" ${libraryBook.state==1 ? 'checked' : ''}/>읽고 있는책 
+							<input type="radio" name="state" value="2" ${libraryBook.state==2 ? 'checked' : ''}/>읽은 책 
+							
 							<fmt:formatDate value="${libraryBook.readDate}" pattern="yyyy" var="readDateYear"/>
 							<fmt:formatDate value="${libraryBook.readDate}" pattern="MM" var="readDateMonth"/>
 							<fmt:formatDate value="${libraryBook.readDate}" pattern="dd" var="readDateDate"/>
@@ -107,11 +88,13 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="checkbox" name="isPossess" ${libraryBook.isPossess==1 ? 'checked' : ''} value="1" />소유여부
-							
 							<table>
 								<tr>
-									<td>구입날짜</td>
+									<td class="p_label">소유여부</td>
+									<td><input type="checkbox" name="isPossess" ${libraryBook.isPossess==1 ? 'checked' : ''} value="1" /></td>
+								</tr>
+								<tr>
+									<td class="p_label">구입날짜</td>
 									<td>
 										<fmt:formatDate value="${possessBook.purchaseDate}" pattern="yyyy" var="purchaseDateYear"/>
 										<fmt:formatDate value="${possessBook.purchaseDate}" pattern="MM" var="purchaseDateMonth"/>
@@ -121,14 +104,14 @@
 										<input type="text" name="purchaseDateDate" size="2" value="${purchaseDateDate}"/>
 									</td>
 								</tr>
-									<tr>
-										<td>구입가격</td>
-										<td>
-											<input type="text" name="purchasePrice" size="20" value="${possessBook.purchasePrice}"/>
-										</td>
-									</tr>
 								<tr>
-									<td>독서시작일</td>
+									<td class="p_label">구입가격</td>
+									<td>
+										<input type="text" name="purchasePrice" size="20" value="${possessBook.purchasePrice}"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="p_label">독서시작일</td>
 									<td>
 										<fmt:formatDate value="${possessBook.beginRead}" pattern="yyyy" var="beginReadYear"/>
 										<fmt:formatDate value="${possessBook.beginRead}" pattern="MM" var="beginReadMonth"/>
@@ -139,7 +122,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td>독서종료일</td>
+									<td class="p_label">독서종료일</td>
 									<td>
 										<fmt:formatDate value="${possessBook.endRead}" pattern="yyyy" var="endReadYear"/>
 										<fmt:formatDate value="${possessBook.endRead}" pattern="MM" var="endReadMonth"/>
@@ -150,7 +133,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td>책품질</td>
+									<td class="p_label">책품질</td>
 									<td>
 										<select name="quality">
 											<option value="0" ${possessBook.quality==0 ? 'selected' : ''}>상</option>
@@ -160,7 +143,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td>책상태</td>
+									<td class="p_label">책상태</td>
 									<td>
 										<select name="bookstate">
 											<option value="0" ${possessBook.state==0 ? 'selected' : ''}>소유</option>
@@ -177,14 +160,11 @@
 					<tr>
 						<td>
 							<input type="submit" value="수정"/>
+							<input type="button" value="뒤로" onclick="javascript:history.go(-1)"/>
 						</td>
 					</tr>
 				</tfoot>
 			</table>
 		</form>
-		<div id=''>
-			<a href="javascript:history.go(-1)">뒤로</a>
-		</div>
-		
 	</body>
 </html>

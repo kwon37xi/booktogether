@@ -1,0 +1,45 @@
+#user_info {
+	margin-left: 100px;
+	width: 500px;
+}
+
+#user_info thead td{
+	padding:10px;
+}
+
+
+#user_add_info {
+	margin-left: 100px;
+	width: 500px;
+}
+
+#user_add_info thead td{
+	padding:10px;
+}
+
+
+#navigator {
+	text-align: center;
+	margin-top: 50px;
+}
+
+#navigator a{
+	margin:0 5px;
+}
+
+.u_label {
+	padding:5px 0;
+	text-align:center;
+	background-color: #e1f0f5;
+	width: 150px;
+}
+
+.u_label_c {
+	padding:7px 0 7px 20px;
+	width: 350px;
+}
+
+hr {
+	margin-left: 40px;
+	border: 1px #e1f0f5 dashed;
+}

@@ -6,18 +6,32 @@
 		<description>서재에 해당책 조회(사용자, 책 일련번호)</description>
 		<query>
             <![CDATA[
-             SELECT idNum as idNum
-                    , book_idNum as bidNum
-                    , user_idNum as uidNum
-                    , purchase_Date as pdate
-                    , purchase_Price as price
-                    , begin_Read as bread
-                    , end_Read as eread
-                    , quality as quality
-                    , state as state
-               FROM POSSESSBOOK 
-              WHERE user_idNum = ?
-                AND book_idNum = ? 
+             SELECT POS.idNum as idNum
+                    ,POS.user_idNum as uidNum
+                    ,POS.purchase_Date as pdate
+                    ,POS.purchase_Price as price
+                    ,POS.begin_Read as bread
+                    ,POS.end_Read as eread 
+                    ,POS.quality as quality
+                    ,POS.state  as state
+                    ,B.idNum as bidnum
+                    ,B.name as bname
+                    ,B.isbn10 as isbn10
+                    ,B.isbn13 as isbn13
+                    ,B.publish_comp as bcomp
+                    ,B.publish_date as bdate
+                    ,B.price as bprice
+                    ,B.cover as bcover
+                    ,B.category as category
+				    ,A.name as author
+               FROM POSSESSBOOK POS, USER U, BOOK B, AUTHOR A
+              WHERE U.isdelete = 0
+				AND POS.book_idNum=B.idNum
+				AND B.idNum=A.book_idNum
+				AND A.author_div = 0
+                AND U.idNum = POS.user_idNum
+                AND POS.user_idNum = ?
+                AND POS.book_idNum = ?  
             ]]>
 		</query>
 	</sql>

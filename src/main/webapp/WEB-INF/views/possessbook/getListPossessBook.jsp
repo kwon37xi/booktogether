@@ -9,7 +9,6 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/library/library.js"></script>
 		<title>소유책 목록</title>
 	</head>
@@ -22,19 +21,23 @@
 			<c:remove scope="session" var="message"/>
 		</c:if>
 	
-		<table border="1">
-			<thead></thead>
+		<table>
+			<thead>
+				<tr>
+					<td>보유책</td>
+				</tr>
+			</thead>
 			<tbody>
 				<c:choose>
 					<c:when test="${fn:length(possessBookList)!=0}">
 						<c:forEach begin="0" items="${possessBookList}" var="possessBook" varStatus="status">
 							<tr>
 								<td>
-									<table border="1">
+									<table id="listpossessbook">
 										<tbody>
 											<tr>
 												<td rowspan="4"><img src="${possessBook.book.bookCover}"/></td>
-												<td>제목 : <a href="javascript:getPossessBook('${possessBook.idNum}')">${possessBook.book.name}</a></td>
+												<td>제목 : <a href="javascript:getPossessBook('${possessBook.idNum}','${library.idNum}','${library.user.idNum}')">${possessBook.book.name}</a></td>
 												<td>지은이 : ${possessBook.book.authors[0].name} 지음	</td>
 											</tr>
 											<tr>
@@ -65,8 +68,8 @@
 										<tfoot>
 											<tr>
 												<td colspan="3">
-													<a href="/library/modifyPossessBookView.do?possessBookIdNum=${possessBook.idNum}">수정</a> /
-													<a href="/library/deletePossessBook.do?possessBookIdNum=${possessBook.idNum}">삭제</a> 
+													<a href="/library/modifyPossessBookView.do?libraryIdNum=${library.idNum}&possessBookIdNum=${possessBook.idNum}">수정</a> /
+													<a href="/library/deletePossessBook.do?libraryIdNum=${library.idNum}&possessBookIdNum=${possessBook.idNum}">삭제</a> 
 												  
 												</td>
 											</tr>
@@ -87,7 +90,7 @@
 			<tfoot></tfoot>
 		</table>	
 		
-		<div id='page_div'>
+		<div id='navigator'>
 			<c:if test="${pageBean.prePage}">
 				<a href="javascript:go_page_possessbook('${pageBean.startPage-pageBean.limit}','${param.userId}')">이전</a>
 			</c:if>
@@ -99,10 +102,6 @@
 			<c:if test="${pageBean.nextPage}">
 				<a href="javascript:go_page_possessbook('${pageBean.startPage+pageBean.limit}','${param.userId}')">다음</a>
 			</c:if>
-		</div>
-		
-		<div id=''>
-			<a href="javascript:history.go(-1)">뒤로</a>
 		</div>
 		
 	</body>
