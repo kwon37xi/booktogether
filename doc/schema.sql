@@ -1,3 +1,4 @@
+
 CREATE TABLE `author` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
@@ -8,6 +9,8 @@ CREATE TABLE `author` (
   CONSTRAINT `FK_author_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
 CREATE TABLE `bestsellers` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `book_idNum` int(11) NOT NULL,
@@ -16,6 +19,8 @@ CREATE TABLE `bestsellers` (
   KEY `FK_bestsellers_1` (`book_idNum`),
   CONSTRAINT `FK_bestsellers_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 CREATE TABLE `book` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -31,6 +36,8 @@ CREATE TABLE `book` (
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
 CREATE TABLE `bookgrade` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `book_idNum` int(11) NOT NULL,
@@ -39,9 +46,11 @@ CREATE TABLE `bookgrade` (
   PRIMARY KEY (`idNum`),
   KEY `FK_bookgrade_1` (`book_idNum`),
   KEY `FK_bookgrade_2` (`user_idNum`),
-  CONSTRAINT `FK_bookgrade_2` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`),
-  CONSTRAINT `FK_bookgrade_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`)
+  CONSTRAINT `FK_bookgrade_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`),
+  CONSTRAINT `FK_bookgrade_2` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 CREATE TABLE `bookhits` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -51,6 +60,8 @@ CREATE TABLE `bookhits` (
   KEY `FK_bookhits_1` (`book_idNum`),
   CONSTRAINT `FK_bookhits_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 CREATE TABLE `bookmark` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -63,9 +74,12 @@ CREATE TABLE `bookmark` (
   PRIMARY KEY (`idNum`),
   KEY `FK_bookmark_1` (`user_idNum`),
   KEY `FK_bookmark_2` (`book_idNum`),
-  CONSTRAINT `FK_bookmark_2` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`),
-  CONSTRAINT `FK_bookmark_1` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
+  CONSTRAINT `FK_bookmark_1` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`),
+  CONSTRAINT `FK_bookmark_2` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 
 CREATE TABLE `bookreview` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -81,12 +95,16 @@ CREATE TABLE `bookreview` (
   CONSTRAINT `FK_bookreview_2` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
 CREATE TABLE `goodwriter` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `input_date` datetime NOT NULL,
   `content` varchar(200) NOT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 
 CREATE TABLE `interestlibrary` (
@@ -96,9 +114,11 @@ CREATE TABLE `interestlibrary` (
   PRIMARY KEY (`idNum`),
   KEY `FK_interestlibrary_1` (`standard`),
   KEY `FK_interestlibrary_2` (`target`),
-  CONSTRAINT `FK_interestlibrary_2` FOREIGN KEY (`target`) REFERENCES `user` (`idNum`),
-  CONSTRAINT `FK_interestlibrary_1` FOREIGN KEY (`standard`) REFERENCES `user` (`idNum`)
+  CONSTRAINT `FK_interestlibrary_1` FOREIGN KEY (`standard`) REFERENCES `user` (`idNum`),
+  CONSTRAINT `FK_interestlibrary_2` FOREIGN KEY (`target`) REFERENCES `user` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 
 CREATE TABLE `library` (
@@ -110,6 +130,8 @@ CREATE TABLE `library` (
   KEY `FK_library_1` (`user_idNum`),
   CONSTRAINT `FK_library_1` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 
 CREATE TABLE `libraryboard` (
@@ -124,6 +146,7 @@ CREATE TABLE `libraryboard` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+
 CREATE TABLE `librarybook` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `book_idNum` int(11) NOT NULL,
@@ -134,9 +157,11 @@ CREATE TABLE `librarybook` (
   PRIMARY KEY (`idNum`),
   KEY `FK_librarybook_1` (`book_idNum`),
   KEY `FK_librarybook_2` (`library_idNum`),
-  CONSTRAINT `FK_librarybook_2` FOREIGN KEY (`library_idNum`) REFERENCES `library` (`idNum`),
-  CONSTRAINT `FK_librarybook_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`)
+  CONSTRAINT `FK_librarybook_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`),
+  CONSTRAINT `FK_librarybook_2` FOREIGN KEY (`library_idNum`) REFERENCES `library` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 
 CREATE TABLE `libraryrank` (
@@ -148,6 +173,8 @@ CREATE TABLE `libraryrank` (
   `total` int(11) NOT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 
 CREATE TABLE `possessbook` (
@@ -163,9 +190,23 @@ CREATE TABLE `possessbook` (
   PRIMARY KEY (`idNum`),
   KEY `FK_possessbook_1` (`book_idNum`),
   KEY `FK_possessbook_2` (`user_idNum`),
-  CONSTRAINT `FK_possessbook_2` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`),
-  CONSTRAINT `FK_possessbook_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`)
+  CONSTRAINT `FK_possessbook_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`),
+  CONSTRAINT `FK_possessbook_2` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+CREATE TABLE `recobook` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `book_idNum` int(11) NOT NULL,
+  `input_date` datetime NOT NULL,
+  PRIMARY KEY (`idNum`),
+  KEY `FK_recobook` (`book_idNum`),
+  CONSTRAINT `FK_recobook` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 
 CREATE TABLE `recommend` (
@@ -175,9 +216,10 @@ CREATE TABLE `recommend` (
   PRIMARY KEY (`idNum`),
   KEY `FK_recommend_1` (`user_idNum`),
   KEY `FK_recommend_2` (`review_idNum`),
-  CONSTRAINT `FK_recommend_2` FOREIGN KEY (`review_idNum`) REFERENCES `bookreview` (`idNum`),
-  CONSTRAINT `FK_recommend_1` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
+  CONSTRAINT `FK_recommend_1` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`),
+  CONSTRAINT `FK_recommend_2` FOREIGN KEY (`review_idNum`) REFERENCES `bookreview` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE `searchquery` (
@@ -185,6 +227,9 @@ CREATE TABLE `searchquery` (
   `search_num` int(11) NOT NULL,
   PRIMARY KEY (`query`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 
 CREATE TABLE `user` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
@@ -198,6 +243,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+
 CREATE TABLE `user_pw` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `user_idNum` int(11) NOT NULL,
@@ -207,6 +253,7 @@ CREATE TABLE `user_pw` (
   KEY `FK_user_pw_1` (`user_idNum`),
   CONSTRAINT `FK_user_pw_1` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE `useraddinfo` (
@@ -220,6 +267,7 @@ CREATE TABLE `useraddinfo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+
 CREATE TABLE `vibe` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `user_idNum` int(11) NOT NULL,
@@ -227,9 +275,11 @@ CREATE TABLE `vibe` (
   PRIMARY KEY (`idNum`),
   KEY `FK_vibe_1` (`user_idNum`),
   KEY `FK_vibe_2` (`bookmark_idNum`),
-  CONSTRAINT `FK_vibe_2` FOREIGN KEY (`bookmark_idNum`) REFERENCES `bookmark` (`idNum`),
-  CONSTRAINT `FK_vibe_1` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
+  CONSTRAINT `FK_vibe_1` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`),
+  CONSTRAINT `FK_vibe_2` FOREIGN KEY (`bookmark_idNum`) REFERENCES `bookmark` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 
 CREATE TABLE `zipcode` (
@@ -242,6 +292,8 @@ CREATE TABLE `zipcode` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+
+
 CREATE TABLE `zone` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `user_idNum` int(11) NOT NULL,
@@ -249,7 +301,7 @@ CREATE TABLE `zone` (
   PRIMARY KEY (`idNum`),
   KEY `FK_zone_1` (`zone`),
   KEY `FK_zone_2` (`user_idNum`),
-  CONSTRAINT `FK_zone_2` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`),
-  CONSTRAINT `FK_zone_1` FOREIGN KEY (`zone`) REFERENCES `zipcode` (`idNum`)
+  CONSTRAINT `FK_zone_1` FOREIGN KEY (`zone`) REFERENCES `zipcode` (`idNum`),
+  CONSTRAINT `FK_zone_2` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
