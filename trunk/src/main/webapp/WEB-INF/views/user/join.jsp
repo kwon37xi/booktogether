@@ -9,7 +9,25 @@
 		<link href="/styles/user/join.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/common.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery.js"></script>
 		<title>회원가입</title>
+		<script type="text/javascript">
+		jQuery(function($){
+
+			$("#userId").click(function(){
+				$("#duplicateId").trigger("click");
+				return false;
+			});
+			
+			$("#duplicateId").click(function(){
+				var url = "/user/duplicateUserIdView.do?decorator=popup&confirm=true";
+				var ret = window.showModalDialog(url,window,"dialogWidth:300px; dialogHeight:200px; help:no; scroll:no; resizable;no; status:no");
+				$("#userId").val(ret);
+				return false;
+			});
+			
+		});
+		</script>
 	</head>
 	<body>
 	
@@ -28,8 +46,7 @@
 							<label for="userId">ID</label>
 						</td>
 						<td>
-							<input type="text" name="userId" size="20" readonly="readonly"/>
-							<a href="/user/duplicateUserIdView.do?decorator=popup&confirm=true" target="_blank">중복 확인</a>
+							<input type="text" name="userId" id="userId" size="20" readonly="readonly"/><span id="duplicateId" style="cursor: pointer;"> 중복 확인</span>
 						</td>
 					<tr>
 						<td class="join_label">
