@@ -106,6 +106,10 @@ table thead td {
 	border: 1px #e1f0f5 dashed;
 }
 
+#library_menu tbody td {
+	padding: 3px 5px;
+}
+
 #library_main_intro {
 	width: 450px;
 	height: 100%;

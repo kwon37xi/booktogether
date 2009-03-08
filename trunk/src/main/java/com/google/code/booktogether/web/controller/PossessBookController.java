@@ -298,6 +298,7 @@ public class PossessBookController extends AbstractController {
 	public ModelAndView handleDeletePossessBook(
 			HttpServletRequest req,
 			@RequestParam(value = "possessBookIdNum", required = false) Integer possessBookIdNum) {
+		
 
 		boolean result = libraryService.deletePossessBook(getLoginUserIdNum(),
 				possessBookIdNum);
@@ -305,10 +306,18 @@ public class PossessBookController extends AbstractController {
 		if (log.isInfoEnabled()) {
 			log.info(result);
 		}
+		
+		if(result){
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"내소유 책 삭제 성공", RequestAttributes.SCOPE_SESSION);
+		}else{
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"내소유 책 삭제 실패", RequestAttributes.SCOPE_SESSION);
+		}
 
 		// 경로 설정
 		return new ModelAndView(
-				"redirect:/possessbook/getListPossessBook.do?userId="
+				"redirect:/library/getListPossessBook.do?userId="
 						+ getLoginUserId());
 
 	}

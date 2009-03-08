@@ -179,8 +179,16 @@ public class BookController extends AbstractController {
 		query = (query == null || query.equals("")) ? null : query.trim();
 		searchType = (searchType == null) ? "book" : searchType;
 		
+		String temp_query="";
+		
+		try {
+			temp_query = URLEncoder.encode(query, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			throw new BooktogetherException("UTF-8로 인코딩에러", e1);
+		}
+		
 		if(searchType.equals("library")){
-			return new ModelAndView("redirect:/main/searchLibrary.do?query="+query);
+			return new ModelAndView("redirect:/main/searchLibrary.do?query="+temp_query);
 		}
 		
 		String searchType_div="all";

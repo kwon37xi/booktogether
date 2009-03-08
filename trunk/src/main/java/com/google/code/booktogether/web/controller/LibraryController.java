@@ -146,6 +146,8 @@ public class LibraryController extends AbstractController {
 	public ModelAndView handleSearchLibrary(HttpServletRequest req,
 			@RequestParam(value = "query", required = false) String query) {
 
+		System.out.println(query);
+		
 		List<User> userList = null;
 
 		if (query != null) {

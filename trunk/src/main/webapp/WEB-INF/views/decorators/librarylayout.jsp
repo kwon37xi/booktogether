@@ -47,14 +47,14 @@
 				<td>
 					<table id="searchbook_div">
 						<tr>
-						    <td class="count_info"><span class="style5">&nbsp;&nbsp; count : </span></td>
+						    <td class="count_info"><span class="style5">&nbsp;&nbsp; Love, Book Together에 오신것을 환영합니다 </span></td>
 						    <td class="search_div">
 								<form name="searchBookform" action="/book/searchBook.do" method="post">
 									<input type="hidden" name="pageNo" value="1"/>
 									<input type="hidden" name="beforeQuery" value="${requestScope.query}"/>
 									
-									<input type="radio" name="searchType" value="book" ${searchType=='book'? checked :''}/>책&nbsp;&nbsp;
-									<input type="radio" name="searchType" value="library" ${searchType=='library'? checked :''}/>서재 &nbsp;&nbsp;
+									<input type="radio" name="searchType" value="book" ${searchType=='book'? 'checked' :''}/>책&nbsp;&nbsp;
+									<input type="radio" name="searchType" value="library" ${searchType=='library'? 'checked' :''}/>서재 &nbsp;&nbsp;
 									
 									<input type="text" name="query" size="30" value="${requestScope.query}"/>
 									<input type="submit" value="검색"/>
@@ -94,7 +94,7 @@
 											</tr>
 											<tr>
 												<td colspan="2">
-													<c:if test="${sessionScope.idNum!=null ||sessionScope.idNum==library.user.userId}">
+													<c:if test="${sessionScope.idNum!=null && sessionScope.idNum==library.user.idNum}">
 														<a href="/library/modifyLibraryView.do">서재정보 수정</a>
 													</c:if>
 													

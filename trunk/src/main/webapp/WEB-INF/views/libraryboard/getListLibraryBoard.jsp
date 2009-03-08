@@ -24,7 +24,7 @@
 				<c:forEach begin="0" items="${libraryBoardList}" var="libraryBoardInfo" varStatus="status">
 					<tr>
 						<td>
-							<img src="/images/library/board_bullet.gif"/>
+							<img src="/images/library/board_bullet.gif" width="12" height="12"/>
 							${libraryBoardInfo.content} / ${libraryBoardInfo.writerUserId} / ${libraryBoardInfo.inputDate}
 							<c:if test="${libraryBoardInfo.writer==sessionScope.idNum}">
 								<a href="/library/deleteLibraryBoard.do?boardIdNum=${libraryBoardInfo.idNum}&libraryIdNum=${libraryBoardInfo.libraryIdNum}">삭제</a>
@@ -45,7 +45,7 @@
 					<input type="hidden" name="libraryIdNum" value="${libraryIdNum}"/>
 					
 					
-					<input type="text" name="content" size="20"/>
+					<input type="text" name="content" size="40"/>
 					<input type="submit" value="입력"/>
 					
 				</form>
