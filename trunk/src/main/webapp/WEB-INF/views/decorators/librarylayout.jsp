@@ -53,8 +53,8 @@
 									<input type="hidden" name="pageNo" value="1"/>
 									<input type="hidden" name="beforeQuery" value="${requestScope.query}"/>
 									
-									<input type="radio" name="searchType" value="book" checked/>책&nbsp;&nbsp;
-									<input type="radio" name="searchType" value="library"/>서재 &nbsp;&nbsp;
+									<input type="radio" name="searchType" value="book" ${searchType=='book'? checked :''}/>책&nbsp;&nbsp;
+									<input type="radio" name="searchType" value="library" ${searchType=='library'? checked :''}/>서재 &nbsp;&nbsp;
 									
 									<input type="text" name="query" size="30" value="${requestScope.query}"/>
 									<input type="submit" value="검색"/>
@@ -84,13 +84,13 @@
 										<tbody>
 											<tr>
 												<td rowspan="3"><img src="/images/user/thumnail/${library.user.userAddInfo.thumnail}"/></td>
-												<td>이름 : ${library.user.name}</td>
+												<td>${library.user.name}</td>
 											</tr>
 											<tr>
-												<td>닉네임 : ${library.user.nickname}</td>
+												<td>${library.user.nickname}</td>
 											</tr>
 											<tr>
-												<td>아이디 : ${library.user.userId}</td>
+												<td>${library.user.userId}</td>
 											</tr>
 											<tr>
 												<td colspan="2">

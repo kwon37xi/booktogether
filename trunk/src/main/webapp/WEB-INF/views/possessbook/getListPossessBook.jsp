@@ -21,7 +21,7 @@
 			<c:remove scope="session" var="message"/>
 		</c:if>
 	
-		<table>
+		<table class="possessbook_list">
 			<thead>
 				<tr>
 					<td>보유책</td>
@@ -33,7 +33,7 @@
 						<c:forEach begin="0" items="${possessBookList}" var="possessBook" varStatus="status">
 							<tr>
 								<td>
-									<table id="listpossessbook">
+									<table id="possessbook_listresult">
 										<tbody>
 											<tr>
 												<td rowspan="4"><img src="${possessBook.book.bookCover}"/></td>
@@ -82,7 +82,7 @@
 					</c:when>
 					<c:otherwise>
 						<tr>
-							<td>검색 결과가 없습니다.</td>
+							<td class="nocontent">검색 결과가 없습니다.</td>
 						</tr>
 					</c:otherwise>				
 				</c:choose>

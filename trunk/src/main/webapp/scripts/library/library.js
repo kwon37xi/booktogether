@@ -79,4 +79,10 @@ function getLibrary(userId){
 	
 }
 
+function getLibraryBook(userId){
+	
+	location.href="/library/getLibrary.do?userId="+userId;
+	
+}
+
 

@@ -6,35 +6,34 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="/styles/library/library.css" />
 		<script type="text/javascript" charset="utf-8" src="/scripts/library/library.js"></script>
 		<title>서재 검색</title>
 	</head>
 	<body>
 	
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
+		<table class="libraryrank">
+			<thead>
+				<tr>
+					<td colspan="2">활동 높은 사용자</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<c:forEach begin="0" items="${libraryRankList}" var="libraryRankInfo" varStatus="status">
+							<td>${status.index+1}. <a href="/library/getLibrary.do?userId=${libraryRankInfo.userId}">${libraryRankInfo.name}(${libraryRankInfo.nickname})</a></td>
+					</c:forEach>
+				</tr>
+			</tbody>
+		</table>
 	
 	
-		<form name="searchLibraryform" action="/library/searchLibrary.do" method="post">
-			<select name="searchType">
-				<option value="userId" ${param.searchType=='id' ? 'selected' : ''}>아이디</option>
-				<option value="name" ${param.searchType=='name' ? 'selected' : ''}>이름</option>
-				<option value="nickname" ${param.searchType=='nickname' ? 'selected' : ''}>별명</option>
-			</select>
-			<input type="text" name="query" size="30" value="${param.query}"/><input type="submit" value="검색"/>
-		</form>
-		
 		<c:choose>
 			<c:when test="${userList==null}">
 				처음 화면이라요~~!!!
 			</c:when>
 			<c:otherwise>
-				<table border="1">
+				<table class="searchresult_library">
 					<thead>
 						<tr>
 							<td colspan="4">결과물</td>
@@ -66,7 +65,7 @@
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td>검색 결과가 없습니다.</td>
+									<td class="nocontent">검색 결과가 없습니다.</td>
 								</tr>
 							</c:otherwise>				
 						</c:choose>
@@ -76,24 +75,6 @@
 			</c:otherwise>
 		</c:choose>
 		
-		<br/>
-		<br/>
-		<br/>
 		
-		<table>
-			<thead>
-				<tr>
-					<td>활동 높은 사용자</td>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach begin="0" items="${libraryRankList}" var="libraryRankInfo" varStatus="status">
-					<tr>
-						<td>${status.index + 1}</td>
-						<td><a href="/library/getLibrary.do?userId=${libraryRankInfo.userId}">${libraryRankInfo.name}(${libraryRankInfo.nickname})</a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
 	</body>
 </html>

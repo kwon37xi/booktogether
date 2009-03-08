@@ -142,7 +142,7 @@ public class LibraryController extends AbstractController {
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping("/library/searchLibrary.do")
+	@RequestMapping("/main/searchLibrary.do")
 	public ModelAndView handleSearchLibrary(HttpServletRequest req,
 			@RequestParam(value = "query", required = false) String query) {
 
@@ -157,6 +157,7 @@ public class LibraryController extends AbstractController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/searchLibrary");
 		mav.addObject("userList", userList);
+		mav.addObject("searchType", "library");
 		mav.addObject("libraryRankList", libraryRankList);
 
 		return mav;

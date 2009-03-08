@@ -108,13 +108,13 @@ table thead td {
 }
 
 #library_main_intro {
-	width: 420px;
+	width: 450px;
 	height: 100%;
 	border: 1px #e1f0f5 dashed;
 }
 
 #library_main {
-	width: 420px;
+	width: 450px;
 	height: 100%;
 	border: 1px #e1f0f5 dashed;
 }
@@ -169,34 +169,62 @@ table thead td {
 	margin: 4px 0;
 }
 
-#listpossessbook {
+#possessbook_listresult {
 	border: 1px #6eaec9 dashed;
 }
 
+.possessbook_list {
+	width: 450px;
+	height: 100%;
+}
+
 #myreviewlist {
-	width: 420px;
+	width: 450px;
 	height: 100%;
 	border: 1px #e1f0f5 dashed;
 }
 
 #mygradelist {
-	width: 420px;
+	width: 450px;
 	height: 100%;
 	border: 1px #e1f0f5 dashed;
 }
 
 .bookmark_bookinfo {
-	width: 420px;
+	width: 450px;
 	height: 100%;
 	border: 1px #e1f0f5 dashed;
 }
 
-.bookmark_info{
+.bookmark_info {
 	width: 100%;
 	height: 100%;
 	border: 1px #e1f0f5 dashed;
 }
 
-.title{
-	width: 420px;
+.bookmark_list {
+	width: 450px;
+	height: 100%;
+	border: 1px #e1f0f5 dashed;
+}
+
+.title {
+	width: 450px;
+}
+
+.libraryrank {
+	width: 650px;
+	border: 1px #e1f0f5 dashed;
+	margin-left: 50px;
+}
+
+.libraryrank td {
+	width: 100px;
+	text-align: center;
+}
+
+.searchresult_library {
+	width: 650px;
+	border: 1px #e1f0f5 dashed;
+	margin-left: 50px;
 }

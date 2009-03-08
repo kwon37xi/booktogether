@@ -12,13 +12,13 @@
 	</head>
 	<body>
 	
-		<table>
+		<table id="searchRank">
 			<tr>
 				<td colspan="${fn:length(searchRankQuerys)}">인기 검색 순위</td>
 			</tr>
 			<tr>
 				<c:forEach begin="0" items="${searchRankQuerys}" var="queryInfo" varStatus="status">
-					<td>${status.index+1}.${queryInfo} </td>
+					<td>${status.index+1}.${queryInfo}</td>
 				</c:forEach>
 			</tr>
 		</table>

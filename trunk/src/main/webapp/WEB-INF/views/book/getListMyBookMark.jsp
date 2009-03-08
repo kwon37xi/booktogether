@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		
-		<table>
+		<table class="bookmark_list">
 			<thead>
 				<tr>
 					<td>책 인용구 목록</td>
