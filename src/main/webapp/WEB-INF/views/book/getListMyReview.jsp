@@ -8,23 +8,18 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="/styles/library/library.css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/library/library.js"></script>
-		<script type="text/javascript" charset="utf-8" src="/scripts/common/common.js"></script>
 		<title>책 리뷰 목록</title>
 	</head>
 	<body>
 	
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
-		
-		
-		<table border='1'>
-			<thead></thead>
+		<table id="myreviewlist">
+			<thead>
+				<tr>
+					<td>책 리뷰 목록</td>
+				</tr>
+			</thead>
 			<tbody>
 				<c:choose>
 					<c:when test="${fn:length(bookReviewList)!=0}">
@@ -64,21 +59,14 @@
 					</c:when>
 					<c:otherwise>
 						<tr>
-							<td>검색된 결과값이 없습니다.</td>
+							<td class="nocontent">검색된 결과값이 없습니다.</td>
 						</tr>
 					</c:otherwise>
 				</c:choose>
 			</tbody>
-			<tfoot>
-				<tr>
-					<td>
-						<a href="javascript:history.go(-1)">뒤로</a>
-					</td>
-				</tr>
-			</tfoot>
 		</table>
 		
-		<div id='page_div'>
+		<div id='navigator'>
 			<c:if test="${pageBean.prePage}">
 				<a href="javascript:go_page_go_page_myreview('${pageBean.startPage-pageBean.limit}','${param.userIdNum}')">이전</a>
 			</c:if>

@@ -14,23 +14,29 @@
 	</head>
 	<body>
 	
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
-
-		방명록
-		<ul>	
-			<c:forEach begin="0" items="${libraryBoardList}" var="libraryBoardInfo" varStatus="status">
-				<li>${libraryBoardInfo.content} / ${libraryBoardInfo.writerUserId} / ${libraryBoardInfo.inputDate}
-					<c:if test="${libraryBoardInfo.writer==sessionScope.idNum}">
-						<a href="/library/deleteLibraryBoard.do?boardIdNum=${libraryBoardInfo.idNum}&libraryIdNum=${libraryBoardInfo.libraryIdNum}">삭제</a>
-					</c:if>
-				</li>
-			</c:forEach>
-		</ul>
+		<table>
+			<thead>
+				<tr>
+					<td class="title">방명록</td>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach begin="0" items="${libraryBoardList}" var="libraryBoardInfo" varStatus="status">
+					<tr>
+						<td>
+							<img src="/images/library/board_bullet.gif"/>
+							${libraryBoardInfo.content} / ${libraryBoardInfo.writerUserId} / ${libraryBoardInfo.inputDate}
+							<c:if test="${libraryBoardInfo.writer==sessionScope.idNum}">
+								<a href="/library/deleteLibraryBoard.do?boardIdNum=${libraryBoardInfo.idNum}&libraryIdNum=${libraryBoardInfo.libraryIdNum}">삭제</a>
+							</c:if>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+			<tr>
+				<td></td>
+			</tr>
+		</table>
 		
 		<c:choose>
 			<c:when test="${sessionScope.idNum!=null}">

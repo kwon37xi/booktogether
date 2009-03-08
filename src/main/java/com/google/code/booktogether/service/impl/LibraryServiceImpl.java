@@ -355,26 +355,9 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public List<User> getListSearchLibrary(String query, String searchType) {
+	public List<User> getListSearchLibrary(String query) {
 
-		List<User> userList = null;
-
-		if (searchType.equals("userId")) {
-
-			userList = libraryDao.getListSearchLibrary("%" + query + "%", null,
-					null);
-
-		} else if (searchType.equals("name")) {
-
-			userList = libraryDao.getListSearchLibrary(null, "%" + query + "%",
-					null);
-
-		} else if (searchType.equals("nickname")) {
-
-			userList = libraryDao.getListSearchLibrary(null, null, "%" + query
-					+ "%");
-
-		}
+		List<User> userList = libraryDao.getListSearchLibrary("%" + query + "%");
 
 		if (log.isInfoEnabled()) {
 			log.info(userList);

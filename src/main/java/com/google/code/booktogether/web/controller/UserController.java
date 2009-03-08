@@ -615,6 +615,7 @@ public class UserController extends AbstractController {
 	@RequestMapping("/user/duplicateUserIdAjax.do")
 	public void duplicateUserIdAjax(HttpServletRequest req, HttpServletResponse res,
 								@RequestParam(value = "userId", required = false) String userId) {
+		
 		System.out.println("duplicateUserId2 :: start");
 		JSONObject json = new JSONObject();
 		boolean result = userService.duplicateUserId(userId);

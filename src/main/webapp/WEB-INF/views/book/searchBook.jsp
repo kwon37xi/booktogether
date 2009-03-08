@@ -12,18 +12,6 @@
 	</head>
 	<body>
 	
-		<form name="searchBookform" action="/book/searchBook.do" method="post">
-			<input type="hidden" name="pageNo" value="1"/>
-			<input type="hidden" name="beforeQuery" value="${requestScope.query}"/>
-			<select name="searchType">
-				<option value="all">전체</option>
-				<option value="title" ${param.searchType=='title' ? 'selected' : ''}>제목</option>
-				<option value="writer" ${param.searchType=='writer' ? 'selected' : ''}>지은이</option>
-				<option value="isbn" ${param.searchType=='isbn' ? 'selected' : ''}>ISBN</option>
-			</select>
-			<input type="text" name="query" size="30" value="${requestScope.query}"/> <input type="submit" value="검색"/>
-		</form>
-		
 		<table>
 			<tr>
 				<td colspan="${fn:length(searchRankQuerys)}">인기 검색 순위</td>
