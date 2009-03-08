@@ -196,8 +196,7 @@ public interface LibraryDao {
 	 * @param nickname
 	 * @return
 	 */
-	public List<User> getListSearchLibrary(String userId, String name,
-			String nickname);
+	public List<User> getListSearchLibrary(String query);
 
 	/**
 	 * 서재내 책 검색(읽고 싶은책, 읽은책, 읽고 있는책)

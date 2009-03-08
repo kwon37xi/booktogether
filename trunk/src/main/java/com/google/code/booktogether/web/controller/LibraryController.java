@@ -143,17 +143,13 @@ public class LibraryController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping("/library/searchLibrary.do")
-	public ModelAndView handleSearchLibrary(
-			HttpServletRequest req,
-			@RequestParam(value = "query", required = false) String query,
-			@RequestParam(value = "searchType", required = false) String searchType) {
+	public ModelAndView handleSearchLibrary(HttpServletRequest req,
+			@RequestParam(value = "query", required = false) String query) {
 
 		List<User> userList = null;
 
-		if (query != null && searchType != null) {
-
-			userList = libraryService.getListSearchLibrary(query, searchType);
-
+		if (query != null) {
+			userList = libraryService.getListSearchLibrary(query);
 		}
 
 		List<User> libraryRankList = libraryService.getLibraryRank();
@@ -228,9 +224,9 @@ public class LibraryController extends AbstractController {
 		boolean result = false;
 
 		if (target.equals(userIdNum)) {
-			
+
 			log.info("자기 자신을 관심서재로 등록할 수 없습니다");
-			
+
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"자기 자신을 관심서재로 등록할 수 없습니다", RequestAttributes.SCOPE_SESSION);
 			// 경로 설정
@@ -308,7 +304,7 @@ public class LibraryController extends AbstractController {
 
 		List<User> interestLibraryList = libraryService
 				.getListInterestLibrary(userIdNum);
-		
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/getListInterestLibrary");
 		mav.addObject("interestLibraryList", interestLibraryList);

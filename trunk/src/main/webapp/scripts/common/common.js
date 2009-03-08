@@ -1,4 +1,7 @@
 
-function go_back(){
-	history.go(-1);
+
+function go_home(){
+	
+	location.href="/index.do";
+	
 }

@@ -277,13 +277,12 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	}
 
 	@Override
-	public List<User> getListSearchLibrary(String userId, String name,
-			String nickname) {
+	public List<User> getListSearchLibrary(String query) {
 
 		String sql = sqlparser.getSQL("library", "LIST_SEARCH_LIBRARY_SQL");
 
 		return getSimpleJdbcTemplate().query(sql, new UserRowMapper(),
-				new Object[] { userId, name, nickname });
+				new Object[] { query,query,query });
 	}
 
 	@Override

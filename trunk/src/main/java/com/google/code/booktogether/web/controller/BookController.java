@@ -177,18 +177,24 @@ public class BookController extends AbstractController {
 		beforeQuery = (beforeQuery == null || beforeQuery.equals("")) ? null
 				: beforeQuery;
 		query = (query == null || query.equals("")) ? null : query;
-		searchType = (searchType == null) ? "all" : searchType;
+		searchType = (searchType == null) ? "book" : searchType;
+		
+		if(searchType.equals("library")){
+			return new ModelAndView("redirect:/library/searchLibrary.do?query="+query);
+		}
+		
+		String searchType_div="all";
+		
 		pageNo = (pageNo == null) ? 1 : pageNo;
 
 		PageBean pageBean = new PageBean();
 		pageBean.setPageNo(pageNo);
 		pageBean.setLimit(5);
 
+		//검색 순위 넣기
 		if (beforeQuery != null && query != null && !beforeQuery.equals(query)) {
 
-			boolean result = bookService.insertSearchRankQuery(query);
-
-			System.out.println(result);
+			bookService.insertSearchRankQuery(query);
 
 		}
 
@@ -198,7 +204,7 @@ public class BookController extends AbstractController {
 
 		if (query != null) {
 			// 책검색 목록 가지고 오기
-			bookList = bookService.searchBook(query, searchType, pageBean);
+			bookList = bookService.searchBook(query, searchType_div, pageBean);
 		} else {
 			pageBean.setDbCount(0);
 		}
@@ -209,7 +215,7 @@ public class BookController extends AbstractController {
 		mav.addObject("bookList", bookList);
 		mav.addObject("pageBean", pageBean);
 		mav.addObject("query", query);
-		mav.addObject("searchType", searchType);
+		mav.addObject("searchType_div", searchType_div);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("searchRankQuerys", searchRankQuerys);
 
