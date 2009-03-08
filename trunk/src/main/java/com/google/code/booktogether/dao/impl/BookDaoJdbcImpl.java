@@ -170,7 +170,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 
 	@Override
 	public int modifyBookHits(Integer bookIdNum) {
-
+		
 		String sql = sqlparser.getSQL("book", "MODIFY_BOOKHITS_SQL");
 
 		return getSimpleJdbcTemplate().update(sql, new Object[] { bookIdNum });

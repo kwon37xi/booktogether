@@ -9,13 +9,13 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/library/library.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="/styles/library/library.css" />
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
 		<title>서재에 등록하기</title>
 	</head>
 	<body>
 		
-		<table id="bookinfo">
+		<table id="bookinfo_simple">
 			<thead>
 				<tr>
 					<td colspan="2">책정보</td>

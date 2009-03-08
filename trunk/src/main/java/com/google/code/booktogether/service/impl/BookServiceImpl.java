@@ -48,7 +48,7 @@ public class BookServiceImpl implements BookService {
 			}
 		}
 
-		// 책정보 등록
+		// 책 조회정보 등록
 		count = bookJdbcDao.insertBookHits(bookIdNum);
 
 		if (count != 1) {
@@ -98,14 +98,14 @@ public class BookServiceImpl implements BookService {
 			// ISBN으로 값가지고 오기
 			book = bookJdbcDao.getBook(isbn);
 
-			if (book != null) {
+		} else {
+			
+			System.out.println(book.getIdNum()+"을 수정합니다.");
 
-				int count = bookJdbcDao.modifyBookHits(book.getIdNum());
+			int count = bookJdbcDao.modifyBookHits(book.getIdNum());
 
-				if (count != 1) {
-					throw new BooktogetherException("책 조회수 수정 에러");
-				}
-
+			if (count != 1) {
+				throw new BooktogetherException("책 조회수 수정 에러");
 			}
 
 		}

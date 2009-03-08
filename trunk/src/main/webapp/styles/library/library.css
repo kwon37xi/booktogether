@@ -9,7 +9,7 @@ table thead td {
 
 #navigator {
 	text-align: center;
-	margin-top: 20px;
+	margin: 20px 0;
 }
 
 #navigator a {
@@ -55,13 +55,12 @@ table thead td {
 }
 
 #insertlibrarybook {
-	width: 650px;
+	width: 450px;
 	border: 1px #e1f0f5 dashed;
-	margin-left: 50px;
 }
 
 #insertpossessbook {
-	width: 650px;
+	width: 450px;
 	border: 1px #e1f0f5 dashed;
 }
 
@@ -167,15 +166,6 @@ table thead td {
 
 .list_book_info p {
 	margin: 4px 0;
-}
-
-#possessbook_listresult {
-	border: 1px #6eaec9 dashed;
-}
-
-.possessbook_list {
-	width: 450px;
-	height: 100%;
 }
 
 #myreviewlist {

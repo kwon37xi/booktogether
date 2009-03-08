@@ -229,26 +229,13 @@
      </sql>
      
      <sql name="LIST_SEARCH_QUERY_RANK_SQL">
-        <description>검색수 등록</description>
+        <description>검색수 목록</description>
         <query>
             <![CDATA[
             SELECT query
               FROM SEARCHQUERY
              ORDER BY search_num DESC  
-             LIMIT 0,10
-            ]]>
-        </query>
-     </sql>
-     
-     
-     <sql name="LIST_SEARCH_QUERY_RANK_SQL">
-        <description>검색수 등록</description>
-        <query>
-            <![CDATA[
-            SELECT query
-              FROM SEARCHQUERY
-             ORDER BY search_num DESC  
-             LIMIT 0,10
+             LIMIT 0,5
             ]]>
         </query>
      </sql>
@@ -287,7 +274,7 @@
               FROM BOOKHITS BH, BOOK B
              WHERE BH.book_idNum = B.idNum
              ORDER BY BH.hits DESC 
-             LIMIT 0,10 
+             LIMIT 0,5 
             ]]>
         </query>
      </sql>

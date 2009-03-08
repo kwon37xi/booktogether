@@ -257,91 +257,63 @@
 										<input type="button" value="공감하기" onclick="modifyVibe('${bookMarkInfo.idNum}','${bookInfo.idNum}')"/>
 									</td>
 								</c:if>
-							</tr>	
-							<tr>
-								<td colspan="4">
-									<form action="/book/insertBookMark.do" method="post" name="insertbookmarkform">
-										<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
-										<table id="bookmark_write">
-											<thead>
-												<tr>
-													<td colspan="2">인용구 작성</td>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>페이지</td>
-													<td>p.<input type="text" name="page" size="4"/></td>
-												</tr>
-												<tr>
-													<td>인용구</td>
-													<td>
-														<textarea rows="3" cols="50" name="content"></textarea>
-													</td>
-												</tr>
-											</tbody>
-											<tfoot>
-												<tr>
-													<td colspan="2">
-														<input type="submit" value="등록"/>
-													</td>
-												</tr>
-											</tfoot>
-										</table>
-									</form>
-								</td>
 							</tr>
 						</c:forEach>
 					</c:when>
+					
 					<c:otherwise>
 						<tr>
-							<td colspan="4" class="nocontent">인용구가 없습니다.<br/>
-								<c:if test="${sessionScope.idNum!=null}">
-									<form action="/book/insertBookMark.do" method="post" name="insertbookmarkform">
-										<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
-										<table id="bookmark_write">
-											<thead>
-												<tr>
-													<td colspan="2">인용구 작성</td>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>페이지</td>
-													<td>p.<input type="text" name="page" size="4"/></td>
-												</tr>
-												<tr>
-													<td>인용구</td>
-													<td>
-														<textarea rows="3" cols="50" name="content"></textarea>
-													</td>
-												</tr>
-											</tbody>
-											<tfoot>
-												<tr>
-													<td colspan="2">
-														<input type="submit" value="등록"/>
-													</td>
-												</tr>
-											</tfoot>
-										</table>
-									</form>
-								</c:if>
-							</td>
+							<td colspan="4" class="nocontent">인용구가 없습니다.</td>
 						</tr>
 					</c:otherwise>
 				</c:choose>
+					
+				<c:if test="${sessionScope.idNum!=null}">
+					<tr>
+						<td colspan="4">
+							<form action="/book/insertBookMark.do" method="post" name="insertbookmarkform">
+								<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
+								<table id="bookmark_write">
+									<thead>
+										<tr>
+											<td colspan="2">인용구 작성</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>페이지</td>
+											<td>p.<input type="text" name="page" size="4"/></td>
+										</tr>
+										<tr>
+											<td>인용구</td>
+											<td>
+												<textarea rows="3" cols="50" name="content"></textarea>
+											</td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="2">
+												<input type="submit" value="등록"/>
+											</td>
+										</tr>
+									</tfoot>
+								</table>
+							</form>
+						</td>
+					</tr>
+				</c:if>
 			</tbody>
-			<tfoot></tfoot>
 		</table>
 		
 		
 		
 		<div id='navigator'>
 			<a href="javascript:history.go(-1)">뒤로</a>
-			<a href="javascript:go_searchBook('${param.pageNo}','${param.query}','${param.searchType}')">목록</a>
-			<a href="/library/insertLibraryBookView.do?bookIdNum=${bookInfo.idNum}">내서재에 등록</a>
-			<a href="/library/insertPossessBookView.do?bookIdNum=${bookInfo.idNum}">내소유책으로 등록</a>
+			<c:if test="${sessionScope.idNum!=null}">
+				<a href="/library/insertLibraryBookView.do?bookIdNum=${bookInfo.idNum}">내서재에 등록</a>
+				<a href="/library/insertPossessBookView.do?bookIdNum=${bookInfo.idNum}">내소유책으로 등록</a>
+			</c:if>
 		</div>
 		
 	</body>
