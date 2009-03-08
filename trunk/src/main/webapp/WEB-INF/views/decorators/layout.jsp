@@ -32,8 +32,8 @@
 				<td>
 					<table id="top_navigator">
 						<tr>
-						    <td class="logo" onclick="go_home()"><img src="/images/main/logo_LBT.gif" width="43" height="44"/></td>
-    						<td class="logo_title" onclick="go_home()"> Love,<br/> Book Together</td>
+						    <td class="logo" onclick="go_home()"><img src="/images/main/logo_LBT.gif" width="43" height="44" style="cursor: pointer;"/></td>
+    						<td class="logo_title" onclick="go_home()"  style="cursor: pointer;"> Love,<br/> Book Together</td>
     						<td class="menu1"><img src="/images/main/btn_about.png" width="67" height="29"/></td>
    	 						<td class="menu2"><img src="/images/main/btn_sitemap.png" width="75" height="29"/></td>
     						<td class="menu3"><img src="/images/main/btn_personalInfo.png" width="110" height="29"/></td>
@@ -46,7 +46,7 @@
 				<td>
 					<table id="searchbook_div">
 						<tr>
-						    <td class="count_info"><span class="style5">&nbsp;&nbsp; Love, Book Together에 오신것을 환영합니다 </span></td>
+						    <td class="count_info"><span class="style5">&nbsp;&nbsp; Love, Book Together에 오신 것을 환영합니다. </span></td>
 						    <td class="search_div">
 								<form name="searchBookform" action="/book/searchBook.do" method="post">
 									<input type="hidden" name="pageNo" value="1"/>
