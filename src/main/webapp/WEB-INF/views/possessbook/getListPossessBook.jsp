@@ -9,17 +9,11 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="/styles/possess/possessbook.css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/library/library.js"></script>
 		<title>소유책 목록</title>
 	</head>
 	<body>
-	
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
 	
 		<table class="possessbook_list">
 			<thead>

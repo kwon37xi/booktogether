@@ -32,6 +32,7 @@
 				<value>/user/modifyPw.do</value>
 				<value>/user/deleteZone.do</value>
 				<value>/book/modifyBookReview.do</value>
+				<value>/book/insertBookMark.do</value>
 				<value>/library/modifyLibraryView.do</value>
 				<value>/library/modifyLibrary.do</value>
 				<value>/library/insertLibraryBookView.do</value>

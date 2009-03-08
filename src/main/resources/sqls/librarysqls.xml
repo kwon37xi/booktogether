@@ -154,6 +154,7 @@
     	        SELECT idNum, user_id, email, nickname, name 
     	          FROM LIBRARYRANK
     	      ORDER BY total DESC
+    	         LIMIT 0,5 
             ]]>
 		</query>
 	</sql>
