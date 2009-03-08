@@ -176,11 +176,11 @@ public class BookController extends AbstractController {
 
 		beforeQuery = (beforeQuery == null || beforeQuery.equals("")) ? null
 				: beforeQuery;
-		query = (query == null || query.equals("")) ? null : query;
+		query = (query == null || query.equals("")) ? null : query.trim();
 		searchType = (searchType == null) ? "book" : searchType;
 		
 		if(searchType.equals("library")){
-			return new ModelAndView("redirect:/library/searchLibrary.do?query="+query);
+			return new ModelAndView("redirect:/main/searchLibrary.do?query="+query);
 		}
 		
 		String searchType_div="all";
@@ -215,7 +215,7 @@ public class BookController extends AbstractController {
 		mav.addObject("bookList", bookList);
 		mav.addObject("pageBean", pageBean);
 		mav.addObject("query", query);
-		mav.addObject("searchType_div", searchType_div);
+		mav.addObject("searchType", searchType);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("searchRankQuerys", searchRankQuerys);
 

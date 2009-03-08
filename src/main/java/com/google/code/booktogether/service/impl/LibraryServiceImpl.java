@@ -1,5 +1,7 @@
 package com.google.code.booktogether.service.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -357,7 +359,14 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	public List<User> getListSearchLibrary(String query) {
 
-		List<User> userList = libraryDao.getListSearchLibrary("%" + query + "%");
+		try {
+			query = URLEncoder.encode(query, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			throw new BooktogetherException("OpenApi Query UTF-8로 인코딩에러", e1);
+		}
+
+		List<User> userList = libraryDao
+				.getListSearchLibrary("%" + query + "%");
 
 		if (log.isInfoEnabled()) {
 			log.info(userList);

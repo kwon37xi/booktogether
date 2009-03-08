@@ -9,47 +9,24 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="/styles/library/search_result.css" />
 		<script type="text/javascript" charset="utf-8" src="/scripts/library/library.js"></script>
 		<title>서재내 책 검색</title>
 	</head>
 	<body>
 	
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
-	
-	
-		<form action="/library/searchBookInLibrary.do" name="searchBookInLibraryform" method="post">
-			<input type="hidden" name="libraryIdNum" value="${libraryIdNum}"/>
-			<table>
-				<tr>
-					<td>${library.user.name}님 서재 책검색</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="text" name="bookName" size="20" />
-						<input type="submit" value="검색"/>
-					</td>
-				</tr>
-			</table>
-		</form>
-		
-		<table border="1">
+		<table class="searchresult_librarybook">
 			<thead>
 				<tr>
 					<td>읽고싶은책, 읽은책, 읽고 있는책</td>
 				</tr>
-				<tr>
-					<td>
-						<c:if test="${moreLibraryBookList}">
+				<c:if test="${moreLibraryBookList}">
+					<tr>
+						<td>
 							<a href="/library/searchLibraryBookInLibrary.do?libraryIdNum=${libraryIdNum}&bookName=${requestScope.bookName}">더보기</a>
-						</c:if>
-					</td>
-				</tr>
+						</td>
+					</tr>
+				</c:if>
 			</thead>
 			<tbody>
 				<c:choose>
@@ -62,7 +39,7 @@
 											<td rowspan="4">
 												<img src="${libraryBookInfo.book.bookCover}"/>
 											</td>
-											<td> 제목 : ${libraryBookInfo.book.name}</td>
+											<td> 제목 : <a href="javascript:getBook('${libraryBookInfo.book.idNum}')">${libraryBookInfo.book.name}</a></td>
 										</tr>
 										<tr>
 											<td> 지은이: 
@@ -93,7 +70,7 @@
 					</c:when>
 					<c:otherwise>
 						<tr>
-							<td>검색 결과가 없습니다.</td>
+							<td class="nocontent">검색 결과가 없습니다.</td>
 						</tr>
 					</c:otherwise>				
 				</c:choose>
@@ -101,22 +78,19 @@
 			<tfoot></tfoot>
 		</table>
 		
-		<br/>
-		<br/>
-		<br/>
 			
-		<table border="1">
+		<table class="searchresult_possessbook">
 			<thead>
 				<tr>
 					<td>소유하고 있는 책</td>
 				</tr>	
-				<tr>
-					<td>
-						<c:if test="${morePossessBookList}">
+				<c:if test="${morePossessBookList}">
+					<tr>
+						<td>
 							<a href="/library/searchPossessBookInLibrary.do?libraryIdNum=${libraryIdNum}&bookName=${requestScope.bookName}">더보기</a>
-						</c:if>
-					</td>
-				</tr>	
+						</td>
+					</tr>	
+				</c:if>
 			</thead>
 			<tbody>
 				<c:choose>
@@ -168,7 +142,7 @@
 					</c:when>
 					<c:otherwise>
 						<tr>
-							<td>검색 결과가 없습니다.</td>
+							<td class="nocontent">검색 결과가 없습니다.</td>
 						</tr>
 					</c:otherwise>				
 				</c:choose>
