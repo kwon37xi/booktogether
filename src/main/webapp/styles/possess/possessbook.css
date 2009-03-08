@@ -30,6 +30,10 @@ table thead td {
 	border: 1px #e1f0f5 dashed;
 }
 
+#possessbok_info TFOOT TD{
+	text-align: center;
+}
+
 #zonepossesslist {
 	width: 450px;
 	border: 1px #e1f0f5 dashed;

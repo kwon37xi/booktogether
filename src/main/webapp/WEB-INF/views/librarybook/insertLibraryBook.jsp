@@ -10,6 +10,9 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="/styles/library/library.css" />
+		<link href="/styles/common/jquery-ui-1.7.custom.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery-ui-1.7.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/datepicker.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
 		<title>서재에 등록하기</title>
 	</head>
@@ -89,10 +92,14 @@
 							<input type="radio" name="state" value="0"/>읽고 싶은책 
 							<input type="radio" name="state" value="1"/>읽고 있는책 
 							<input type="radio" name="state" value="2"/>읽은 책 
-							&nbsp;&nbsp;
+						</td>
+					<tr>
+						<td>
+							읽은 날짜 : 
 							<input type="text" name="readDateYear" size="4"/>
 							<input type="text" name="readDateMonth" size="2"/>
 							<input type="text" name="readDateDate" size="2"/>
+							(읽은책일경우)
 						</td>
 					</tr>
 					<tr>
@@ -106,9 +113,10 @@
 								<tr>
 									<td class="b_label">구입날짜</td>
 									<td class="b_label_c">
-										<input type="text" name="purchaseDateYear" size="4"/>년 
-										<input type="text" name="purchaseDateMonth" size="2"/>월 
-										<input type="text" name="purchaseDateDate" size="2"/>일
+										<input type="hidden" id="datepicker_purchaseDate"/>
+										<input type="text" name="purchaseDateYear" size="4" class="purchaseDateYear"/>년 
+										<input type="text" name="purchaseDateMonth" size="2" class="purchaseDateMonth"/>월 
+										<input type="text" name="purchaseDateDate" size="2" class="purchaseDateDate"/>일
 									</td>
 								</tr>
 								<tr>
@@ -120,17 +128,19 @@
 								<tr>
 									<td class="b_label">독서시작일</td>
 									<td class="b_label_c">
-										<input type="text" name="beginReadYear" size="4"/>년  
-										<input type="text" name="beginReadMonth" size="2"/>월 
-										<input type="text" name="beginReadDate" size="2"/>일
+										<input type="hidden" id="datepicker_beginRead"/>
+										<input type="text" name="beginReadYear" size="4" class="beginReadYear"/>년  
+										<input type="text" name="beginReadMonth" size="2" class="beginReadMonth"/>월 
+										<input type="text" name="beginReadDate" size="2" class="beginReadDate"/>일
 									</td>
 								</tr>
 								<tr>
 									<td class="b_label">독서종료일</td>
 									<td class="b_label_c">
-										<input type="text" name="endReadYear" size="4"/>년 
-										<input type="text" name="endReadMonth" size="2"/>월 
-										<input type="text" name="endReadDate" size="2"/>일
+										<input type="hidden" id="datepicker_endRead"/>
+										<input type="text" name="endReadYear" size="4" class="endReadYear"/>년 
+										<input type="text" name="endReadMonth" size="2" class="endReadMonth"/>월 
+										<input type="text" name="endReadDate" size="2" class="endReadDate"/>일
 									</td>
 								</tr>
 								<tr>

@@ -1,7 +1,5 @@
 package com.google.code.booktogether.service.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -127,17 +125,19 @@ public class LibraryServiceImpl implements LibraryService {
 	@Transactional(readOnly = false)
 	public boolean deletePossessBook(Integer userIdNum, Integer possessBookIdNum) {
 
-		int count = libraryDao.modifyLibraryBookIsPossess(userIdNum,
-				possessBookIdNum);
-
-		if (count != 1) {
-			throw new BooktogetherException("개인서재 소유정보 수정 실패");
-		}
-
-		count = libraryDao.deletePossessBook(possessBookIdNum);
+		int count = libraryDao.deletePossessBook(possessBookIdNum);
 
 		if (count != 1) {
 			throw new BooktogetherException("개인소유책 삭제 실패");
+		}
+
+		count = libraryDao.modifyLibraryBookIsPossess(userIdNum,
+				possessBookIdNum);
+
+		if (count != 1) {
+			if (log.isInfoEnabled()) {
+				log.info("해당책은 읽은책, 읽고 싶은책, 읽고 있는책에서 소유 되어있지 않습니다.");
+			}
 		}
 
 		return true;
@@ -358,12 +358,8 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	public List<User> getListSearchLibrary(String query) {
-
-		try {
-			query = URLEncoder.encode(query, "UTF-8");
-		} catch (UnsupportedEncodingException e1) {
-			throw new BooktogetherException("OpenApi Query UTF-8로 인코딩에러", e1);
-		}
+		
+		log.info(query);
 
 		List<User> userList = libraryDao
 				.getListSearchLibrary("%" + query + "%");

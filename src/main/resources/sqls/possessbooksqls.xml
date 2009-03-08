@@ -162,25 +162,6 @@
 	</sql>
 
 
-	<sql name="MODIFY_ISPOSSESS_LIBRARYBOOK_SQL">
-		<description>서재 책의 소유 정보 수정</description>
-		<query>
-            <![CDATA[
-             UPDATE LIBRARYBOOK 
-    			SET ispossess = NULL
-    		  WHERE book_idNum = 
-    		  				(SELECT book_idNum 
-    		  				   FROM possessbook
-    		  				  WHERE idNum = ?) 
-    			AND library_idNum = 
-    						(SELECT idNum 
-    						   FROM library 
-    						  WHERE user_idNum= ?)
-            ]]>
-		</query>
-	</sql>
-
-
 	<sql name="GET_LIST_ZONEBOOK_SQL">
 		<description>내 생활반경의 소유책 목록</description>
 		<query>

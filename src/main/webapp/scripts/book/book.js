@@ -111,6 +111,3 @@ function deleteBookGrade(bookGradeIdNum, bookIdNum, pageno, query, searchType) {
 
 }
 
-function openCalendar() {
-	$("#datepicker").datepicker();
-}

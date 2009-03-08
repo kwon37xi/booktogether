@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"   "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html>
@@ -15,7 +15,7 @@
 		<table class="libraryrank">
 			<thead>
 				<tr>
-					<td colspan="2">활동 높은 사용자</td>
+					<td colspan="${fn:length(libraryRankList)}">활동 높은 사용자</td>
 				</tr>
 			</thead>
 			<tbody>

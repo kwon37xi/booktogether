@@ -9,41 +9,40 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/common/jquery-ui-1.7.custom.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/possess/possessbook.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery-ui-1.7.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/datepicker.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
 		<title>내 소유책 수정</title>
 	</head>
 	<body>
 		
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
-		
-		책정보
-		<table border='1'>
-			<thead></thead>
+		<table id="bookinfo_simple">
+			<thead>
+				<tr>
+					<td colspan="2">책정보</td>
+				</tr>
+			</thead>
 			<tbody>
 				<tr>
-					<td>책표지</td>
+					<td class="p_label">책표지</td>
 					<td><img src="${possessBook.book.bookCover}"/></td>
 				</tr>
 				<tr>
-					<td>책이름</td>
+					<td class="p_label">책이름</td>
 					<td>${possessBook.book.name}</td>
 				</tr>
 				<tr>
-					<td>지은이</td>
+					<td class="p_label">지은이</td>
 					<td>${possessBook.book.authors[0].name} 지음</td>
 				</tr>
 				<tr>
-					<td>ISBN</td>
+					<td class="p_label">ISBN</td>
 					<td>${possessBook.book.ISBN10}</td>
 				</tr>
 				<tr>
-					<td>출판사/출판일</td>
+					<td class="p_label">출판사/출판일</td>
 					<td>${possessBook.book.publishComp}/
 						${fn:substring(possessBook.book.publishDate,0,4)}년 
 						${fn:substring(possessBook.book.publishDate,4,6)}월 
@@ -51,85 +50,99 @@
 					</td>
 				</tr>
 				<tr>
-					<td>가격</td>
+					<td class="p_label">가격</td>
 					<td><fmt:formatNumber value="${possessBook.book.price}" pattern=",###"/>원</td>
 				</tr>
 				<tr>
-					<td>카테고리</td>
+					<td class="p_label">카테고리</td>
 					<td>${possessBook.book.category}</td>
 				</tr>
 			</tbody>
-			<tfoot></tfoot>
 		</table>
 		
-		내 소유책 수정하기
+		
 		<form name="modifyPossessBookform" method="post" action="/library/modifyPossessBook.do">
 		
 			<input type="hidden" name="idNum" value="${possessBook.idNum}"/>
 			<input type="hidden" name="book.idNum" value="${possessBook.book.idNum}"/>
 			
-			<table>
-				<tr>
-					<td>구입날짜</td>
-					<td>
-						<fmt:formatDate value="${possessBook.purchaseDate}" pattern="yyyy" var="purchaseDateYear"/>
-						<fmt:formatDate value="${possessBook.purchaseDate}" pattern="MM" var="purchaseDateMonth"/>
-						<fmt:formatDate value="${possessBook.purchaseDate}" pattern="dd" var="purchaseDateDate"/>
-						<input type="text" name="purchaseDateYear" size="4" value="${purchaseDateYear}"/>
-						<input type="text" name="purchaseDateMonth" size="2" value="${purchaseDateMonth}"/>
-						<input type="text" name="purchaseDateDate" size="2" value="${purchaseDateDate}"/>
-					</td>
-				</tr>
+			<table id="possessbok_info">
+				<thead>
 					<tr>
-						<td>구입가격</td>
+						<td colspan="2">내 소유책 수정하기</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="p_label">구입날짜</td>
+						<td>
+							<input type="hidden" id="datepicker_purchaseDate"/>
+							<fmt:formatDate value="${possessBook.purchaseDate}" pattern="yyyy" var="purchaseDateYear"/>
+							<fmt:formatDate value="${possessBook.purchaseDate}" pattern="MM" var="purchaseDateMonth"/>
+							<fmt:formatDate value="${possessBook.purchaseDate}" pattern="dd" var="purchaseDateDate"/>
+							<input type="text" name="purchaseDateYear" class="purchaseDateYear" size="4" value="${purchaseDateYear}"/>
+							<input type="text" name="purchaseDateMonth" class="purchaseDateMonth" size="2" value="${purchaseDateMonth}"/>
+							<input type="text" name="purchaseDateDate" class="purchaseDateDate" size="2" value="${purchaseDateDate}"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="p_label">구입가격</td>
 						<td>
 							<input type="text" name="purchasePrice" size="20" value="${possessBook.purchasePrice}"/>
 						</td>
 					</tr>
-				<tr>
-					<td>독서시작일</td>
-					<td>
-						<fmt:formatDate value="${possessBook.beginRead}" pattern="yyyy" var="beginReadYear"/>
-						<fmt:formatDate value="${possessBook.beginRead}" pattern="MM" var="beginReadMonth"/>
-						<fmt:formatDate value="${possessBook.beginRead}" pattern="dd" var="beginReadDate"/>
-						<input type="text" name="beginReadYear" size="4" value="${beginReadYear}"/>
-						<input type="text" name="beginReadMonth" size="2" value="${beginReadMonth}"/>
-						<input type="text" name="beginReadDate" size="2" value="${beginReadDate}"/>
-					</td>
-				</tr>
-				<tr>
-					<td>독서종료일</td>
-					<td>
-						<fmt:formatDate value="${possessBook.endRead}" pattern="yyyy" var="endReadYear"/>
-						<fmt:formatDate value="${possessBook.endRead}" pattern="MM" var="endReadMonth"/>
-						<fmt:formatDate value="${possessBook.endRead}" pattern="dd" var="endReadDate"/>
-						<input type="text" name="endReadYear" size="4" value="${endReadYear}"/>
-						<input type="text" name="endReadMonth" size="2" value="${endReadMonth}"/>
-						<input type="text" name="endReadDate" size="2" value="${endReadDate}"/>
-					</td>
-				</tr>
-				<tr>
-					<td>책품질</td>
-					<td>
-						<select name="quality">
-							<option value="0" ${possessBook.quality==0 ? 'selected' : ''}>상</option>
-							<option value="1" ${possessBook.quality==1 ? 'selected' : ''}>중</option>
-							<option value="2" ${possessBook.quality==2 ? 'selected' : ''}>하</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>책상태</td>
-					<td>
-						<select name="state">
-							<option value="0" ${possessBook.state==0 ? 'selected' : ''}>소유</option>
-							<option value="1" ${possessBook.state==1 ? 'selected' : ''}>대여중</option>
-							<option value="2" ${possessBook.state==2 ? 'selected' : ''}>교환중</option>
-						</select>
-					</td>
-				</tr>
+					<tr>
+						<td class="p_label">독서시작일</td>
+						<td>
+							<input type="hidden" id="datepicker_beginRead"/>
+							<fmt:formatDate value="${possessBook.beginRead}" pattern="yyyy" var="beginReadYear"/>
+							<fmt:formatDate value="${possessBook.beginRead}" pattern="MM" var="beginReadMonth"/>
+							<fmt:formatDate value="${possessBook.beginRead}" pattern="dd" var="beginReadDate"/>
+							<input type="text" name="beginReadYear" size="4" class="beginReadYear" value="${beginReadYear}"/>
+							<input type="text" name="beginReadMonth" size="2" class="beginReadMonth" value="${beginReadMonth}"/>
+							<input type="text" name="beginReadDate" size="2" class="beginReadDate" value="${beginReadDate}"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="p_label">독서종료일</td>
+						<td>
+							<input type="hidden" id="datepicker_endRead"/>
+							<fmt:formatDate value="${possessBook.endRead}" pattern="yyyy" var="endReadYear"/>
+							<fmt:formatDate value="${possessBook.endRead}" pattern="MM" var="endReadMonth"/>
+							<fmt:formatDate value="${possessBook.endRead}" pattern="dd" var="endReadDate"/>
+							<input type="text" name="endReadYear" size="4" class="endReadYear" value="${endReadYear}"/>
+							<input type="text" name="endReadMonth" size="2" class="endReadMonth" value="${endReadMonth}"/>
+							<input type="text" name="endReadDate" size="2" class="endReadDate" value="${endReadDate}"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="p_label">책품질</td>
+						<td>
+							<select name="quality">
+								<option value="0" ${possessBook.quality==0 ? 'selected' : ''}>상</option>
+								<option value="1" ${possessBook.quality==1 ? 'selected' : ''}>중</option>
+								<option value="2" ${possessBook.quality==2 ? 'selected' : ''}>하</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="p_label">책상태</td>
+						<td>
+							<select name="state">
+								<option value="0" ${possessBook.state==0 ? 'selected' : ''}>소유</option>
+								<option value="1" ${possessBook.state==1 ? 'selected' : ''}>대여중</option>
+								<option value="2" ${possessBook.state==2 ? 'selected' : ''}>교환중</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="2"><input type="submit" value="수정"/></td>
+					</tr>
+				</tfoot>
 			</table>
-			<input type="submit" value="수정"/>
+			
 		</form>
 		<div id=''>
 			<a href="javascript:history.go(-1)">뒤로</a>

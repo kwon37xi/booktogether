@@ -10,6 +10,9 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="/styles/possess/possessbook.css" rel="stylesheet" type="text/css"/>
+		<link href="/styles/common/jquery-ui-1.7.custom.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery-ui-1.7.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/datepicker.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
 		<title>내 소유 등록하기</title>
 	</head>
@@ -87,9 +90,10 @@
 								<tr>
 									<td class="p_label">구입날짜</td>
 									<td>
-										<input type="text" name="purchaseDateYear" size="4" onclick="openCalendar()"/>
-										<input type="text" name="purchaseDateMonth" size="2" />
-										<input type="text" name="purchaseDateDate" size="2"/>
+										<input type="hidden" id="datepicker_purchaseDate"/>
+										<input type="text" name="purchaseDateYear" class="purchaseDateYear" size="4" onclick="openCalendar()"/>
+										<input type="text" name="purchaseDateMonth" class="purchaseDateMonth" size="2" />
+										<input type="text" name="purchaseDateDate" class="purchaseDateDate" size="2"/>
 									</td>
 								</tr>
 								<tr>
@@ -101,17 +105,19 @@
 								<tr>
 									<td class="p_label">독서시작일</td>
 									<td>
-										<input type="text" name="beginReadYear" size="4"/>
-										<input type="text" name="beginReadMonth" size="2"/>
-										<input type="text" name="beginReadDate" size="2"/>
+										<input type="hidden" id="datepicker_beginRead"/>
+										<input type="text" name="beginReadYear" size="4" class="beginReadYear"/>
+										<input type="text" name="beginReadMonth" size="2" class="beginReadMonth"/>
+										<input type="text" name="beginReadDate" size="2" class="beginReadDate"/>
 									</td>
 								</tr>
 								<tr>
 									<td class="p_label">독서종료일</td>
 									<td>
-										<input type="text" name="endReadYear" size="4"/>
-										<input type="text" name="endReadMonth" size="2"/>
-										<input type="text" name="endReadDate" size="2"/>
+										<input type="hidden" id="datepicker_endRead"/>
+										<input type="text" name="endReadYear" size="4" class="endReadYear"/>
+										<input type="text" name="endReadMonth" size="2" class="endReadMonth"/>
+										<input type="text" name="endReadDate" size="2" class="endReadDate"/>
 									</td>
 								</tr>
 								<tr>
@@ -150,7 +156,6 @@
 		<div id=''>
 			<a href="javascript:history.go(-1)">뒤로</a>
 		</div>
-		<div id="datepicker"></div>
 		
 	</body>
 </html>

@@ -80,8 +80,6 @@ public class OpenLibraryCheckInterceptor extends HandlerInterceptorAdapter {
 
 		}
 		
-		log.info(library);
-
 		request.setAttribute("library", library);
 
 		return true;
