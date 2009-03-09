@@ -279,5 +279,17 @@ public interface LibraryDao {
 	 * @return
 	 */
 	public int duplicateInterestLibrary(Integer target, Integer userIdNum);
+	
+	/**
+	 * 서재 순위 테이블 삭제
+	 * @return
+	 */
+	public int deleteLibraryRank();
+	
+	/**
+	 * 서재 순위 새로고침
+	 * @return
+	 */
+	public int refeshLibraryRank();
 
 }

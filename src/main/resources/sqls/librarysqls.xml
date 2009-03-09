@@ -97,8 +97,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="INSERT_RANK_LIBRARY_SQL">
 		<description>서재 순위 (1~10)</description>
 		<query>
@@ -145,8 +145,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="LIST_RANK_LIBRARY_SQL">
 		<description>서재 순위 (1~10) 목록</description>
 		<query>
@@ -158,8 +158,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="INSERT_INTEREST_LIBRARY_SQL">
 		<description>관심 서재 등록</description>
 		<query>
@@ -169,8 +169,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="DELETE_INTEREST_LIBRARY_SQL">
 		<description>관심 서재 삭제</description>
 		<query>
@@ -181,8 +181,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="LIST_INTEREST_LIBRARY_SQL">
 		<description>관심 서재 목록</description>
 		<query>
@@ -198,8 +198,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="DUPLICATE_INTEREST_LIBRARY_SQL">
 		<description>관심 서재 등록 여부 검사</description>
 		<query>
@@ -211,4 +211,25 @@
             ]]>
 		</query>
 	</sql>
+
+
+	<sql name="DELETE_LIBRARYRANK_SQL">
+		<description>서재 목록 삭제</description>
+		<query>
+            <![CDATA[
+    	       DELETE FROM LIBRARYRANK    	 
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="DELETE_LIBRARYRANK_SQL">
+		<description>서재 목록 삭제</description>
+		<query>
+            <![CDATA[
+    	       DELETE FROM LIBRARYRANK    	 
+            ]]>
+		</query>
+	</sql>
+
 </sqls>

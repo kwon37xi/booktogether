@@ -358,7 +358,7 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	public List<User> getListSearchLibrary(String query) {
-		
+
 		log.info(query);
 
 		List<User> userList = libraryDao
@@ -451,6 +451,32 @@ public class LibraryServiceImpl implements LibraryService {
 	public boolean duplicateInterestLibrary(Integer target, Integer userIdNum) {
 
 		int count = libraryDao.duplicateInterestLibrary(target, userIdNum);
+
+		if (count != 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean deleteLibraryRank() {
+
+		int count = libraryDao.deleteLibraryRank();
+
+		if (count != 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean refeshLibraryRank() {
+
+		int count = libraryDao.refeshLibraryRank();
 
 		if (count != 0) {
 			return true;
