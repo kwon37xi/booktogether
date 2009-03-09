@@ -282,7 +282,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 		String sql = sqlparser.getSQL("library", "LIST_SEARCH_LIBRARY_SQL");
 
 		return getSimpleJdbcTemplate().query(sql, new UserRowMapper(),
-				new Object[] { query,query,query });
+				new Object[] { query, query, query });
 	}
 
 	@Override
@@ -414,5 +414,21 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		return getSimpleJdbcTemplate().queryForInt(sql,
 				new Object[] { target, userIdNum });
+	}
+
+	@Override
+	public int deleteLibraryRank() {
+
+		String sql = sqlparser.getSQL("library", "DELETE_LIBRARYRANK_SQL");
+
+		return getSimpleJdbcTemplate().update(sql, new Object[] {});
+	}
+
+	@Override
+	public int refeshLibraryRank() {
+
+		String sql = sqlparser.getSQL("library", "INSERT_RANK_LIBRARY_SQL");
+
+		return getSimpleJdbcTemplate().update(sql, new Object[] {});
 	}
 }

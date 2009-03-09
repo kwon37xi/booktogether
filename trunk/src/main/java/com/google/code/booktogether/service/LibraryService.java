@@ -236,5 +236,19 @@ public interface LibraryService {
 	 * @return
 	 */
 	public boolean duplicateInterestLibrary(Integer target, Integer userIdNum);
+	
+	
+	/**
+	 * 서재 테이블 전체 삭제
+	 * @return
+	 */
+	public boolean deleteLibraryRank();
+	
+	
+	/**
+	 * 서재 테이블 새로 고침
+	 * @return
+	 */
+	public boolean refeshLibraryRank();
 
 }
