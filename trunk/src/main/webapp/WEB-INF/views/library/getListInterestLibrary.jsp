@@ -27,7 +27,7 @@
 								<td><a href="/library/getLibrary.do?userId=${interestLibraryInfo.userId}">${interestLibraryInfo.name}</a></td>
 								<td>${interestLibraryInfo.nickname}</td>
 								<td>${interestLibraryInfo.email}</td>
-								<td><a href="/library/deleteInterestLibrary.do?target=${interestLibraryInfo.idNum}">삭제</a></td>
+								<td><a href="/library/deleteInterestLibrary.do?target=${interestLibraryInfo.idNum}&libraryIdNum=${library.idNum}">삭제</a></td>
 							</tr>
 						</c:forEach>
 					</c:when>

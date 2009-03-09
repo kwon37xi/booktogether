@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.service.LibraryService;
+import com.google.code.booktogether.service.UserService;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.Library;
@@ -41,6 +42,13 @@ public class PossessBookController extends AbstractController {
 	 */
 	@Resource(name = "bookService")
 	private BookService bookService;
+	
+	
+	/**
+	 * UserService
+	 */
+	@Resource(name = "userService")
+	private UserService userService;
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -338,6 +346,8 @@ public class PossessBookController extends AbstractController {
 		PageBean pageBean = new PageBean();
 		pageBean.setPageNo(pageNo);
 		pageBean.setPageSize(20);
+		
+		List<String> zoneName=userService.getListUserAddr(userId);
 
 		List<PossessBook> possessBookList = libraryService.getListZoneBook(
 				userId, pageBean);
@@ -346,6 +356,7 @@ public class PossessBookController extends AbstractController {
 		mav.setViewName("possessbook/getListZoneBook");
 		mav.addObject("possessBookList", possessBookList);
 		mav.addObject("pageBean", pageBean);
+		mav.addObject("zoneName", zoneName);
 		mav.addObject("userId", userId);
 
 		return mav;

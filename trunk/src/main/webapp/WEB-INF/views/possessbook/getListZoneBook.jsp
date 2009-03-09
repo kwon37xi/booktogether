@@ -15,12 +15,31 @@
 	</head>
 	<body>
 	
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
+		<table class="zonenamelist">
+			<thead>
+				<tr>
+					<td>생활반경 주소</td>
+				</tr>
+			</thead>
+			<tbody>
+				<c:choose>
+					<c:when test="${fn:length(zoneName)!=0}">
+						<c:forEach begin="0" items="${zoneName}" var="zoneNameInfo">
+							<tr>
+								<td>${zoneNameInfo}</td>
+							</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<tr>
+							<td class="nocontent"> 등록된 생활 반경이 없습니다. </td>
+						</tr>
+					</c:otherwise>				
+				</c:choose>
+			</tbody>
+		</table>
+		
+	
 	
 		<table id="zonepossesslist">
 			<thead>
@@ -39,7 +58,7 @@
 										<tbody>
 											<tr>
 												<td rowspan="4"><img src="${possessBook.book.bookCover}"/></td>
-												<td>제목 : <a href="javascript:getPossessBook('${possessBook.idNum}')">${possessBook.book.name}</a></td>
+												<td>제목 : <a href="javascript:getPossessBook('${possessBook.idNum}','${library.idNum}','${library.user.idNum}')">${possessBook.book.name}</a></td>
 											</tr>
 											<tr>
 												<td>소유자  : ${possessBook.user.name}<a href="javascript:getLibrary('${possessBook.user.userId}')">(${possessBook.user.userId})</a></td>

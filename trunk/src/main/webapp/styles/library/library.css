@@ -133,9 +133,8 @@ table thead td {
 }
 
 #modifylibrary {
-	width: 650px;
+	width: 450px;
 	border: 1px #e1f0f5 dashed;
-	margin-left: 50px;
 }
 
 #modifylibrary tfoot td {
@@ -187,13 +186,14 @@ table thead td {
 .bookmark_bookinfo {
 	width: 450px;
 	height: 100%;
-	border: 1px #e1f0f5 dashed;
+	margin:20px 0;
 }
 
 .bookmark_info {
 	width: 100%;
 	height: 100%;
 	border: 1px #e1f0f5 dashed;
+
 }
 
 .bookmark_list {

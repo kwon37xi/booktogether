@@ -105,8 +105,7 @@
 														<a href="/library/modifyLibraryView.do">서재정보 수정</a>
 													</c:if>
 													
-													<c:if test="${sessionScope.idNum!=null}">
-														/
+													<c:if test="${sessionScope.idNum!=null && sessionScope.idNum!=library.user.idNum}">
 												 		<a href="/library/insertInterestLibrary.do?target=${library.user.idNum}&userId=${library.user.userId}">관심 서재 등록</a>
 												 	</c:if>
 												 </td>
@@ -141,9 +140,6 @@
 											</tr>
 											<tr>
 												<td><a href="/index.do">책 검색</a></td>
-											</tr>
-											<tr>
-												<td>추천책</td>
 											</tr>
 											<tr>
 												<td><a href="/library/getListMyReview.do?libraryIdNum=${library.idNum}&userIdNum=${library.user.idNum}">리뷰목록</a></td>

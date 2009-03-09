@@ -43,7 +43,7 @@
 						<td class="u_label"><label for="thumnail">이미지</label></td>
 						<td class="u_label_c">
 							<input type="hidden" name="currThumnail" value="${userInfo.userAddInfo.thumnail}"/>
-							${userInfo.userAddInfo.thumnail}
+							<img src="/images/user/thumnail/${userInfo.userAddInfo.thumnail}"/>
 							<input type="button" value="변경" onclick="addThumnail()"/>
 							<div id="modifythumnaildiv"></div>
 						</td>
@@ -55,7 +55,9 @@
 							
 							<c:forEach begin="0" items="${userInfo.zones}" var="zoneInfo" varStatus="status">
 								<c:set var="index" value="${index+1}"/>
-								${zoneInfo.zoneName} <input type="button" value="삭제" onclick="deleteZone('${zoneInfo.idNum}')"/>
+								<p>
+									${zoneInfo.zoneName} <input type="button" value="삭제" onclick="deleteZone('${zoneInfo.idNum}')"/>
+								</p>
 							</c:forEach>
 							
 							<c:forEach begin="${index}" end="2" var="i">
