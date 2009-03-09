@@ -128,7 +128,7 @@
 									<tr>
 										<td class="p_label">독서종료일</td>
 										<td>
-											<input type="hidden" id="datepicker_eginRead"/>
+											<input type="hidden" id="datepicker_endRead"/>
 											<fmt:formatDate value="${possessBook.endRead}" pattern="yyyy" var="endReadYear"/>
 											<fmt:formatDate value="${possessBook.endRead}" pattern="MM" var="endReadMonth"/>
 											<fmt:formatDate value="${possessBook.endRead}" pattern="dd" var="endReadDate"/>

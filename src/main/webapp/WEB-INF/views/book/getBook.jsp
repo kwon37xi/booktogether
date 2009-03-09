@@ -253,7 +253,7 @@
 								<td class="bmvibe">공감수 : ${bookMarkInfo.vibeNum}</td>
 								
 								<c:if test="${sessionScope.idNum!=null && bookMarkInfo.user.idNum!=sessionScope.idNum}">
-									<td class="bmnickname">
+									<td>
 										<input type="button" value="공감하기" onclick="modifyVibe('${bookMarkInfo.idNum}','${bookInfo.idNum}')"/>
 									</td>
 								</c:if>

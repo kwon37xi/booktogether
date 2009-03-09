@@ -1,11 +1,14 @@
 package com.google.code.booktogether.dao.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -213,11 +216,9 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 	@Override
 	public List<Zone> getZones(Integer userIdNum) {
 
-		ZoneRowMapper zoneRowMapper = new ZoneRowMapper();
-
 		String sql = sqlparser.getSQL("user", "GET_ZONE_SQL");
 
-		return getSimpleJdbcTemplate().query(sql, zoneRowMapper,
+		return getSimpleJdbcTemplate().query(sql, new ZoneRowMapper(),
 				new Object[] { userIdNum });
 
 	}
@@ -250,6 +251,22 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 				new ZipcodeRowMapper(),
 				new Object[] { "%" + addr + "%", "%" + addr + "%",
 						"%" + addr + "%" });
+	}
+
+	@Override
+	public List<String> getListUserAddr(String userId) {
+		
+		String sql = sqlparser.getSQL("user", "LIST_ZONENAME_SQL");
+
+		return getSimpleJdbcTemplate().query(sql,
+				new ParameterizedRowMapper<String>() {
+					@Override
+					public String mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+
+						return rs.getString("zone_name");
+					}
+				}, new Object[] { userId });
 	}
 
 }

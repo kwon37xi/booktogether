@@ -15,6 +15,12 @@ function go_searchBook(pageno, query, searchType) {
 
 }
 
+function getBook(bookIdNum){
+	
+	location.href="/book/getBook.do?bookIdNum="+bookIdNum;
+	
+}
+
 // 책 조회
 function checkBook(isbn, pageNo, query, searchType) {
 

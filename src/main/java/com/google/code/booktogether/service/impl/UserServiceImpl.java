@@ -410,4 +410,10 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Override
+	public List<String> getListUserAddr(String userId) {
+		List<String> zoneName=userJdbcDao.getListUserAddr(userId);
+		return zoneName;
+	}
+
 }

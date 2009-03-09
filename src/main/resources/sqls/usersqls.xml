@@ -273,6 +273,21 @@
             ]]>
 		</query>
 	</sql>
+	
+	
+	<sql name="LIST_ZONENAME_SQL">
+		<description>사용자 생활반경 주소 조회</description>
+		<query>
+            <![CDATA[
+           	SELECT concat(ZC.sido, ' ', ZC.gugun, ' ',ZC.dong, ' ',ZC.zipcode) as zone_name 
+           	  FROM ZONE Z, ZIPCODE ZC, USER U   
+           	 WHERE Z.zone=ZC.idNum 
+           	   AND Z.user_idNum = U.idNum 
+           	   AND U.user_Id = ? 
+           	   AND U.isdelete = 0 
+            ]]>
+		</query>
+	</sql>
 
 
 </sqls>

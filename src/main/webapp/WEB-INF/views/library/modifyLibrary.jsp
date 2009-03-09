@@ -13,13 +13,6 @@
 		<title>서재 수정하기</title>
 	</head>
 	<body>
-		
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
 	
 		<form name="modifyLibraryform" method="post" action="/library/modifyLibrary.do">
 			<input type="hidden" name="idNum" value="${library.idNum}"/>
@@ -33,7 +26,7 @@
 					<tr>
 						<td class="b_label">알림말</td>
 						<td>
-							<textarea name="notice" rows="3" cols="55">${library.notice}</textarea>
+							<textarea name="notice" rows="3" cols="40">${library.notice}</textarea>
 						</td>
 					</tr>
 					<tr>
@@ -53,10 +46,6 @@
 				</tfoot>
 			</table>
 		</form>
-		
-		<div id='navigator'>
-			<a href="javascript:history.go(-1)">뒤로</a>
-		</div>
 		
 	</body>
 </html>

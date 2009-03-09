@@ -147,7 +147,7 @@ public class LibraryController extends AbstractController {
 			@RequestParam(value = "query", required = false) String query) {
 
 		System.out.println(query);
-		
+
 		List<User> userList = null;
 
 		if (query != null) {
@@ -271,7 +271,9 @@ public class LibraryController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping("/library/deleteInterestLibrary.do")
-	public ModelAndView handleDeleteInterestLibrary(HttpServletRequest req,
+	public ModelAndView handleDeleteInterestLibrary(
+			HttpServletRequest req,
+			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum,
 			@RequestParam(value = "target", required = false) Integer target) {
 
 		Integer userIdNum = getLoginUserIdNum();
@@ -290,7 +292,7 @@ public class LibraryController extends AbstractController {
 		// 경로 설정
 		return new ModelAndView(
 				"redirect:/library/getListInterestLibrary.do?userIdNum="
-						+ userIdNum);
+						+ userIdNum + "&libraryIdNum=" + libraryIdNum);
 
 	}
 

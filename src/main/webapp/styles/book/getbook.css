@@ -1,3 +1,12 @@
+table {
+	margin-top: 10px;
+}
+
+table thead td {
+	height: 20px;
+	background-color: #e1f0f5;
+}
+
 
 .b_label {
 	padding: 5px 0;
@@ -29,10 +38,6 @@
 	margin-top:30px;
 }
 
-#gradebook thead td {
-	padding: 10px 0;
-}
-
 .nocontent {
 	height: 50px;
 	padding: 20px 20px;
@@ -45,9 +50,6 @@
 	margin-top:30px;
 }
 
-#reviewbook thead td {
-	padding: 10px 0;
-}
 
 .btitle {
 	width: 200px;
@@ -68,12 +70,9 @@
 	margin-top:30px;
 }
 
-#bookmark thead td {
-	padding: 10px 0;
-}
 
 .bmcontent {
-	width: 150px;
+	width: 200px;
 }
 
 .bmnickname {

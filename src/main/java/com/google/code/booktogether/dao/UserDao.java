@@ -166,4 +166,11 @@ public interface UserDao {
 	 */
 	public List<Zipcode> getListZipcode(String addr);
 	
+	/**
+	 * 사용자 생활반경 주소 가지고 오기
+	 * @param userId
+	 * @return
+	 */
+	public List<String> getListUserAddr(String userId);
+	
 }
