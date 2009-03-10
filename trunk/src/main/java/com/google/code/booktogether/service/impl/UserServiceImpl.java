@@ -371,15 +371,20 @@ public class UserServiceImpl implements UserService {
 		String filename = System.currentTimeMillis()
 				+ file.getOriginalFilename();
 
-		try {
+		if (!file.getOriginalFilename().equals("")) {
 
-			ImageResize.createImageResize(file.getInputStream(), realPath
-					+ File.separatorChar + filename, 100, 100);
+			try {
 
-		} catch (Exception e) {
-			filename = "";
-			throw new BooktogetherException("이미지 축소 및 JPEG 압축 과정에서 실패", e);
+				ImageResize.createImageResize(file.getInputStream(), realPath
+						+ File.separatorChar + filename, 100, 100);
 
+			} catch (Exception e) {
+				filename = "";
+				throw new BooktogetherException("이미지 축소 및 JPEG 압축 과정에서 실패", e);
+
+			}
+		}else{
+			filename="userDefault.png";
 		}
 
 		return filename;
