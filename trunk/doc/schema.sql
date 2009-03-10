@@ -10,7 +10,6 @@ CREATE TABLE `author` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
 CREATE TABLE `bestsellers` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `book_idNum` int(11) NOT NULL,
@@ -19,7 +18,6 @@ CREATE TABLE `bestsellers` (
   KEY `FK_bestsellers_1` (`book_idNum`),
   CONSTRAINT `FK_bestsellers_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 
 CREATE TABLE `book` (
@@ -37,7 +35,6 @@ CREATE TABLE `book` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
 CREATE TABLE `bookgrade` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `book_idNum` int(11) NOT NULL,
@@ -51,7 +48,6 @@ CREATE TABLE `bookgrade` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
 CREATE TABLE `bookhits` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `hits` int(11) NOT NULL DEFAULT '0',
@@ -60,7 +56,6 @@ CREATE TABLE `bookhits` (
   KEY `FK_bookhits_1` (`book_idNum`),
   CONSTRAINT `FK_bookhits_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 
 CREATE TABLE `bookmark` (
@@ -79,8 +74,6 @@ CREATE TABLE `bookmark` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
-
 CREATE TABLE `bookreview` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `book_idNum` int(11) NOT NULL,
@@ -96,15 +89,12 @@ CREATE TABLE `bookreview` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
 CREATE TABLE `goodwriter` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `input_date` datetime NOT NULL,
   `content` varchar(200) NOT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 
 CREATE TABLE `interestlibrary` (
@@ -119,8 +109,6 @@ CREATE TABLE `interestlibrary` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
-
 CREATE TABLE `library` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `user_idNum` int(11) NOT NULL,
@@ -130,8 +118,6 @@ CREATE TABLE `library` (
   KEY `FK_library_1` (`user_idNum`),
   CONSTRAINT `FK_library_1` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 
 CREATE TABLE `libraryboard` (
@@ -144,7 +130,6 @@ CREATE TABLE `libraryboard` (
   KEY `FK_libraryboard_1` (`library_idNum`),
   CONSTRAINT `FK_libraryboard_1` FOREIGN KEY (`library_idNum`) REFERENCES `library` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 
 CREATE TABLE `librarybook` (
@@ -162,8 +147,6 @@ CREATE TABLE `librarybook` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
-
 CREATE TABLE `libraryrank` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` varchar(15) NOT NULL,
@@ -173,8 +156,6 @@ CREATE TABLE `libraryrank` (
   `total` int(11) NOT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 
 CREATE TABLE `possessbook` (
@@ -195,8 +176,6 @@ CREATE TABLE `possessbook` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
-
 CREATE TABLE `recobook` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `book_idNum` int(11) NOT NULL,
@@ -205,8 +184,6 @@ CREATE TABLE `recobook` (
   KEY `FK_recobook` (`book_idNum`),
   CONSTRAINT `FK_recobook` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 
 CREATE TABLE `recommend` (
@@ -221,14 +198,11 @@ CREATE TABLE `recommend` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
 CREATE TABLE `searchquery` (
   `query` varchar(50) NOT NULL,
   `search_num` int(11) NOT NULL,
   PRIMARY KEY (`query`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 
 CREATE TABLE `user` (
@@ -243,7 +217,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
 CREATE TABLE `user_pw` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `user_idNum` int(11) NOT NULL,
@@ -255,7 +228,6 @@ CREATE TABLE `user_pw` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
 CREATE TABLE `useraddinfo` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
   `user_idNum` int(11) NOT NULL,
@@ -265,7 +237,6 @@ CREATE TABLE `useraddinfo` (
   KEY `FK_useraddinfo_1` (`user_idNum`),
   CONSTRAINT `FK_useraddinfo_1` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 
 CREATE TABLE `vibe` (
@@ -280,8 +251,6 @@ CREATE TABLE `vibe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
-
 CREATE TABLE `zipcode` (
   `idNum` int(11) NOT NULL,
   `zipcode` varchar(7) NOT NULL,
@@ -290,8 +259,6 @@ CREATE TABLE `zipcode` (
   `dong` varchar(52) DEFAULT NULL,
   PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 
 CREATE TABLE `zone` (
