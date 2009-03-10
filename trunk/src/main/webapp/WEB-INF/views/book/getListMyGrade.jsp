@@ -25,7 +25,14 @@
 					<c:when test="${fn:length(bookGradeList)!=0}">
 						<c:forEach begin="0" items="${bookGradeList}" var="bookGrade" varStatus="status">
 							<tr>
-								<td><img src="${bookGrade.book.bookCover}"/></td>
+								<td>
+									<c:if test="${bookGrade.book.bookCover!=null && bookGrade.book.bookCover!=''}">
+										<img src="${bookGrade.book.bookCover}"/>
+									</c:if>
+									<c:if test="${bookGrade.book.bookCover==null || bookGrade.book.bookCover==''}">
+										<img src="/images/book/bookDefault.png"/>
+									</c:if>		
+								</td>
 								<td><a href="javascript:getBook('${bookGrade.book.idNum}')">${bookGrade.book.name}</a></td>
 								<td>
 									<c:set var="count" value="0"/>

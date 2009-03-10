@@ -28,7 +28,14 @@
 								<td>
 									<table>
 										<tr>
-											<td rowspan="4"><img src="${bookReview.book.bookCover}"/></td>
+											<td rowspan="4">
+												<c:if test="${bookReview.book.bookCover!=null && bookReview.book.bookCover!=''}">
+													<img src="${bookReview.book.bookCover}"/>
+												</c:if>
+												<c:if test="${bookReview.book.bookCover==null || bookReview.book.bookCover==''}">
+													<img src="/images/book/bookDefault.png"/>
+												</c:if>	
+											</td>
 											<td>제목 : <a href="javascript:getBook('${bookReview.book.idNum}')">${fn:escapeXml(bookReview.book.name)}</a></td>
 										</tr>
 										<tr>

@@ -27,7 +27,14 @@
 			<tbody>
 				<tr>
 					<td class="p_label">책표지</td>
-					<td><img src="${bookInfo.bookCover}"/></td>
+					<td>
+						<c:if test="${bookInfo.bookCover!=null && bookInfo.bookCover!=''}">
+							<img src="${bookInfo.bookCover}"/>
+						</c:if>
+						<c:if test="${bookInfo.bookCover==null || bookInfo.bookCover==''}">
+							<img src="/images/book/bookDefault.png"/>
+						</c:if>	
+					</td>
 				</tr>
 				<tr>
 					<td class="p_label">책이름</td>
