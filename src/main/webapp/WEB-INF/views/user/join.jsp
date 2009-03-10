@@ -5,29 +5,14 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
-		<link href="/styles/user/join.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="/styles/common/default.css" />
+		<link rel="stylesheet" type="text/css" href="/styles/user/join.css"/>
+		<link rel="stylesheet" type="text/css" href="/styles/user/user.css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/common.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/join.js"></script>
 		<title>회원가입</title>
-		<script type="text/javascript">
-		jQuery(function($){
-
-			$("#userId").click(function(){
-				$("#duplicateId").trigger("click");
-				return false;
-			});
-			
-			$("#duplicateId").click(function(){
-				var url = "/user/duplicateUserIdView.do?decorator=popup&confirm=true";
-				var ret = window.showModalDialog(url,window,"dialogWidth:300px; dialogHeight:200px; help:no; scroll:no; resizable;no; status:no");
-				$("#userId").val(ret);
-				return false;
-			});
-			
-		});
-		</script>
 	</head>
 	<body>
 	

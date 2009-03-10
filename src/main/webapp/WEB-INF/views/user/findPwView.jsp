@@ -3,12 +3,13 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="/styles/user/user.css" />
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/findpw.js"></script>
 		<title>비밀번호 찾기</title>
 	</head>
 	<body>
 		<form name="findPwform" method="post" action="/user/findPw.do">
-			<table>
+			<table class="findpwview">
 				<thead>
 					<tr>
 						<td colspan="2">비밀번호찾기</td>
@@ -16,22 +17,22 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><label for="userId">아이디</label></td>
-						<td><input type="text" name="userId" size="20"/></td>
+						<td class="u_label"><label for="userId">아이디</label></td>
+						<td class="u_label_c"><input type="text" name="userId" size="20" id="userId"/></td>
 					</tr>
 					<tr>
-						<td><label for="name">이름</label></td>
-						<td><input type="text" name="name" size="20"/></td>
+						<td class="u_label"><label for="name">이름</label></td>
+						<td class="u_label_c"><input type="text" name="name" size="20" id="name"/></td>
 					</tr>
 					<tr>
-						<td><label for="email">이메일</label></td>
-						<td><input type="text" name="email" size="20"/></td>
+						<td class="u_label"><label for="email">이메일</label></td>
+						<td class="u_label_c"><input type="text" name="email" size="30" id="email"/></td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="찾기"/>
+							<input type="button" value="찾기" id="findpwbutton"/>
 						</td>
 					</tr>
 				</tfoot>

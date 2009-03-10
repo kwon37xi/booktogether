@@ -105,7 +105,7 @@
             <![CDATA[
     	        INSERT INTO libraryrank (idNum, user_id, email, nickname, name,total)
 				SELECT U.idNum,U.user_id, U.email, U.nickname, U.name, RESULT.total
-				  FROM USER U,
+				  FROM USER U, LIBRARY L,
 					(SELECT idNum, (grade+bookmark+bookreview+possessbook+recommend+vibe) as total
 					  FROM 
 						(SELECT U.*, COUNT(VI.idNUm) as vibe
@@ -140,7 +140,9 @@
 						    ON U.idNum = VI.user_idNum
 						 GROUP BY U.idNum) U
 					 LIMIT 0,10) RESULT
-				 WHERE U.idNum=RESULT.idNum
+				 WHERE U.idNum=RESULT.idNum  
+				   AND U.idNum=L.user_IdNum
+				   AND L.isopen=0 
 				 ORDER BY total DESC
             ]]>
 		</query>
@@ -221,8 +223,8 @@
             ]]>
 		</query>
 	</sql>
-	
-	
+
+
 	<sql name="DELETE_LIBRARYRANK_SQL">
 		<description>서재 목록 삭제</description>
 		<query>

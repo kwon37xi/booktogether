@@ -21,7 +21,7 @@ public class AnnotLoggingAspect {
 		String methodName = joinPoint.getSignature().getName();
 
 		if (log.isInfoEnabled()) {
-			log.info("ClassName=" + className + ":::: calling: " + methodName);
+			log.info("ClassName=" + className + ":::: 시작: " + methodName);
 		}
 
 		return methodName;
@@ -47,7 +47,7 @@ public class AnnotLoggingAspect {
 			log.info("exception occured: " + methodName + " throws "
 					+ ex.getClass().getName());
 		}
-	}
+	}*/
 	@After("execution(public * com.google.code.booktogether.service.*.*(..))")
 	public void afterLogging(JoinPoint joinPoint) {
 
@@ -56,9 +56,9 @@ public class AnnotLoggingAspect {
 		String methodName = joinPoint.getSignature().getName();
 
 		if (log.isInfoEnabled()) {
-			log.info("ClassName=" + className + "::::: finish call: "
+			log.info("ClassName=" + className + "::::: 끝: "
 					+ methodName);
 		}
 	}
-	 */
+	 
 }

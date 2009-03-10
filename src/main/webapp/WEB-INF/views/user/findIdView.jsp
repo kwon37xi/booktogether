@@ -3,14 +3,16 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="/styles/user/user.css" />
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/findid.js"></script>
 		<title>아이디 찾기</title>
 	</head>
 	<body>
-		<form name="findIdform" method="post" action="/user/findId.do">
-			<input type="hidden" name="decorator" value="popup"/>
-			<input type="hidden" name="confirm" value="true"/>
-			<table>
+	
+		<form name="findIdform" method="post">
+			
+			<table class="findIdView">
 				<thead>
 					<tr>
 						<td colspan="2">아이디 찾기</td>
@@ -18,18 +20,18 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><label for="name">이름</label></td>
-						<td><input type="text" name="name" size="20"/></td>
+						<td class="u_label"><label for="name">이름</label></td>
+						<td class="u_label_c"><input type="text" name="name" size="20" id="findId_name"/></td>
 					</tr>
 					<tr>
-						<td><label for="email">이메일</label></td>
-						<td><input type="text" name="email" size="20"/></td>
+						<td class="u_label"><label for="email">이메일</label></td>
+						<td class="u_label_c"><input type="text" name="email" size="20" id="findId_email"/></td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="찾기"/>
+							<input type="button" value="찾기" id="findidbutton"/>
 						</td>
 					</tr>
 				</tfoot>

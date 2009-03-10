@@ -35,7 +35,7 @@ function addThumnail(){
 
 function findAddr(ele_seq){
 	
-	window.open('/user/findAddrView.do?eleSeq='+ele_seq+"&decorator=popup&confirm=true",'주소찾기','');
+	window.open('/user/findAddrView.do?eleSeq='+ele_seq+"&decorator=popup&confirm=true",'주소찾기','width=300px,height=300px,scrollbars=1');
 	
 }
 

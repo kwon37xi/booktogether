@@ -18,6 +18,11 @@ hr {
 	border:3px #FFF solid;
 }
 
-.join1 thead{
+.join1 thead td{
+	text-align:center;
 	height:40px;
+}
+
+.join1 tfoot td{
+	text-align:center;
 }
