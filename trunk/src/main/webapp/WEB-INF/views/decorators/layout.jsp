@@ -38,11 +38,18 @@
 							<td>
 								<div id="menu">
 									<ul>
-										<li><a href="#"> Log-in</a></li>
-										<li><a href="#"> Sitemap</a></li>
-										<li><a href="#"> FAQ</a></li>
-										<li><a href="#"> Help</a></li>
-										<li><a href="#"> About us</a></li>			
+										<c:choose>
+											<c:when test="${sessionScope.idNum==null}">
+												<li><a href="javascript:go_home()"> Log-in</a></li>
+											</c:when>
+											<c:when test="${sessionScope.idNum!=null}">
+												<li><a href="javascript:logout()"> Log-Out</a></li>
+											</c:when>
+										</c:choose>
+										<li><a href="javascript:sitemap()"> Sitemap</a></li>
+										<li><a href="javascript:faq()"> FAQ</a></li>
+										<li><a href="javascript:help()"> Help</a></li>
+										<li><a href="javascript:aboutus()"> About us</a></li>			
 									</ul>
 								</div>		
 							</td>

@@ -72,9 +72,6 @@
 													</c:choose>
 												</td>
 											</tr>
-											<tr>
-												<td>지역명 : ${possessBook.user.zones[0].zonename} </td>
-											</tr>
 										</tbody>
 									</table>
 								</td>

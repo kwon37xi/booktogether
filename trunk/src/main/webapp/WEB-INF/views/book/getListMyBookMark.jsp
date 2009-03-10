@@ -21,11 +21,11 @@
 				</tr>
 			</thead>
 		</table>
-		<c:choose>
-			<c:when test="${fn:length(bookListInBookMark)!=0}">
-				<c:forEach begin="0" items="${bookListInBookMark}" var="bookList" varStatus="status">
-					<table class="bookmark_bookinfo">
-						<tbody>	
+		<table class="bookmark_bookinfo">
+			<tbody>	
+				<c:choose>
+					<c:when test="${fn:length(bookListInBookMark)!=0}">
+						<c:forEach begin="0" items="${bookListInBookMark}" var="bookList" varStatus="status">
 							<tr>
 								<td rowspan="2"><img src="${bookList.book.bookCover}"/></td>
 								<td>제목 : <a href="javascript:getBook('${bookList.book.idNum}')">${bookList.book.name}</a></td>
@@ -59,16 +59,16 @@
 									</table>
 								</td>
 							</tr>
-						</tbody>
-					</table>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<tr>
-					<td class="nocontent">검색된 결과값이 없습니다.</td>
-				</tr>
-			</c:otherwise>
-		</c:choose>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<tr>
+							<td class="nocontent">검색된 결과값이 없습니다.</td>
+						</tr>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+		</table>
 		
 		<div id='navigator'>
 			<c:if test="${pageBean.prePage}">
