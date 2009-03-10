@@ -38,8 +38,7 @@ public class MainController extends AbstractController {
 	 */
 	@Resource(name = "bestSellersService")
 	private BestSellersService bestSellersService;
-	
-	
+
 	/**
 	 * RecoBookService
 	 */
@@ -65,31 +64,25 @@ public class MainController extends AbstractController {
 	 */
 	@RequestMapping("/index.do")
 	public ModelAndView handleDuplicateUserId(HttpServletRequest req) {
-		
-		//베스트 셀러 목록
-		List<Book> bestSellerList=bestSellersService.getListBestSellers();
-		
-		
-		//추천책
-		List<Book> recoBookList=recoBookService.getListRecoBook();
-		
-		
-		//서재 인기 순위
-		List<User> libraryRankList=libraryService.getLibraryRank();
-		
-		
-		//좋은 글 
-		GoodWriter goodWriter=goodWriterService.getGoodWriter();
-		
-		
-		//인기 책 순위
-		List<Book> topBookHitsList=bookService.getListTopBookHits();
-		
-		
-		//인기 검색 순위
-		List<String> searchRankQuerys=bookService.getListSearchRankQuery();
 
-		
+		// 베스트 셀러 목록
+		List<Book> bestSellerList = bestSellersService.getListBestSellers();
+
+		// 추천책
+		List<Book> recoBookList = recoBookService.getListRecoBook();
+
+		// 서재 인기 순위
+		List<User> libraryRankList = libraryService.getLibraryRank();
+
+		// 좋은 글
+		GoodWriter goodWriter = goodWriterService.getGoodWriter();
+
+		// 인기 책 순위
+		List<Book> topBookHitsList = bookService.getListTopBookHits();
+
+		// 인기 검색 순위
+		List<String> searchRankQuerys = bookService.getListSearchRankQuery();
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main/main");
 		mav.addObject("searchRankQuerys", searchRankQuerys);
@@ -102,4 +95,69 @@ public class MainController extends AbstractController {
 		return mav;
 
 	}
+
+	/**
+	 * 사이트맵 화면 보기
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/main/sitemap.do")
+	public ModelAndView handleSiteMap(HttpServletRequest req) {
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main/sitemap");
+
+		return mav;
+
+	}
+	
+	
+	
+	/**
+	 *  FAQ 화면 보기
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/main/faq.do")
+	public ModelAndView handleFaq(HttpServletRequest req) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main/faq");
+		
+		return mav;
+		
+	}
+	
+	
+	/**
+	 *  HELP 화면 보기
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/main/help.do")
+	public ModelAndView handleHelp(HttpServletRequest req) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main/help");
+		
+		return mav;
+		
+	}
+	
+	
+	/**
+	 *  ABOUT US 화면 보기
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/main/aboutus.do")
+	public ModelAndView handleAboutUs(HttpServletRequest req) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main/aboutus");
+		
+		return mav;
+		
+	}
+
 }
