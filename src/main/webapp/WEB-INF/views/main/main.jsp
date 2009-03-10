@@ -82,10 +82,10 @@
 								<li>
 									<c:choose>
 										<c:when test="${fn:length(queryInfo)>10}">
-											${fn:substring(fn:escapeXml(queryInfo),0,10)}...
+											<a href="javascript:go_searchBook('1','${queryInfo}','book')">${fn:substring(fn:escapeXml(queryInfo),0,10)}...</a>
 										</c:when>
 										<c:otherwise>
-											${fn:escapeXml(queryInfo)}
+											<a href="javascript:go_searchBook('1','${queryInfo}','book')">${fn:escapeXml(queryInfo)}</a>
 										</c:otherwise>
 									</c:choose>
 								</li>
