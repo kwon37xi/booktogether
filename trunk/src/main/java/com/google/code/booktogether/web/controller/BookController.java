@@ -174,8 +174,6 @@ public class BookController extends AbstractController {
 			@RequestParam(value = "searchType", required = false) String searchType,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
 		
-		System.out.println("호출 되었습니다.");
-
 		beforeQuery = (beforeQuery == null || beforeQuery.equals("")) ? null
 				: beforeQuery;
 		query = (query == null || query.equals("")) ? "" : query.trim();
@@ -233,8 +231,6 @@ public class BookController extends AbstractController {
 		mav.addObject("searchType", searchType);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("searchRankQuerys", searchRankQuerys);
-		
-		System.out.println("끝났다.");
 
 		return mav;
 

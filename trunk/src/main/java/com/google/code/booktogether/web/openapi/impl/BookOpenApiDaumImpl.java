@@ -115,7 +115,6 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 
 			while ((inputLine = in.readLine()) != null) {
 				xmlContent.append(inputLine);
-				System.out.println(inputLine);
 			}
 
 			in.close();
@@ -253,9 +252,6 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 
 		Element child = xmldoc.getRootElement();
 		
-		System.out.println("*******************************");
-		System.out.println(child.getChildText("totalCount"));
-
 		header = new BookOpenApiHeader();
 		header.setTitle(child.getChildText("title"));
 		header.setTotalCount(child.getChildText("totalCount").trim());
