@@ -27,7 +27,14 @@
 					<c:when test="${fn:length(bookListInBookMark)!=0}">
 						<c:forEach begin="0" items="${bookListInBookMark}" var="bookList" varStatus="status">
 							<tr>
-								<td rowspan="2"><img src="${bookList.book.bookCover}"/></td>
+								<td rowspan="2">
+									<c:if test="${bookList.book.bookCover!=null && bookList.book.bookCover!=''}">
+										<img src="${bookList.book.bookCover}" />
+									</c:if>
+									<c:if test="${bookList.book.bookCover==null || bookList.book.bookCover==''}">
+										<img src="/images/book/bookDefault.png"/>
+									</c:if>		
+								</td>
 								<td>제목 : <a href="javascript:getBook('${bookList.book.idNum}')">${bookList.book.name}</a></td>
 								<td>지은이 : 
 									<c:forEach begin="0" items="${bookList.book.authors}" var="authorInfo">

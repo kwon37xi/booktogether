@@ -57,7 +57,14 @@
 									<table id="possessbook_info">
 										<tbody>
 											<tr>
-												<td rowspan="4"><img src="${possessBook.book.bookCover}"/></td>
+												<td rowspan="4">
+													<c:if test="${possessBook.book.bookCover!=null && possessBook.book.bookCover!=''}">
+														<img src="${possessBook.book.bookCover}"/>
+													</c:if>
+													<c:if test="${possessBook.book.bookCover==null || possessBook.book.bookCover==''}">
+														<img src="/images/book/bookDefault.png"/>
+													</c:if>		
+												</td>
 												<td>제목 : <a href="javascript:getPossessBook('${possessBook.idNum}','${library.idNum}','${library.user.idNum}')">${possessBook.book.name}</a></td>
 											</tr>
 											<tr>

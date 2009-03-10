@@ -44,7 +44,12 @@
 											<td>
 												<c:if test="${aIndex>bookListLength}">&nbsp;</c:if>
 												<c:if test="${aIndex<bookListLength}">
-													<img src="${bookList[aIndex].bookCover}" width="72" height="102" onclick="checkBook('${bookList[aIndex].ISBN10}','${pageNo}','${query}','${searchType}')" class="img_button"/><br/>
+													<c:if test="${bookList[aIndex].bookCover!=null && bookList[aIndex].bookCover!=''}">
+														<img src="${bookList[aIndex].bookCover}" width="72" height="102" onclick="checkBook('${bookList[aIndex].ISBN10}','${pageNo}','${query}','${searchType}')" class="img_button"/><br/>
+													</c:if>
+													<c:if test="${bookList[aIndex].bookCover==null || bookList[aIndex].bookCover==''}">
+														<img src="/images/book/bookDefault.png" width="72" height="102" onclick="checkBook('${bookList[aIndex].ISBN10}','${pageNo}','${query}','${searchType}')" class="img_button"/><br/>
+													</c:if>	
 													<a href="javascript:checkBook('${bookList[aIndex].ISBN10}','${pageNo}','${query}','${searchType}')">
 														${fn:escapeXml(bookList[aIndex].name)}
 													</a><br/>

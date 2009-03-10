@@ -42,7 +42,12 @@
 									<table>
 										<tr>
 											<td rowspan="4">
-												<img src="${libraryBookInfo.book.bookCover}"/>
+												<c:if test="${libraryBookInfo.book.bookCover!=null && libraryBookInfo.book.bookCover!=''}">
+													<img src="${libraryBookInfo.book.bookCover}"/>
+												</c:if>
+												<c:if test="${libraryBookInfo.book.bookCover==null || libraryBookInfo.book.bookCover==''}">
+													<img src="/images/book/bookDefault.png"/>
+												</c:if>	
 											</td>
 											<td> 제목 : ${libraryBookInfo.book.name}</td>
 										</tr>
