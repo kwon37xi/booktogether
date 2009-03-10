@@ -219,10 +219,13 @@ public class UserServiceImpl implements UserService {
 		// 생호라 반경 등록
 		for (Zone zone : user.getZones()) {
 
-			count = userJdbcDao.insertZone(zone);
+			if (zone != null) {
 
-			if (count != 1) {
-				throw new BooktogetherException("사용자 생활반경 등록 실패");
+				count = userJdbcDao.insertZone(zone);
+
+				if (count != 1) {
+					throw new BooktogetherException("사용자 생활반경 등록 실패");
+				}
 			}
 
 		}
@@ -412,7 +415,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<String> getListUserAddr(String userId) {
-		List<String> zoneName=userJdbcDao.getListUserAddr(userId);
+		List<String> zoneName = userJdbcDao.getListUserAddr(userId);
 		return zoneName;
 	}
 
