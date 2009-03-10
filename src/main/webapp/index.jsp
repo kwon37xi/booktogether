@@ -13,15 +13,8 @@
 </head>
 <body>
 
-	<c:if test="${sessionScope.message!=null}">
-		<script>
-			alert('${sessionScope.message}');
-		</script>
-		<c:remove scope="session" var="message"/>
-	</c:if>
-
-	<p>
-	이제 시작합니다.화이팅*ㅁ*
-	</p>
+	<script>
+		location.replace("/index.do");
+	</script>
 </body>
 </html>
