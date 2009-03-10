@@ -39,7 +39,12 @@
 									<td class="list_book_info">
 										<c:if test="${aIndex>bookListLength}">&nbsp;</c:if>
 										<c:if test="${aIndex<bookListLength}">
-											<img src="${bookInfo.bookCover}" width="72" height="102" onclick="checkBook('${bookInfo.ISBN10}')"/><br/>
+											<c:if test="${bookInfo.bookCover!=null && bookInfo.bookCover!=''}">
+												<img src="${bookInfo.bookCover}" width="72" height="102" onclick="javascript:getBook('${bookInfo.idNum}')" style="cursor: pointer;"/><br/>
+											</c:if>
+											<c:if test="${bookInfo.bookCover==null || bookInfo.bookCover==''}">
+												<img src="/images/book/bookDefault.png" width="72" height="102" onclick="javascript:getBook('${bookInfo.idNum}')" style="cursor: pointer;"/><br/>
+											</c:if>											
 											<a href="javascript:getBook('${bookInfo.idNum}')">
 												${bookInfo.name}
 											</a>
