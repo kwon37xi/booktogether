@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/book/searchBook.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="/styles/book/searchBook.css" />
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
 		<title>책 검색</title>
 	</head>

@@ -6,10 +6,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="/styles/user/user.css" />
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/user/duplicateuserid.js"></script>
 		<title>아이디 중복 확인</title>
-		<script type="text/javascript">
-		</script>
 	</head>
 	<body>
 		<form name="duplicateuseridform" method="post">

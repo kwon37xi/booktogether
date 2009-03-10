@@ -85,6 +85,8 @@ public class BookServiceImpl implements BookService {
 
 		// 해당 책 있는지 체크
 		Book book = bookJdbcDao.getBook(isbn);
+		
+		System.out.println(book);
 
 		// 해당책이 없을시
 		if (book == null) {

@@ -58,8 +58,7 @@ public class OpenLibraryCheckInterceptor extends HandlerInterceptorAdapter {
 						"message", "비공개 개인서재입니다",
 						RequestAttributes.SCOPE_SESSION);
 
-				response.sendRedirect("/library/unOpenLibraryView.do?userId="
-						+ library.getUser().getUserId());
+				response.sendRedirect("/index.do");
 
 				return false;
 

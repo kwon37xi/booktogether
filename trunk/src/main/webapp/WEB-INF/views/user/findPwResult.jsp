@@ -3,20 +3,33 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link href="/styles/common/default.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="/styles/user/user.css" />
 		<title>비밀번호 찾기</title>
 	</head>
 	<body>
 		
-		${userInfo.name}(${userInfo.userId})님이 요청에 대한 결과
+		<table class="findidresult">
+			<thead>
+				<tr>
+					<td>비밀번호 찾기</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>${userInfo.name}(${userInfo.userId})님이 요청에 대한 결과</td>
+				</tr>
+				<tr>
+					<td><b>${message}</b></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td><a href="javascript:self.close();">닫기</a></td>
+				</tr>
+			</tfoot>
+		</table>
 		
-		<br/><br/>
 		
-		${message}
-		
-		<br/><br/>
-		
-		<a href="/user/login.do">로그인하기</a>
-	
+			
 	</body>
 </html>

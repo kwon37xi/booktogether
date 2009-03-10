@@ -173,34 +173,41 @@ public class BookController extends AbstractController {
 			@RequestParam(value = "beforeQuery", required = false) String beforeQuery,
 			@RequestParam(value = "searchType", required = false) String searchType,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+		
+		System.out.println("호출 되었습니다.");
 
 		beforeQuery = (beforeQuery == null || beforeQuery.equals("")) ? null
 				: beforeQuery;
-		query = (query == null || query.equals("")) ? null : query.trim();
+		query = (query == null || query.equals("")) ? "" : query.trim();
 		searchType = (searchType == null) ? "book" : searchType;
-		
-		String temp_query="";
-		
+
+		String temp_query = "";
+
 		try {
 			temp_query = URLEncoder.encode(query, "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			throw new BooktogetherException("UTF-8로 인코딩에러", e1);
 		}
-		
-		if(searchType.equals("library")){
-			return new ModelAndView("redirect:/main/searchLibrary.do?query="+temp_query);
+
+		if (searchType.equals("library")) {
+			return new ModelAndView("redirect:/main/searchLibrary.do?query="
+					+ temp_query);
 		}
-		
-		String searchType_div="all";
-		
+
+		String searchType_div = "all";
+
 		pageNo = (pageNo == null) ? 1 : pageNo;
 
 		PageBean pageBean = new PageBean();
 		pageBean.setPageNo(pageNo);
 		pageBean.setLimit(5);
 
-		//검색 순위 넣기
-		if (beforeQuery != null && query != null && !beforeQuery.equals(query)) {
+		boolean isfirstSearch = (beforeQuery == null && query != "") ? true
+				: false;
+
+		// 검색 순위 넣기
+		if (isfirstSearch
+				|| (beforeQuery != null && !beforeQuery.equals(query))) {
 
 			bookService.insertSearchRankQuery(query);
 
@@ -226,6 +233,8 @@ public class BookController extends AbstractController {
 		mav.addObject("searchType", searchType);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("searchRankQuerys", searchRankQuerys);
+		
+		System.out.println("끝났다.");
 
 		return mav;
 

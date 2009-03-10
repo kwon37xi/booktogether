@@ -41,7 +41,6 @@ public class UserController extends AbstractController {
 	 */
 	@Resource(name = "userService")
 	private UserService userService;
-	
 
 	/**
 	 * 사용자 등록 화면
@@ -136,7 +135,7 @@ public class UserController extends AbstractController {
 		RequestContextHolder.getRequestAttributes().setAttribute("message",
 				message, RequestAttributes.SCOPE_SESSION);
 
-		return new ModelAndView("redirect:/user/login.do");
+		return new ModelAndView("redirect:/index.do");
 
 	}
 
@@ -199,7 +198,8 @@ public class UserController extends AbstractController {
 					RequestAttributes.SCOPE_SESSION);
 			sra.setAttribute("userId", user.getUserId(),
 					RequestAttributes.SCOPE_SESSION);
-			sra.setAttribute("thumnail", user.getUserAddInfo().getThumnail(), RequestAttributes.SCOPE_SESSION);
+			sra.setAttribute("thumnail", user.getUserAddInfo().getThumnail(),
+					RequestAttributes.SCOPE_SESSION);
 
 		} else { // 실패시
 
@@ -612,14 +612,15 @@ public class UserController extends AbstractController {
 		return mav;
 
 	}
+
 	@RequestMapping("/user/duplicateUserIdAjax.do")
-	public void duplicateUserIdAjax(HttpServletRequest req, HttpServletResponse res,
-								@RequestParam(value = "userId", required = false) String userId) {
-		
-		System.out.println("duplicateUserId2 :: start");
+	public void duplicateUserIdAjax(HttpServletRequest req,
+			HttpServletResponse res,
+			@RequestParam(value = "userId", required = false) String userId) {
+
 		JSONObject json = new JSONObject();
 		boolean result = userService.duplicateUserId(userId);
-		
+
 		String message = null;
 		String retValue = null;
 
@@ -630,16 +631,16 @@ public class UserController extends AbstractController {
 			message = "아이디 중복입니다.";
 			retValue = "falure";
 		}
-		
+
 		json.element("message", message);
 		json.element("status", retValue);
+
 		try {
 			res.setContentType("text/html;charset=utf-8");
 			res.getWriter().print(json.toString());
-		} catch(IOException e) {
+		} catch (IOException e) {
 			throw new BooktogetherException("아이디 중복처리 실패", e);
 		}
-		System.out.println("duplicateUserId2 :: end");
 	}
 
 	/**

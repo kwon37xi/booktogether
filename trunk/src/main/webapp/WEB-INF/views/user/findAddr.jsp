@@ -7,6 +7,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="/styles/user/findAddr.css" />
 		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
 		
 		<title>주소찾기</title>
@@ -39,7 +40,7 @@
 		
 		<c:if test="${requestScope.zipcodeList!=null}">
 			결과물
-			<table>
+			<table id="findAddrResult">
 				<thead>	
 					<tr>
 						<td>주소</td>
