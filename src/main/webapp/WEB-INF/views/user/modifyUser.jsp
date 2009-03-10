@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"   "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -43,7 +44,12 @@
 						<td class="u_label"><label for="thumnail">이미지</label></td>
 						<td class="u_label_c">
 							<input type="hidden" name="currThumnail" value="${userInfo.userAddInfo.thumnail}"/>
-							<img src="/images/user/thumnail/${userInfo.userAddInfo.thumnail}"/>
+							<c:if test="${fn:length(userInfo.userAddInfo.thumnail) > 13}">
+								<img src="/images/user/thumnail/${userInfo.userAddInfo.thumnail}"/>
+							</c:if>
+							<c:if test="${fn:length(userInfo.userAddInfo.thumnail) == 13}">
+								<img src="/images/user/userDefault.png"/>
+							</c:if>	
 							<input type="button" value="변경" onclick="addThumnail()"/>
 							<div id="modifythumnaildiv"></div>
 						</td>
