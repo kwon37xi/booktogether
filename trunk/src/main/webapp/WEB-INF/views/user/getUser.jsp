@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"   "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -57,7 +58,14 @@
 				</tr>
 				<tr>
 					<td class="u_label">썸네일</td>
-					<td class="u_label_c"><img src="/images/user/thumnail/${userInfo.userAddInfo.thumnail}"/></td>
+					<td class="u_label_c">
+						<c:if test="${fn:length(userInfo.userAddInfo.thumnail) > 13}">
+							<img src="/images/user/thumnail/${userInfo.userAddInfo.thumnail}"/>
+						</c:if>
+						<c:if test="${fn:length(userInfo.userAddInfo.thumnail) == 13}">
+							<img src="/images/user/userDefault.png"/>
+						</c:if>	
+					</td>
 				</tr>
 				
 				<c:forEach begin="0" items="${userInfo.zones}" var="zoneInfo" varStatus="status">
