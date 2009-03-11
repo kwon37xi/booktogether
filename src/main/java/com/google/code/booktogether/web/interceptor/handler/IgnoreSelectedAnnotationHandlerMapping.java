@@ -33,7 +33,6 @@ public class IgnoreSelectedAnnotationHandlerMapping extends
 		}
 
 		return (String[]) arraylist.toArray(new String[arraylist.size()]);
-		
 	}
 
 	protected String[] determineUrlsForHandler(String s) {
