@@ -13,6 +13,7 @@
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery-ui-1.7.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/datepicker.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/librarybook/modifylibrarybook.js"></script>
 		<title>서재 책 수정하기</title>
 	</head>
 	<body>
@@ -172,7 +173,7 @@
 				<tfoot>
 					<tr>
 						<td>
-							<input type="submit" value="수정"/>
+							<input type="button" value="수정" onclick="modifyLibraryBook()"/>
 							<input type="button" value="뒤로" onclick="javascript:history.go(-1)"/>
 						</td>
 					</tr>

@@ -13,6 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="/styles/common/layout.css" />
 		<link rel="stylesheet" type="text/css" href="/styles/main/menubar.css" />
 		
+		<script type="text/javascript" charset="utf-8" src="/scripts/common/formvalidate.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/cornerz.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/common.js"></script>
@@ -69,8 +70,8 @@
 									<input type="radio" name="searchType" value="book" ${searchType=='book'? 'checked' :''}/>책&nbsp;&nbsp;
 									<input type="radio" name="searchType" value="library" ${searchType=='library'? 'checked' :''}/>서재 &nbsp;&nbsp;
 									
-									<input type="text" name="query" size="30" value="${requestScope.query}"/>
-									<input type="submit" value="검색"/>
+									<input type="text" name="query" size="30" value="${requestScope.query}" id="query"/>
+									<input type="button" value="검색" onclick="searchBookQuery()"/>
 								</form>
 							</td>
 						</tr>

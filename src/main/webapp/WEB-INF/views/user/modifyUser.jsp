@@ -9,6 +9,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="/styles/user/usermodify.css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/modify.js"></script>
 		<title>회원수정</title>
 	</head>
 	<body>
@@ -73,14 +74,13 @@
 									<input type="button" value="찾기" id="f_zone${i}" onclick="findAddr('${i}')"/>
 								</p>
 							</c:forEach>
-							
 						</td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="수정"/>
+							<input type="button" value="수정" onclick="modifyuser()"/>
 							<input type="button" value="뒤로" onclick="go_back()"/>
 						</td>
 					</tr>

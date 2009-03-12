@@ -17,7 +17,7 @@
 	<body>
 	
 		<form enctype="multipart/form-data" method="post" name="insertuser_form" action="/user/insertUser.do">
-			<input type="hidden" name="dupliId" value="0"/>
+			<input type="hidden" name="dupliId" value="0" id="dupliId"/>
 			
 			<table class="join1" align="center">
 				<thead>
@@ -129,7 +129,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="등록"/>
+							<input type="button" value="등록" onclick="join()"/>
 							<input type="button" value="뒤로" onclick="go_back()"/>
 						</td>
 					</tr>

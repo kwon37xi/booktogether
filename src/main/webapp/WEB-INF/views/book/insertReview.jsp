@@ -8,6 +8,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="/styles/book/review.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/book/insertReview.js"></script>
 		<title>리뷰 작성</title>
 	</head>
 	<body>
@@ -93,7 +94,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="등록"/>
+							<input type="button" value="등록" onclick="insertBookReview()"/>
 						</td>
 					</tr>
 				</tfoot>

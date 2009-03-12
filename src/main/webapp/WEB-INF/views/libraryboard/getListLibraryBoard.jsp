@@ -10,6 +10,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="/styles/library/board.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/library/library.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/libraryboard/insertlibraryboard.js"></script>
+		
 		<title>방명록</title>
 	</head>
 	<body>
@@ -46,7 +48,7 @@
 					
 					
 					<input type="text" name="content" size="40"/>
-					<input type="submit" value="입력"/>
+					<input type="button" value="입력" onclick="insertLibraryBoard()"/>
 					
 				</form>
 			</c:when>

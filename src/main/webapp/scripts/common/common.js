@@ -1,43 +1,36 @@
+function go_home() {
 
+	location.href = "/index.do";
 
-function go_home(){
-	
-	location.href="/index.do";
-	
 }
 
+function logout() {
 
-function logout(){
-	
 	location.replace("/user/logout.do");
-	
+
 }
 
+function sitemap() {
 
-function sitemap(){
-	
-	location.href="/main/sitemap.do";
-	
+	location.href = "/main/sitemap.do";
+
 }
 
+function faq() {
 
-function faq(){
-	
-	location.href="/main/faq.do";
-	
+	location.href = "/main/faq.do";
+
 }
 
+function help() {
 
-function help(){
-	
-	location.href="/main/help.do";
-	
+	location.href = "/main/help.do";
+
 }
 
+function aboutus() {
 
-function aboutus(){
-	
-	location.href="/main/aboutus.do";
-	
+	location.href = "/main/aboutus.do";
+
 }
 

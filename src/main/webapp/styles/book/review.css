@@ -2,6 +2,11 @@ table {
 	margin-top: 10px;
 }
 
+table thead td {
+	height: 20px;
+	background-color: #e1f0f5;
+}
+
 .b_label {
 	padding: 5px 0;
 	text-align: center;

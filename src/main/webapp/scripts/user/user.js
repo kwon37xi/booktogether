@@ -1,12 +1,8 @@
 
-function join(){
+function joinform(){
 	location.href='/user/join.do';
 }
 
-
-function login(){
-	document.loginform.submit();
-}
 
 function deleteZone(zoneIdNum){
 	

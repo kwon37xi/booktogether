@@ -14,6 +14,8 @@
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery-ui-1.7.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/datepicker.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/librarybook/insertlibrarybook.js"></script>
+		
 		<title>서재에 등록하기</title>
 	</head>
 	<body>
@@ -177,7 +179,7 @@
 				<tfoot>
 					<tr>
 						<td>
-							<input type="submit" value="서재에 등록"/>
+							<input type="button" value="서재에 등록" onclick="insertLibraryBook()"/>
 						</td>
 					</tr>
 				</tfoot>
