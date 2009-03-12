@@ -10,6 +10,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="/styles/library/library.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/library/modifylibrary.js"></script>
 		<title>서재 수정하기</title>
 	</head>
 	<body>
@@ -40,7 +41,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="수정"/>
+							<input type="button" value="수정" onclick="modifyLibrary()"/>
 						</td>
 					</tr>
 				</tfoot>

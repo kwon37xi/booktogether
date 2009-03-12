@@ -92,7 +92,7 @@ function deleteBookMark(bookMarkIdNum, bookIdNum) {
 
 }
 
-// 인용구 삭제
+// 인용구 공감 수정
 function modifyVibe(bookMarkIdNum, bookIdNum) {
 
 	if (confirm("공감하시겠습니까?")) {

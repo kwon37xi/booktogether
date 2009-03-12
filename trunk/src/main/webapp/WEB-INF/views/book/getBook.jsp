@@ -11,6 +11,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="/styles/book/getbook.css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/book/getbook.js"></script>
 		<title>책조회</title>
 	</head>
 	<body>
@@ -170,7 +171,7 @@
 											</tbody>
 											<tfoot>
 												<tr>
-													<td><input type="submit" value="별점하기"/></td>
+													<td><input type="button" value="별점하기" onclick="insertBookgrade()"/></td>
 												</tr>
 											</tfoot>
 										</table>
@@ -301,7 +302,7 @@
 									<tfoot>
 										<tr>
 											<td colspan="2">
-												<input type="submit" value="등록"/>
+												<input type="button" value="등록" onclick="insertBookMark()"/>
 											</td>
 										</tr>
 									</tfoot>

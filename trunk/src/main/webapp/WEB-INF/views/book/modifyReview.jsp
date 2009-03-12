@@ -9,6 +9,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="/styles/book/review.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" charset="utf-8" src="/scripts/book/modifyReview.js"></script>
 		<title>리뷰 수정</title>
 	</head>
 	<body>
@@ -99,7 +100,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="수정"/>
+							<input type="button" value="수정" onclick="modifyBookReview()"/>
 						</td>
 					</tr>
 				</tfoot>

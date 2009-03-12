@@ -16,6 +16,7 @@
 		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/main/main.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/login.js"></script>
 		
 		<title>Java Spring 2.5 기반 책 함께보기</title>
 	</head>
@@ -29,6 +30,9 @@
 							<c:when test="${sessionScope.idNum!=null}">
 								<table id='user'>
 									<tr>
+										<td colspan="2">${sessionScope.nickname}님 환영합니다.</td>
+									</tr>
+									<tr>
 										<td class='user_thumnail'>
 											<c:if test="${fn:length(sessionScope.thumnail) > 13}">
 												<img src="/images/user/thumnail/${sessionScope.thumnail}"/>
@@ -38,9 +42,6 @@
 											</c:if>	
 										</td>
 										<td class='user_info'>
-											<p>
-												&lt;${sessionScope.nickname}&gt;
-											</p>
 											<p>
 												<a href="/user/getUser.do">회원조회</a>
 											</p>
@@ -65,7 +66,7 @@
 									</p>
 									<p class="but_g1">
 										<img src="/images/main/login_b.png" onclick="login()" class="img_button"/>
-										<img src="/images/main/join_b.png" onclick="join()" class="img_button"/>
+										<img src="/images/main/join_b.png" onclick="joinform()" class="img_button"/>
 									</p>
 									<p>
 										<a href="/user/findIdView.do">아이디 찾기</a> 

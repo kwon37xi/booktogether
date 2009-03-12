@@ -4,10 +4,11 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="/styles/user/pwmodify.css" rel="stylesheet" type="text/css"/>
-		<title>비밀번호 찾기</title>
+		<script type="text/javascript" charset="utf-8" src="/scripts/user/modifypw.js"></script>
+		<title>비밀번호 변경</title>
 	</head>
 	<body>
-		<form name="findPwform" method="post" action="/user/modifyPw.do">
+		<form name="modifyPwform" method="post" action="/user/modifyPw.do">
 			<table id="pw_modify">
 				<thead>
 					<tr>
@@ -31,7 +32,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="변경"/>
+							<input type="button" value="변경" onclick="modifypw()"/>
 						</td>
 					</tr>
 				</tfoot>
