@@ -29,6 +29,17 @@ function addThumnail(){
 	
 }
 
+
+function defaultThumnail(){
+	
+	if(confirm("기본 이미지로 바꾸시겠습니까?")){
+		$("#isdefaultThumnail").val("yes");
+	}else{
+		return false;
+	}
+}
+
+
 function findAddr(ele_seq){
 	
 	window.open('/user/findAddrView.do?eleSeq='+ele_seq+"&decorator=popup&confirm=true",'주소찾기','width=300px,height=300px,scrollbars=1');
