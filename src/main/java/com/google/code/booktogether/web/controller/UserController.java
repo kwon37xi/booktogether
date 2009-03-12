@@ -297,6 +297,7 @@ public class UserController extends AbstractController {
 			@RequestParam(value = "blog", required = false) String blog,
 			@RequestParam(value = "zone", required = false) String zoneNames[],
 			@RequestParam(value = "currThumnail", required = false) String currThumnail,
+			@RequestParam(value = "isdefaultThumnail", required = false) String isdefaultThumnail,
 			@RequestParam(value = "userAddInfoIdNum", required = false) Integer userAddInfoIdNum,
 			@RequestParam(value = "thumnail", required = false) MultipartFile file) {
 
@@ -307,23 +308,27 @@ public class UserController extends AbstractController {
 		// 사용자 ID값
 		Integer userIdNum = getLoginUserIdNum();
 
-		String filename = "";
+		String filename="";
 
-		// 썸네일 이미지 변경할시
-		if (file != null) {
+		if (isdefaultThumnail.equals("yes")) {
+			filename = "userDefault.png";
+		}else{
+			// 썸네일 이미지 변경할시
+			if (file != null) {
 
-			// 기본의 이미지 파일 삭제
-			userService.deleteThumnail(realPath, currThumnail);
+				// 기본의 이미지 파일 삭제
+				userService.deleteThumnail(realPath, currThumnail);
 
-			// 이미지 저장
-			filename = userService.createImageResize(file, realPath);
+				// 이미지 저장
+				filename = userService.createImageResize(file, realPath);
 
-			// **********
-			// 여기부분 봐야함
+				// **********
+				// 여기부분 봐야함
 
-		} else {
-			// 변경 안할시 이전의 썸네일 이미지 파일명 사용
-			filename = currThumnail;
+			} else {
+				// 변경 안할시 이전의 썸네일 이미지 파일명 사용
+				filename = currThumnail;
+			}
 		}
 
 		Zone[] zones = null;

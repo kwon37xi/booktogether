@@ -45,12 +45,14 @@
 						<td class="u_label"><label for="thumnail">이미지</label></td>
 						<td class="u_label_c">
 							<input type="hidden" name="currThumnail" value="${userInfo.userAddInfo.thumnail}"/>
+							<input type="hidden" name="isdefaultThumnail" value="no" id="isdefaultThumnail"/>
 							<c:if test="${fn:length(userInfo.userAddInfo.thumnail) > 13}">
 								<img src="/images/user/thumnail/${userInfo.userAddInfo.thumnail}"/>
 							</c:if>
 							<c:if test="${fn:length(userInfo.userAddInfo.thumnail) == 13}">
 								<img src="/images/user/userDefault.png"/>
 							</c:if>	
+							<input type="button" value="기본사진으로변경" onclick="defaultThumnail()"/>
 							<input type="button" value="변경" onclick="addThumnail()"/>
 							<div id="modifythumnaildiv"></div>
 						</td>
