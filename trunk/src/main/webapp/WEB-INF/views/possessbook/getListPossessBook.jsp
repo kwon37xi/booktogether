@@ -30,7 +30,7 @@
 									<table id="possessbook_listresult">
 										<tbody>
 											<tr>
-												<td rowspan="4">
+												<td rowspan="4" class="possessBookImg">
 													<c:if test="${possessBook.book.bookCover!=null && possessBook.book.bookCover!=''}">
 														<img src="${possessBook.book.bookCover}"/>
 													</c:if>
@@ -38,8 +38,8 @@
 														<img src="/images/book/bookDefault.png"/>
 													</c:if>					
 												</td>
-												<td>제목 : <a href="javascript:getPossessBook('${possessBook.idNum}','${library.idNum}','${library.user.idNum}')">${possessBook.book.name}</a></td>
-												<td>지은이 : ${possessBook.book.authors[0].name} 지음	</td>
+												<td class="possessBookTitle">제목 : <a href="javascript:getPossessBook('${possessBook.idNum}','${library.idNum}','${library.user.idNum}')">${possessBook.book.name}</a></td>
+												<td class="possessBookAuthor">지은이 : ${possessBook.book.authors[0].name} 지음	</td>
 											</tr>
 											<tr>
 												<td>구입날짜 : <fmt:formatDate value="${possessBook.purchaseDate}" pattern="yyyy.MM.dd"/></td>

@@ -87,9 +87,9 @@
 							<fmt:formatDate value="${possessBook.purchaseDate}" pattern="yyyy" var="purchaseDateYear"/>
 							<fmt:formatDate value="${possessBook.purchaseDate}" pattern="MM" var="purchaseDateMonth"/>
 							<fmt:formatDate value="${possessBook.purchaseDate}" pattern="dd" var="purchaseDateDate"/>
-							<input type="text" name="purchaseDateYear" class="purchaseDateYear" size="4" value="${purchaseDateYear}"/>
-							<input type="text" name="purchaseDateMonth" class="purchaseDateMonth" size="2" value="${purchaseDateMonth}"/>
-							<input type="text" name="purchaseDateDate" class="purchaseDateDate" size="2" value="${purchaseDateDate}"/>
+							<input type="text" name="purchaseDateYear" class="purchaseDateYear" size="4" value="${purchaseDateYear}" readonly="readonly"/>
+							<input type="text" name="purchaseDateMonth" class="purchaseDateMonth" size="2" value="${purchaseDateMonth}" readonly="readonly"/>
+							<input type="text" name="purchaseDateDate" class="purchaseDateDate" size="2" value="${purchaseDateDate}" readonly="readonly"/>
 						</td>
 					</tr>
 					<tr>
@@ -105,9 +105,9 @@
 							<fmt:formatDate value="${possessBook.beginRead}" pattern="yyyy" var="beginReadYear"/>
 							<fmt:formatDate value="${possessBook.beginRead}" pattern="MM" var="beginReadMonth"/>
 							<fmt:formatDate value="${possessBook.beginRead}" pattern="dd" var="beginReadDate"/>
-							<input type="text" name="beginReadYear" size="4" class="beginReadYear" value="${beginReadYear}"/>
-							<input type="text" name="beginReadMonth" size="2" class="beginReadMonth" value="${beginReadMonth}"/>
-							<input type="text" name="beginReadDate" size="2" class="beginReadDate" value="${beginReadDate}"/>
+							<input type="text" name="beginReadYear" size="4" class="beginReadYear" value="${beginReadYear}" readonly="readonly"/>
+							<input type="text" name="beginReadMonth" size="2" class="beginReadMonth" value="${beginReadMonth}" readonly="readonly"/>
+							<input type="text" name="beginReadDate" size="2" class="beginReadDate" value="${beginReadDate}" readonly="readonly"/>
 						</td>
 					</tr>
 					<tr>
@@ -117,9 +117,9 @@
 							<fmt:formatDate value="${possessBook.endRead}" pattern="yyyy" var="endReadYear"/>
 							<fmt:formatDate value="${possessBook.endRead}" pattern="MM" var="endReadMonth"/>
 							<fmt:formatDate value="${possessBook.endRead}" pattern="dd" var="endReadDate"/>
-							<input type="text" name="endReadYear" size="4" class="endReadYear" value="${endReadYear}"/>
-							<input type="text" name="endReadMonth" size="2" class="endReadMonth" value="${endReadMonth}"/>
-							<input type="text" name="endReadDate" size="2" class="endReadDate" value="${endReadDate}"/>
+							<input type="text" name="endReadYear" size="4" class="endReadYear" value="${endReadYear}" readonly="readonly"/>
+							<input type="text" name="endReadMonth" size="2" class="endReadMonth" value="${endReadMonth}" readonly="readonly"/>
+							<input type="text" name="endReadDate" size="2" class="endReadDate" value="${endReadDate}" readonly="readonly"/>
 						</td>
 					</tr>
 					<tr>

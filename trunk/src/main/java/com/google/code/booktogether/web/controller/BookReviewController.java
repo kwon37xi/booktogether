@@ -342,4 +342,36 @@ public class BookReviewController extends AbstractController {
 
 	}
 
+	
+	/**
+	 * 리뷰목록 조회
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/book/getListBookReview.do")
+	public ModelAndView handleListBookReview(
+			HttpServletRequest req,
+			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+		
+		pageNo = (pageNo == null) ? 1 : pageNo;
+		
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNo(pageNo);
+		pageBean.setPageSize(20);
+		pageBean.setLimit(3);
+		
+		Book book=bookService.getBook(bookIdNum);
+		
+		List<BookReview> bookReviewList=bookReviewService.getListBookReview(bookIdNum, pageBean);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("book/getListBookReview");
+		mav.addObject("bookReviewList", bookReviewList);
+		mav.addObject("bookInfo", book);
+		mav.addObject("pageBean", pageBean);
+		
+		return mav;
+	}
+	
 }

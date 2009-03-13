@@ -98,9 +98,9 @@
 									<td class="p_label">구입날짜</td>
 									<td>
 										<input type="hidden" id="datepicker_purchaseDate"/>
-										<input type="text" name="purchaseDateYear" class="purchaseDateYear" size="4" onclick="openCalendar()"/>
-										<input type="text" name="purchaseDateMonth" class="purchaseDateMonth" size="2" />
-										<input type="text" name="purchaseDateDate" class="purchaseDateDate" size="2"/>
+										<input type="text" name="purchaseDateYear" class="purchaseDateYear" size="4"  readonly="readonly"/>
+										<input type="text" name="purchaseDateMonth" class="purchaseDateMonth" size="2"  readonly="readonly"/>
+										<input type="text" name="purchaseDateDate" class="purchaseDateDate" size="2" readonly="readonly"/>
 									</td>
 								</tr>
 								<tr>
@@ -113,18 +113,18 @@
 									<td class="p_label">독서시작일</td>
 									<td>
 										<input type="hidden" id="datepicker_beginRead"/>
-										<input type="text" name="beginReadYear" size="4" class="beginReadYear"/>
-										<input type="text" name="beginReadMonth" size="2" class="beginReadMonth"/>
-										<input type="text" name="beginReadDate" size="2" class="beginReadDate"/>
+										<input type="text" name="beginReadYear" size="4" class="beginReadYear" readonly="readonly"/>
+										<input type="text" name="beginReadMonth" size="2" class="beginReadMonth" readonly="readonly"/>
+										<input type="text" name="beginReadDate" size="2" class="beginReadDate" readonly="readonly"/>
 									</td>
 								</tr>
 								<tr>
 									<td class="p_label">독서종료일</td>
 									<td>
 										<input type="hidden" id="datepicker_endRead"/>
-										<input type="text" name="endReadYear" size="4" class="endReadYear"/>
-										<input type="text" name="endReadMonth" size="2" class="endReadMonth"/>
-										<input type="text" name="endReadDate" size="2" class="endReadDate"/>
+										<input type="text" name="endReadYear" size="4" class="endReadYear" readonly="readonly"/>
+										<input type="text" name="endReadMonth" size="2" class="endReadMonth" readonly="readonly"/>
+										<input type="text" name="endReadDate" size="2" class="endReadDate" readonly="readonly"/>
 									</td>
 								</tr>
 								<tr>

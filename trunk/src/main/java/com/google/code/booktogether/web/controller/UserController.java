@@ -308,11 +308,11 @@ public class UserController extends AbstractController {
 		// 사용자 ID값
 		Integer userIdNum = getLoginUserIdNum();
 
-		String filename="";
+		String filename = "";
 
 		if (isdefaultThumnail.equals("yes")) {
 			filename = "userDefault.png";
-		}else{
+		} else {
 			// 썸네일 이미지 변경할시
 			if (file != null) {
 
@@ -375,6 +375,9 @@ public class UserController extends AbstractController {
 		boolean result = userService.modifyUser(user);
 
 		String message = (result) ? "수정성공" : "수정실패";
+
+		RequestContextHolder.getRequestAttributes().setAttribute("thumnail",
+				filename, RequestAttributes.SCOPE_SESSION);
 
 		RequestContextHolder.getRequestAttributes().setAttribute("message",
 				message, RequestAttributes.SCOPE_SESSION);

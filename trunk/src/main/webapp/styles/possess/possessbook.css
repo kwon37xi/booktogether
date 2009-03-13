@@ -87,3 +87,16 @@ table thead td {
 .zonenamelist tbody td{
 	height:20px;
 }
+
+.possessBookImg{
+	text-align:center;
+	width:90px;
+}
+
+.possessBookAuthor{
+	width:150px;
+}
+
+.possessBookTitle{
+	width:200px;
+}

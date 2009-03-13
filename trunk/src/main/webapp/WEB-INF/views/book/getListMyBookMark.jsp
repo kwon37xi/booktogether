@@ -21,11 +21,11 @@
 				</tr>
 			</thead>
 		</table>
-		<table class="bookmark_bookinfo">
-			<tbody>	
-				<c:choose>
-					<c:when test="${fn:length(bookListInBookMark)!=0}">
-						<c:forEach begin="0" items="${bookListInBookMark}" var="bookList" varStatus="status">
+		<c:choose>
+			<c:when test="${fn:length(bookListInBookMark)!=0}">
+				<c:forEach begin="0" items="${bookListInBookMark}" var="bookList" varStatus="status">
+					<table class="bookmark_bookinfo">
+						<tbody>	
 							<tr>
 								<td rowspan="2">
 									<c:if test="${bookList.book.bookCover!=null && bookList.book.bookCover!=''}">
@@ -66,16 +66,18 @@
 									</table>
 								</td>
 							</tr>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<tr>
-							<td class="nocontent">검색된 결과값이 없습니다.</td>
-						</tr>
-					</c:otherwise>
-				</c:choose>
-			</tbody>
-		</table>
+						</tbody>
+					</table>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<table class="bookmark_bookinfo">
+					<tr>
+						<td class="nocontent">검색된 결과값이 없습니다.</td>
+					</tr>
+				</table>
+			</c:otherwise>
+		</c:choose>
 		
 		<div id='navigator'>
 			<c:if test="${pageBean.prePage}">

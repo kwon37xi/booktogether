@@ -83,6 +83,13 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:if test="${moreGrade}">
+					<tr>
+						<td colspan="2" class="morecontent">
+							<a href="/book/getListBookGrade.do?bookIdNum=${bookInfo.idNum}">더보기</a>
+						</td>
+					</tr>
+				</c:if>
 				<c:choose>
 					<c:when test="${fn:length(bookGradeList)!=0}">
 						<c:forEach begin="0" items="${bookGradeList}" var="gradeInfo" varStatus="status">
@@ -108,79 +115,82 @@
 					</c:when>
 					<c:otherwise>
 						<tr>
-							<td colspan="2" class="nocontent">별점이 없습니다.<br/>
-								<c:if test="${sessionScope.idNum!=null && !existGrade}">
-									<form name="bookgradeform" method="post" action="/book/insertBookGrade.do">
-										<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
-										<input type="hidden" name="pageNo" value="${param.pageNo}"/>
-										<input type="hidden" name="query" value="${param.query}"/>
-										<input type="hidden" name="searchType" value="${param.searchType}"/>
-										<table id="insertgrade">
-											<thead>
-												<tr>
-													<td>별점 하기</td>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>
-													    <input type="radio" name="grade" value="0"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-													    <br/>
-													    <input type="radio" name="grade" value="1"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-													    <br/>
-													    <input type="radio" name="grade" value="2"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-													    <br/>
-													    <input type="radio" name="grade" value="3"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-												    	<br/>
-													    <input type="radio" name="grade" value="4"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star1.png" width="15"/>
-												    	<br/>
-													    <input type="radio" name="grade" value="5"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<img src="/images/book/star.png" width="15"/>
-												    	<br/>
-													</td>
-												</tr>
-											</tbody>
-											<tfoot>
-												<tr>
-													<td><input type="button" value="별점하기" onclick="insertBookgrade()"/></td>
-												</tr>
-											</tfoot>
-										</table>
-									</form>
-								</c:if>
-							</td>
+							<td colspan="2" class="nocontent">별점이 없습니다.</td>
 						</tr>
 					</c:otherwise>
 				</c:choose>
+				<c:if test="${sessionScope.idNum!=null && !existGrade}">
+					<tr>
+						<td class="bookfrade_insertform" colspan="2">
+							<form name="bookgradeform" method="post" action="/book/insertBookGrade.do">
+								<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
+								<input type="hidden" name="pageNo" value="${param.pageNo}"/>
+								<input type="hidden" name="query" value="${param.query}"/>
+								<input type="hidden" name="searchType" value="${param.searchType}"/>
+								<table id="insertgrade">
+									<thead>
+										<tr>
+											<td>별점 하기</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+											    <input type="radio" name="grade" value="0"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+											    <br/>
+											    <input type="radio" name="grade" value="1"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+											    <br/>
+											    <input type="radio" name="grade" value="2"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+											    <br/>
+											    <input type="radio" name="grade" value="3"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+										    	<br/>
+											    <input type="radio" name="grade" value="4"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="15"/>
+										    	<br/>
+											    <input type="radio" name="grade" value="5"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star.png" width="15"/>
+										    	<br/>
+											</td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td><input type="button" value="별점하기" onclick="insertBookgrade()"/></td>
+										</tr>
+									</tfoot>
+								</table>
+							</form>
+						</td>
+					</tr>
+				</c:if>
 			</tbody>
 			<tfoot></tfoot>
 		</table>
@@ -195,6 +205,13 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:if test="${moreReview}">
+					<tr>
+						<td colspan="3" class="morecontent">
+							<a href="/book/getListBookReview.do?bookIdNum=${bookInfo.idNum}">더보기</a>
+						</td>
+					</tr>
+				</c:if>
 				<c:choose>
 					<c:when test="${fn:length(bookReviewList)!=0}">
 						<c:forEach begin="0" items="${bookReviewList}" var="reviewInfo" varStatus="status">
@@ -207,32 +224,38 @@
 					</c:when>
 					<c:otherwise>
 						<tr>
-							<td colspan="3" class="nocontent">리뷰가 없습니다.<br/>
-								<c:choose>
-									<c:when test="${sessionScope.idNum!=null && existReview}">
-										내가 작성한 리뷰 정보
-										<form name="myreviewform" method="post">
-											<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/> 
-											<input type="button" value="조회" onclick="getMyReviewView()"/>
-											<input type="button" value="수정" onclick="modifyReviewView()"/>
-											<input type="button" value="삭제" onclick="deleteReviewView()"/>
-										</form>
-									</c:when>
-									
-									<c:when test="${sessionScope.idNum!=null && !existReview}">
-										리뷰 등록하시겠습니까?
-										<form name="myreviewform" method="post">
-											<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/> 
-											<input type="button" value="등록" onclick="insertReviewView()"/>
-										</form>
-									</c:when>
-								</c:choose>
-							</td>
+							<td colspan="3" class="nocontent">리뷰가 없습니다.</td>
 						</tr>
 					</c:otherwise>
 				</c:choose>
+				<c:choose>
+					<c:when test="${sessionScope.idNum!=null && existReview}">
+						<tr>
+							<td class="review_addinfo" colspan="3">
+								내가 작성한 리뷰 정보
+								<form name="myreviewform" method="post">
+									<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/> 
+									<input type="button" value="조회" onclick="getMyReviewView()"/>
+									<input type="button" value="수정" onclick="modifyReviewView()"/>
+									<input type="button" value="삭제" onclick="deleteReviewView()"/>
+								</form>
+							</td>
+						</tr>						
+					</c:when>
+					
+					<c:when test="${sessionScope.idNum!=null && !existReview}">
+						<tr>
+							<td class="review_addinfo" colspan="3">
+								리뷰 등록하시겠습니까?
+								<form name="myreviewform" method="post">
+									<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/> 
+									<input type="button" value="등록" onclick="insertReviewView()"/>
+								</form>
+							</td>
+						</tr>
+					</c:when>
+				</c:choose>
 			</tbody>
-			<tfoot></tfoot>
 		</table>
 		
 		
@@ -244,6 +267,13 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:if test="${moreBookMark}">
+					<tr>
+						<td colspan="4" class="morecontent">
+							<a href="/book/getListBookMark.do?bookIdNum=${bookInfo.idNum}">더보기</a>
+						</td>
+					</tr>
+				</c:if>
 				<c:choose>
 					<c:when test="${fn:length(bookMarkList)!=0}">
 						<c:forEach begin="0" items="${bookMarkList}" var="bookMarkInfo" varStatus="status">
