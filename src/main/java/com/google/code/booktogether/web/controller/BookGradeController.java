@@ -115,7 +115,7 @@ public class BookGradeController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping("/library/getListMyBookGrade.do")
-	public ModelAndView handleListBookGrade(
+	public ModelAndView handleListMyBookGrade(
 			HttpServletRequest req,
 			@RequestParam(value = "userIdNum", required = false) Integer userIdNum,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
@@ -148,6 +148,40 @@ public class BookGradeController extends AbstractController {
 		mav.addObject("bookGradeList", bookGradeList);
 		mav.addObject("pageBean", pageBean);
 		mav.addObject("userIdNum", userIdNum);
+
+		return mav;
+
+	}
+
+	/**
+	 * 별점 목록
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/book/getListBookGrade.do")
+	public ModelAndView handleListBookGrade(
+			HttpServletRequest req,
+			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+
+		pageNo = (pageNo == null) ? 1 : pageNo;
+
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNo(pageNo);
+		pageBean.setLimit(3);
+		pageBean.setPageSize(20);
+		
+		Book book=bookService.getBook(bookIdNum);
+
+		List<BookGrade> bookGradeList = bookGradeService.getListBookGrade(
+				bookIdNum, pageBean);
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("book/getListBookGrade");
+		mav.addObject("bookGradeList", bookGradeList);
+		mav.addObject("pageBean", pageBean);
+		mav.addObject("bookInfo", book);
 
 		return mav;
 

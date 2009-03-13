@@ -164,7 +164,7 @@
 												]  
 											</c:forEach>
 										</p>
-										<p class="book_info"> ${bestBookInfo.ISBN10}</p>
+										<p class="book_info">ISBN : ${bestBookInfo.ISBN10}</p>
 										<p class="book_info"> ${bestBookInfo.publishComp}/
 											${fn:substring(bestBookInfo.publishDate,0,4)}년 
 											${fn:substring(bestBookInfo.publishDate,4,6)}월 
@@ -204,7 +204,7 @@
 												<c:if test="${authorInfo.authorDiv==1}">옮김</c:if>
 												]  
 											</c:forEach></p>
-										<p class="book_info"> ${recommendBookInfo.ISBN10}</p>
+										<p class="book_info">ISBN : ${recommendBookInfo.ISBN10}</p>
 										<p class="book_info"> ${recommendBookInfo.publishComp}/
 											${fn:substring(recommendBookInfo.publishDate,0,4)}년 
 											${fn:substring(recommendBookInfo.publishDate,4,6)}월 

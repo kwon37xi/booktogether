@@ -2,11 +2,14 @@ table {
 	margin-top: 10px;
 }
 
+.morecontent {
+	text-align: right;
+}
+
 table thead td {
 	height: 20px;
 	background-color: #e1f0f5;
 }
-
 
 .b_label {
 	padding: 5px 0;
@@ -24,7 +27,7 @@ table thead td {
 	width: 650px;
 	border: 1px #e1f0f5 dashed;
 	margin-left: 50px;
-	margin-top:30px;
+	margin-top: 30px;
 }
 
 #bookinfo thead td {
@@ -35,7 +38,7 @@ table thead td {
 	width: 650px;
 	border: 1px #e1f0f5 dashed;
 	margin-left: 50px;
-	margin-top:30px;
+	margin-top: 30px;
 }
 
 .nocontent {
@@ -47,9 +50,8 @@ table thead td {
 	width: 650px;
 	border: 1px #e1f0f5 dashed;
 	margin-left: 50px;
-	margin-top:30px;
+	margin-top: 30px;
 }
-
 
 .btitle {
 	width: 200px;
@@ -67,12 +69,11 @@ table thead td {
 	width: 650px;
 	border: 1px #e1f0f5 dashed;
 	margin-left: 50px;
-	margin-top:30px;
+	margin-top: 30px;
 }
 
-
 .bmcontent {
-	width: 200px;
+	width: 350px;
 }
 
 .bmnickname {
@@ -84,12 +85,12 @@ table thead td {
 }
 
 #bookmark_write {
-	width:100%;
-	margin-top:5px;
+	width: 100%;
+	margin-top: 5px;
 	border: 1px #e1f0f5 dashed;
 }
 
-#bookmark_write tfoot td{
+#bookmark_write tfoot td {
 	text-align: center;
 }
 
@@ -103,7 +104,18 @@ table thead td {
 }
 
 #insertgrade {
-	text-align: center; margin-left : 20px;
+	text-align: center;
+	margin-left: 20px;
 	border: 1px #e1f0f5 dashed;
 	margin-left: 20px;
+}
+
+.review_addinfo {
+	padding:10px 0;
+	text-align: center;
+	border: 1px #e1f0f5 dashed;
+}
+
+.bookfrade_insertform{
+	text-align: center;
 }

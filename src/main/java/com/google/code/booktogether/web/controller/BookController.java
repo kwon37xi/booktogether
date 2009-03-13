@@ -91,9 +91,12 @@ public class BookController extends AbstractController {
 			boolean moreGrade = false;
 			boolean moreBookMark = false;
 			boolean moreReview = false;
+			boolean existGrade = false;
+			boolean existReview = false;
 
 			PageBean pageBean = new PageBean();
 			pageBean.setPageNo(1);
+			pageBean.setLimit(1);
 			pageBean.setPageSize(5);
 
 			List<BookGrade> bookGradeList = bookGradeService.getListBookGrade(
@@ -104,22 +107,25 @@ public class BookController extends AbstractController {
 			List<BookReview> bookReviewList = bookReviewService
 					.getListBookReview(book.getIdNum(), pageBean);
 
-			moreBookMark = pageBean.isNextPage();
+			moreReview = pageBean.isNextPage();
 
 			List<BookMark> bookMarkList = bookMarkService.getListBookMark(book
 					.getIdNum(), pageBean);
 
-			moreReview = pageBean.isNextPage();
+			moreBookMark = pageBean.isNextPage();
 
 			Integer userIdNum = getLoginUserIdNum();
 
-			// 자기가 입력한 별점이 있는지 체크
-			boolean existGrade = bookGradeService.isExistGrade(book.getIdNum(),
-					userIdNum);
+			if (userIdNum != null) {
 
-			// 자기가 입력한 리뷰가 있는지 체크
-			boolean existReview = bookReviewService.isExistReview(book
-					.getIdNum(), userIdNum);
+				// 자기가 입력한 별점이 있는지 체크
+				existGrade = bookGradeService.isExistGrade(book.getIdNum(),
+						userIdNum);
+
+				// 자기가 입력한 리뷰가 있는지 체크
+				existReview = bookReviewService.isExistReview(book.getIdNum(),
+						userIdNum);
+			}
 
 			// 경로 설정 및 Attribute 설정
 			ModelAndView mav = new ModelAndView();
@@ -173,7 +179,7 @@ public class BookController extends AbstractController {
 			@RequestParam(value = "beforeQuery", required = false) String beforeQuery,
 			@RequestParam(value = "searchType", required = false) String searchType,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
-		
+
 		beforeQuery = (beforeQuery == null || beforeQuery.equals("")) ? null
 				: beforeQuery;
 		query = (query == null || query.equals("")) ? "" : query.trim();

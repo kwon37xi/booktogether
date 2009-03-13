@@ -15,10 +15,10 @@ function go_searchBook(pageno, query, searchType) {
 
 }
 
-function getBook(bookIdNum){
-	
-	location.href="/book/getBook.do?bookIdNum="+bookIdNum;
-	
+function getBook(bookIdNum) {
+
+	location.href = "/book/getBook.do?bookIdNum=" + bookIdNum;
+
 }
 
 // 책 조회
@@ -117,3 +117,29 @@ function deleteBookGrade(bookGradeIdNum, bookIdNum, pageno, query, searchType) {
 
 }
 
+// 검색
+function go_page_bookmark(pageNo, bookIdNum) {
+
+	var pararms = "pageNo=" + pageNo + "&bookIdNum=" + bookIdNum;
+
+	location.replace("/book/getListBookMark.do?" + pararms);
+
+}
+
+// 검색
+function go_page_bookgrade(pageNo, bookIdNum) {
+	
+	var pararms = "pageNo=" + pageNo + "&bookIdNum=" + bookIdNum;
+	
+	location.replace("/book/getListBookGrade.do?" + pararms);
+	
+}
+
+// 검색
+function go_page_bookreview(pageNo, bookIdNum) {
+	
+	var pararms = "pageNo=" + pageNo + "&bookIdNum=" + bookIdNum;
+	
+	location.replace("/book/getListBookReview.do?" + pararms);
+	
+}

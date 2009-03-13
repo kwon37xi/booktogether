@@ -247,4 +247,36 @@ public class BookMarkController extends AbstractController {
 
 		return mav;
 	}
+	
+	
+	/**
+	 * 인용구 목록 조회
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/book/getListBookMark.do")
+	public ModelAndView handleListBookMark(
+			HttpServletRequest req,
+			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+		
+		pageNo = (pageNo == null) ? 1 : pageNo;
+		
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNo(pageNo);
+		pageBean.setPageSize(20);
+		pageBean.setLimit(3);
+		
+		Book book=bookService.getBook(bookIdNum);
+		
+		List<BookMark> bookMarkList=bookMarkService.getListBookMark(bookIdNum, pageBean);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("book/getListBookMark");
+		mav.addObject("bookMarkList", bookMarkList);
+		mav.addObject("bookInfo", book);
+		mav.addObject("pageBean", pageBean);
+		
+		return mav;
+	}
 }

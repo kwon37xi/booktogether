@@ -86,6 +86,7 @@
               WHERE BM.user_idNum = U.idNum 
                 AND BM.book_idNum = ? 
                 AND U.isdelete = 0 
+              ORDER BY input_date DESC 
               LIMIT ?,? 
             ]]>
         </query>
