@@ -20,7 +20,9 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td></td>
+					<td>
+						<img src="/images/main/help.png"/>
+					</td>
 				</tr>
 			</tbody>
 		</table>
