@@ -45,6 +45,7 @@
                 AND LB.book_idNum=B.idNum
 				AND B.idNum=A.book_idNum
 				AND A.author_div = 0
+			  ORDER BY LB.idNum DESC 
               LIMIT ?, ?
             ]]>
 		</query>
@@ -220,7 +221,8 @@
 				   AND LB.library_idNum = ? 
 				   AND LB.library_idNum = L.idNum
 				   AND B.idNum = A.book_idNum
-				   AND A.author_div = 0  
+				   AND A.author_div = 0
+				 ORDER BY LB.idNum DESC   
 				 LIMIT ? , ?
             ]]>
 		</query>

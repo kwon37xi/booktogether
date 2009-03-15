@@ -81,7 +81,8 @@
 				AND POS.book_idNum=B.idNum
 				AND B.idNum=A.book_idNum
 				AND A.author_div = 0
-                AND U.idNum = POS.user_idNum 
+                AND U.idNum = POS.user_idNum
+              ORDER BY POS.idNum DESC  
               LIMIT ?, ?
             ]]>
 		</query>
@@ -189,6 +190,7 @@
 			   AND U.idNUm= POS.user_idNum
 			   AND ZC.idNum=ZU.zone 
 			   AND U.user_id <> ?
+			 ORDER BY POS.idNum DESC 
 			 LIMIT ?, ?
             ]]>
 		</query>
@@ -197,7 +199,7 @@
 
 
 	<sql name="GET_DBCOUNT_ZONEBOOK_SQL">
-		<description>내 생활반경의 소유책 목록</description>
+		<description>내 생활반경의 소유책 목록 갯수</description>
 		<query>
             <![CDATA[
              SELECT COUNT(POS.idNum) 
@@ -251,7 +253,8 @@
 				   AND POS.user_idNum = L.user_idNum
 				   AND L.idNum = ?
 				   AND B.idNum = A.book_idNum
-				   AND A.author_div = 0  
+				   AND A.author_div = 0
+				 ORDER BY POS.idNum DESC   
 				 LIMIT ?, ?
             ]]>
 		</query>

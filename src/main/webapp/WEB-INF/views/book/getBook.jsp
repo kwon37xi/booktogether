@@ -79,7 +79,7 @@
 		<table id="gradebook">
 			<thead>
 				<tr>
-					<td colspan="2">별점 테이블</td>
+					<td colspan="2">별점목록</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -201,7 +201,7 @@
 		<table id="reviewbook">
 			<thead>
 				<tr>
-					<td colspan="3">리뷰 테이블</td>
+					<td colspan="3">리뷰목록</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -263,7 +263,7 @@
 		<table id="bookmark">
 			<thead>
 				<tr>
-					<td colspan="4">인용구 테이블</td>
+					<td colspan="4">인용구목록</td>
 				</tr>
 			</thead>
 			<tbody>

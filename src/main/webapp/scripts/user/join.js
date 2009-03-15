@@ -18,8 +18,6 @@ jQuery( function($) {
 										"dialogWidth:300px; dialogHeight:200px; help:no; scroll:no; resizable;no; status:no");
 						$("#userId").val(ret);
 						
-						alert(ret);
-						
 						if(ret!='' ||ret!=null){
 							$("#dupliId").val("true");
 						}
