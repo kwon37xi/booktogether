@@ -75,7 +75,8 @@
              FROM USER U, BOOKREVIEW BR  
              WHERE BR.book_idNum=? 
                AND BR.user_idNum=U.idNum 
-               AND U.isdelete=0  
+               AND U.isdelete=0
+             ORDER BY BR.idNum DESC   
              LIMIT ?,? 
             ]]>
 		</query>
@@ -107,7 +108,8 @@
              FROM USER U, BOOKREVIEW BR  
              WHERE BR.user_idNum = ?  
                AND BR.user_idNum=U.idNum 
-               AND U.isdelete=0 
+               AND U.isdelete=0
+             ORDER BY BR.idNum DESC  
              LIMIT ?,? 
             ]]>
 		</query>

@@ -49,7 +49,8 @@
              FROM USER U, BOOKGRADE BG  
              WHERE BG.book_idNum = ? 
                AND BG.user_idNum = U.idNum 
-               AND U.isdelete=0 
+               AND U.isdelete=0
+             ORDER BY BG.idNum DESC   
              LIMIT ?,? 
             ]]>
         </query>
@@ -66,7 +67,8 @@
              FROM USER U, BOOKGRADE BG  
              WHERE BG.user_idNum = ?   
                AND BG.user_idNum = U.idNum 
-               AND U.isdelete = 0 
+               AND U.isdelete = 0
+             ORDER BY BG.idNum DESC  
              LIMIT ?,? 
             ]]>
         </query>
@@ -88,7 +90,7 @@
     
     
      <sql name="GET_DBCOUNT_MYBOOKGRADE_SQL">
-        <description>내가 매긴 책 별점 목록</description>
+        <description>내가 매긴 책 별점 목록 갯수</description>
         <query>
             <![CDATA[
              SELECT COUNT(BG.idNum) 

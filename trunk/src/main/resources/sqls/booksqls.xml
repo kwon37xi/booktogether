@@ -186,7 +186,8 @@
              		,B.category as category 
                FROM BOOK B, BOOKMARK BM 
               WHERE B.idNum = BM.book_idNum 
-                AND BM.user_idNum = ? 
+                AND BM.user_idNum = ?
+              ORDER BY BM.input_date DESC  
               LIMIT ?, ?
             ]]>
         </query>
@@ -273,7 +274,7 @@
                    ,B.name as name
               FROM BOOKHITS BH, BOOK B
              WHERE BH.book_idNum = B.idNum
-             ORDER BY BH.hits DESC 
+             ORDER BY BH.hits DESC
              LIMIT 0,5 
             ]]>
         </query>
