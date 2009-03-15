@@ -28,6 +28,9 @@
 			</script>
 			<c:remove scope="session" var="message"/>
 		</c:if>
+		<c:if test="${empty searchType}">
+			<c:set value="book" var="searchType"/>		
+		</c:if>
 	
 		<table id="layout">
 			<tr>
@@ -67,8 +70,8 @@
 									<input type="hidden" name="pageNo" value="1"/>
 									<input type="hidden" name="beforeQuery" value="${requestScope.query}"/>
 									
-									<input type="radio" name="searchType" value="book" ${searchType=='book'? 'checked' :''}/>책&nbsp;&nbsp;
-									<input type="radio" name="searchType" value="library" ${searchType=='library'? 'checked' :''}/>서재 &nbsp;&nbsp;
+									<input type="radio" name="searchType" value="book" ${searchType=='book'? "checked='checked'" :""}/>책&nbsp;&nbsp;
+									<input type="radio" name="searchType" value="library" ${searchType=='library'? "checked='checked'" :""}/>서재 &nbsp;&nbsp;
 									
 									<input type="text" name="query" size="30" value="${requestScope.query}" id="query"/>
 									<input type="button" value="검색" onclick="searchBookQuery()"/>
