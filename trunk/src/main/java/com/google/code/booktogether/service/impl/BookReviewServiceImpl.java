@@ -185,7 +185,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 	@Transactional(readOnly = false)
 	public String modifyReviewRecommend(BookReview bookReview) {
 
-		String message = "추천등록을 실패하였습니다.";
+		String message = null;
 
 		int count = bookReviewJdbcDao.isExistRecommend(bookReview);
 
@@ -202,8 +202,6 @@ public class BookReviewServiceImpl implements BookReviewService {
 			if (count != 1) {
 				throw new BooktogetherException("추천자 리스트 등록 실패");
 			}
-
-			message = "추천등록완료";
 
 		} else {
 			message = "이미 추천하셨습니다.";

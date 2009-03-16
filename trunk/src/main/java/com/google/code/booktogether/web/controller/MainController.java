@@ -112,6 +112,22 @@ public class MainController extends AbstractController {
 	}
 	
 	
+	/**
+	 * 예외처리
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/exception.do")
+	public ModelAndView handleException(HttpServletRequest req) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("exception/exception");
+		
+		return mav;
+		
+	}
+	
+	
 	
 	/**
 	 *  FAQ 화면 보기
@@ -155,6 +171,22 @@ public class MainController extends AbstractController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main/aboutus");
+		
+		return mav;
+		
+	}
+	
+	
+	/**
+	 *  ABOUT US 화면 보기
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/message.do")
+	public ModelAndView handleMessage(HttpServletRequest req) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("common/message");
 		
 		return mav;
 		

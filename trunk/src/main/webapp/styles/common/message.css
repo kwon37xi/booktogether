@@ -1,0 +1,30 @@
+table {
+	margin-top: 10px;
+}
+
+table thead td {
+	height: 30px;
+	background-color: #e1f0f5;
+}
+
+#navigator {
+	text-align: center;
+	margin: 20px 0;
+}
+
+#navigator a {
+	margin: 0 5px;
+}
+
+#message {
+	width: 550px;
+	height: 250px;
+	margin-left: 100px;
+	text-align: center;
+}
+
+.message_c {
+	text-align: center;
+	font: 15px bold;
+	color:red;
+}

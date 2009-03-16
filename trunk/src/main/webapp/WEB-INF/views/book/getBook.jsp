@@ -4,9 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"   "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko"> 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="/styles/book/getbook.css"/>
@@ -137,46 +137,46 @@
 										<tr>
 											<td>
 											    <input type="radio" name="grade" value="0"/>
-										    	<img src="/images/book/star1.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star1.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
 											    <br/>
 											    <input type="radio" name="grade" value="1"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
 											    <br/>
 											    <input type="radio" name="grade" value="2"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
 											    <br/>
 											    <input type="radio" name="grade" value="3"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
 										    	<br/>
 											    <input type="radio" name="grade" value="4"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star1.png" width="15"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star1.png" width="10"/>
 										    	<br/>
 											    <input type="radio" name="grade" value="5"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star.png" width="15"/>
-										    	<img src="/images/book/star.png" width="15"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star.png" width="10"/>
+										    	<img src="/images/book/star.png" width="10"/>
 										    	<br/>
 											</td>
 										</tr>

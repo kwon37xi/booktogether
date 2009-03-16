@@ -57,7 +57,7 @@ public class BlogController extends AbstractController {
 		String retValue = null;
 
 		if (result) {
-			message = "유효성검사 완료";
+			message = "테스트 완료";
 			retValue = "true";
 		} else {
 			message = "유효성검사 실패";

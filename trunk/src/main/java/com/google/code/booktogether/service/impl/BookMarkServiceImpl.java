@@ -111,7 +111,7 @@ public class BookMarkServiceImpl implements BookMarkService {
 						bookMark.getUser().getIdNum());
 
 				if (count == 1) {
-					return "공감등록 성공";
+					return null;
 				} else {
 					throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 				}

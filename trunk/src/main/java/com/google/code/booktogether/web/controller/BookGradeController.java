@@ -59,12 +59,10 @@ public class BookGradeController extends AbstractController {
 		// 별점 등록
 		boolean result = bookGradeService.insertGrade(bookGrade);
 
-		if (result) {
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"별점 등록성공", RequestAttributes.SCOPE_SESSION);
-		} else {
+		if (!result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"별점 등록실패", RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -95,12 +93,10 @@ public class BookGradeController extends AbstractController {
 		// 별점 등록
 		boolean result = bookGradeService.deleteGrade(bookGrade);
 
-		if (result) {
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"별점 삭제성공", RequestAttributes.SCOPE_SESSION);
-		} else {
+		if (!result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"별점 삭제실패", RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="

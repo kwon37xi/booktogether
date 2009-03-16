@@ -42,8 +42,7 @@ public class PossessBookController extends AbstractController {
 	 */
 	@Resource(name = "bookService")
 	private BookService bookService;
-	
-	
+
 	/**
 	 * UserService
 	 */
@@ -71,7 +70,7 @@ public class PossessBookController extends AbstractController {
 
 		List<PossessBook> possessBookList = libraryService.getListPossessBook(
 				userId, pageBean);
-		
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("possessbook/getListPossessBook");
 		mav.addObject("possessBookList", possessBookList);
@@ -96,8 +95,9 @@ public class PossessBookController extends AbstractController {
 
 		PossessBook possessBook = libraryService
 				.getPossessBook(possessBookIdNum);
-		
-		Library library=libraryService.getLibrary(libraryIdNum, getLoginUserIdNum());
+
+		Library library = libraryService.getLibrary(libraryIdNum,
+				getLoginUserIdNum());
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("possessbook/modifyPossessBook");
@@ -158,16 +158,15 @@ public class PossessBookController extends AbstractController {
 
 		boolean result = libraryService.modifyPossessBook(possessBook);
 
-		// 성공시
-		if (result) {
-
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"내소유 책 수정 성공", RequestAttributes.SCOPE_SESSION);
-
-		} else { // 실패시
+		// 실패시
+		if (!result) {
 
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"내소유 책 수정 실패", RequestAttributes.SCOPE_SESSION);
+
+			// 경로 설정
+			return new ModelAndView("redirect:/message.do");
+
 		}
 
 		// 경로 설정
@@ -250,16 +249,15 @@ public class PossessBookController extends AbstractController {
 
 		boolean result = libraryService.insertPossessBook(possessBook);
 
-		// 성공시
-		if (result) {
-
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"내소유 책 등록 성공", RequestAttributes.SCOPE_SESSION);
-
-		} else { // 실패시
+		// 실패시
+		if (!result) {
 
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"내소유 책 등록 실패", RequestAttributes.SCOPE_SESSION);
+
+			// 경로 설정
+			return new ModelAndView("redirect:/message.do");
+
 		}
 
 		// 경로 설정
@@ -277,15 +275,15 @@ public class PossessBookController extends AbstractController {
 	@RequestMapping("/library/getPossessBook.do")
 	public ModelAndView handleGetPossessBook(
 			HttpServletRequest req,
-			
+
 			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum,
 			@RequestParam(value = "userIdNum", required = false) Integer userIdNum,
 			@RequestParam(value = "possessBookIdNum", required = false) Integer possessBookIdNum) {
 
 		PossessBook possessBook = libraryService
 				.getPossessBook(possessBookIdNum);
-		
-		Library library=libraryService.getLibrary(libraryIdNum, userIdNum);
+
+		Library library = libraryService.getLibrary(libraryIdNum, userIdNum);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("possessbook/getPossessBook");
@@ -306,21 +304,15 @@ public class PossessBookController extends AbstractController {
 	public ModelAndView handleDeletePossessBook(
 			HttpServletRequest req,
 			@RequestParam(value = "possessBookIdNum", required = false) Integer possessBookIdNum) {
-		
 
 		boolean result = libraryService.deletePossessBook(getLoginUserIdNum(),
 				possessBookIdNum);
 
-		if (log.isInfoEnabled()) {
-			log.info(result);
-		}
-		
-		if(result){
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"내소유 책 삭제 성공", RequestAttributes.SCOPE_SESSION);
-		}else{
+		if (!result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"내소유 책 삭제 실패", RequestAttributes.SCOPE_SESSION);
+			// 경로 설정
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		// 경로 설정
@@ -346,8 +338,8 @@ public class PossessBookController extends AbstractController {
 		PageBean pageBean = new PageBean();
 		pageBean.setPageNo(pageNo);
 		pageBean.setPageSize(20);
-		
-		List<String> zoneName=userService.getListUserAddr(userId);
+
+		List<String> zoneName = userService.getListUserAddr(userId);
 
 		List<PossessBook> possessBookList = libraryService.getListZoneBook(
 				userId, pageBean);

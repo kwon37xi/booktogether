@@ -34,20 +34,21 @@ public class RecoBookController extends AbstractController {
 	 * @return 로그인화면
 	 */
 	@RequestMapping("/book/insertRecoBook.do")
-	public ModelAndView handleInsertGoodWriter(HttpServletRequest req,
+	public ModelAndView handleInsertGoodWriter(
+			HttpServletRequest req,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum) {
 
 		boolean result = recoBookService.insertRecoBook(bookIdNum);
 
-		if (result) {
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"추천책에 등록되어있습니다.", RequestAttributes.SCOPE_SESSION);
-		}else{
+		if (!result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"추천책에 등록 실패 되어있습니다.", RequestAttributes.SCOPE_SESSION);
+
+			return new ModelAndView("redirect:/message.do");
 		}
 
-		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="+bookIdNum);
+		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
+				+ bookIdNum);
 
 	}
 

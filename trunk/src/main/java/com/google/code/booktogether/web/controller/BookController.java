@@ -84,7 +84,7 @@ public class BookController extends AbstractController {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"해당 책 내용이 없습니다.", RequestAttributes.SCOPE_SESSION);
 
-			return new ModelAndView("redirect:/book/searchBook.do");
+			return new ModelAndView("redirect:/message.do");
 
 		} else {
 
@@ -264,14 +264,11 @@ public class BookController extends AbstractController {
 		}
 
 		if (isbn == null || isbn.equals("")) {
-			mapParams.put("query", query);
-			mapParams.put("searchType", searchType);
-			mapParams.put("pageNo", String.valueOf(pageNo));
+			
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"ISBN이 등록 되지 않아 조회하실 수 없습니다.",
 					RequestAttributes.SCOPE_SESSION);
-			return new ModelAndView("redirect:/book/searchBook.do"
-					+ makeParams(mapParams));
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		// 책 정보 가지고 오기

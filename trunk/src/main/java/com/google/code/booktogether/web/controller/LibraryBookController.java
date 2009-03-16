@@ -68,15 +68,10 @@ public class LibraryBookController extends AbstractController {
 
 		if (result) {
 
-			if (log.isInfoEnabled()) {
-				log.info("중복이야~~~");
-			}
-
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"이미 서재에 등록되어있습니다.", RequestAttributes.SCOPE_SESSION);
 
-			return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
-					+ bookIdNum);
+			return new ModelAndView("redirect:/message.do");
 
 		} else {
 
@@ -179,16 +174,14 @@ public class LibraryBookController extends AbstractController {
 
 		}
 
-		// 성공시
-		if (result) {
-
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"서재에 책 등록 성공", RequestAttributes.SCOPE_SESSION);
-
-		} else { // 실패시
+		// 실패시
+		if (!result) {
 
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"서재에 책 등록 실패", RequestAttributes.SCOPE_SESSION);
+
+			// 경로 설정
+			return new ModelAndView("redirect:/message.do");
 
 		}
 
@@ -210,8 +203,9 @@ public class LibraryBookController extends AbstractController {
 			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum,
 			@RequestParam(value = "libraryBookIdNum", required = false) Integer libraryBookIdNum) {
 
-		Library library=libraryService.getLibrary(libraryIdNum, getLoginUserIdNum());
-		
+		Library library = libraryService.getLibrary(libraryIdNum,
+				getLoginUserIdNum());
+
 		LibraryBook libraryBook = libraryService
 				.getLibraryBook(libraryBookIdNum);
 
@@ -344,16 +338,14 @@ public class LibraryBookController extends AbstractController {
 					serviceDiv);
 		}
 
-		// 성공시
-		if (result) {
-
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"서재에 책 수정 성공", RequestAttributes.SCOPE_SESSION);
-
-		} else { // 실패시
+		// 실패시
+		if (!result) {
 
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"서재에 책 수정 실패", RequestAttributes.SCOPE_SESSION);
+
+			// 경로 설정
+			return new ModelAndView("redirect:/message.do");
 
 		}
 
@@ -380,16 +372,13 @@ public class LibraryBookController extends AbstractController {
 
 		boolean result = libraryService.deleteLibraryBook(libraryBookIdNum);
 
-		// 성공시
-		if (result) {
-
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"서재에 책 삭제 성공", RequestAttributes.SCOPE_SESSION);
-
-		} else { // 실패시
+		// 실패시
+		if (!result) {
 
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"서재에 책 삭제 실패", RequestAttributes.SCOPE_SESSION);
+
+			return new ModelAndView("redirect:/message.do");
 
 		}
 
@@ -423,7 +412,7 @@ public class LibraryBookController extends AbstractController {
 
 		List<LibraryBook> libraryBookList = libraryService.getListLibraryBook(
 				libraryBook, pageBean);
-		
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("librarybook/getListLibraryBook");
 		mav.addObject("libraryBookList", libraryBookList);
@@ -457,8 +446,6 @@ public class LibraryBookController extends AbstractController {
 
 		List<LibraryBook> libraryBookList = libraryService.getListLibraryBook(
 				libraryIdNum, bookName, pageBean);
-
-		log.info(pageBean.getDbCount());
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("librarybook/searchLibraryBook");
