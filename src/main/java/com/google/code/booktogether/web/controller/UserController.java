@@ -131,13 +131,6 @@ public class UserController extends AbstractController {
 		userPw.setPw(pw);
 
 		UserBlog userBlog = null;
-		
-		System.out.println(isPostBlog);
-		System.out.println(webServer);
-		System.out.println(validBlog);
-		System.out.println(etcInfo);
-		System.out.println(blogPw);
-		System.out.println(blogId);
 
 		if (isPostBlog != null && isPostBlog.equals(1)
 				&& validBlog.equals("true")) {
@@ -160,12 +153,15 @@ public class UserController extends AbstractController {
 		// **************
 		boolean result = userService.insertUser(user, userPw, userBlog);
 
-		// 메세지 세팅
-		String message = (result) ? "가입성공" : "가입실패";
+		if (!result) {
 
-		// 메세지 세션에 담기 new
-		RequestContextHolder.getRequestAttributes().setAttribute("message",
-				message, RequestAttributes.SCOPE_SESSION);
+			// 메세지 세션에 담기 new
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"가입실패", RequestAttributes.SCOPE_SESSION);
+
+			return new ModelAndView("redirect:/message.do");
+
+		}
 
 		return new ModelAndView("redirect:/index.do");
 
@@ -237,6 +233,8 @@ public class UserController extends AbstractController {
 
 			sra.setAttribute("message", "아이디가 없거나 비밀번호가 일치 하지 않습니다.",
 					RequestAttributes.SCOPE_SESSION);
+
+			return new ModelAndView("redirect:/message.do");
 
 		}
 
@@ -406,13 +404,16 @@ public class UserController extends AbstractController {
 
 		boolean result = userService.modifyUser(user);
 
-		String message = (result) ? "수정성공" : "수정실패";
-
 		RequestContextHolder.getRequestAttributes().setAttribute("thumnail",
 				filename, RequestAttributes.SCOPE_SESSION);
 
-		RequestContextHolder.getRequestAttributes().setAttribute("message",
-				message, RequestAttributes.SCOPE_SESSION);
+		if (!result) {
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"수정실패", RequestAttributes.SCOPE_SESSION);
+
+			return new ModelAndView("redirect:/message.do");
+
+		}
 
 		return new ModelAndView("redirect:/user/getUser.do");
 
@@ -434,10 +435,14 @@ public class UserController extends AbstractController {
 		// 사용자 탈퇴
 		result = userService.deleteUser(userIdNum);
 
-		String message = (result) ? "탈퇴성공" : "탈퇴실패";
+		if (!result) {
 
-		RequestContextHolder.getRequestAttributes().setAttribute("message",
-				message, RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"탈퇴실패", RequestAttributes.SCOPE_SESSION);
+
+			return new ModelAndView("redirect:/message.do");
+
+		}
 
 		return new ModelAndView("redirect:/user/login.do");
 
@@ -556,7 +561,7 @@ public class UserController extends AbstractController {
 
 		String userId = getLoginUserId();
 
-		String message = "";
+		String message = null;
 
 		User user = userService.validIdPwUser(userId, pw);
 
@@ -565,17 +570,20 @@ public class UserController extends AbstractController {
 
 			boolean result = userService.modifyPw(user, newPw);
 
-			if (result) {
-				message = "변경되었습니다.";
-			} else {
+			if (!result) {
 				message = "시스템 문제로 인하여 변경이 실패 하였습니다.";
 			}
 		} else {
 			message = "입력하신 비밀번호가 일치 하지 않습니다.";
 		}
 
-		RequestContextHolder.getRequestAttributes().setAttribute("message",
-				message, RequestAttributes.SCOPE_SESSION);
+		if (message == null) {
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					message, RequestAttributes.SCOPE_SESSION);
+
+			return new ModelAndView("redirect:/message.do");
+
+		}
 
 		return new ModelAndView("redirect:/index.do");
 
@@ -596,10 +604,14 @@ public class UserController extends AbstractController {
 
 		boolean result = userService.deleteZone(zoneIdNum, userIdNum);
 
-		String message = (result) ? "삭제 되었습니다." : "삭제를 실패하였습니다.";
+		if (!result) {
 
-		RequestContextHolder.getRequestAttributes().setAttribute("message",
-				message, RequestAttributes.SCOPE_SESSION);
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"삭제를 실패하였습니다.", RequestAttributes.SCOPE_SESSION);
+
+			return new ModelAndView("redirect:/message.do");
+
+		}
 
 		return new ModelAndView("redirect:/user/modifyUserView.do");
 
@@ -615,39 +627,6 @@ public class UserController extends AbstractController {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("user/duplicateUserId");
-
-		return mav;
-
-	}
-
-	/**
-	 * 아이디 중복 확인
-	 * 
-	 * @param req
-	 */
-	@RequestMapping("/user/duplicateUserId.do")
-	public ModelAndView handleDuplicateUserId(HttpServletRequest req,
-			@RequestParam(value = "userId", required = false) String userId) {
-
-		boolean result = userService.duplicateUserId(userId);
-
-		String message = "";
-
-		int resultDiv = 0;
-
-		if (result) {
-			message = "사용 가능합니다.";
-			resultDiv = 1;
-		} else {
-			message = "아이디 중복입니다.";
-			resultDiv = 0;
-		}
-
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("user/duplicateUserId");
-		mav.addObject("message", message);
-		mav.addObject("resultDiv", resultDiv);
-		mav.addObject("userId", userId);
 
 		return mav;
 

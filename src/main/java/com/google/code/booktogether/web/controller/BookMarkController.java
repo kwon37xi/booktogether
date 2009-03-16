@@ -68,12 +68,10 @@ public class BookMarkController extends AbstractController {
 		// 인용구 등록
 		boolean result = bookMarkService.insertBookMark(bookMark);
 
-		if (result) {
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"인용구 등록성공", RequestAttributes.SCOPE_SESSION);
-		} else {
+		if (!result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"인용구 등록실패", RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -101,12 +99,10 @@ public class BookMarkController extends AbstractController {
 		// 인용구 삭제
 		boolean result = bookMarkService.deleteBookMark(bookMark);
 
-		if (result) {
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"인용구 삭제성공", RequestAttributes.SCOPE_SESSION);
-		} else {
+		if (!result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"인용구 삭제실패", RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -136,12 +132,10 @@ public class BookMarkController extends AbstractController {
 		// 인용구 수정
 		boolean result = bookMarkService.modifyBookMark(bookMark);
 
-		if (result) {
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"인용구 수정성공", RequestAttributes.SCOPE_SESSION);
-		} else {
+		if (!result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"인용구 수정실패", RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -163,7 +157,7 @@ public class BookMarkController extends AbstractController {
 
 		Integer userIdNum = getLoginUserIdNum();
 
-		String message = "";
+		String message = null;
 
 		if (userIdNum != null) {
 
@@ -178,8 +172,11 @@ public class BookMarkController extends AbstractController {
 			message = "공감을 하실려면 로그인을 하셔야 합니다.";
 		}
 
-		RequestContextHolder.getRequestAttributes().setAttribute("message",
-				message, RequestAttributes.SCOPE_SESSION);
+		if (message != null) {
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					message, RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/message.do");
+		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
 				+ bookIdNum);
@@ -235,8 +232,6 @@ public class BookMarkController extends AbstractController {
 
 			}
 
-		} else {
-			log.info("아무것도 없다네~~~");
 		}
 
 		ModelAndView mav = new ModelAndView();
@@ -247,10 +242,10 @@ public class BookMarkController extends AbstractController {
 
 		return mav;
 	}
-	
-	
+
 	/**
 	 * 인용구 목록 조회
+	 * 
 	 * @param req
 	 * @return
 	 */
@@ -259,24 +254,25 @@ public class BookMarkController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
-		
+
 		pageNo = (pageNo == null) ? 1 : pageNo;
-		
+
 		PageBean pageBean = new PageBean();
 		pageBean.setPageNo(pageNo);
 		pageBean.setPageSize(20);
 		pageBean.setLimit(3);
-		
-		Book book=bookService.getBook(bookIdNum);
-		
-		List<BookMark> bookMarkList=bookMarkService.getListBookMark(bookIdNum, pageBean);
-		
+
+		Book book = bookService.getBook(bookIdNum);
+
+		List<BookMark> bookMarkList = bookMarkService.getListBookMark(
+				bookIdNum, pageBean);
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("book/getListBookMark");
 		mav.addObject("bookMarkList", bookMarkList);
 		mav.addObject("bookInfo", book);
 		mav.addObject("pageBean", pageBean);
-		
+
 		return mav;
 	}
 }

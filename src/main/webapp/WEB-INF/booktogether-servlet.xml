@@ -102,7 +102,10 @@
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<props>
+				<prop key="java.lang.NullPointerException">exception/exception</prop>
+				<prop key="java.lang.RuntimeException">exception/exception</prop>
 				<prop key="java.lang.Exception">exception/exception</prop>
+				<prop key="defaultErrorView">exception/exception</prop>
 			</props>
 		</property>
 	</bean>

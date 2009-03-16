@@ -86,8 +86,6 @@ public class BookServiceImpl implements BookService {
 		// 해당 책 있는지 체크
 		Book book = bookJdbcDao.getBook(isbn);
 		
-		System.out.println(book);
-
 		// 해당책이 없을시
 		if (book == null) {
 
@@ -102,8 +100,6 @@ public class BookServiceImpl implements BookService {
 
 		} else {
 			
-			System.out.println(book.getIdNum()+"을 수정합니다.");
-
 			int count = bookJdbcDao.modifyBookHits(book.getIdNum());
 
 			if (count != 1) {

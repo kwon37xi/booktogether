@@ -4,9 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"   "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko"> 
 	<head>
 		<title><decorator:title default="Java Spring 2.5 기반 책 함께보기" /></title>
 		<link rel="stylesheet" type="text/css" href="/styles/common/default.css" />
@@ -22,12 +22,6 @@
 	</head>
 	<body>
 	
-		<c:if test="${sessionScope.message!=null}">
-			<script>
-				alert('${sessionScope.message}');
-			</script>
-			<c:remove scope="session" var="message"/>
-		</c:if>
 		<c:if test="${empty searchType}">
 			<c:set value="book" var="searchType"/>		
 		</c:if>
@@ -50,10 +44,10 @@
 												<li><a href="javascript:logout()"> Log-Out</a></li>
 											</c:when>
 										</c:choose>
-										<li><a href="javascript:sitemap()"> Sitemap</a></li>
-										<li><a href="javascript:faq()"> FAQ</a></li>
-										<li><a href="javascript:help()"> Help</a></li>
-										<li><a href="javascript:aboutus()"> About us</a></li>			
+										<li><a href="/sitemap.do"> Sitemap</a></li>
+										<li><a href="/faq.do"> FAQ</a></li>
+										<li><a href="/help.do"> Help</a></li>
+										<li><a href="/aboutus.do"> About us</a></li>			
 									</ul>
 								</div>		
 							</td>
@@ -66,7 +60,7 @@
 						<tr>
 						    <td class="count_info"><span class="style5">&nbsp;&nbsp; Love, Book Together에 오신 것을 환영합니다. </span></td>
 						    <td class="search_div">
-								<form name="searchBookform" action="/book/searchBook.do" method="post">
+								<form name="searchBookform" action="/book/searchBook.do" method="get">
 									<input type="hidden" name="pageNo" value="1"/>
 									<input type="hidden" name="beforeQuery" value="${requestScope.query}"/>
 									

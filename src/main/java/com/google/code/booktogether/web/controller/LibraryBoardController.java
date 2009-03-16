@@ -9,8 +9,6 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.booktogether.service.LibraryBoardService;
@@ -74,8 +72,6 @@ public class LibraryBoardController extends AbstractController {
 			@RequestParam(value = "content", required = false) String content,
 			@RequestParam(value = "libraryIdNum", required = false) Integer libraryIdNum) {
 
-		log.info(libraryIdNum);
-
 		LibraryBoard libraryBoard = new LibraryBoard();
 
 		libraryBoard.setLibraryIdNum(libraryIdNum);
@@ -85,15 +81,13 @@ public class LibraryBoardController extends AbstractController {
 		boolean result = libraryBoardService.insertLibraryBook(libraryBoard);
 
 		if (result) {
-
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"방명록 등록 성공", RequestAttributes.SCOPE_SESSION);
-
+			if (log.isInfoEnabled()) {
+				log.info("방명록 등록 성공");
+			}
 		} else {
-
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"방명록 등록 실패", RequestAttributes.SCOPE_SESSION);
-
+			if (log.isInfoEnabled()) {
+				log.info("방명록 등록 실패");
+			}
 		}
 
 		return new ModelAndView(
@@ -127,15 +121,13 @@ public class LibraryBoardController extends AbstractController {
 		boolean result = libraryBoardService.deleteLibraryBook(libraryBoard);
 
 		if (result) {
-
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"방명록 삭제 성공", RequestAttributes.SCOPE_SESSION);
-
+			if (log.isInfoEnabled()) {
+				log.info("방명록 삭제 성공");
+			}
 		} else {
-
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"방명록 삭제 실패", RequestAttributes.SCOPE_SESSION);
-
+			if (log.isInfoEnabled()) {
+				log.info("방명록 삭제 실패");
+			}
 		}
 
 		return new ModelAndView(

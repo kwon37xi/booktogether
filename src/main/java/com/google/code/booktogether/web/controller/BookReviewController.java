@@ -106,12 +106,10 @@ public class BookReviewController extends AbstractController {
 		// 리뷰 등록
 		boolean result = bookReviewService.insertReview(bookReview, userBlog);
 
-		if (result) {
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"등록 성공", RequestAttributes.SCOPE_SESSION);
-		} else {
+		if (!result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"등록 실패", RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -137,12 +135,10 @@ public class BookReviewController extends AbstractController {
 		// 리뷰 삭제
 		boolean result = bookReviewService.deleteReview(bookReview);
 
-		if (result) {
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"삭제 성공", RequestAttributes.SCOPE_SESSION);
-		} else {
+		if (!result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"삭제 실패", RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -166,13 +162,13 @@ public class BookReviewController extends AbstractController {
 		bookReview.getUser().setIdNum(getLoginUserIdNum());
 
 		bookReview = bookReviewService.getReview(bookReview);
-		
-		ReviewBlogPost reviewBlogPost=new ReviewBlogPost();
+
+		ReviewBlogPost reviewBlogPost = new ReviewBlogPost();
 		reviewBlogPost.setBookIdNum(bookIdNum);
 		reviewBlogPost.setUserIdNum(getLoginUserIdNum());
-		
-		reviewBlogPost=blogService.getReviewBlogPost(reviewBlogPost);
-		
+
+		reviewBlogPost = blogService.getReviewBlogPost(reviewBlogPost);
+
 		Book book = bookService.getBook(bookIdNum);
 
 		ModelAndView mav = new ModelAndView();
@@ -208,11 +204,9 @@ public class BookReviewController extends AbstractController {
 			book = bookService.getBook(bookReview.getBook().getIdNum());
 
 		} else {
-
-			if (log.isInfoEnabled()) {
-				log.info("조회하고자하는 리뷰가 없습니다.");
-			}
-
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					"조회하고자하는 리뷰가 없습니다.", RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		ModelAndView mav = new ModelAndView();
@@ -273,22 +267,21 @@ public class BookReviewController extends AbstractController {
 		bookReview.setIdNum(bookReviewIdNum);
 		bookReview.setTitle(title);
 		bookReview.setReview(review);
-		
-		UserBlog userBlog=null;
-		
-		if(postNum!=null && !postNum.equals("")){
-			userBlog=blogService.getUserBlog(getLoginUserIdNum());
+
+		UserBlog userBlog = null;
+
+		if (postNum != null && !postNum.equals("")) {
+			userBlog = blogService.getUserBlog(getLoginUserIdNum());
 		}
 
 		// 별점 등록
-		boolean result = bookReviewService.modifyReview(bookReview,userBlog,postNum);
+		boolean result = bookReviewService.modifyReview(bookReview, userBlog,
+				postNum);
 
-		if (result) {
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"수정 성공", RequestAttributes.SCOPE_SESSION);
-		} else {
+		if (!result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"수정 실패", RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		return new ModelAndView("redirect:/book/getBook.do?bookIdNum="
@@ -313,15 +306,14 @@ public class BookReviewController extends AbstractController {
 		bookReview.getBook().setIdNum(bookIdNum);
 		bookReview.getUser().setIdNum(getLoginUserIdNum());
 
-		if (log.isInfoEnabled()) {
-			log.info(bookReview);
-		}
-
 		// 리뷰 추천하기
 		String message = bookReviewService.modifyReviewRecommend(bookReview);
 
-		RequestContextHolder.getRequestAttributes().setAttribute("message",
-				message, RequestAttributes.SCOPE_SESSION);
+		if (message != null) {
+			RequestContextHolder.getRequestAttributes().setAttribute("message",
+					message, RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/message.do");
+		}
 
 		return new ModelAndView("redirect:/book/getReview.do?bookReviewIdNum="
 				+ bookReviewIdNum);
@@ -358,10 +350,6 @@ public class BookReviewController extends AbstractController {
 
 			}
 
-		} else {
-			if (log.isInfoEnabled()) {
-				log.info("결과가 없는거 같애요");
-			}
 		}
 
 		ModelAndView mav = new ModelAndView();

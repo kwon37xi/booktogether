@@ -86,25 +86,18 @@ public class LibraryController extends AbstractController {
 	public ModelAndView handleModifyLibrary(HttpServletRequest req,
 			Library library) {
 
-		if (log.isInfoEnabled()) {
-			log.info(library);
-		}
-
 		library.getUser().setIdNum(getLoginUserIdNum());
 
 		// 사용자 아이디, 비밀번호 일치 되는치 검사
 		boolean result = libraryService.modifyLibrary(library);
 
 		// 성공시
-		if (result) {
-
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"내서재 정보 수정 성공", RequestAttributes.SCOPE_SESSION);
-
-		} else { // 실패시
+		if (!result) {
 
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"내서재 정보 수정 실패", RequestAttributes.SCOPE_SESSION);
+
+			return new ModelAndView("redirect:/message.do");
 
 		}
 
@@ -145,8 +138,6 @@ public class LibraryController extends AbstractController {
 	@RequestMapping("/main/searchLibrary.do")
 	public ModelAndView handleSearchLibrary(HttpServletRequest req,
 			@RequestParam(value = "query", required = false) String query) {
-
-		System.out.println(query);
 
 		List<User> userList = null;
 
@@ -228,13 +219,10 @@ public class LibraryController extends AbstractController {
 
 		if (target.equals(userIdNum)) {
 
-			log.info("자기 자신을 관심서재로 등록할 수 없습니다");
-
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"자기 자신을 관심서재로 등록할 수 없습니다", RequestAttributes.SCOPE_SESSION);
 			// 경로 설정
-			return new ModelAndView("redirect:/library/getLibrary.do?userId="
-					+ userId);
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		result = libraryService.duplicateInterestLibrary(target, userIdNum);
@@ -245,16 +233,17 @@ public class LibraryController extends AbstractController {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"이미 등록 되어있습니다", RequestAttributes.SCOPE_SESSION);
 
+			return new ModelAndView("redirect:/message.do");
+
 		} else { // 중복 아니다!!
 
 			result = libraryService.insertInterestLibrary(userIdNum, target);
 
-			if (result) {
-				RequestContextHolder.getRequestAttributes().setAttribute(
-						"message", "등록 성공", RequestAttributes.SCOPE_SESSION);
-			} else {
+			if (!result) {
 				RequestContextHolder.getRequestAttributes().setAttribute(
 						"message", "등록 실패", RequestAttributes.SCOPE_SESSION);
+
+				return new ModelAndView("redirect:/message.do");
 			}
 		}
 
@@ -281,12 +270,10 @@ public class LibraryController extends AbstractController {
 		boolean result = libraryService
 				.deleteInterestLibrary(target, userIdNum);
 
-		if (result) {
-			RequestContextHolder.getRequestAttributes().setAttribute("message",
-					"삭제 성공", RequestAttributes.SCOPE_SESSION);
-		} else {
+		if (!result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"삭제 실패", RequestAttributes.SCOPE_SESSION);
+			return new ModelAndView("redirect:/message.do");
 		}
 
 		// 경로 설정

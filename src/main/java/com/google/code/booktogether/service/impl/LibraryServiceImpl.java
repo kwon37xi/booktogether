@@ -461,20 +461,9 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public boolean deleteLibraryRank() {
-
-		int count = libraryDao.deleteLibraryRank();
-
-		if (count != 0) {
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	@Transactional(readOnly = false)
 	public boolean refeshLibraryRank() {
+		
+		libraryDao.deleteLibraryRank();
 
 		int count = libraryDao.refeshLibraryRank();
 

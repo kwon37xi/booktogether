@@ -4,9 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"   "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko"> 
 	<head>
 		<title><decorator:title default="Java Spring 2.5 기반 책 함께보기" /></title>
 		<link href="/styles/common/popupdefault.css" rel="stylesheet" type="text/css"/>

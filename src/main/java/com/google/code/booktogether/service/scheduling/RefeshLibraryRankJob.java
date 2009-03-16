@@ -22,11 +22,7 @@ public class RefeshLibraryRankJob extends QuartzJobBean {
 	protected void executeInternal(JobExecutionContext context)
 			throws JobExecutionException {
 
-		boolean result = libraryService.deleteLibraryRank();
-
-		if (result) {
-			result = libraryService.refeshLibraryRank();
-		}
+		boolean	result = libraryService.refeshLibraryRank();
 
 		if (result) {
 			if (log.isInfoEnabled()) {
