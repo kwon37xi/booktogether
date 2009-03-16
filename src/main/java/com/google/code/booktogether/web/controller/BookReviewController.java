@@ -13,11 +13,14 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.code.booktogether.service.BlogService;
 import com.google.code.booktogether.service.BookReviewService;
 import com.google.code.booktogether.service.BookService;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookReview;
+import com.google.code.booktogether.web.domain.ReviewBlogPost;
+import com.google.code.booktogether.web.domain.UserBlog;
 import com.google.code.booktogether.web.page.PageBean;
 
 /**
@@ -39,6 +42,12 @@ public class BookReviewController extends AbstractController {
 	 */
 	@Resource(name = "bookService")
 	BookService bookService;
+
+	/**
+	 * BlogService
+	 */
+	@Resource(name = "blogService")
+	BlogService blogService;
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -74,6 +83,7 @@ public class BookReviewController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum,
 			@RequestParam(value = "title", required = false) String title,
+			@RequestParam(value = "isPostBlog", required = false) Integer isPostBlog,
 			@RequestParam(value = "review", required = false) String review) {
 
 		Integer userIdNum = getLoginUserIdNum();
@@ -85,8 +95,16 @@ public class BookReviewController extends AbstractController {
 		bookReview.setTitle(title);
 		bookReview.setReview(review);
 
+		UserBlog userBlog = null;
+
+		if (isPostBlog != null && isPostBlog.equals(1)) {
+
+			userBlog = blogService.getUserBlog(userIdNum);
+
+		}
+
 		// 리뷰 등록
-		boolean result = bookReviewService.insertReview(bookReview);
+		boolean result = bookReviewService.insertReview(bookReview, userBlog);
 
 		if (result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
@@ -148,13 +166,20 @@ public class BookReviewController extends AbstractController {
 		bookReview.getUser().setIdNum(getLoginUserIdNum());
 
 		bookReview = bookReviewService.getReview(bookReview);
-
+		
+		ReviewBlogPost reviewBlogPost=new ReviewBlogPost();
+		reviewBlogPost.setBookIdNum(bookIdNum);
+		reviewBlogPost.setUserIdNum(getLoginUserIdNum());
+		
+		reviewBlogPost=blogService.getReviewBlogPost(reviewBlogPost);
+		
 		Book book = bookService.getBook(bookIdNum);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("book/modifyReview");
 		mav.addObject("bookInfo", book);
 		mav.addObject("bookReviewInfo", bookReview);
+		mav.addObject("reviewBlogPost", reviewBlogPost);
 
 		return mav;
 
@@ -238,6 +263,7 @@ public class BookReviewController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "bookReviewIdNum", required = false) Integer bookReviewIdNum,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum,
+			@RequestParam(value = "postNum", required = false) String postNum,
 			@RequestParam(value = "title", required = false) String title,
 			@RequestParam(value = "review", required = false) String review) {
 
@@ -247,9 +273,15 @@ public class BookReviewController extends AbstractController {
 		bookReview.setIdNum(bookReviewIdNum);
 		bookReview.setTitle(title);
 		bookReview.setReview(review);
+		
+		UserBlog userBlog=null;
+		
+		if(postNum!=null && !postNum.equals("")){
+			userBlog=blogService.getUserBlog(getLoginUserIdNum());
+		}
 
 		// 별점 등록
-		boolean result = bookReviewService.modifyReview(bookReview);
+		boolean result = bookReviewService.modifyReview(bookReview,userBlog,postNum);
 
 		if (result) {
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
@@ -342,9 +374,9 @@ public class BookReviewController extends AbstractController {
 
 	}
 
-	
 	/**
 	 * 리뷰목록 조회
+	 * 
 	 * @param req
 	 * @return
 	 */
@@ -353,25 +385,26 @@ public class BookReviewController extends AbstractController {
 			HttpServletRequest req,
 			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum,
 			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
-		
+
 		pageNo = (pageNo == null) ? 1 : pageNo;
-		
+
 		PageBean pageBean = new PageBean();
 		pageBean.setPageNo(pageNo);
 		pageBean.setPageSize(20);
 		pageBean.setLimit(3);
-		
-		Book book=bookService.getBook(bookIdNum);
-		
-		List<BookReview> bookReviewList=bookReviewService.getListBookReview(bookIdNum, pageBean);
-		
+
+		Book book = bookService.getBook(bookIdNum);
+
+		List<BookReview> bookReviewList = bookReviewService.getListBookReview(
+				bookIdNum, pageBean);
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("book/getListBookReview");
 		mav.addObject("bookReviewList", bookReviewList);
 		mav.addObject("bookInfo", book);
 		mav.addObject("pageBean", pageBean);
-		
+
 		return mav;
 	}
-	
+
 }

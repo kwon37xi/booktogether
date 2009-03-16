@@ -23,6 +23,7 @@ import com.google.code.booktogether.service.UserService;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserAddInfo;
+import com.google.code.booktogether.web.domain.UserBlog;
 import com.google.code.booktogether.web.domain.UserPw;
 import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
@@ -72,7 +73,13 @@ public class UserController extends AbstractController {
 			@RequestParam(value = "pw", required = false) String pw,
 			@RequestParam(value = "blog", required = false) String blog,
 			@RequestParam(value = "zone", required = false) String zoneNames[],
-			@RequestParam(value = "thumnail", required = false) MultipartFile file) {
+			@RequestParam(value = "thumnail", required = false) MultipartFile file,
+			@RequestParam(value = "isPostBlog", required = false) Integer isPostBlog,
+			@RequestParam(value = "webServer", required = false) String webServer,
+			@RequestParam(value = "validBlog", required = false) String validBlog,
+			@RequestParam(value = "etcInfo", required = false) String etcInfo,
+			@RequestParam(value = "blogPw", required = false) String blogPw,
+			@RequestParam(value = "blogId", required = false) String blogId) {
 
 		// 썸네일 이미지 저장 경로
 		String realPath = req.getSession().getServletContext().getRealPath(
@@ -123,10 +130,35 @@ public class UserController extends AbstractController {
 		UserPw userPw = new UserPw();
 		userPw.setPw(pw);
 
+		UserBlog userBlog = null;
+		
+		System.out.println(isPostBlog);
+		System.out.println(webServer);
+		System.out.println(validBlog);
+		System.out.println(etcInfo);
+		System.out.println(blogPw);
+		System.out.println(blogId);
+
+		if (isPostBlog != null && isPostBlog.equals(1)
+				&& validBlog.equals("true")) {
+
+			// 블로그 정보 세팅
+			userBlog = new UserBlog();
+			userBlog.setWebServer(webServer);
+			userBlog.setBlog(blog);
+			userBlog.setBlogDefault(1);
+			userBlog.setId(blogId);
+
+			if (webServer.indexOf("egloos") != -1) {
+				userBlog.setPw(blogPw);
+			}
+
+		}
+
 		// **************
 		// 사용자 저장하기
 		// **************
-		boolean result = userService.insertUser(user, userPw);
+		boolean result = userService.insertUser(user, userPw, userBlog);
 
 		// 메세지 세팅
 		String message = (result) ? "가입성공" : "가입실패";

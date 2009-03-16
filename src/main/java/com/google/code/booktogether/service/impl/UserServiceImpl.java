@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.code.booktogether.dao.BlogDao;
 import com.google.code.booktogether.dao.UserDao;
 import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.LibraryService;
@@ -23,6 +24,7 @@ import com.google.code.booktogether.service.util.PasswordAuthenticator;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserAddInfo;
+import com.google.code.booktogether.web.domain.UserBlog;
 import com.google.code.booktogether.web.domain.UserPw;
 import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
@@ -49,6 +51,12 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Resource(name = "libraryService")
 	private LibraryService libraryService;
+
+	/**
+	 * BookService
+	 */
+	@Resource(name = "blogJdbcDao")
+	private BlogDao blogDao;
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -99,7 +107,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public boolean insertUser(User user, UserPw userPw) {
+	public boolean insertUser(User user, UserPw userPw, UserBlog userBlog) {
 
 		boolean result = false;
 
@@ -183,6 +191,18 @@ public class UserServiceImpl implements UserService {
 
 		if (!result) {
 			throw new BooktogetherException("사용자 개인서재 등록 실패");
+		}
+
+		if (userBlog != null) {
+
+			userBlog.setUserIdNum(idNum);
+
+			count = blogDao.insertBlog(userBlog);
+
+			if (count != 1) {
+				throw new BooktogetherException("블로그 포스팅 서비스 등록 실패");
+			}
+
 		}
 
 		return true;
@@ -383,8 +403,8 @@ public class UserServiceImpl implements UserService {
 				throw new BooktogetherException("이미지 축소 및 JPEG 압축 과정에서 실패", e);
 
 			}
-		}else{
-			filename="userDefault.png";
+		} else {
+			filename = "userDefault.png";
 		}
 
 		return filename;
