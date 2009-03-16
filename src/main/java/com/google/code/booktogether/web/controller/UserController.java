@@ -637,14 +637,14 @@ public class UserController extends AbstractController {
 			retValue = "success";
 		} else {
 			message = "아이디 중복입니다.";
-			retValue = "falure";
+			retValue = "failure";
 		}
 
 		json.element("message", message);
 		json.element("status", retValue);
 
 		try {
-			res.setContentType("text/html;charset=utf-8");
+			res.setContentType("application/json;charset=utf-8");
 			res.getWriter().print(json.toString());
 		} catch (IOException e) {
 			throw new BooktogetherException("아이디 중복처리 실패", e);
