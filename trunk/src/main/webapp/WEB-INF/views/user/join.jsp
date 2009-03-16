@@ -90,7 +90,52 @@
 							<label for="blog">Blog 주소</label>
 						</td>
 						<td>
-							<input type="text" name="blog" size="20"/>
+							<input type="text" name="blog" id="blog" size="35"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="join_label">
+							<label for="blog">포스팅 유무</label>
+						</td>
+						<td>
+							<input type="checkbox" name="isPostBlog" size="20" id="isPostBlog" value="1"/>이글루스
+						</td>
+					</tr>
+					<tr id="addServerInfo">
+						<td class="join_label">블로그 Post<br/>정보 입력 사항</td>
+						<td>
+							<input type="hidden" name="validBlog" id="validBlog" value="no"/>
+							<table class="bloginfo">
+								<tbody>
+									<tr>
+										<td>서버주소</td>
+										<td><input type="text" name="webServer" id="webServer" size="30"/></td>
+									</tr>
+									<tr>
+										<td>BLOG ID</td>
+										<td>
+											<input type="text" name="etcInfo" id="etcInfo"  size="30"/>(tistory 경우 입력)
+										</td>
+									</tr>
+									<tr>
+										<td>ID</td>
+										<td><input type="text" name="blogId" id="blogId"  size="30"/></td>
+									</tr>
+									<tr>
+										<td>PW</td>
+										<td>
+											<input type="password" name="blogPw" id="blogPw"  size="30"/>
+										</td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="2">
+											<input type="button" value="연결테스트" id="validBlogButton"/>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
 						</td>
 					</tr>
 					<tr>

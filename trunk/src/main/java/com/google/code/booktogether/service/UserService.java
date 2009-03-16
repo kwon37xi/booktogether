@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.code.booktogether.web.domain.User;
+import com.google.code.booktogether.web.domain.UserBlog;
 import com.google.code.booktogether.web.domain.UserPw;
 import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.page.PageBean;
@@ -17,7 +18,7 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
-	public boolean insertUser(User user, UserPw userPw);
+	public boolean insertUser(User user, UserPw userPw,UserBlog userBlog);
 
 	/**
 	 * 사용자 수정

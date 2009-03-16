@@ -90,6 +90,12 @@
 							<textarea rows="15" cols="60" name="review"></textarea>
 						</td>
 					</tr>
+					<tr>
+						<td class="b_label">내 블로그에 포스트하기</td>
+						<td class="b_label_c">
+							<input type="checkbox" id="isPostBlog" name="isPostBlog" value="1"/>
+						</td>
+					</tr>
 				</tbody>
 				<tfoot>
 					<tr>

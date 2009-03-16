@@ -10,9 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.code.booktogether.dao.BookReviewDao;
 import com.google.code.booktogether.exception.BooktogetherException;
+import com.google.code.booktogether.service.BlogService;
 import com.google.code.booktogether.service.BookReviewService;
+import com.google.code.booktogether.service.blogpost.impl.MetaWeBlogPostImpl;
 import com.google.code.booktogether.service.util.HTMLInputFilter;
 import com.google.code.booktogether.web.domain.BookReview;
+import com.google.code.booktogether.web.domain.ReviewBlogPost;
+import com.google.code.booktogether.web.domain.UserBlog;
 import com.google.code.booktogether.web.page.PageBean;
 
 @Service("bookReviewService")
@@ -22,6 +26,9 @@ public class BookReviewServiceImpl implements BookReviewService {
 	@Resource(name = "bookReviewJdbcDao")
 	private BookReviewDao bookReviewJdbcDao;
 
+	@Resource(name = "blogService")
+	private BlogService blogService;
+
 	/**
 	 * html 필터
 	 */
@@ -30,7 +37,7 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public boolean insertReview(BookReview bookReview) {
+	public boolean insertReview(BookReview bookReview, UserBlog userBlog) {
 
 		bookReview.setTitle(htmlInputFilter.stripHTML(bookReview.getTitle()));
 		bookReview.setReview(htmlInputFilter.filter(bookReview.getReview()));
@@ -41,13 +48,42 @@ public class BookReviewServiceImpl implements BookReviewService {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
 		}
 
+		if (userBlog != null) {
+
+			MetaWeBlogPostImpl metaWeBlogPostImpl = new MetaWeBlogPostImpl();
+
+			if (metaWeBlogPostImpl.validBlog(userBlog)) {
+
+				Object postNum = metaWeBlogPostImpl.newPostBlog(userBlog,
+						bookReview);
+
+				if (postNum == null) {
+					throw new BooktogetherException("블로그에 포스트 등록 실패");
+				}
+
+				ReviewBlogPost reviewBlogPost = new ReviewBlogPost();
+				reviewBlogPost.setBookIdNum(bookReview.getBook().getIdNum());
+				reviewBlogPost.setPostNum((String) postNum);
+				reviewBlogPost.setUserIdNum(bookReview.getUser().getIdNum());
+
+				boolean result = blogService
+						.insertReviewBlogPost(reviewBlogPost);
+
+				if (!result) {
+					throw new BooktogetherException("블로그에 포스트한 정보 등록 실패");
+				}
+			}
+
+		}
+
 		return true;
 
 	}
 
 	@Override
 	@Transactional(readOnly = false)
-	public boolean modifyReview(BookReview bookReview) {
+	public boolean modifyReview(BookReview bookReview, UserBlog userBlog,
+			String postNum) {
 
 		bookReview.setTitle(htmlInputFilter.stripHTML(bookReview.getTitle()));
 		bookReview.setReview(htmlInputFilter.filter(bookReview.getReview()));
@@ -56,6 +92,23 @@ public class BookReviewServiceImpl implements BookReviewService {
 
 		if (count != 1) {
 			throw new BooktogetherException("해당 사용자 ID존재 하지 않음");
+		}
+
+		if (userBlog != null) {
+
+			MetaWeBlogPostImpl metaWeBlogPostImpl = new MetaWeBlogPostImpl();
+
+			if (metaWeBlogPostImpl.validBlog(userBlog)) {
+
+				boolean result = metaWeBlogPostImpl.editPostBlog(userBlog,
+						bookReview, postNum);
+
+				if (!result) {
+					throw new BooktogetherException("블로그에 포스트 등록 실패");
+				}
+
+			}
+
 		}
 
 		return true;

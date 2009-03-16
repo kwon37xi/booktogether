@@ -3,6 +3,7 @@ package com.google.code.booktogether.service;
 import java.util.List;
 
 import com.google.code.booktogether.web.domain.BookReview;
+import com.google.code.booktogether.web.domain.UserBlog;
 import com.google.code.booktogether.web.page.PageBean;
 
 public interface BookReviewService {
@@ -12,7 +13,7 @@ public interface BookReviewService {
 	 * @param bookReview
 	 * @return
 	 */
-	public boolean insertReview(BookReview bookReview);
+	public boolean insertReview(BookReview bookReview, UserBlog userBlog);
 	
 	
 	/**
@@ -35,7 +36,7 @@ public interface BookReviewService {
 	 * @param bookReview
 	 * @return
 	 */
-	public boolean modifyReview(BookReview bookReview);
+	public boolean modifyReview(BookReview bookReview,UserBlog userBlog,String postNum);
 	
 	/**
 	 * 리뷰 삭제

@@ -76,6 +76,7 @@
 		<form method="post" name="modifyreviewform" action="/book/modifyBookReview.do">
 			<input type="hidden" name="bookReviewIdNum" value="${bookReviewInfo.idNum}"/>
 			<input type="hidden" name="bookIdNum" value="${bookInfo.idNum}"/>
+			<input type="hidden" name="postNum" value="${reviewBlogPost.postNum}"/>
 			<table id="reviewview">
 				<thead>
 					<tr>
