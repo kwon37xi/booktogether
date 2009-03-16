@@ -1,7 +1,7 @@
 
 CREATE TABLE `author` (
   `idNum` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `author_div` int(1) NOT NULL,
   `book_idNum` int(11) NOT NULL,
   PRIMARY KEY (`idNum`),
