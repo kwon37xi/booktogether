@@ -1,5 +1,4 @@
-#summary One-sentence summary of this page.
-3/15 마지막 회의 내용
+#summary 3/15 마지막 회의 내용
 
 = 수정사항 =
 
