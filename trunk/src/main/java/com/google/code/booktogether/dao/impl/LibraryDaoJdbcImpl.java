@@ -88,8 +88,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 				sql,
 				new Object[] { libraryBook.getBook().getIdNum(),
 						libraryBook.getLibrary().getIdNum(),
-						libraryBook.getReadDate(), libraryBook.getState(),
-						libraryBook.getIsPossess() });
+						libraryBook.getReadDate(), libraryBook.getState()});
 	}
 
 	@Override
@@ -125,7 +124,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 		return getSimpleJdbcTemplate().update(
 				sql,
 				new Object[] { libraryBook.getState(),
-						libraryBook.getReadDate(), libraryBook.getIsPossess(),
+						libraryBook.getReadDate(),
 						libraryBook.getLibrary().getIdNum(),
 						libraryBook.getBook().getIdNum(),
 						libraryBook.getIdNum() });
@@ -211,16 +210,6 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 				new Object[] { possessBookIdNum });
 	}
 
-	@Override
-	public int modifyLibraryBookIsPossess(Integer userIdNum,
-			Integer possessBookIdNum) {
-
-		String sql = sqlparser.getSQL("libraryBook",
-				"MODIFY_ISPOSSESS_LIBRARYBOOK_SQL");
-
-		return getSimpleJdbcTemplate().update(sql,
-				new Object[] { possessBookIdNum, userIdNum });
-	}
 
 	@Override
 	public int getDbCountLibraryBook(LibraryBook libraryBook) {

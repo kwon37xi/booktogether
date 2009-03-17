@@ -31,7 +31,6 @@ public class LibraryBookRowMapper implements
 		libraryBook.setIdNum(rs.getInt("IDNUM"));
 		libraryBook.setReadDate(rs.getDate("READ_DATE"));
 		libraryBook.setState(rs.getInt("STATE"));
-		libraryBook.setIsPossess(rs.getInt("ISPOSSESS"));
 
 		libraryBook.getLibrary().setIdNum(rs.getInt("LIDNUM"));
 

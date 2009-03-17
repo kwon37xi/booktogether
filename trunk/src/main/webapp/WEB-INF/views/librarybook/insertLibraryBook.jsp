@@ -10,10 +10,6 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="/styles/library/library.css" />
-		<link href="/styles/common/jquery-ui-1.7.custom.css" rel="stylesheet" type="text/css"/>
-		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery-ui-1.7.min.js"></script>
-		<script type="text/javascript" charset="utf-8" src="/scripts/common/datepicker.js"></script>
-		<script type="text/javascript" charset="utf-8" src="/scripts/book/book.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/librarybook/insertlibrarybook.js"></script>
 		
 		<title>서재에 등록하기</title>
@@ -66,6 +62,10 @@
 					</td>
 				</tr>
 				<tr>
+					<td class="b_label">가격</td>
+					<td class="b_label_c"><fmt:formatNumber value="${bookInfo.price}" pattern=",###"/>원</td>
+				</tr>
+				<tr>
 					<td class="b_label">카테고리</td>
 					<td class="b_label_c">${bookInfo.category}</td>
 				</tr>
@@ -76,21 +76,21 @@
 			</tbody>
 		</table>
 		
+		
 		<form name="insertBookMyLibraryform" method="post" action="/library/insertLibraryBook.do">
 		
 			<input type="hidden" name="book.idNum" value="${bookInfo.idNum}"/>
 			<input type="hidden" name="library.idNum" value="${library.idNum}"/>
-			<input type="hidden" name="purchasePrice" value="${bookInfo.price}"/>
 			
 			<table id="insertlibrarybook">
 				<thead>
 					<tr>
-						<td>서재에 등록 (<font color="deeppink"/>◎</font>표시 필수입력사항)</td>
+						<td>서재에 등록</td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td><font color="deeppink"/>◎</font>책의 리스트를 선택해주세요.</td>
+						<td>어느쪽으로 책 분류 하시겠습니까?</td>
 					</tr>
 					<tr>
 						<td> 
@@ -105,64 +105,6 @@
 							<input type="text" name="readDateMonth" size="2" readonly="readonly"/>
 							<input type="text" name="readDateDate" size="2" readonly="readonly"/>
 							(읽은책일경우)
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table id="insertpossessbook">
-								<tr>
-									<td colspan="2">
-										<input type="checkbox" name="isPossess" value="1"/>소유여부
-									</td>
-								</tr>
-								<tr>
-									<td class="b_label">구입날짜</td>
-									<td class="b_label_c">
-										<input type="hidden" id="datepicker_purchaseDate"/>
-										<input type="text" name="purchaseDateYear" size="4" class="purchaseDateYear" readonly="readonly"/>년 
-										<input type="text" name="purchaseDateMonth" size="2" class="purchaseDateMonth" readonly="readonly"/>월 
-										<input type="text" name="purchaseDateDate" size="2" class="purchaseDateDate" readonly="readonly"/>일
-									</td>
-								</tr>
-								<tr>
-									<td class="b_label">독서시작일</td>
-									<td class="b_label_c">
-										<input type="hidden" id="datepicker_beginRead"/>
-										<input type="text" name="beginReadYear" size="4" class="beginReadYear" readonly="readonly"/>년  
-										<input type="text" name="beginReadMonth" size="2" class="beginReadMonth" readonly="readonly"/>월 
-										<input type="text" name="beginReadDate" size="2" class="beginReadDate" readonly="readonly"/>일
-									</td>
-								</tr>
-								<tr>
-									<td class="b_label">독서종료일</td>
-									<td class="b_label_c">
-										<input type="hidden" id="datepicker_endRead"/>
-										<input type="text" name="endReadYear" size="4" class="endReadYear" readonly="readonly"/>년 
-										<input type="text" name="endReadMonth" size="2" class="endReadMonth" readonly="readonly"/>월 
-										<input type="text" name="endReadDate" size="2" class="endReadDate" readonly="readonly"/>일
-									</td>
-								</tr>
-								<tr>
-									<td class="b_label">책품질</td>
-									<td class="b_label_c">
-										<select name="quality">
-											<option value="0"> 상 </option>
-											<option value="1"> 중 </option>
-											<option value="2"> 하 </option>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<td class="b_label">책상태</td>
-									<td class="b_label_c">
-										<select name="bookstate">
-											<option value="0">소유</option>
-											<option value="1">대여중</option>
-											<option value="2">교환중</option>
-										</select>
-									</td>
-								</tr>
-							</table>
 						</td>
 					</tr>
 				</tbody>
