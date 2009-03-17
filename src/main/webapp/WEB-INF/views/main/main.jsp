@@ -17,7 +17,16 @@
 		<script type="text/javascript" charset="utf-8" src="/scripts/user/user.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/main/main.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/user/login.js"></script>
-		
+		<script type="text/javascript">
+			jQuery(function($){
+				$("input:password#pw").keydown(function(e) {
+					if(e.keyCode == 13) {
+						login();
+						return false;
+					}
+				});
+			});
+		</script>
 		<title>Java Spring 2.5 기반 책 함께보기</title>
 	</head>
 	<body>
@@ -57,7 +66,7 @@
 										<label for="userId">ID</label><input type="text" name="userId" size="15"/>
 									</p>
 									<p>
-										<label for="pw">PW</label><input type="password" name="pw" size="15"/>
+										<label for="pw">PW</label><input type="password" name="pw" id="pw" size="15"/>
 									</p>
 									<p class="but_g1">
 										<img src="/images/main/login_b.png" onclick="login()" class="img_button"/>
