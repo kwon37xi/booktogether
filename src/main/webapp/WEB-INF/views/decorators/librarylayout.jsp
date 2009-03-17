@@ -45,10 +45,10 @@
 												<li><a href="javascript:logout()"> Log-Out</a></li>
 											</c:when>
 										</c:choose>
-										<li><a href="javascript:sitemap()"> Sitemap</a></li>
-										<li><a href="javascript:faq()"> FAQ</a></li>
-										<li><a href="javascript:help()"> Help</a></li>
-										<li><a href="javascript:aboutus()"> About us</a></li>			
+										<li><a href="/sitemap.do"> Sitemap</a></li>
+										<li><a href="/faq.do"> FAQ</a></li>
+										<li><a href="/help.do"> Help</a></li>
+										<li><a href="/aboutus.do"> About us</a></li>		
 									</ul>
 								</div>		
 							</td>

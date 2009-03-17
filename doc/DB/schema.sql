@@ -7,7 +7,7 @@ CREATE TABLE `author` (
   PRIMARY KEY (`idNum`),
   KEY `FK_author_1` (`book_idNum`),
   CONSTRAINT `FK_author_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `bestsellers` (
@@ -32,7 +32,7 @@ CREATE TABLE `book` (
   `category` varchar(50) DEFAULT NULL,
   `description` text,
   PRIMARY KEY (`idNum`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `bookgrade` (
@@ -198,6 +198,15 @@ CREATE TABLE `recommend` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE `reviewblogpost` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `user_idNum` int(11) NOT NULL,
+  `postNum` varchar(10) NOT NULL,
+  `book_idNum` int(11) NOT NULL,
+  PRIMARY KEY (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE `searchquery` (
   `query` varchar(50) NOT NULL,
   `search_num` int(11) NOT NULL,
@@ -214,7 +223,7 @@ CREATE TABLE `user` (
   `isdelete` int(1) NOT NULL,
   `input_date` datetime NOT NULL,
   PRIMARY KEY (`idNum`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `user_pw` (
@@ -236,6 +245,19 @@ CREATE TABLE `useraddinfo` (
   PRIMARY KEY (`idNum`),
   KEY `FK_useraddinfo_1` (`user_idNum`),
   CONSTRAINT `FK_useraddinfo_1` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `userblog` (
+  `idNum` int(11) NOT NULL AUTO_INCREMENT,
+  `webserver` varchar(50) NOT NULL,
+  `blog` varchar(50) NOT NULL,
+  `id` varchar(30) NOT NULL,
+  `pw` varchar(20) DEFAULT NULL,
+  `blogdefault` int(1) NOT NULL,
+  `user_idNum` int(11) NOT NULL,
+  `etc_info` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`idNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

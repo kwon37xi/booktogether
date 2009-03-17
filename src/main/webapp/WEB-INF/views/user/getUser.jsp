@@ -59,12 +59,7 @@
 				<tr>
 					<td class="u_label">썸네일</td>
 					<td class="u_label_c">
-						<c:if test="${fn:length(userInfo.userAddInfo.thumnail) > 13}">
-							<img src="/images/user/thumnail/${userInfo.userAddInfo.thumnail}"/>
-						</c:if>
-						<c:if test="${fn:length(userInfo.userAddInfo.thumnail) == 13}">
-							<img src="/images/user/userDefault.png"/>
-						</c:if>	
+						<img src="/images/user/thumnail/${fn:length(sessionScope.thumnail)>13 ? sessionScope.thumnail : 'userDefault.png'}"/>
 					</td>
 				</tr>
 				
