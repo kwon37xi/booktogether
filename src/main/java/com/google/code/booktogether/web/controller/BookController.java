@@ -22,11 +22,13 @@ import com.google.code.booktogether.service.BookGradeService;
 import com.google.code.booktogether.service.BookMarkService;
 import com.google.code.booktogether.service.BookReviewService;
 import com.google.code.booktogether.service.BookService;
+import com.google.code.booktogether.service.LibraryService;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
 import com.google.code.booktogether.web.domain.Book;
 import com.google.code.booktogether.web.domain.BookGrade;
 import com.google.code.booktogether.web.domain.BookMark;
 import com.google.code.booktogether.web.domain.BookReview;
+import com.google.code.booktogether.web.domain.PossessBook;
 import com.google.code.booktogether.web.page.PageBean;
 
 /**
@@ -63,6 +65,12 @@ public class BookController extends AbstractController {
 	private BookMarkService bookMarkService;
 
 	/**
+	 * LibraryService
+	 */
+	@Resource(name = "libraryService")
+	private LibraryService libraryService;
+
+	/**
 	 * 책 정보 가지고 오기
 	 * 
 	 * @param req
@@ -91,8 +99,14 @@ public class BookController extends AbstractController {
 			boolean moreGrade = false;
 			boolean moreBookMark = false;
 			boolean moreReview = false;
+			boolean morePossessBook = false;
 			boolean existGrade = false;
 			boolean existReview = false;
+
+			int gradeDbCount = 0;
+			int bookMarkDbCount = 0;
+			int reviewDbCount = 0;
+			int possessDbCount = 0;
 
 			PageBean pageBean = new PageBean();
 			pageBean.setPageNo(1);
@@ -103,16 +117,27 @@ public class BookController extends AbstractController {
 					book.getIdNum(), pageBean);
 
 			moreGrade = pageBean.isNextPage();
+			gradeDbCount = pageBean.getDbCount();
 
 			List<BookReview> bookReviewList = bookReviewService
 					.getListBookReview(book.getIdNum(), pageBean);
 
 			moreReview = pageBean.isNextPage();
+			reviewDbCount = pageBean.getDbCount();
 
 			List<BookMark> bookMarkList = bookMarkService.getListBookMark(book
 					.getIdNum(), pageBean);
 
 			moreBookMark = pageBean.isNextPage();
+			bookMarkDbCount = pageBean.getDbCount();
+
+			pageBean.setPageSize(10);
+
+			List<PossessBook> possessBookList = libraryService
+					.getListPossessBook(bookIdNum, pageBean);
+
+			morePossessBook = pageBean.isNextPage();
+			possessDbCount = pageBean.getDbCount();
 
 			Integer userIdNum = getLoginUserIdNum();
 
@@ -132,6 +157,7 @@ public class BookController extends AbstractController {
 			mav.setViewName("book/getBook");
 			mav.addObject("bookInfo", book);
 			mav.addObject("bookGradeList", bookGradeList);
+			mav.addObject("possessBookList", possessBookList);
 			mav.addObject("bookReviewList", bookReviewList);
 			mav.addObject("bookMarkList", bookMarkList);
 			mav.addObject("existGrade", existGrade);
@@ -139,6 +165,11 @@ public class BookController extends AbstractController {
 			mav.addObject("moreGrade", moreGrade);
 			mav.addObject("moreBookMark", moreBookMark);
 			mav.addObject("moreReview", moreReview);
+			mav.addObject("morePossessBook", morePossessBook);
+			mav.addObject("gradeDbCount", gradeDbCount);
+			mav.addObject("bookMarkDbCount", bookMarkDbCount);
+			mav.addObject("reviewDbCount", reviewDbCount);
+			mav.addObject("possessDbCount", possessDbCount);
 
 			return mav;
 		}
@@ -264,7 +295,7 @@ public class BookController extends AbstractController {
 		}
 
 		if (isbn == null || isbn.equals("")) {
-			
+
 			RequestContextHolder.getRequestAttributes().setAttribute("message",
 					"ISBN이 등록 되지 않아 조회하실 수 없습니다.",
 					RequestAttributes.SCOPE_SESSION);

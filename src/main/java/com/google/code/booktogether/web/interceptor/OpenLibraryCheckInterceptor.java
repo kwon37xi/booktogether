@@ -58,7 +58,7 @@ public class OpenLibraryCheckInterceptor extends HandlerInterceptorAdapter {
 						"message", "비공개 개인서재입니다",
 						RequestAttributes.SCOPE_SESSION);
 
-				response.sendRedirect("/index.do");
+				response.sendRedirect("/message.do");
 
 				return false;
 
@@ -73,7 +73,7 @@ public class OpenLibraryCheckInterceptor extends HandlerInterceptorAdapter {
 				log.info("해당 아이디가 없다");
 			}
 
-			response.sendRedirect("/");
+			response.sendRedirect("/message.do");
 
 			return false;
 

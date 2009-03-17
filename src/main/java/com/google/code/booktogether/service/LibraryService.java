@@ -68,6 +68,16 @@ public interface LibraryService {
 	 * @return
 	 */
 	public List<PossessBook> getListPossessBook(String userId, PageBean pageBean);
+	
+	
+	/**
+	 * 소유하고 있는 책 목록
+	 * 
+	 * @param userIdNum
+	 * @param pageBean
+	 * @return
+	 */
+	public List<PossessBook> getListPossessBook(Integer bookIdNum, PageBean pageBean);
 
 	/**
 	 * 소유 책 정보 조회
