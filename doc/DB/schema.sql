@@ -45,7 +45,7 @@ CREATE TABLE `bookgrade` (
   KEY `FK_bookgrade_2` (`user_idNum`),
   CONSTRAINT `FK_bookgrade_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`),
   CONSTRAINT `FK_bookgrade_2` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB 7 DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `bookhits` (
@@ -138,13 +138,12 @@ CREATE TABLE `librarybook` (
   `library_idNum` int(11) NOT NULL,
   `read_Date` datetime DEFAULT NULL,
   `state` int(1) DEFAULT NULL,
-  `ispossess` int(1) DEFAULT NULL,
   PRIMARY KEY (`idNum`),
   KEY `FK_librarybook_1` (`book_idNum`),
   KEY `FK_librarybook_2` (`library_idNum`),
   CONSTRAINT `FK_librarybook_1` FOREIGN KEY (`book_idNum`) REFERENCES `book` (`idNum`),
   CONSTRAINT `FK_librarybook_2` FOREIGN KEY (`library_idNum`) REFERENCES `library` (`idNum`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `libraryrank` (
@@ -155,7 +154,7 @@ CREATE TABLE `libraryrank` (
   `name` varchar(20) NOT NULL,
   `total` int(11) NOT NULL,
   PRIMARY KEY (`idNum`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `possessbook` (
@@ -292,5 +291,5 @@ CREATE TABLE `zone` (
   KEY `FK_zone_2` (`user_idNum`),
   CONSTRAINT `FK_zone_1` FOREIGN KEY (`zone`) REFERENCES `zipcode` (`idNum`),
   CONSTRAINT `FK_zone_2` FOREIGN KEY (`user_idNum`) REFERENCES `user` (`idNum`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
