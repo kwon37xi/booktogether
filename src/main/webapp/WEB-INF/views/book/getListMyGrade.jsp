@@ -10,6 +10,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link href="/styles/library/library.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" charset="utf-8" src="/scripts/library/library.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/scripts/book/getbook.js"></script>
+		
 		<title>책 별점 목록</title>
 	</head>
 	<body>

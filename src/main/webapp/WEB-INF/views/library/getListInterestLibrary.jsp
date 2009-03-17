@@ -27,13 +27,17 @@
 								<td><a href="/library/getLibrary.do?userId=${interestLibraryInfo.userId}">${interestLibraryInfo.name}</a></td>
 								<td>${interestLibraryInfo.nickname}</td>
 								<td>${interestLibraryInfo.email}</td>
-								<td><a href="/library/deleteInterestLibrary.do?target=${interestLibraryInfo.idNum}&libraryIdNum=${library.idNum}">삭제</a></td>
+								<td>
+									<a href="/library/deleteInterestLibrary.do?target=${interestLibraryInfo.idNum}&libraryIdNum=${library.idNum}">
+										<img src="/images/common/delete.png"/>
+									</a>
+								</td>
 							</tr>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
 						<tr>
-							<td class="nocontent">등록된 관심서재가 없습니다</td>
+							<td class="nocontent">등록된 관심서재가 없습니다.</td>
 						</tr>
 					</c:otherwise>
 				</c:choose>
