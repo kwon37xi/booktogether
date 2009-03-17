@@ -131,17 +131,6 @@ public interface LibraryService {
 	public boolean modifyLibraryBook(LibraryBook libraryBook);
 
 	/**
-	 * 서재안의 책 수정
-	 * 
-	 * @param libraryBook
-	 * @param possessBook
-	 * @param serviceDiv
-	 * @return
-	 */
-	public boolean modifyLibraryBook(LibraryBook libraryBook,
-			PossessBook possessBook, Integer serviceDiv);
-
-	/**
 	 * 서재안의 책 삭제
 	 * 
 	 * @param libraryBookIdNum

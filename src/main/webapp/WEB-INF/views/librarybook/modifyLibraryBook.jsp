@@ -69,10 +69,6 @@
 			<input type="hidden" name="book.idNum" value="${bookInfo.idNum}"/>
 			<input type="hidden" name="idNum" value="${libraryBook.idNum}"/>
 			<input type="hidden" name="library.idNum" value="${libraryBook.library.idNum}"/>
-			<input type="hidden" name="possessIdNum" value="${possessBook.idNum}"/>
-			<input type="hidden" name="beforeIsPossess" value="${libraryBook.isPossess}" />
-			<input type="hidden" name="purchasePrice" value="${bookInfo.price}"/>
-			
 			<table id="modifypossessbook">
 				<thead>
 					<tr>
@@ -81,7 +77,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>책의 리스트를 선택해주세요.</td>
+						<td>어느쪽으로 책 분류 하시겠습니까?</td>
 					</tr>
 					<tr>
 						<td>
@@ -97,74 +93,6 @@
 							<input type="text" name="readDateDate" size="2" value="${readDateDate}"/>
 						</td>
 					</tr>
-					<c:if test="${libraryBook.isPossess!=null}">
-						<tr>
-							<td>
-								<table>
-									<tr>
-										<td class="p_label">소유여부</td>
-										<td><input type="checkbox" name="isPossess" ${libraryBook.isPossess==1 ? 'checked' : ''} value="1" /></td>
-									</tr>
-									<tr>
-										<td class="p_label">구입날짜</td>
-										<td>
-											<input type="hidden" id="datepicker_purchaseDate"/>
-											<fmt:formatDate value="${possessBook.purchaseDate}" pattern="yyyy" var="purchaseDateYear"/>
-											<fmt:formatDate value="${possessBook.purchaseDate}" pattern="MM" var="purchaseDateMonth"/>
-											<fmt:formatDate value="${possessBook.purchaseDate}" pattern="dd" var="purchaseDateDate"/>
-											<input type="text" name="purchaseDateYear" class="purchaseDateYear" size="4" value="${purchaseDateYear}"/>
-											<input type="text" name="purchaseDateMonth" class="purchaseDateMonth" size="2" value="${purchaseDateMonth}"/>
-											<input type="text" name="purchaseDateDate" class="purchaseDateDate" size="2" value="${purchaseDateDate}"/>
-										</td>
-									</tr>
-									<tr>
-										<td class="p_label">독서시작일</td>
-										<td>
-											<input type="hidden" id="datepicker_beginRead"/>
-											<fmt:formatDate value="${possessBook.beginRead}" pattern="yyyy" var="beginReadYear"/>
-											<fmt:formatDate value="${possessBook.beginRead}" pattern="MM" var="beginReadMonth"/>
-											<fmt:formatDate value="${possessBook.beginRead}" pattern="dd" var="beginReadDate"/>
-											<input type="text" name="beginReadYear" class="beginReadYear" size="4" value="${beginReadYear}"/>
-											<input type="text" name="beginReadMonth" class="beginReadMonth" size="2" value="${beginReadMonth}"/>
-											<input type="text" name="beginReadDate" class="beginReadDate" size="2" value="${beginReadDate}"/>
-										</td>
-									</tr>
-									<tr>
-										<td class="p_label">독서종료일</td>
-										<td>
-											<input type="hidden" id="datepicker_endRead"/>
-											<fmt:formatDate value="${possessBook.endRead}" pattern="yyyy" var="endReadYear"/>
-											<fmt:formatDate value="${possessBook.endRead}" pattern="MM" var="endReadMonth"/>
-											<fmt:formatDate value="${possessBook.endRead}" pattern="dd" var="endReadDate"/>
-											<input type="text" name="endReadYear" class="endReadYear" size="4" value="${endReadYear}"/>
-											<input type="text" name="endReadMonth" class="endReadMonth" size="2" value="${endReadMonth}"/>
-											<input type="text" name="endReadDate" class="endReadDate" size="2" value="${endReadDate}"/>
-										</td>
-									</tr>
-									<tr>
-										<td class="p_label">책품질</td>
-										<td>
-											<select name="quality">
-												<option value="0" ${possessBook.quality==0 ? 'selected' : ''}>상</option>
-												<option value="1" ${possessBook.quality==1 ? 'selected' : ''}>중</option>
-												<option value="2" ${possessBook.quality==2 ? 'selected' : ''}>하</option>
-											</select>
-										</td>
-									</tr>
-									<tr>
-										<td class="p_label">책상태</td>
-										<td>
-											<select name="bookstate">
-												<option value="0" ${possessBook.state==0 ? 'selected' : ''}>소유</option>
-												<option value="1" ${possessBook.state==1 ? 'selected' : ''}>대여중</option>
-												<option value="2" ${possessBook.state==2 ? 'selected' : ''}>교환중</option>
-											</select>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</c:if>
 				</tbody>
 				<tfoot>
 					<tr>

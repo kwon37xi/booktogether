@@ -9,9 +9,8 @@
              INSERT INTO LIBRARYBOOK(book_idNum
              						 , library_idNum
              						 , read_Date
-             						 , state
-             						 , ispossess)   
-             VALUES (?, ?, ?, ?, ?) 
+             						 , state)   
+             VALUES (?, ?, ?, ?) 
             ]]>
 		</query>
 	</sql>
@@ -24,7 +23,6 @@
              SELECT LB.idnum as idNum 
                     ,LB.read_date as read_date 
                     ,LB.state as state 
-                    ,LB.ispossess as ispossess 
                     ,LB.book_idNum as bidnum 
                     ,LB.library_idNum as lidnum  
                     ,L.user_idNum as uidNUm 
@@ -85,7 +83,6 @@
              UPDATE LIBRARYBOOK 
                 SET state = ? 
                     ,read_date = ?
-                    ,ispossess = ?
               WHERE library_idNum = ?
                 AND book_idNum = ?
                 AND idNum = ? 
@@ -101,7 +98,6 @@
              SELECT LB.idnum as idNum 
                     ,LB.read_date as read_date 
                     ,LB.state as state 
-                    ,LB.ispossess as ispossess 
                     ,LB.book_idNum as bidnum 
                     ,LB.library_idNum as lidnum  
                     ,L.user_idNum as uidNUm 
@@ -173,24 +169,6 @@
 	</sql>
 
 
-	<sql name="MODIFY_ISPOSSESS_LIBRARYBOOK_SQL">
-		<description>서재 책의 소유 정보 수정</description>
-		<query>
-            <![CDATA[
-             UPDATE LIBRARYBOOK 
-    			SET ispossess = NULL
-    		  WHERE book_idNum = 
-    		  				(SELECT book_idNum 
-    		  				   FROM possessbook
-    		  				  WHERE idNum = ?) 
-    			AND library_idNum = 
-    						(SELECT idNum 
-    						   FROM library 
-    						  WHERE user_idNum= ?)
-            ]]>
-		</query>
-	</sql>
-
 	<sql name="LIST_SEARCH_LIBRARYBOOK_SQL">
 		<description>서재 검색(읽고싶은책, 읽은책, 읽고 있는 책)</description>
 		<query>
@@ -198,7 +176,6 @@
 				SELECT LB.idNum as idNum
 				       , LB.read_date as read_date
 				       , LB.state as state
-				       , LB.ispossess as ispossess
 				       , LB.library_idnum as lidnum
 				       , L.user_idNum as uidnum
 				       , B.idNum as bidnum

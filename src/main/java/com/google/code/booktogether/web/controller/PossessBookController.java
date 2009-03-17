@@ -205,7 +205,7 @@ public class PossessBookController extends AbstractController {
 
 		// 경로 설정
 		return new ModelAndView(
-				"redirect:/possessbook/getListPossessBook.do?userId="
+				"redirect:/library/getListPossessBook.do?userId="
 						+ getLoginUserId());
 
 	}

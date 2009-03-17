@@ -44,11 +44,6 @@ public class LibraryBook extends BaseObject{
 	 */
 	private Integer State;
 
-	/**
-	 * 소유여부
-	 */
-	private Integer isPossess;
-
 	@Override
 	public boolean equals(Object o) {
 
@@ -66,7 +61,6 @@ public class LibraryBook extends BaseObject{
 		equb.append(idNum, rhs.getIdNum());
 		equb.append(readDate, rhs.getReadDate());
 		equb.append(State, rhs.getState());
-		equb.append(isPossess, rhs.getIsPossess());
 
 		return equb.isEquals();
 	}
@@ -78,7 +72,6 @@ public class LibraryBook extends BaseObject{
 		hashcode.append(idNum);
 		hashcode.append(readDate);
 		hashcode.append(State);
-		hashcode.append(isPossess);
 
 		return hashcode.toHashCode();
 	}
@@ -92,7 +85,6 @@ public class LibraryBook extends BaseObject{
 		tob.append("idNum", idNum);
 		tob.append("readDate", readDate);
 		tob.append("State", State);
-		tob.append("isPossess", isPossess);
 
 		tob.append("BOOK", book.toString());
 		tob.append("LIBRARY", library.toString());
@@ -139,14 +131,6 @@ public class LibraryBook extends BaseObject{
 
 	public void setState(Integer state) {
 		State = state;
-	}
-
-	public Integer getIsPossess() {
-		return isPossess;
-	}
-
-	public void setIsPossess(Integer isPossess) {
-		this.isPossess = isPossess;
 	}
 
 }
