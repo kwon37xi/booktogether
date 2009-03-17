@@ -82,6 +82,40 @@ public class PossessBookController extends AbstractController {
 	}
 
 	/**
+	 * 내가 보유한 책 목록 조회
+	 * 
+	 * @param req
+	 * @return 내가 보유한 책 목록 화면
+	 */
+	@RequestMapping("/possessBook/getListPossessBookIdNum.do")
+	public ModelAndView handleGetListPossessBookIdNum(
+			HttpServletRequest req,
+			@RequestParam(value = "bookIdNum", required = false) Integer bookIdNum,
+			@RequestParam(value = "pageNo", required = false) Integer pageNo) {
+
+		pageNo = (pageNo == null) ? 1 : pageNo;
+
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNo(20);
+		pageBean.setPageNo(pageNo);
+
+		Book book = bookService.getBook(bookIdNum);
+
+		List<PossessBook> possessBookList = libraryService.getListPossessBook(
+				bookIdNum, pageBean);
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("possessbook/getListPossessBookIdNum");
+		mav.addObject("possessBookList", possessBookList);
+		mav.addObject("pageBean", pageBean);
+		mav.addObject("bookInfo", book);
+		mav.addObject("bookIdNum", bookIdNum);
+
+		return mav;
+
+	}
+
+	/**
 	 * 내가 보유한 책 수정하기 화면 조회
 	 * 
 	 * @param req

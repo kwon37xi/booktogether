@@ -69,7 +69,6 @@
 							</c:otherwise>				
 						</c:choose>
 					</tbody>
-					<tfoot></tfoot>
 				</table>	
 				
 				<div id='page_div'>

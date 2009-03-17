@@ -462,7 +462,7 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean refeshLibraryRank() {
-		
+
 		libraryDao.deleteLibraryRank();
 
 		int count = libraryDao.refeshLibraryRank();
@@ -472,6 +472,20 @@ public class LibraryServiceImpl implements LibraryService {
 		}
 
 		return false;
+	}
+
+	@Override
+	public List<PossessBook> getListPossessBook(Integer bookIdNum,
+			PageBean pageBean) {
+
+		int dbCount = libraryDao.getDbCountPossessBook(bookIdNum);
+
+		pageBean.setDbCount(dbCount);
+
+		List<PossessBook> possessBookList = libraryDao.getListPossessBook(
+				bookIdNum, pageBean.getStartRow() - 1, pageBean.getEndRow());
+
+		return possessBookList;
 	}
 
 }

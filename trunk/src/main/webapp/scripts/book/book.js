@@ -143,3 +143,13 @@ function go_page_bookreview(pageNo, bookIdNum) {
 	location.replace("/book/getListBookReview.do?" + pararms);
 	
 }
+
+
+// 검색
+function go_page_possessbook(pageNo, bookIdNum) {
+	
+	var pararms = "pageNo=" + pageNo + "&bookIdNum=" + bookIdNum;
+	
+	location.replace("/possessBook/getListPossessBookIdNum.do?" + pararms);
+	
+}

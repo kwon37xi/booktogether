@@ -431,4 +431,43 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		return getSimpleJdbcTemplate().update(sql, new Object[] {});
 	}
+
+	@Override
+	public int getDbCountPossessBook(Integer bookIdNum) {
+
+		String sql = sqlparser.getSQL("possessBook",
+				"DBCOUNT_POSSESSBOOK_BOOKIDNUM_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { bookIdNum });
+	}
+
+	@Override
+	public List<PossessBook> getListPossessBook(Integer bookIdNum,
+			Integer startRow, Integer endRow) {
+
+		String sql = sqlparser.getSQL("possessBook",
+				"LIST_POSSESSBOOK_BOOKIDNUM_SQL");
+
+		return getSimpleJdbcTemplate().query(sql,
+				new ParameterizedRowMapper<PossessBook>() {
+
+					@Override
+					public PossessBook mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+
+						PossessBook possessBook = new PossessBook();
+						possessBook.setIdNum(rs.getInt("idNum"));
+						possessBook.getBook().setIdNum(rs.getInt("book_idNum"));
+						possessBook.getUser().setIdNum(rs.getInt("user_idNum"));
+						//thumnail은 UserAddInfo 도메인에 있는데
+						//thumanil의 정보를 넣기 위해 객체를 생성하기 보다는
+						//사용하지 않는 Name에 등록함
+						possessBook.getUser().setName(rs.getString("thumnail"));
+						possessBook.getUser().setUserId(rs.getString("user_id"));
+
+						return possessBook;
+					}
+				}, new Object[] { bookIdNum, startRow, endRow });
+	}
 }

@@ -110,12 +110,38 @@ table thead td {
 	margin-left: 20px;
 }
 
+#insertgrade tbody td {
+	vertical-align: text-top;
+}
+
 .review_addinfo {
-	padding:10px 0;
+	padding: 10px 0;
 	text-align: center;
 	border: 1px #e1f0f5 dashed;
 }
 
-.bookfrade_insertform{
+.bookgrade_insertform {
 	text-align: center;
+	width: 100%;
+}
+
+#input_content {
+	margin-left: 50px;
+	margin-top: 50px;
+	width: 650px;
+	border: 1px #e1f0f5 dashed;
+}
+
+#possessBookList {
+	margin-left: 50px;
+	margin-top: 50px;
+	width: 650px;
+	border: 1px #e1f0f5 dashed;
+}
+
+
+.posuser{
+	text-align:center;
+	width:200px;
+	border: 1px #e1f0f5 dashed;
 }

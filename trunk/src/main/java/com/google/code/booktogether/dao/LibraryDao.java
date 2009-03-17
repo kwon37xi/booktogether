@@ -170,6 +170,13 @@ public interface LibraryDao {
 	public int getDbCountPossessBook(String userId);
 
 	/**
+	 * 
+	 * @param bookIdNum
+	 * @return
+	 */
+	public int getDbCountPossessBook(Integer bookIdNum);
+
+	/**
 	 * 내생활반경의 책목록 조회 갯수
 	 * 
 	 * @param userId
@@ -223,6 +230,18 @@ public interface LibraryDao {
 			String bookName, Integer startRow, Integer endRow);
 
 	/**
+	 * 서재내 책 검색(소유책)
+	 * 
+	 * @param libraryIdNum
+	 * @param bookName
+	 * @param startRow
+	 * @param endRow
+	 * @return
+	 */
+	public List<PossessBook> getListPossessBook(Integer bookIdNum,
+			Integer startRow, Integer endRow);
+
+	/**
 	 * 서재내 책 검색(읽고 싶은책, 읽은책, 읽고 있는책) - 갯수!
 	 * 
 	 * @param libraryIdNum
@@ -270,24 +289,27 @@ public interface LibraryDao {
 	 * @param userIdNum
 	 * @return
 	 */
-	public int deleteInterestLibrary(Integer idNum,Integer userIdNum);
-	
+	public int deleteInterestLibrary(Integer idNum, Integer userIdNum);
+
 	/**
 	 * 관심 서재에 이미 등록이 되어있는지 체크
+	 * 
 	 * @param target
 	 * @param userIdNum
 	 * @return
 	 */
 	public int duplicateInterestLibrary(Integer target, Integer userIdNum);
-	
+
 	/**
 	 * 서재 순위 테이블 삭제
+	 * 
 	 * @return
 	 */
 	public int deleteLibraryRank();
-	
+
 	/**
 	 * 서재 순위 새로고침
+	 * 
 	 * @return
 	 */
 	public int refeshLibraryRank();

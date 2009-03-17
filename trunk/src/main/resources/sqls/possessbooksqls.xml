@@ -87,8 +87,43 @@
             ]]>
 		</query>
 	</sql>
+	
+	
+	<sql name="LIST_POSSESSBOOK_BOOKIDNUM_SQL">
+		<description>내가 소유한 책 목록</description>
+		<query>
+            <![CDATA[
+             SELECT POS.idNum as idNum
+                    ,POS.user_idNum as user_idNum
+                    ,POS.book_idNum as book_idNum
+				    ,U.user_id as user_id
+				    ,UAI.thumnail as thumnail 
+               FROM POSSESSBOOK POS, USER U, USERADDINFO UAI 
+              WHERE POS.book_idNum = ? 
+                AND U.idNum = POS.user_idNum
+                AND U.idNUm = UAI.user_idNum 
+                AND U.isdelete = 0
+              ORDER BY POS.idNum DESC  
+              LIMIT ?, ?
+            ]]>
+		</query>
+	</sql>
 
 
+	<sql name="DBCOUNT_POSSESSBOOK_BOOKIDNUM_SQL">
+		<description>내가 소유한 책 목록 갯수</description>
+		<query>
+            <![CDATA[
+             SELECT count(*) as count 
+               FROM POSSESSBOOK POS, USER U, USERADDINFO UAI 
+              WHERE POS.book_idNum = ? 
+                AND U.idNum = POS.user_idNum
+                AND U.idNUm = UAI.user_idNum 
+                AND U.isdelete = 0
+            ]]>
+		</query>
+	</sql>
+	
 	<sql name="GET_DBCOUNT_POSSESSBOOK_SQL">
 		<description>내가 소유한 책 목록 갯수</description>
 		<query>
