@@ -83,6 +83,7 @@
 		
 			<input type="hidden" name="book.idNum" value="${bookInfo.idNum}"/>
 			<input type="hidden" name="library.idNum" value="${library.idNum}"/>
+			<input type="hidden" name="purchasePrice" value="${bookInfo.price}"/>
 			
 			<table class="insertpossessbook">
 				<thead>
@@ -101,12 +102,6 @@
 										<input type="text" name="purchaseDateYear" class="purchaseDateYear" size="4"  readonly="readonly"/>
 										<input type="text" name="purchaseDateMonth" class="purchaseDateMonth" size="2"  readonly="readonly"/>
 										<input type="text" name="purchaseDateDate" class="purchaseDateDate" size="2" readonly="readonly"/>
-									</td>
-								</tr>
-								<tr>
-									<td class="p_label">구입가격</td>
-									<td>
-										<input type="text" name="purchasePrice" size="20"/>
 									</td>
 								</tr>
 								<tr>
