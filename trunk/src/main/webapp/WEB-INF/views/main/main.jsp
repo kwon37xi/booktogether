@@ -34,12 +34,7 @@
 									</tr>
 									<tr>
 										<td class='user_thumnail'>
-											<c:if test="${fn:length(sessionScope.thumnail) > 13}">
-												<img src="/images/user/thumnail/${sessionScope.thumnail}"/>
-											</c:if>
-											<c:if test="${fn:length(sessionScope.thumnail) == 13}">
-												<img src="/images/user/userDefault.png"/>
-											</c:if>	
+											<img src="/images/user/thumnail/${fn:length(sessionScope.thumnail)>13 ? sessionScope.thumnail : 'userDefault.png'}"/>
 										</td>
 										<td class='user_info'>
 											<p>
