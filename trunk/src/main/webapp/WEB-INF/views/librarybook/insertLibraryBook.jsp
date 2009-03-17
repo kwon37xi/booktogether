@@ -66,10 +66,6 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="b_label">가격</td>
-					<td class="b_label_c"><fmt:formatNumber value="${bookInfo.price}" pattern=",###"/>원</td>
-				</tr>
-				<tr>
 					<td class="b_label">카테고리</td>
 					<td class="b_label_c">${bookInfo.category}</td>
 				</tr>
@@ -80,21 +76,21 @@
 			</tbody>
 		</table>
 		
-		
 		<form name="insertBookMyLibraryform" method="post" action="/library/insertLibraryBook.do">
 		
 			<input type="hidden" name="book.idNum" value="${bookInfo.idNum}"/>
 			<input type="hidden" name="library.idNum" value="${library.idNum}"/>
+			<input type="hidden" name="purchasePrice" value="${bookInfo.price}"/>
 			
 			<table id="insertlibrarybook">
 				<thead>
 					<tr>
-						<td>서재에 등록</td>
+						<td>서재에 등록 (<font color="deeppink"/>◎</font>표시 필수입력사항)</td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>어느쪽으로 책 분류 하시겠습니까?</td>
+						<td><font color="deeppink"/>◎</font>책의 리스트를 선택해주세요.</td>
 					</tr>
 					<tr>
 						<td> 
@@ -126,12 +122,6 @@
 										<input type="text" name="purchaseDateYear" size="4" class="purchaseDateYear" readonly="readonly"/>년 
 										<input type="text" name="purchaseDateMonth" size="2" class="purchaseDateMonth" readonly="readonly"/>월 
 										<input type="text" name="purchaseDateDate" size="2" class="purchaseDateDate" readonly="readonly"/>일
-									</td>
-								</tr>
-								<tr>
-									<td class="b_label">구입가격</td>
-									<td class="b_label_c">
-										<input type="text" name="purchasePrice" size="10"/>원
 									</td>
 								</tr>
 								<tr>
