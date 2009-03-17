@@ -1,18 +1,20 @@
 package com.google.code.booktogether.web.interceptor.handler;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
 
 
 public class IgnoreSelectedAnnotationHandlerMapping extends
 		DefaultAnnotationHandlerMapping {
 
-	private ArrayList<String> a;
+	private List<String> a;
 
 	public IgnoreSelectedAnnotationHandlerMapping() {
 	}
 
-	public void setUrls(ArrayList<String> arraylist) {
+	public void setUrls(List<String> arraylist) {
 		a = arraylist;
 	}
 
@@ -22,7 +24,7 @@ public class IgnoreSelectedAnnotationHandlerMapping extends
 			return null;
 		}
 
-		ArrayList<String> arraylist = new ArrayList<String>();
+		List<String> arraylist = new ArrayList<String>();
 
 		for (String s : as) {
 
