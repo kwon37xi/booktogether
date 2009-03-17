@@ -58,7 +58,7 @@
 												<td>공감 :${bookMarkList.vibeNum}</td>
 												<td>
 													<c:if test="${sessionScope.idNum!=null && sessionScope.idNum==library.user.idNum}">
-														<input type="button" value="삭제" onclick="deleteBookMark('${bookMarkList.idNum}','${bookList.book.idNum}')"/>
+														<img src="/images/common/delete.png" onclick="deleteBookMark('${bookMarkList.idNum}','${bookList.book.idNum}')"/>
 													</c:if>
 												</td>
 											</tr>

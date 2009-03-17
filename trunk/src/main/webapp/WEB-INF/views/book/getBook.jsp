@@ -152,7 +152,7 @@
 								<td class="b_label_c">
 									<a href="/library/getLibrary.do?userId=${gradeInfo.user.userId}">${gradeInfo.user.userId}(${gradeInfo.user.nickname})</a>
 									<c:if test="${gradeInfo.user.userId==sessionScope.userId}">
-										<a href="javascript:deleteBookGrade('${gradeInfo.idNum}','${gradeInfo.book.idNum}','${param.pageNo}','${param.query}','${param.searchType}')">삭제</a>
+										<img src="/images/common/delete.png" onclick="deleteBookGrade('${gradeInfo.idNum}','${gradeInfo.book.idNum}','${param.pageNo}','${param.query}','${param.searchType}')" style="cursor: pointer;"/>
 									</c:if>
 								</td>
 							</tr>	
@@ -227,12 +227,12 @@
 							<tr>
 								<td class="bmcontent">(p.${bookMarkInfo.page})${bookMarkInfo.content}/
 									<fmt:formatDate value="${bookMarkInfo.inputDate}" pattern="yyyy. MM. dd"/>
+									<c:if test="${sessionScope.idNum!=null && bookMarkInfo.user.idNum==sessionScope.idNum}">									
+										<img src="/images/common/delete.png" onclick="deleteBookMark('${bookMarkInfo.idNum}','${bookInfo.idNum}')" style="cursor: pointer;"/>
+									</c:if>
 								</td>
 								<td class="bmnickname">
 									<a href="/library/getLibrary.do?userId=${bookMarkInfo.user.userId}">${bookMarkInfo.user.userId}(${bookMarkInfo.user.nickname})</a>
-									<c:if test="${sessionScope.idNum!=null && bookMarkInfo.user.idNum==sessionScope.idNum}">
-										<input type="button" value="삭제" onclick="deleteBookMark('${bookMarkInfo.idNum}','${bookInfo.idNum}')"/>
-									</c:if>
 								</td>
 								
 								<td class="bmvibe">공감수 : ${bookMarkInfo.vibeNum}</td>

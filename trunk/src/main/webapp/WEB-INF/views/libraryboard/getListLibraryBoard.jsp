@@ -29,7 +29,9 @@
 							<img src="/images/library/board_bullet.gif" width="12" height="12"/>
 							${libraryBoardInfo.content} / ${libraryBoardInfo.writerUserId} / ${libraryBoardInfo.inputDate}
 							<c:if test="${libraryBoardInfo.writer==sessionScope.idNum}">
-								<a href="/library/deleteLibraryBoard.do?boardIdNum=${libraryBoardInfo.idNum}&libraryIdNum=${libraryBoardInfo.libraryIdNum}">삭제</a>
+								<a href="/library/deleteLibraryBoard.do?boardIdNum=${libraryBoardInfo.idNum}&libraryIdNum=${libraryBoardInfo.libraryIdNum}">
+									<img src="/images/common/delete.png" style="cursor: pointer;"/>
+								</a>
 							</c:if>
 						</td>
 					</tr>

@@ -88,12 +88,6 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="p_label">구입가격</td>
-					<td>
-						<fmt:formatNumber value="${possessBook.purchasePrice}" pattern=",###"/>원
-					</td>
-				</tr>
-				<tr>
 					<td class="p_label">독서시작일</td>
 					<td>
 						<c:choose>
