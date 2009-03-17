@@ -17,7 +17,7 @@
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/cornerz.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/common.js"></script>
-				
+		<script type="text/javascript" charset="utf-8" src="/scripts/main/main.js"></script>	
 		<decorator:head />
 	</head>
 	<body>
