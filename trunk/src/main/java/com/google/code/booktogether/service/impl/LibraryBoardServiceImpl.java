@@ -14,6 +14,7 @@ import com.google.code.booktogether.exception.BooktogetherException;
 import com.google.code.booktogether.service.LibraryBoardService;
 import com.google.code.booktogether.service.util.HTMLInputFilter;
 import com.google.code.booktogether.web.domain.LibraryBoard;
+import com.google.code.booktogether.web.page.PageBean;
 
 @Service("libraryBoardService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
@@ -36,19 +37,19 @@ public class LibraryBoardServiceImpl implements LibraryBoardService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public boolean deleteLibraryBook(LibraryBoard libraryBoard) {
-		
+	public boolean deleteLibraryBoard(LibraryBoard libraryBoard) {
+
 		int count = libraryBoardDao.deleteLibraryBook(libraryBoard);
-		
-		if(count!=1){
+
+		if (count != 1) {
 			throw new BooktogetherException("방명록 삭제 실패");
 		}
-		
+
 		return true;
 	}
 
 	@Override
-	public List<LibraryBoard> getListLibraryBook(Integer libraryIdNum) {
+	public List<LibraryBoard> getListLibraryBoard(Integer libraryIdNum) {
 
 		List<LibraryBoard> libraryBoardlist = libraryBoardDao
 				.getListLibraryBook(libraryIdNum);
@@ -58,23 +59,34 @@ public class LibraryBoardServiceImpl implements LibraryBoardService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public boolean insertLibraryBook(LibraryBoard libraryBoard) {
-		
-		log.info(libraryBoard);
+	public boolean insertLibraryBoard(LibraryBoard libraryBoard) {
 
-		String content=htmlInputFilter.stripHTML(libraryBoard.getContent());
-		
-		log.info(content);
-		
+		String content = htmlInputFilter.stripHTML(libraryBoard.getContent());
+
 		libraryBoard.setContent(content);
-		
+
 		int count = libraryBoardDao.insertLibraryBook(libraryBoard);
-		
-		if(count!=1){
+
+		if (count != 1) {
 			throw new BooktogetherException("방명록 등록 실패");
 		}
-		
+
 		return true;
+	}
+
+	@Override
+	public List<LibraryBoard> getListLibraryBoard(Integer libraryIdNum,
+			PageBean pageBean) {
+
+		int dbCount = libraryBoardDao.getDbCountLibraryBook(libraryIdNum);
+
+		pageBean.setDbCount(dbCount);
+
+		List<LibraryBoard> libraryBoardlist = libraryBoardDao
+				.getListLibraryBook(libraryIdNum, pageBean.getStartRow() - 1,
+						pageBean.getEndRow());
+
+		return libraryBoardlist;
 	}
 
 }

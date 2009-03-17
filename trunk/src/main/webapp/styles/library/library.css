@@ -116,6 +116,10 @@ table thead td {
 	border: 1px #e1f0f5 dashed;
 }
 
+#library_main_intro tbody td{
+	padding:10px 0;
+}
+
 #library_main {
 	width: 450px;
 	height: 100%;
@@ -165,6 +169,7 @@ table thead td {
 	height: 100%;
 	border: 1px #6eaec9 dashed;
 	text-align: center;
+	vertical-align: top;
 }
 
 .list_book_info p {
@@ -186,14 +191,13 @@ table thead td {
 .bookmark_bookinfo {
 	width: 450px;
 	height: 100%;
-	margin:20px 0;
+	margin: 20px 0;
 }
 
 .bookmark_info {
 	width: 100%;
 	height: 100%;
 	border: 1px #e1f0f5 dashed;
-
 }
 
 .bookmark_list {
@@ -221,4 +225,35 @@ table thead td {
 	width: 650px;
 	border: 1px #e1f0f5 dashed;
 	margin-left: 50px;
+}
+
+.bookcover {
+	width: 100px;
+	height: 130px; text-align : center;
+	vertical-align: top;
+	border: 1px #e1f0f5 dashed;
+	text-align: center;
+}
+
+.lastestboard_title {
+	height:20px;
+	background-color: #6eaec9;
+	text-align: center;
+}
+
+.lastestboard_content,lastestboard_content_list {
+	height: 50px;
+	width: 220px;
+}
+
+.lastestboard_content_list {
+	padding-left:15px;
+}
+
+.lastestboard_content_list img{
+	vertical-align: middle;
+}
+
+.lastestboard_content b {
+	margin-left: 25px;
 }

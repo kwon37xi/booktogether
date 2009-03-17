@@ -26,4 +26,11 @@ public interface LibraryBoardDao {
 	 * @return
 	 */
 	public List<LibraryBoard> getListLibraryBook(Integer libraryIdNum);
+	
+	
+	public int getDbCountLibraryBook(Integer libraryIdNum);
+	
+	
+	public List<LibraryBoard> getListLibraryBook(Integer libraryIdNum,Integer startRow, Integer endRow);
+	
 }

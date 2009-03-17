@@ -32,7 +32,7 @@ public class BookMarkServiceImpl implements BookMarkService {
 	@Transactional(readOnly = false)
 	public boolean insertBookMark(BookMark bookMark) {
 
-		//스크립트 제거
+		// 스크립트 제거
 		bookMark.setContent(htmlInputFilter.stripHTML(bookMark.getContent()));
 
 		int count = bookMarkJdbcDao.insertBookMark(bookMark);
@@ -48,8 +48,8 @@ public class BookMarkServiceImpl implements BookMarkService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean modifyBookMark(BookMark bookMark) {
-		
-		//스크립트 제거
+
+		// 스크립트 제거
 		bookMark.setContent(htmlInputFilter.stripHTML(bookMark.getContent()));
 
 		int count = bookMarkJdbcDao.modifyBookMark(bookMark);
@@ -124,6 +124,19 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 		return "이미 공감을 하셨습니다.";
 
+	}
+
+	@Override
+	public List<BookMark> getListMyBookMark(Integer userIdNum, PageBean pageBean) {
+
+		int dbCount = bookMarkJdbcDao.getDbCountMyBookMark(userIdNum);
+
+		pageBean.setDbCount(dbCount);
+
+		List<BookMark> bookMark = bookMarkJdbcDao.getListMyBookMark(userIdNum,
+				pageBean.getStartRow() - 1, pageBean.getEndRow());
+
+		return bookMark;
 	}
 
 }

@@ -228,6 +228,15 @@ public interface LibraryService {
 	 */
 	public List<User> getListInterestLibrary(Integer userIdNum);
 	
+	
+	/**
+	 * 관심 서재 목록
+	 * 
+	 * @param userIdNum
+	 * @return
+	 */
+	public List<User> getListInterestLibrary(Integer userIdNum,PageBean pageBean);
+	
 	/**
 	 * 관심 서재에 등록여부(이미 있는지 체크)
 	 * @param target

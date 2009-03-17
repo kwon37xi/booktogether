@@ -200,6 +200,37 @@
             ]]>
 		</query>
 	</sql>
+	
+	
+	<sql name="DBCOUNT_INTEREST_LIBRARY_SQL">
+		<description>관심 서재 목록</description>
+		<query>
+            <![CDATA[
+    	       SELECT count(*) as count 
+    	         FROM INTERESTLIBRARY IRL, USER U
+    	        WHERE IRL.target=U.idNum
+    	          AND IRL.standard = ?    	 
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="LIST_LIMIT_INTEREST_LIBRARY_SQL">
+		<description>관심 서재 목록</description>
+		<query>
+            <![CDATA[
+    	       SELECT U.idNum
+    	       		  , U.user_id
+    	       		  , U.email
+    	       		  , U.nickname
+    	       		  , U.name 
+    	         FROM INTERESTLIBRARY IRL, USER U
+    	        WHERE IRL.target=U.idNum
+    	          AND IRL.standard = ?
+    	        LIMIT ?, ?	 
+            ]]>
+		</query>
+	</sql>
 
 
 	<sql name="DUPLICATE_INTEREST_LIBRARY_SQL">

@@ -45,6 +45,9 @@ public interface BookMarkService {
 	public List<BookMark> getListMyBookMark(Integer userIdNum, Integer bookIdNum);
 	
 	
+	public List<BookMark> getListMyBookMark(Integer userIdNum, PageBean pagebean);
+	
+	
 	/**
 	 * 인용구 수정
 	 * @param bookMark
