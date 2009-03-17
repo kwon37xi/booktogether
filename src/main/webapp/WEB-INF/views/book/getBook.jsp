@@ -278,7 +278,7 @@
 								<table>
 									<thead>
 										<tr>
-											<td colspan="2">별점 하기</td>
+											<td colspan="2">별점주기</td>
 										</tr>
 									</thead>
 									<tbody>
@@ -291,7 +291,7 @@
 											    <input type="radio" name="grade" value="4"/>4개
 											    <input type="radio" name="grade" value="5"/>5개
 											</td>
-											<td><input type="button" value="별점하기" onclick="insertBookgrade()"/></td>
+											<td><input type="button" value="별점주기" onclick="insertBookgrade()"/></td>
 										</tr>
 									</tbody>
 								</table>
@@ -331,7 +331,7 @@
 								<table>
 									<thead>
 										<tr>
-											<td>리뷰 등록하시겠습니까?</td>
+											<td>리뷰를 등록하시겠습니까?</td>
 										</tr>
 									</thead>
 									<tbody>

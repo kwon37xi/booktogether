@@ -71,6 +71,8 @@
 			<input type="hidden" name="library.idNum" value="${libraryBook.library.idNum}"/>
 			<input type="hidden" name="possessIdNum" value="${possessBook.idNum}"/>
 			<input type="hidden" name="beforeIsPossess" value="${libraryBook.isPossess}" />
+			<input type="hidden" name="purchasePrice" value="${bookInfo.price}"/>
+			
 			<table id="modifypossessbook">
 				<thead>
 					<tr>
@@ -79,7 +81,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>어느쪽으로 책 분류 하시겠습니까?</td>
+						<td>책의 리스트를 선택해주세요.</td>
 					</tr>
 					<tr>
 						<td>
@@ -113,12 +115,6 @@
 											<input type="text" name="purchaseDateYear" class="purchaseDateYear" size="4" value="${purchaseDateYear}"/>
 											<input type="text" name="purchaseDateMonth" class="purchaseDateMonth" size="2" value="${purchaseDateMonth}"/>
 											<input type="text" name="purchaseDateDate" class="purchaseDateDate" size="2" value="${purchaseDateDate}"/>
-										</td>
-									</tr>
-									<tr>
-										<td class="p_label">구입가격</td>
-										<td>
-											<input type="text" name="purchasePrice" size="20" value="${possessBook.purchasePrice}"/>
 										</td>
 									</tr>
 									<tr>
