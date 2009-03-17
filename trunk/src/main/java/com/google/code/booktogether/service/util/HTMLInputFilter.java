@@ -71,19 +71,19 @@ public class HTMLInputFilter {
 		vAllowed = new HashMap<String, List<String>>();
 		vTagCounts = new HashMap<String, Integer>();
 
-		ArrayList<String> a_atts = new ArrayList<String>();
+		List<String> a_atts = new ArrayList<String>();
 		a_atts.add("href");
 		a_atts.add("target");
 		vAllowed.put("a", a_atts);
 
-		ArrayList<String> img_atts = new ArrayList<String>();
+		List<String> img_atts = new ArrayList<String>();
 		img_atts.add("src");
 		img_atts.add("width");
 		img_atts.add("height");
 		img_atts.add("alt");
 		vAllowed.put("img", img_atts);
 
-		ArrayList<String> no_atts = new ArrayList<String>();
+		List<String> no_atts = new ArrayList<String>();
 		vAllowed.put("b", no_atts);
 		vAllowed.put("strong", no_atts);
 		vAllowed.put("i", no_atts);
