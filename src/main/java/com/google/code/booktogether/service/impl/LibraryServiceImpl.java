@@ -434,4 +434,18 @@ public class LibraryServiceImpl implements LibraryService {
 		return possessBookList;
 	}
 
+	@Override
+	public List<User> getListInterestLibrary(Integer userIdNum,
+			PageBean pageBean) {
+		
+		int dbCount = libraryDao.getDbcountInterestLibrary(userIdNum);
+
+		pageBean.setDbCount(dbCount);
+
+		List<User> interestLibrary = libraryDao.getListInterestLibrary(
+				userIdNum, pageBean.getStartRow() - 1, pageBean.getEndRow());
+
+		return interestLibrary;
+	}
+
 }

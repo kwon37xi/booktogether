@@ -31,6 +31,7 @@ public class MyBookGradeRowMapper implements ParameterizedRowMapper<BookGrade>,
 		bookGrade.setGrade(rs.getInt("GRADE"));
 
 		bookGrade.getBook().setIdNum(rs.getInt("BIDNUM"));
+		bookGrade.getBook().setName(rs.getString("BNAME"));
 
 		return bookGrade;
 	}

@@ -1,8 +1,12 @@
 package com.google.code.booktogether.dao.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.BookMarkDao;
@@ -115,6 +119,42 @@ public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 
 		return getSimpleJdbcTemplate().queryForInt(sql,
 				new Object[] { bookIdNum });
+	}
+
+	
+	@Override
+	public int getDbCountMyBookMark(Integer userIdNum) {
+
+		String sql = sqlparser.getSQL("bookMark", "DBCOUNT_MYBOOKMARK_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { userIdNum });
+	}
+
+	
+	@Override
+	public List<BookMark> getListMyBookMark(Integer userIdNum,
+			Integer startRow, Integer endRow) {
+
+		String sql = sqlparser.getSQL("bookMark", "LIST_LIMIT_MYBOOKMARK_SQL");
+
+		return getSimpleJdbcTemplate().query(sql,
+				new ParameterizedRowMapper<BookMark>() {
+					@Override
+					public BookMark mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+
+						BookMark bookMark = new BookMark();
+						bookMark.setIdNum(rs.getInt("idNum"));
+						bookMark.getUser().setIdNum(rs.getInt("uidNum"));
+						bookMark.getBook().setIdNum(rs.getInt("bidNum"));
+						bookMark.setPage(rs.getInt("page"));
+						bookMark.setInputDate(rs.getDate("input_date"));
+						bookMark.setContent(rs.getString("content"));
+
+						return bookMark;
+					}
+				}, new Object[] { userIdNum, startRow, endRow });
 	}
 
 }

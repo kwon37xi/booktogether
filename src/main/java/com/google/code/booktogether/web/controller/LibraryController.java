@@ -13,9 +13,17 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.code.booktogether.service.BookGradeService;
+import com.google.code.booktogether.service.BookMarkService;
+import com.google.code.booktogether.service.BookReviewService;
+import com.google.code.booktogether.service.LibraryBoardService;
 import com.google.code.booktogether.service.LibraryService;
 import com.google.code.booktogether.web.controller.abst.AbstractController;
+import com.google.code.booktogether.web.domain.BookGrade;
+import com.google.code.booktogether.web.domain.BookMark;
+import com.google.code.booktogether.web.domain.BookReview;
 import com.google.code.booktogether.web.domain.Library;
+import com.google.code.booktogether.web.domain.LibraryBoard;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
 import com.google.code.booktogether.web.domain.User;
@@ -34,6 +42,30 @@ public class LibraryController extends AbstractController {
 	 */
 	@Resource(name = "libraryService")
 	private LibraryService libraryService;
+
+	/**
+	 * BookReviewService
+	 */
+	@Resource(name = "bookReviewService")
+	private BookReviewService bookReviewService;
+
+	/**
+	 * BookGradeService
+	 */
+	@Resource(name = "bookGradeService")
+	private BookGradeService bookGradeService;
+
+	/**
+	 * BookMarkService
+	 */
+	@Resource(name = "bookMarkService")
+	private BookMarkService bookMarkService;
+
+	/**
+	 * LibraryBoardService
+	 */
+	@Resource(name = "libraryBoardService")
+	private LibraryBoardService libraryBoardService;
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
@@ -118,12 +150,103 @@ public class LibraryController extends AbstractController {
 
 		Library library = getLibrary();
 
+		int libraryBookDbCount0 = 0; // 읽고 싶은책
+		int libraryBookDbCount1 = 0; // 읽고 있는책
+		int libraryBookDbCount2 = 0; // 읽은 책
+		int possessDbCount = 0;
+		int interestLibraryDbCount = 0;
+		int reviewDbCount = 0;
+		int gradeDbCount = 0;
+		int bookMarkDbCount = 0;
+		int boardDbCount = 0;
+		int userIdNum = library.getUser().getIdNum();
+		String userId = library.getUser().getUserId();
+
+		PageBean pageBean = new PageBean();
+		pageBean.setPageNo(1);
+		pageBean.setLimit(1);
+		pageBean.setPageSize(2);
+
+		LibraryBook libraryBook = new LibraryBook();
+		libraryBook.setLibrary(library);
+
+		// 관심서재 목록
+		List<User> interestLibraryList = libraryService.getListInterestLibrary(
+				library.getUser().getIdNum(), pageBean);
+		interestLibraryDbCount = pageBean.getDbCount();
+
+		// 읽고 싶은 책
+		libraryBook.setState(0);
+		List<LibraryBook> libraryBookList0 = libraryService.getListLibraryBook(
+				libraryBook, pageBean);
+		libraryBookDbCount0 = pageBean.getDbCount();
+
+		// 일고 있는 책
+		libraryBook.setState(1);
+		List<LibraryBook> libraryBookList1 = libraryService.getListLibraryBook(
+				libraryBook, pageBean);
+		libraryBookDbCount1 = pageBean.getDbCount();
+
+		// 읽은 책
+		libraryBook.setState(2);
+		List<LibraryBook> libraryBookList2 = libraryService.getListLibraryBook(
+				libraryBook, pageBean);
+		libraryBookDbCount2 = pageBean.getDbCount();
+
+		// 소유책
+		List<PossessBook> possessBookList = libraryService.getListPossessBook(
+				userId, pageBean);
+		possessDbCount = pageBean.getDbCount();
+
+		pageBean.setPageSize(5);
+		
+		// 리뷰목록
+		List<BookReview> bookReviewList = bookReviewService.getListMyBookReview(
+				userIdNum, pageBean);
+		reviewDbCount = pageBean.getDbCount();
+
+		// 별점목록
+		List<BookGrade> bookGradeList = bookGradeService.getListMyBookGrade(
+				userIdNum, pageBean);
+		gradeDbCount = pageBean.getDbCount();
+
+		// 인용구 목록
+		List<BookMark> bookMarkList = bookMarkService.getListMyBookMark(userIdNum,
+				pageBean);
+		bookMarkDbCount = pageBean.getDbCount();
+
+		// 방명록 목록
+		List<LibraryBoard> libraryBoardList = libraryBoardService
+				.getListLibraryBoard(library.getIdNum(), pageBean);
+		boardDbCount = pageBean.getDbCount();
+
+		
 		library.setNotice(library.getNotice().replaceAll("\r\n", "<br/>"));
 
+		
 		// 경로 설정
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("library/library");
-		mav.addObject("library", library);
+
+		mav.addObject("libraryBookDbCount0", libraryBookDbCount0);
+		mav.addObject("libraryBookDbCount1", libraryBookDbCount1);
+		mav.addObject("libraryBookDbCount2", libraryBookDbCount2);
+		mav.addObject("possessDbCount", possessDbCount);
+		mav.addObject("interestLibraryDbCount", interestLibraryDbCount);
+		mav.addObject("reviewDbCount", reviewDbCount);
+		mav.addObject("gradeDbCount", gradeDbCount);
+		mav.addObject("bookMarkDbCount", bookMarkDbCount);
+		mav.addObject("boardDbCount", boardDbCount);
+
+		mav.addObject("interestLibraryList", interestLibraryList);
+		mav.addObject("libraryBookList0", libraryBookList0);
+		mav.addObject("libraryBookList1", libraryBookList1);
+		mav.addObject("libraryBookList2", libraryBookList2);
+		mav.addObject("possessBookList", possessBookList);
+		mav.addObject("bookReviewList", bookReviewList);
+		mav.addObject("bookGradeList", bookGradeList);
+		mav.addObject("bookMarkList", bookMarkList);
+		mav.addObject("libraryBoardList", libraryBoardList);
 
 		return mav;
 

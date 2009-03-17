@@ -64,9 +64,12 @@
              SELECT BG.grade as grade
              	    ,BG.idNum as idNum
              	    ,BG.book_idNum as bidNum 
-             FROM USER U, BOOKGRADE BG  
+             	    ,BG.book_idNum as bidNum
+             	    ,B.name as bname  
+             FROM USER U, BOOKGRADE BG, BOOK B  
              WHERE BG.user_idNum = ?   
-               AND BG.user_idNum = U.idNum 
+               AND BG.user_idNum = U.idNum
+               AND BG.book_idNum = B.idNum  
                AND U.isdelete = 0
              ORDER BY BG.idNum DESC  
              LIMIT ?,? 

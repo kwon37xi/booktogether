@@ -79,4 +79,45 @@ public class LibraryBoardDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 				new Object[] { libraryBoard.getLibraryIdNum(),
 						libraryBoard.getWriter(), libraryBoard.getContent() });
 	}
+
+	@Override
+	public int getDbCountLibraryBook(Integer libraryIdNum) {
+
+		String sql = sqlparser.getSQL("libraryBoard",
+				"DBCOUNT_LIBRARYBOARD_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { libraryIdNum });
+	}
+
+	@Override
+	public List<LibraryBoard> getListLibraryBook(Integer libraryIdNum,
+			Integer startRow, Integer endRow) {
+
+		String sql = sqlparser.getSQL("libraryBoard",
+				"LIST_LIMIT_LIBRARYBOARD_SQL");
+
+		List<LibraryBoard> libraryBoardList = getSimpleJdbcTemplate().query(
+				sql, new ParameterizedRowMapper<LibraryBoard>() {
+
+					@Override
+					public LibraryBoard mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+
+						LibraryBoard libraryBoard = new LibraryBoard();
+
+						libraryBoard.setIdNum(rs.getInt("IDNUM"));
+						libraryBoard.setContent(rs.getString("CONTENT"));
+						libraryBoard.setInputDate(rs.getDate("INPUTDATE"));
+						libraryBoard.setLibraryIdNum(rs.getInt("LIDNUM"));
+						libraryBoard.setWriter(rs.getInt("WRITER"));
+						libraryBoard.setWriterName(rs.getString("WNAME"));
+						libraryBoard.setWriterUserId(rs.getString("WUSERID"));
+
+						return libraryBoard;
+					}
+				}, new Object[] { libraryIdNum, startRow, endRow });
+
+		return libraryBoardList;
+	}
 }

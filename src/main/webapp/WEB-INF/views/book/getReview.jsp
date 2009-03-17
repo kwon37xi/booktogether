@@ -16,22 +16,20 @@
 		<table id="bookinfo">
 			<thead>
 				<tr>
-					<td colspan="2">책정보</td>
+					<td colspan="4">책정보</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td class="b_label">책표지</td>
-					<td class="b_label_c">
+					<td class="b_label" rowspan="4">책표지</td>
+					<td class="b_label_c" rowspan="4">
 						<c:if test="${bookInfo.bookCover!=null && bookInfo.bookCover!=''}">
 							<img src="${bookInfo.bookCover}"/>
 						</c:if>
 						<c:if test="${bookInfo.bookCover==null || bookInfo.bookCover==''}">
 							<img src="/images/book/bookDefault.png"/>
-						</c:if>		
+						</c:if>					
 					</td>
-				</tr>
-				<tr>
 					<td class="b_label">책이름</td>
 					<td class="b_label_c">${fn:escapeXml(bookInfo.name)}</td>
 				</tr>
@@ -61,14 +59,12 @@
 				<tr>
 					<td class="b_label">가격</td>
 					<td class="b_label_c"><fmt:formatNumber value="${bookInfo.price}" pattern=",###"/>원</td>
-				</tr>
-				<tr>
 					<td class="b_label">카테고리</td>
 					<td class="b_label_c">${bookInfo.category}</td>
 				</tr>
 				<tr>
 					<td class="b_label">설명</td>
-					<td class="b_label_c">${bookInfo.description}</td>
+					<td class="b_label_c"  colspan="3">${bookInfo.description}</td>
 				</tr>
 			</tbody>
 		</table>

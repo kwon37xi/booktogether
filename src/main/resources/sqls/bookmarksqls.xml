@@ -121,8 +121,38 @@
                FROM BOOKMARK BM, USER U   
               WHERE BM.user_idNum = ?
               	AND BM.book_idNum = ?
-                AND BM.user_idNum = U.idNum   
+                AND BM.user_idNum = U.idNum 
                 AND U.isdelete = 0 
+              ORDER BY BM.idNum DESC   
+            ]]>
+        </query>
+     </sql>
+     
+     <sql name="DBCOUNT_MYBOOKMARK_SQL">
+        <description>내가 작성한 인용구 목록</description>
+        <query>
+            <![CDATA[
+             SELECT count(*) as count 
+               FROM BOOKMARK BM   
+              WHERE BM.user_idNum = ?
+            ]]>
+        </query>
+     </sql>
+     
+     <sql name="LIST_LIMIT_MYBOOKMARK_SQL">
+        <description>내가 작성한 인용구 목록</description>
+        <query>
+            <![CDATA[
+             SELECT BM.idNum as idNum
+                    ,BM.user_idNum as uidNum
+                    ,BM.book_idNum as bidNum
+                    ,BM.page as page
+                    ,BM.input_date as input_date
+                    ,BM.content as content 
+               FROM BOOKMARK BM   
+              WHERE BM.user_idNum = ?
+              ORDER BY BM.input_date DESC 
+              LIMIT ?, ?   
             ]]>
         </query>
      </sql>

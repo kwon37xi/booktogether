@@ -47,7 +47,7 @@ public class LibraryBoardController extends AbstractController {
 		log.info(libraryIdNum);
 
 		List<LibraryBoard> libraryBoardList = libraryBoardService
-				.getListLibraryBook(libraryIdNum);
+				.getListLibraryBoard(libraryIdNum);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("libraryboard/getListLibraryBoard");
@@ -78,7 +78,7 @@ public class LibraryBoardController extends AbstractController {
 		libraryBoard.setWriter(getLoginUserIdNum());
 		libraryBoard.setContent(content);
 
-		boolean result = libraryBoardService.insertLibraryBook(libraryBoard);
+		boolean result = libraryBoardService.insertLibraryBoard(libraryBoard);
 
 		if (result) {
 			if (log.isInfoEnabled()) {
@@ -118,7 +118,7 @@ public class LibraryBoardController extends AbstractController {
 
 		log.info(libraryBoard);
 
-		boolean result = libraryBoardService.deleteLibraryBook(libraryBoard);
+		boolean result = libraryBoardService.deleteLibraryBoard(libraryBoard);
 
 		if (result) {
 			if (log.isInfoEnabled()) {

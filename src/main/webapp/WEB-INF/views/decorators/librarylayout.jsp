@@ -57,11 +57,11 @@
 				</td>
 			<tr>
 				<td>
-					<table id="searchbook_div">
-						<tr>
-						    <td class="count_info"><span class="style5">&nbsp;&nbsp; Love, Book Together에 오신것을 환영합니다 </span></td>
-						    <td class="search_div">
-								<form name="searchBookform" action="/book/searchBook.do" method="post">
+					<form name="searchBookform" action="/book/searchBook.do" method="post">
+						<table id="searchbook_div">
+							<tr>
+							    <td class="count_info"><span class="style5">&nbsp;&nbsp; Love, Book Together에 오신것을 환영합니다 </span></td>
+							    <td class="search_div">
 									<input type="hidden" name="pageNo" value="1"/>
 									<input type="hidden" name="beforeQuery" value="${requestScope.query}"/>
 									
@@ -70,10 +70,10 @@
 									
 									<input type="text" name="query" size="30" value="${requestScope.query}"/>
 									<input type="submit" value="검색"/>
-								</form>
-							</td>
-						</tr>
-					</table>
+								</td>
+							</tr>
+						</table>
+					</form>
 				</td>	
 			</tr>
 			<tr>
@@ -95,7 +95,11 @@
 										</thead>
 										<tbody>
 											<tr>
-												<td rowspan="3"><img src="/images/user/thumnail/${library.user.userAddInfo.thumnail}"/></td>
+												<td rowspan="3">
+													<a href="/library/getLibrary.do?userId=${library.user.userId}">
+														<img src="/images/user/thumnail/${library.user.userAddInfo.thumnail}"/>
+													</a>
+												</td>
 												<td>${library.user.name}</td>
 											</tr>
 											<tr>
@@ -126,34 +130,83 @@
 										</thead>
 										<tbody>
 											<tr>
-												<td><a href="/library/getListLibraryBook.do?state=0&libraryIdNum=${library.idNum}">읽고 싶은책</a></td>
+												<td>
+													<a href="/library/getListLibraryBook.do?state=0&libraryIdNum=${library.idNum}">
+														읽고 싶은책
+														<c:if test="${libraryBookDbCount0!=null}">(${libraryBookDbCount0})</c:if>
+													</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="/library/getListLibraryBook.do?state=1&libraryIdNum=${library.idNum}">읽고 있는 책</a></td>
+												<td>
+													<a href="/library/getListLibraryBook.do?state=1&libraryIdNum=${library.idNum}">
+														읽고 있는 책
+														<c:if test="${libraryBookDbCount1!=null}">(${libraryBookDbCount1})</c:if>
+													</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="/library/getListLibraryBook.do?state=2&libraryIdNum=${library.idNum}">읽은 책</a></td>
+												<td>
+													<a href="/library/getListLibraryBook.do?state=2&libraryIdNum=${library.idNum}">
+														읽은 책
+														<c:if test="${libraryBookDbCount2!=null}">(${libraryBookDbCount2})</c:if>
+													</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="/library/getListPossessBook.do?libraryIdNum=${library.idNum}&userId=${library.user.userId}">내가 보유한 책</a></td>
+												<td>
+													<a href="/library/getListPossessBook.do?libraryIdNum=${library.idNum}&userId=${library.user.userId}">
+														내가 보유한 책
+														<c:if test="${libraryBookDbCount2!=null}">(${possessDbCount})</c:if>
+													</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="/library/getListZoneBook.do?userId=${library.user.userId}">주위에 있는 책</a></td>
+												<td>
+													<a href="/library/getListZoneBook.do?userId=${library.user.userId}">
+														주위에 있는 책
+													</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="/library/getListInterestLibrary.do?libraryIdNum=${library.idNum}&userIdNum=${library.user.idNum}">관심 서재</a></td>
+												<td>
+													<a href="/library/getListInterestLibrary.do?libraryIdNum=${library.idNum}&userIdNum=${library.user.idNum}">
+														관심 서재
+														<c:if test="${interestLibraryDbCount!=null}">(${interestLibraryDbCount})</c:if>
+													</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="/library/getListMyReview.do?libraryIdNum=${library.idNum}&userIdNum=${library.user.idNum}">리뷰목록</a></td>
+												<td>
+													<a href="/library/getListMyReview.do?libraryIdNum=${library.idNum}&userIdNum=${library.user.idNum}">
+														리뷰목록
+														<c:if test="${reviewDbCount!=null}">(${reviewDbCount})</c:if>
+													</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="/library/getListMyBookGrade.do?libraryIdNum=${library.idNum}&userIdNum=${library.user.idNum}">별점 목록</a></td>
+												<td>
+													<a href="/library/getListMyBookGrade.do?libraryIdNum=${library.idNum}&userIdNum=${library.user.idNum}">
+														별점 목록
+														<c:if test="${gradeDbCount!=null}">(${gradeDbCount})</c:if>
+													</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="/library/getListMyBookMark.do?libraryIdNum=${library.idNum}&userIdNum=${library.user.idNum}">인용구 목록</a></td>
+												<td>
+													<a href="/library/getListMyBookMark.do?libraryIdNum=${library.idNum}&userIdNum=${library.user.idNum}">
+														인용구 목록
+														<c:if test="${bookMarkDbCount!=null}">(${bookMarkDbCount})</c:if>
+													</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="/library/getListLibraryBoard.do?libraryIdNum=${library.idNum}">방명록</a></td>
+												<td>
+													<a href="/library/getListLibraryBoard.do?libraryIdNum=${library.idNum}">
+														방명록
+														<c:if test="${boardDbCount!=null}">(${boardDbCount})</c:if>
+													</a>
+												</td>
 											</tr>
 										</tbody>
 									</table>

@@ -303,5 +303,11 @@ public interface LibraryDao {
 	 * @return
 	 */
 	public int refeshLibraryRank();
+	
+	
+	public int getDbcountInterestLibrary(Integer userIdNum);
+	
+	
+	public List<User> getListInterestLibrary(Integer userIdNum,Integer startRow, Integer endRow);
 
 }

@@ -88,7 +88,7 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 				sql,
 				new Object[] { libraryBook.getBook().getIdNum(),
 						libraryBook.getLibrary().getIdNum(),
-						libraryBook.getReadDate(), libraryBook.getState()});
+						libraryBook.getReadDate(), libraryBook.getState() });
 	}
 
 	@Override
@@ -209,7 +209,6 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 		return getSimpleJdbcTemplate().update(sql,
 				new Object[] { possessBookIdNum });
 	}
-
 
 	@Override
 	public int getDbCountLibraryBook(LibraryBook libraryBook) {
@@ -449,14 +448,55 @@ public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 						possessBook.setIdNum(rs.getInt("idNum"));
 						possessBook.getBook().setIdNum(rs.getInt("book_idNum"));
 						possessBook.getUser().setIdNum(rs.getInt("user_idNum"));
-						//thumnail은 UserAddInfo 도메인에 있는데
-						//thumanil의 정보를 넣기 위해 객체를 생성하기 보다는
-						//사용하지 않는 Name에 등록함
+						// thumnail은 UserAddInfo 도메인에 있는데
+						// thumanil의 정보를 넣기 위해 객체를 생성하기 보다는
+						// 사용하지 않는 Name에 등록함
 						possessBook.getUser().setName(rs.getString("thumnail"));
-						possessBook.getUser().setUserId(rs.getString("user_id"));
+						possessBook.getUser()
+								.setUserId(rs.getString("user_id"));
 
 						return possessBook;
 					}
 				}, new Object[] { bookIdNum, startRow, endRow });
+	}
+
+	@Override
+	public int getDbcountInterestLibrary(Integer userIdNum) {
+
+		String sql = sqlparser
+				.getSQL("library", "DBCOUNT_INTEREST_LIBRARY_SQL");
+
+		return getSimpleJdbcTemplate().queryForInt(sql,
+				new Object[] { userIdNum });
+
+	}
+
+	@Override
+	public List<User> getListInterestLibrary(Integer userIdNum,
+			Integer startRow, Integer endRow) {
+
+		String sql = sqlparser.getSQL("library",
+				"LIST_LIMIT_INTEREST_LIBRARY_SQL");
+
+		List<User> interestLibraryList = getSimpleJdbcTemplate().query(sql,
+				new ParameterizedRowMapper<User>() {
+
+					@Override
+					public User mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+
+						User user = new User();
+						user.setIdNum(rs.getInt("IDNUM"));
+						user.setUserId(rs.getString("USER_ID"));
+						user.setEmail(rs.getString("EMAIL"));
+						user.setNickname(rs.getString("NICKNAME"));
+						user.setName(rs.getString("NAME"));
+
+						return user;
+					}
+				}, new Object[] { userIdNum, startRow, endRow });
+
+		return interestLibraryList;
+
 	}
 }
