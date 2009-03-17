@@ -22,20 +22,21 @@
 			<table class="join1" align="center">
 				<thead>
 					<tr>
-						<td colspan="2">사용자 정보 입력</td>
+						<td colspan="2">사용자 정보 입력  (<font color="gold"/>◎</font>표시 필수입력사항)</td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td class="join_label">
-							<label for="userId">ID</label>
+							<label for="userId"><font color="gold"/>◎</font>ID</label>
 						</td>
 						<td>
-							<input type="text" name="userId" id="userId" size="20" readonly="readonly"/><span id="duplicateId" style="cursor: pointer;"> 중복 확인</span>
+							<input type="text" name="userId" id="userId" size="20" readonly="readonly"/>
+							<span id="duplicateId" style="cursor: pointer;"> 중복 확인</span>
 						</td>
 					<tr>
 						<td class="join_label">
-							<label for="pw">PW</label>
+							<label for="pw"><font color="gold"/>◎</font>PW</label>
 						</td>
 						<td>
 							<input type="password" name="pw" size="20"/>
@@ -43,7 +44,7 @@
 					</tr>
 					<tr>
 						<td class="join_label">
-							<label for="pwAgain">PW 다시 확인</label>
+							<label for="pwAgain"><font color="gold"/>◎</font>PW 다시 확인</label>
 						</td>
 						<td>
 							<input type="password" name="pwAgain" size="20"/>
@@ -51,7 +52,7 @@
 					</tr>
 					<tr>
 						<td class="join_label">
-							<label for="email">이메일</label>
+							<label for="email"><font color="gold"/>◎</font>이메일</label>
 						</td>
 						<td>
 							<input type="text" name="email" size="20"/>
@@ -59,7 +60,7 @@
 					</tr>
 					<tr>
 						<td class="join_label">
-							<label for="nickname">별명</label>
+							<label for="nickname"><font color="gold"/>◎</font>닉네임</label>
 						</td>
 						<td>
 							<input type="text" name="nickname" size="20"/>
@@ -67,7 +68,7 @@
 					</tr>
 					<tr>
 						<td class="join_label">
-							<label for="name">이름</label>
+							<label for="name"><font color="gold"/>◎</font>이름</label>
 						</td>
 						<td>
 							<input type="text" name="name" size="20"/>
