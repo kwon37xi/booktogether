@@ -12,13 +12,8 @@
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
 		p:alwaysUseFullPath="true" />
 
-
-
 	<context:component-scan base-package="com.google.code.booktogether.web.controller" />
 	<context:component-scan base-package="com.google.code.booktogether.web.interceptor" />
-
-
-
 
 	<bean id="publicMapper"
 		class="com.google.code.booktogether.web.interceptor.handler.SelectedAnnotationHandlerMapping">
@@ -53,7 +48,6 @@
 		</property>
 	</bean>
 	
-	
 	<bean id="publicMapper1"
 		class="com.google.code.booktogether.web.interceptor.handler.SelectedAnnotationHandlerMapping">
 		<property name="order" value="1" />
@@ -82,9 +76,6 @@
 		</property>
 	</bean>
 
-
-
-
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize">
@@ -92,11 +83,9 @@
 		</property>
 	</bean>
 
-
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF/views/" p:suffix=".jsp" />
-
 
 	<bean id="exceptionResolver"
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
@@ -109,7 +98,6 @@
 			</props>
 		</property>
 	</bean>
-	
 	
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
