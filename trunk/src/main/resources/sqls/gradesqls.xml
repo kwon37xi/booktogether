@@ -35,7 +35,6 @@
         </query>
      </sql>
     
-    
      <sql name="LIST_BOOKGRADE_SQL">
         <description>책 별점 목록</description>
         <query>
@@ -55,7 +54,6 @@
             ]]>
         </query>
      </sql>
-    
     
      <sql name="LIST_MYBOOKGRADE_SQL">
         <description>내가 매긴 책 별점 목록</description>
@@ -77,7 +75,6 @@
         </query>
     </sql>
     
-    
      <sql name="GET_DBCOUNT_BOOKGRADE_SQL">
         <description>책 별점 목록</description>
         <query>
@@ -90,7 +87,6 @@
             ]]>
         </query>
      </sql>
-    
     
      <sql name="GET_DBCOUNT_MYBOOKGRADE_SQL">
         <description>내가 매긴 책 별점 목록 갯수</description>
@@ -105,7 +101,6 @@
         </query>
     </sql>
     
-    
      <sql name="EXIST_MYBOOKGRADE_SQL">
         <description>내가 매긴 책 별점이 있는지 체크</description>
         <query>
@@ -119,8 +114,4 @@
             ]]>
         </query>
     </sql>
-    
-
-
-    
 </sqls>
