@@ -39,16 +39,16 @@
 									<ul>
 										<c:choose>
 											<c:when test="${sessionScope.idNum==null}">
-												<li><a href="javascript:go_home()"> Log-in</a></li>
+												<li><a href="/index.do"> Log-in</a></li>
 											</c:when>
 											<c:when test="${sessionScope.idNum!=null}">
-												<li><a href="javascript:logout()"> Log-Out</a></li>
+												<li><a href="/user/logout.do"> Log-Out</a></li>
 											</c:when>
 										</c:choose>
-										<li><a href="/sitemap.do"> Sitemap</a></li>
-										<li><a href="/faq.do"> FAQ</a></li>
-										<li><a href="/help.do"> Help</a></li>
-										<li><a href="/aboutus.do"> About us</a></li>		
+										<li><a href="/main/sitemap.do"> Sitemap</a></li>
+										<li><a href="/main/faq.do"> FAQ</a></li>
+										<li><a href="/main/help.do"> Help</a></li>
+										<li><a href="/main/aboutus.do"> About us</a></li>		
 									</ul>
 								</div>		
 							</td>

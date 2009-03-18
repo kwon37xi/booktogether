@@ -146,9 +146,6 @@
 			</table>
 			
 		</form>
-		<div id=''>
-			<a href="javascript:history.go(-1)">뒤로</a>
-		</div>
 		
 	</body>
 </html>

@@ -38,7 +38,7 @@
 														<img src="/images/book/bookDefault.png"/>
 													</c:if>					
 												</td>
-												<td class="possessBookTitle">제목 : <a href="javascript:getPossessBook('${possessBook.idNum}','${library.idNum}','${library.user.idNum}')">${possessBook.book.name}</a></td>
+												<td class="possessBookTitle">제목 : <a href="/library/getPossessBook.do?userIdNum=${library.user.idNum}&possessBookIdNum=${possessBook.idNum}&libraryIdNum=${library.idNum}">${possessBook.book.name}</a></td>
 												<td class="possessBookAuthor">지은이 : ${possessBook.book.authors[0].name} 지음	</td>
 											</tr>
 											<tr>
@@ -93,15 +93,15 @@
 		
 		<div id='navigator'>
 			<c:if test="${pageBean.prePage}">
-				<a href="javascript:go_page_possessbook('${pageBean.startPage-pageBean.limit}','${param.userId}')">이전</a>
+				<a href="/library/getListPossessBook.do?pageNo=${pageBean.startPage-pageBean.limit}&userId=${param.userId}">이전</a>
 			</c:if>
 			
 			<c:forEach begin="${pageBean.startPage}" end="${pageBean.endPage}" var='i'>
-				<a href="javascript:go_page_possessbook('${i}','${param.userId}')">[ ${i} ]</a>
+				<a href="/library/getListPossessBook.do?pageNo=${i}&userId='${param.userId}">[ ${i} ]</a>
 			</c:forEach>
 				
 			<c:if test="${pageBean.nextPage}">
-				<a href="javascript:go_page_possessbook('${pageBean.startPage+pageBean.limit}','${param.userId}')">다음</a>
+				<a href="/library/getListPossessBook.do?pageNo=${pageBean.startPage+pageBean.limit}&userId=${param.userId}">다음</a>
 			</c:if>
 		</div>
 		

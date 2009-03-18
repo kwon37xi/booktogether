@@ -98,7 +98,7 @@
 					<tr>
 						<td>
 							<input type="button" value="수정" onclick="modifyLibraryBook()"/>
-							<input type="button" value="뒤로" onclick="javascript:history.go(-1)"/>
+							<input type="button" value="뒤로" onclick="goBack()"/>
 						</td>
 					</tr>
 				</tfoot>

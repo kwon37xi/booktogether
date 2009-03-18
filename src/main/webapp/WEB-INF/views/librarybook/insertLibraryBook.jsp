@@ -119,7 +119,7 @@
 		</form>
 		
 		<div id='navigator'>
-			<a href="javascript:history.go(-1)">뒤로</a>
+			<a href="javascript:goBack()">뒤로</a>
 		</div>
 		
 	</body>

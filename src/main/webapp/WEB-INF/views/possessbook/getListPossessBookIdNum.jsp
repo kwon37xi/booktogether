@@ -112,15 +112,15 @@
 
 		<div id='navigator'>
 			<c:if test="${pageBean.prePage}">
-				<a href="javascript:go_page_possessbook('${pageBean.startPage-pageBean.limit}','${bookInfo.idNum}')">이전</a>
+				<a href="/library/getListPossessBook.do?pageNo=${pageBean.startPage-pageBean.limit}&userId=${bookInfo.idNum}">이전</a>
 			</c:if>
 			
 			<c:forEach begin="${pageBean.startPage}" end="${pageBean.endPage}" var='i'>
-				<a href="javascript:go_page_possessbook('${i}','${bookInfo.idNum}')">[ ${i} ]</a>
+				<a href="/library/getListPossessBook.do?pageNo=${i}&userId=${bookInfo.idNum}">[ ${i} ]</a>
 			</c:forEach>
 				
 			<c:if test="${pageBean.nextPage}">
-				<a href="javascript:go_page_possessbook('${pageBean.startPage+pageBean.limit}','${bookInfo.idNum}')">다음</a>
+				<a href="/library/getListPossessBook.do?pageNo=${pageBean.startPage+pageBean.limit}&userId=${bookInfo.idNum}">다음</a>
 			</c:if>
 		</div>
 		

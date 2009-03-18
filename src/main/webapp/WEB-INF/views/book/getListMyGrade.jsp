@@ -35,7 +35,7 @@
 										<img src="/images/book/bookDefault.png"/>
 									</c:if>		
 								</td>
-								<td><a href="javascript:getBook('${bookGrade.book.idNum}')">${bookGrade.book.name}</a></td>
+								<td><a href="/book/getBook.do?bookIdNum=${bookGrade.book.idNum}">${bookGrade.book.name}</a></td>
 								<td>
 									<c:set var="count" value="0"/>
 									<c:forEach begin="1" end="${bookGrade.grade}" var="i" >
@@ -59,15 +59,15 @@
 		
 		<div id='navigator'>
 			<c:if test="${pageBean.prePage}">
-				<a href="javascript:go_page_mygrade('${pageBean.startPage-pageBean.limit}','${param.userIdNum}')">이전</a>
+				<a href="/library/getListMyBookGrade.do?pageNo=${pageBean.startPage-pageBean.limit}&userIdNum=${param.userIdNum}&libraryIdNum=${library.idNum}">이전</a>
 			</c:if>
 			
 			<c:forEach begin="${pageBean.startPage}" end="${pageBean.endPage}" var='i'>
-				<a href="javascript:go_page_mygrade('${i}','${param.userIdNum}')">[ ${i} ]</a>
+				<a href="/library/getListMyBookGrade.do?pageNo=${i}&userIdNum=${param.userIdNum}&libraryIdNum=${library.idNum}">[ ${i} ]</a>
 			</c:forEach>
 				
 			<c:if test="${pageBean.nextPage}">
-				<a href="javascript:go_page_mygrade('${pageBean.startPage+pageBean.limit}','${param.userIdNum}')">다음</a>
+				<a href="/library/getListMyBookGrade.do?pageNo=${pageBean.startPage+pageBean.limit}&userIdNum=${param.userIdNum}&libraryIdNum=${library.idNum}">다음</a>
 			</c:if>
 		</div>
 		

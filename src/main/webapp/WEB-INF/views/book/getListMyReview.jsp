@@ -36,7 +36,7 @@
 													<img src="/images/book/bookDefault.png"/>
 												</c:if>	
 											</td>
-											<td>제목 : <a href="javascript:getBook('${bookReview.book.idNum}')">${fn:escapeXml(bookReview.book.name)}</a></td>
+											<td>제목 : <a href="/book/getBook.do?bookIdNum=${bookReview.book.idNum}">${fn:escapeXml(bookReview.book.name)}</a></td>
 										</tr>
 										<tr>
 											<td>지은이 : 
@@ -75,15 +75,15 @@
 		
 		<div id='navigator'>
 			<c:if test="${pageBean.prePage}">
-				<a href="javascript:go_page_go_page_myreview('${pageBean.startPage-pageBean.limit}','${param.userIdNum}')">이전</a>
+				<a href="/library/getListMyReview.do?pageNo=${pageBean.startPage-pageBean.limit}&userIdNum=${library.user.idNum}&libraryIdNum=${library.idNum}">이전</a>
 			</c:if>
 			
 			<c:forEach begin="${pageBean.startPage}" end="${pageBean.endPage}" var='i'>
-				<a href="javascript:go_page_go_page_myreview('${i}','${param.userIdNum}')">[ ${i} ]</a>
+				<a href="/library/getListMyReview.do?pageNo=${i}&userIdNum=${library.user.idNum}&libraryIdNum=${library.idNum}">[ ${i} ]</a>
 			</c:forEach>
 				
 			<c:if test="${pageBean.nextPage}">
-				<a href="javascript:go_page_go_page_myreview('${pageBean.startPage+pageBean.limit}','${param.userIdNum}')">다음</a>
+				<a href="/library/getListMyReview.do?pageNo=${pageBean.startPage+pageBean.limit}&userIdNum=${library.user.idNum}&libraryIdNum=${library.idNum}">다음</a>
 			</c:if>
 		</div>
 		

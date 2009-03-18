@@ -51,7 +51,7 @@
 													<c:if test="${bookList[aIndex].bookCover==null || bookList[aIndex].bookCover==''}">
 														<img src="/images/book/bookDefault.png" width="72" height="102" onclick="checkBook('${bookList[aIndex].ISBN10}','${pageNo}','${query}','${searchType}')" class="img_button"/><br/>
 													</c:if>	
-													<a href="javascript:checkBook('${bookList[aIndex].ISBN10}','${pageNo}','${query}','${searchType}')">
+													<a href="/book/checkBook.do?ISBN=${bookList[aIndex].ISBN10}&pageNo=${pageNo}&query=${query}&searchType=${searchType}">
 														${fn:escapeXml(bookList[aIndex].name)}
 													</a><br/>
 													${bookList[aIndex].authors[0].name}<br/>

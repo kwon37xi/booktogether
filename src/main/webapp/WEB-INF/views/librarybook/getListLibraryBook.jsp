@@ -39,13 +39,13 @@
 									<td class="list_book_info">
 										<c:if test="${aIndex>bookListLength}">&nbsp;</c:if>
 										<c:if test="${aIndex<bookListLength}">
-											<c:if test="${bookInfo.bookCover!=null && bookInfo.bookCover!=''}">
-												<img src="${bookInfo.bookCover}" width="72" height="102" onclick="javascript:getBook('${bookInfo.idNum}')" style="cursor: pointer;"/><br/>
-											</c:if>
-											<c:if test="${bookInfo.bookCover==null || bookInfo.bookCover==''}">
-												<img src="/images/book/bookDefault.png" width="72" height="102" onclick="javascript:getBook('${bookInfo.idNum}')" style="cursor: pointer;"/><br/>
-											</c:if>											
-											<a href="javascript:getBook('${bookInfo.idNum}')">
+											<a href="/book/getBook.do?bookIdNum=${bookInfo.idNum}">
+												<c:if test="${bookInfo.bookCover!=null && bookInfo.bookCover!=''}">
+													<img src="${bookInfo.bookCover}" width="72" height="102"/><br/>
+												</c:if>
+												<c:if test="${bookInfo.bookCover==null || bookInfo.bookCover==''}">
+													<img src="/images/book/bookDefault.png" width="72" height="102"/><br/>
+												</c:if>											
 												${bookInfo.name}
 											</a>
 											<p>${bookInfo.authors[0].name}</p>
@@ -75,15 +75,15 @@
 		
 		<div id='navigator'>
 			<c:if test="${pageBean.prePage}">
-				<a href="javascript:go_page_librarybook('${pageBean.startPage-pageBean.limit}','${libraryIdNum}','${state}')">이전</a>
+				<a href="/library/getListLibraryBook.do?pageNo=${pageBean.startPage-pageBean.limit}&libraryIdNum=${libraryIdNum}&state=${state}">이전</a>
 			</c:if>
 			
 			<c:forEach begin="${pageBean.startPage}" end="${pageBean.endPage}" var='i'>
-				<a href="javascript:go_page_librarybook('${i}','${libraryIdNum}','${state}')">[ ${i} ]</a>
+				<a href="/library/getListLibraryBook.do?pageNo=${i}&libraryIdNum=${libraryIdNum}&state=${state}">[ ${i} ]</a>
 			</c:forEach>
 				
 			<c:if test="${pageBean.nextPage}">
-				<a href="javascript:go_page_librarybook('${pageBean.startPage+pageBean.limit}','${libraryIdNum}','${state}')">다음</a>
+				<a href="/library/getListLibraryBook.do?pageNo=${pageBean.startPage+pageBean.limit}&libraryIdNum=${libraryIdNum}&state=${state}">다음</a>
 			</c:if>
 		</div>
 		
