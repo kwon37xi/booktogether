@@ -32,8 +32,8 @@
 				<td>
 					<table id="top_navigator">
 						<tr>
-						    <td class="logo" onclick="go_home()"><img src="/images/main/logo_LBT.gif" width="43" height="44" style="cursor: pointer;"/></td>
-    						<td class="logo_title" onclick="go_home()"  style="cursor: pointer;"> Love,<br/> Book Together</td>
+						    <td class="logo" onclick="go_home()"><img src="/images/main/logo_LBT.png" width="150" height="71" style="cursor: pointer;"/></td>
+    						<td class="logo_title" onclick="go_home()" style="cursor: pointer;"></td>
 							<td>
 								<div id="menu">
 									<ul>
