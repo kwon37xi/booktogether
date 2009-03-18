@@ -15,6 +15,13 @@ function go_searchBook(pageno, query, searchType) {
 
 }
 
+function checkBook(isbn, pageNo, query, searchType) {
+	
+	var params = "ISBN=" + isbn + "&pageNo=" + pageNo + "&query=" + query + "&searchType=" + searchType;
+	
+	location.href = "/book/checkBook.do?" + params;
+}
+
 
 // 책 조회
 function go_bookView(bookIdNum) {
