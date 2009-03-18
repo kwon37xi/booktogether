@@ -19,7 +19,7 @@
 		<table id="bookinfo">
 			<thead>
 				<tr>
-					<td colspan="4">책정보</td>
+					<td colspan="4"><img src="/images/book/bookInfo.png"/>책정보</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -75,7 +75,7 @@
 		<table id="possessBookList">
 			<thead>
 				<tr>
-					<td colspan="5">책소유자 목록(<fmt:formatNumber value="${possessDbCount}" pattern=",###"/>개)</td>
+					<td colspan="5"> <img src="/images/book/bookOwnerList.png"/> 책소유자 목록(<fmt:formatNumber value="${possessDbCount}" pattern=",###"/>개) </td>
 				</tr>
 			</thead>
 			<tbody>
@@ -124,7 +124,7 @@
 		<table id="gradebook">
 			<thead>
 				<tr>
-					<td colspan="2">별점목록(<fmt:formatNumber value="${gradeDbCount}" pattern=",###"/>개)</td>
+					<td colspan="2"><img src="/images/book/gradeList.png"/> 별점목록(<fmt:formatNumber value="${gradeDbCount}" pattern=",###"/>개)</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -174,7 +174,7 @@
 		<table id="reviewbook">
 			<thead>
 				<tr>
-					<td colspan="3">리뷰목록(<fmt:formatNumber value="${reviewDbCount}" pattern=",###"/>개)</td>
+					<td colspan="3"><img src="/images/book/reviewList.png"/> 리뷰목록(<fmt:formatNumber value="${reviewDbCount}" pattern=",###"/>개)</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -210,7 +210,7 @@
 		<table id="bookmark">
 			<thead>
 				<tr>
-					<td colspan="4">인용구목록(<fmt:formatNumber value="${bookMarkDbCount}" pattern=",###"/>개)</td>
+					<td colspan="4"><img src="/images/book/bookmarkList.png"/> 인용구목록(<fmt:formatNumber value="${bookMarkDbCount}" pattern=",###"/>개)</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -258,7 +258,7 @@
 		<table id="input_content">
 			<thead>
 				<tr>
-					<td>입력하기</td>
+					<td><img src="/images/book/userInput.png"/> 입력하기</td>
 				</tr>
 			</thead>
 			<tbody>
