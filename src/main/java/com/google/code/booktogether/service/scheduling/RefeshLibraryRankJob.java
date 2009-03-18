@@ -14,6 +14,7 @@ public class RefeshLibraryRankJob extends QuartzJobBean {
 	public void setLibraryService(LibraryService libraryService) {
 		this.libraryService = libraryService;
 	}
+	
 
 	// 로그 표시를 위하여
 	private Logger log = Logger.getLogger(this.getClass());
