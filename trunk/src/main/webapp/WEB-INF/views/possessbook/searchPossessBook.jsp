@@ -49,7 +49,7 @@
 													<img src="/images/book/bookDefault.png"/>
 												</c:if>
 											</td>
-											<td>제목 : <a href="javascript:getPossessBook('${possessBookInfo.idNum}')">${possessBookInfo.book.name}</a></td>
+											<td>제목 : <a href="/library/getPossessBook.do?possessBookIdNum=${possessBookInfo.idNum}">${possessBookInfo.book.name}</a></td>
 											<td>지은이 :
 												<c:forEach begin="0" items="${possessBookInfo.book.authors}" var="authorInfo">
 													[${authorInfo.name}/
@@ -100,21 +100,18 @@
 		
 		<div id='page_div'>
 			<c:if test="${pageBean.prePage}">
-				<a href="javascript:go_page_librarybook('${pageBean.startPage-pageBean.limit}','${libraryIdNum}','${state}')">이전</a>
+				<a href="/library/getListLibraryBook.do?pageNo=${pageBean.startPage-pageBean.limit}&libraryIdNum=${libraryIdNum}&state=${state}')">이전</a>
 			</c:if>
 			
 			<c:forEach begin="${pageBean.startPage}" end="${pageBean.endPage}" var='i'>
-				<a href="javascript:go_page_librarybook('${i}','${libraryIdNum}','${state}')">[ ${i} ]</a>
+				<a href="/library/getListLibraryBook.do?pageNo=${i}&libraryIdNum=${libraryIdNum}&state=${state}')">[ ${i} ]</a>
 			</c:forEach>
 				
 			<c:if test="${pageBean.nextPage}">
-				<a href="javascript:go_page_librarybook('${pageBean.startPage+pageBean.limit}','${libraryIdNum}','${state}')">다음</a>
+				<a href="/library/getListLibraryBook.do?pageNo=${pageBean.startPage+pageBean.limit}&libraryIdNum=${libraryIdNum}&state=${state}')">다음</a>
 			</c:if>
 		</div>
 
-		<div id=''>
-			<a href="javascript:history.go(-1)">서재로 고고싱</a>
-		</div>
 		
 	</body>
 </html>

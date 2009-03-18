@@ -153,10 +153,10 @@
 										<p class="book_info">
 											<c:choose>
 												<c:when test="${fn:length(bestBookInfo.name)>30}">
-													<a href="javascript:getBook('${bestBookInfo.idNum}')">${fn:substring(fn:escapeXml(bestBookInfo.name),0,30)}...</a>
+													<a href="/book/getBook.do?bookIdNum=${bestBookInfo.idNum}">${fn:substring(fn:escapeXml(bestBookInfo.name),0,30)}...</a>
 												</c:when>
 												<c:otherwise>
-													<a href="javascript:getBook('${bestBookInfo.idNum}')">${fn:escapeXml(bestBookInfo.name)}</a>
+													<a href="/book/getBook.do?bookIdNum=${bestBookInfo.idNum}">${fn:escapeXml(bestBookInfo.name)}</a>
 												</c:otherwise>
 											</c:choose>
 										</p>
@@ -195,10 +195,10 @@
 										<p class="book_info">
 											<c:choose>
 												<c:when test="${fn:length(recommendBookInfo.name)>30}">
-													<a href="javascript:getBook('${recommendBookInfo.idNum}')">${fn:substring(fn:escapeXml(recommendBookInfo.name),0,30)}...</a>
+													<a href="/book/getBook.do?bookIdNum=${recommendBookInfo.idNum}">${fn:substring(fn:escapeXml(recommendBookInfo.name),0,30)}...</a>
 												</c:when>
 												<c:otherwise>
-													<a href="javascript:getBook('${recommendBookInfo.idNum}')">${fn:escapeXml(recommendBookInfo.name)}</a>
+													<a href="/book/getBook.do?bookIdNum=${recommendBookInfo.idNum}">${fn:escapeXml(recommendBookInfo.name)}</a>
 												</c:otherwise>
 											</c:choose>
 										</p>

@@ -108,15 +108,15 @@
 					<td colspan="4">
 						<div id='navigator'>
 							<c:if test="${pageBean.prePage}">
-								<a href="javascript:go_page_bookmark('${pageBean.startPage-pageBean.limit}','${bookInfo.idNum}')">이전</a>
+								<a href="/book/getListBookMark.do?pageNo=${pageBean.startPage-pageBean.limit}&bookIdNum=${bookInfo.idNum}">이전</a>
 							</c:if>
 							
 							<c:forEach begin="${pageBean.startPage}" end="${pageBean.endPage}" var='i'>
-								<a href="javascript:go_page_bookmark('${i}','${bookInfo.idNum}')">[ ${i} ]</a>
+								<a href="/book/getListBookMark.do?pageNo=${i}&bookIdNum=${bookInfo.idNum}">[ ${i} ]</a>
 							</c:forEach>
 								
 							<c:if test="${pageBean.nextPage}">
-								<a href="javascript:go_page_bookmark('${pageBean.startPage+pageBean.limit}','${bookInfo.idNum}')">다음</a>
+								<a href="/book/getListBookMark.do?pageNo=${pageBean.startPage+pageBean.limit}&bookIdNum=${bookInfo.idNum}">다음</a>
 							</c:if>
 						</div>
 					</td>

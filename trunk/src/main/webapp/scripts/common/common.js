@@ -34,3 +34,6 @@ function aboutus() {
 
 }
 
+function goBack() {
+	history.go(-1);
+}
