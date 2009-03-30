@@ -1,0 +1,62 @@
+#layout {
+	
+}
+
+#top_navigator {
+	border-spacing: 0px;
+}
+
+.logo {
+	width: 55px;
+	cursor: pointer;
+}
+
+.logo_title {
+	width: 326px;
+	cursor: pointer;
+}
+
+.menu1 {
+	width: 67px;
+}
+
+.menu2 {
+	width: 75px;
+}
+
+.menu3 {
+	width: 110px;
+}
+
+.menu4 {
+	width: 51px;
+}
+
+.menu5 {
+	width: 60px;
+}
+
+#searchbook_div {
+	width:760px;
+	height:37px;
+	background-color: #6eaec9;
+}
+
+.count_info {
+	width: 350px;
+	vertical-align: middle;
+}
+
+.search_div {
+	width: 410px;
+	vertical-align: middle;
+}
+
+#footer {
+	width: 760px;
+	height: 50px;
+	vertical-align: middle;
+	background-color: #6eaec9;
+	text-align: center;
+	color: white;
+}

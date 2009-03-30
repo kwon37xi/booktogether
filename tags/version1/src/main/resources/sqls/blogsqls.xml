@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sqls name="blog">
+  
+     <sql name="INSERT_BLOG_SQL">
+        <description>사용자 블로그 정보 등록</description>
+        <query>
+            <![CDATA[
+             INSERT INTO USERBLOG(webserver,blog, id, pw, blogdefault, user_idNum, etc_info)  
+             VALUES (?, ?, ?, ?, ?, ?, ?)
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="GET_BLOG_SQL">
+        <description>사용자 블로그 정보 조회</description>
+        <query>
+            <![CDATA[
+             SELECT id
+                    ,blog
+                    ,webserver
+                    ,pw
+                    ,etc_info
+               FROM userblog
+              WHERE user_idNum=?
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="INSERT_REVIEW_BLOG_POST_SQL">
+        <description>리뷰 작성후 블로그로 등록했을때 등록정보를 등록</description>
+        <query>
+            <![CDATA[
+             INSERT INTO REVIEWBLOGPOST(user_idNum, postNum, book_idNum) 
+             VALUES(?, ?, ?)
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="GET_REVIEW_BLOG_POST_SQL">
+        <description>리뷰 작성후 블로그로 등록했을때 등록정보 조회</description>
+        <query>
+            <![CDATA[
+             SELECT idNum
+                    ,postNum
+               FROM REVIEWBLOGPOST 
+              WHERE user_idNum=?
+                AND book_idNum=? 
+            ]]>
+        </query>
+     </sql>
+    
+    
+</sqls>

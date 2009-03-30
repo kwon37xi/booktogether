@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-2.5.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<context:annotation-config />
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<context:component-scan base-package="com.google.code.booktogether.dao.impl" />
+	<context:component-scan base-package="com.google.code.booktogether.dao.util" />
+
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/BookTogetherDataSource"
+		resource-ref="true" />
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource" />
+
+	<bean id="SqlParser" class="com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl">
+		<constructor-arg>
+			<list>
+				<value>classpath:sqls/bookmarksqls.xml</value>
+				<value>classpath:sqls/booksqls.xml</value>
+				<value>classpath:sqls/gradesqls.xml</value>
+				<value>classpath:sqls/reviewsqls.xml</value>
+				<value>classpath:sqls/usersqls.xml</value>
+				<value>classpath:sqls/librarysqls.xml</value>
+				<value>classpath:sqls/librarybooksqls.xml</value>
+				<value>classpath:sqls/possessbooksqls.xml</value>
+				<value>classpath:sqls/libraryboardsqls.xml</value>
+				<value>classpath:sqls/goodwritersqls.xml</value>
+				<value>classpath:sqls/bestsellerssqls.xml</value>
+				<value>classpath:sqls/recobooksqls.xml</value>
+				<value>classpath:sqls/blogsqls.xml</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+</beans>
