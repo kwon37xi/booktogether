@@ -15,7 +15,7 @@ import com.google.code.booktogether.dao.BestSellersDao;
 import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 
 @Repository("bestSellersJdbcDao")
-public class BestSellersDaoJdbcImpl extends SimpleJdbcDaoSupport implements
+public class BestSellersDaoHibernateImpl extends SimpleJdbcDaoSupport implements
 		BestSellersDao {
 
 	@Resource(name = "SqlParser")

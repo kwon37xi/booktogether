@@ -15,7 +15,7 @@ import com.google.code.booktogether.dao.RecoBookDao;
 import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 
 @Repository("recoBookJdbcDao")
-public class RecoDaoJdbcImpl extends SimpleJdbcDaoSupport implements
+public class RecoDaoHibernateImpl extends SimpleJdbcDaoSupport implements
 		RecoBookDao {
 
 	@Resource(name = "SqlParser")

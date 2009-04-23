@@ -25,12 +25,12 @@ public class BookReview extends BaseObject{
 	/**
 	 * 사용자 정보
 	 */
-	private User user = new User();
+	private User user;
 
 	/**
 	 * 책 정보
 	 */
-	private Book book = new Book();
+	private Book book;
 
 	/**
 	 * 추천수

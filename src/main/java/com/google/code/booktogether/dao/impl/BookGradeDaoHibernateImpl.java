@@ -15,7 +15,7 @@ import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.BookGrade;
 
 @Repository("bookGradeJdbcDao")
-public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements
+public class BookGradeDaoHibernateImpl extends SimpleJdbcDaoSupport implements
 		BookGradeDao {
 
 	@Resource(name = "dataSource")

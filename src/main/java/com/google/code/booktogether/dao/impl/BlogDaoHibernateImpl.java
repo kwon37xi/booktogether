@@ -18,7 +18,7 @@ import com.google.code.booktogether.web.domain.ReviewBlogPost;
 import com.google.code.booktogether.web.domain.UserBlog;
 
 @Repository("blogJdbcDao")
-public class BlogDaoJdbcImpl extends SimpleJdbcDaoSupport implements BlogDao {
+public class BlogDaoHibernateImpl extends SimpleJdbcDaoSupport implements BlogDao {
 
 	@Resource(name = "SqlParser")
 	SqlParserXmlImpl sqlparser;

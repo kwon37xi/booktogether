@@ -26,7 +26,7 @@ import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserAddInfo;
 
 @Repository("libraryJdbcDao")
-public class LibraryDaoJdbcImpl extends SimpleJdbcDaoSupport implements
+public class LibraryDaoHibernateImpl extends SimpleJdbcDaoSupport implements
 		LibraryDao {
 
 	@Resource(name = "SqlParser")

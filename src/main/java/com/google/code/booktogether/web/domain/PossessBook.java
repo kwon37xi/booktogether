@@ -2,6 +2,10 @@ package com.google.code.booktogether.web.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -15,6 +19,8 @@ import com.google.code.booktogether.web.domain.base.BaseObject;
  * @author ParkHaeCheol
  * 
  */
+@Entity
+@Table(name="possessbook")
 public class PossessBook extends BaseObject {
 
 	/**
@@ -25,47 +31,55 @@ public class PossessBook extends BaseObject {
 	/**
 	 * 소유책 일련번호
 	 */
+	@Column(name="idNum")
 	private Integer idNum;
-
-	/**
-	 * 소유한 책 정보
-	 */
-	private Book book = new Book();
-
-	/**
-	 * 소유자 정보
-	 */
-	private User user = new User();
 
 	/**
 	 * 구입 날짜
 	 */
+	@Column(name="purchase_date")
 	private Date purchaseDate;
 
 	/**
 	 * 구입 가격
 	 */
+	@Column(name="purchase_price")
 	private Integer purchasePrice;
 
 	/**
 	 * 독서 시작일
 	 */
+	@Column(name="begin_read")
 	private Date beginRead;
 
 	/**
 	 * 독서 종료일
 	 */
+	@Column(name="end_read")
 	private Date endRead;
 
 	/**
 	 * 책 품질
 	 */
+	@Column(name="quality")
 	private Integer quality;
 
 	/**
 	 * 책 상태
 	 */
+	@Column(name="state")
 	private Integer state;
+	
+	/**
+	 * 소유한 책 정보
+	 */
+	private Book book;
+
+	/**
+	 * 소유자 정보
+	 */
+	private User user;
+	
 
 	@Override
 	public boolean equals(Object o) {

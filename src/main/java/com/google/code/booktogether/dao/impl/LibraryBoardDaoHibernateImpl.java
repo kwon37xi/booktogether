@@ -16,7 +16,7 @@ import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.LibraryBoard;
 
 @Repository("libraryBoardJdbcDao")
-public class LibraryBoardDaoJdbcImpl extends SimpleJdbcDaoSupport implements
+public class LibraryBoardDaoHibernateImpl extends SimpleJdbcDaoSupport implements
 		LibraryBoardDao {
 
 	@Resource(name = "SqlParser")
