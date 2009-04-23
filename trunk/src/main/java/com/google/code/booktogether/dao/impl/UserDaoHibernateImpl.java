@@ -25,7 +25,7 @@ import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
 
 @Repository("userJdbcDao")
-public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
+public class UserDaoHibernateImpl extends SimpleJdbcDaoSupport implements UserDao {
 
 	@Resource(name = "SqlParser")
 	SqlParserXmlImpl sqlparser;

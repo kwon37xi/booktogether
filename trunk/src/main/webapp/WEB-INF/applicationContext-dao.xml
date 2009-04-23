@@ -26,24 +26,4 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource" />
 
-	<bean id="SqlParser" class="com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl">
-		<constructor-arg>
-			<list>
-				<value>classpath:sqls/bookmarksqls.xml</value>
-				<value>classpath:sqls/booksqls.xml</value>
-				<value>classpath:sqls/gradesqls.xml</value>
-				<value>classpath:sqls/reviewsqls.xml</value>
-				<value>classpath:sqls/usersqls.xml</value>
-				<value>classpath:sqls/librarysqls.xml</value>
-				<value>classpath:sqls/librarybooksqls.xml</value>
-				<value>classpath:sqls/possessbooksqls.xml</value>
-				<value>classpath:sqls/libraryboardsqls.xml</value>
-				<value>classpath:sqls/goodwritersqls.xml</value>
-				<value>classpath:sqls/bestsellerssqls.xml</value>
-				<value>classpath:sqls/recobooksqls.xml</value>
-				<value>classpath:sqls/blogsqls.xml</value>
-			</list>
-		</constructor-arg>
-	</bean>
-
 </beans>

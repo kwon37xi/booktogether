@@ -2,6 +2,10 @@ package com.google.code.booktogether.web.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -12,7 +16,9 @@ import com.google.code.booktogether.web.domain.base.BaseObject;
 /**
  * 서재안의 등록된 책 도메인
  */
-public class LibraryBook extends BaseObject{
+@Entity
+@Table(name="librarybook")
+public class LibraryBook extends BaseObject {
 
 	/**
 	 * 
@@ -22,27 +28,30 @@ public class LibraryBook extends BaseObject{
 	/**
 	 * 일련번호
 	 */
+	@Column(name="idNum")
 	private Integer idNum;
-
-	/**
-	 * 책 정보
-	 */
-	private Book book = new Book();
-
-	/**
-	 * 서재 정보
-	 */
-	private Library library = new Library();
 
 	/**
 	 * 읽기 시작한 날짜/ 읽은 날짜 상태에 따라 달라진다.
 	 */
+	@Column(name="read_date")
 	private Date readDate;
 
 	/**
 	 * 책 상태 : 책고 있는 책:0 / 읽고 싶은책:1 / 읽은 책:2
 	 */
+	@Column(name="state")
 	private Integer State;
+
+	/**
+	 * 책 정보
+	 */
+	private Book book;
+
+	/**
+	 * 서재 정보
+	 */
+	private Library library;
 
 	@Override
 	public boolean equals(Object o) {

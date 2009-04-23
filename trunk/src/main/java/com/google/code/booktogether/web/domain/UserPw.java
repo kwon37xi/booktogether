@@ -1,5 +1,9 @@
 package com.google.code.booktogether.web.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -12,7 +16,8 @@ import com.google.code.booktogether.web.domain.base.BaseObject;
  * 사용자 비밀번호 도메인
  * @author ParkHaeCheol
  */
-
+@Entity
+@Table(name="user")
 public class UserPw extends BaseObject{
 	
 	private static final long serialVersionUID = 1L;
@@ -20,26 +25,31 @@ public class UserPw extends BaseObject{
 	/**
 	 * 비밀번호 일련번호
 	 */
+	@Column(name="idNum")
 	private Integer idNum;
 	
 	/**
 	 * 사용자 일련번호
 	 */
+	@Column(name="idNum")
 	private Integer userIdNum;
 	
 	/**
 	 * 비밀번호
 	 */
+	@Column(name="idNum")
 	private String pw;
 	
 	/**
 	 * 비밀번호 MD5
 	 */
+	@Column(name="idNum")
 	private byte[] digest;
 	
 	/**
 	 * SALT 인증키
 	 */
+	@Column(name="idNum")
 	private byte[] salt;
 	
 	

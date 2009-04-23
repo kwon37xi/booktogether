@@ -1,5 +1,9 @@
 package com.google.code.booktogether.web.domain;
 
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -13,6 +17,7 @@ import com.google.code.booktogether.web.domain.base.BaseObject;
  * @author ParkHaeCheol
  * 
  */
+@Entity
 public class Book extends BaseObject {
 
 	private static final long serialVersionUID = 1L;
@@ -30,7 +35,8 @@ public class Book extends BaseObject {
 	/**
 	 * 책지은이들
 	 */
-	private Author[] authors=null;
+	@OneToMany
+	private Set<Author> authors;
 
 	/**
 	 * ISBN 10자리
@@ -163,13 +169,6 @@ public class Book extends BaseObject {
 		this.name = name;
 	}
 
-	public Author[] getAuthors() {
-		return authors;
-	}
-
-	public void setAuthors(Author[] authors) {
-		this.authors = authors;
-	}
 
 	public String getISBN10() {
 		return ISBN10;
@@ -238,5 +237,18 @@ public class Book extends BaseObject {
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
 	}
+	
+	public Set<Author> getAuthors() {
+		return authors;
+	}
 
+	public void setAuthors(Set<Author> authors) {
+		this.authors = authors;
+	}
+	
+	public void addAuthors(Author author){
+		authors.add(author);
+		author.setBook(this);
+	}
+	
 }

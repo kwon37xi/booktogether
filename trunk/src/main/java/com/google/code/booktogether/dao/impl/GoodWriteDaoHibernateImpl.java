@@ -16,7 +16,7 @@ import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.GoodWriter;
 
 @Repository("goodWriterJdbcDao")
-public class GoodWriteDaoJdbcImpl extends SimpleJdbcDaoSupport implements
+public class GoodWriteDaoHibernateImpl extends SimpleJdbcDaoSupport implements
 		GoodWriterDao {
 
 	@Resource(name = "SqlParser")

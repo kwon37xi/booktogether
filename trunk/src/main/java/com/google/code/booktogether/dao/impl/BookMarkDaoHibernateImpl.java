@@ -16,7 +16,7 @@ import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.BookMark;
 
 @Repository("bookMarkJdbcDao")
-public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements
+public class BookMarkDaoHibernateImpl extends SimpleJdbcDaoSupport implements
 		BookMarkDao {
 
 	@Resource(name = "dataSource")

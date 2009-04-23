@@ -2,6 +2,10 @@ package com.google.code.booktogether.web.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -12,6 +16,8 @@ import com.google.code.booktogether.web.domain.base.BaseObject;
 /**
  * 서재 방명록
  */
+@Entity
+@Table(name="library")
 public class LibraryBoard extends BaseObject {
 
 	/**
@@ -22,36 +28,43 @@ public class LibraryBoard extends BaseObject {
 	/**
 	 * 일련번호
 	 */
+	@Column(name="idNum")
 	private Integer idNum;
 
 	/**
 	 * 서재 일련번호
 	 */
+	@Column(name="idNum")
 	private Integer libraryIdNum;
 
 	/**
 	 * 작성자 일련번호
 	 */
+	@Column(name="idNum")
 	private Integer writer;
 
 	/**
 	 * 작성자 아이디
 	 */
+	@Column(name="idNum")
 	private String writerUserId;
 
 	/**
 	 * 작성자 이름
 	 */
+	@Column(name="idNum")
 	private String writerName;
 
 	/**
 	 * 내용
 	 */
+	@Column(name="idNum")
 	private String content;
 
 	/**
 	 * 입력 날짜(시간)
 	 */
+	@Column(name="idNum")
 	private Date inputDate;
 
 	@Override

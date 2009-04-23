@@ -19,7 +19,7 @@ import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
 
 @Repository("bookJdbcDao")
-public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
+public class BookDaoHibernateImpl extends SimpleJdbcDaoSupport implements BookDao {
 
 	@Resource(name = "dataSource")
 	public void setJdbcDao(DataSource dataSource) {
@@ -72,8 +72,22 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 
 		String sql = sqlparser.getSQL("book", "GET_AUTHORS_SQL");
 
-		return getSimpleJdbcTemplate().query(sql, new AuthorRowMapper(),
-				new Object[] { book.getIdNum() });
+		return getSimpleJdbcTemplate().query(sql,
+				new ParameterizedRowMapper<Author>() {
+					@Override
+					public Author mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+
+						Author author = new Author();
+
+						author.setIdNum(rs.getInt("IDNUM"));
+						author.setName(rs.getString("NAME"));
+						author.setAuthorDiv(rs.getInt("AUTHOR_DIV"));
+
+						return author;
+
+					}
+				}, new Object[] { book.getIdNum() });
 	}
 
 	// 책조회 isbn
@@ -91,9 +105,15 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 
 		String sql = sqlparser.getSQL("book", "GET_AUTHOR_SQL");
 
-		return (Author) DataAccessUtils
-				.singleResult(getSimpleJdbcTemplate().query(sql,
-						new AuthorRowMapper(), new Object[] { authorIdNum }));
+		return (Author) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
+				.query(sql, new ParameterizedRowMapper<Integer>() {
+					@Override
+					public Integer mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						Integer bidNum = rs.getInt("BIDNUM");
+						return bidNum;
+					}
+				}, new Object[] { authorIdNum }));
 
 	}
 
@@ -170,7 +190,7 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 
 	@Override
 	public int modifyBookHits(Integer bookIdNum) {
-		
+
 		String sql = sqlparser.getSQL("book", "MODIFY_BOOKHITS_SQL");
 
 		return getSimpleJdbcTemplate().update(sql, new Object[] { bookIdNum });
@@ -188,17 +208,17 @@ public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
 					@Override
 					public Book mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						
-						Book book=new Book();
-						
+
+						Book book = new Book();
+
 						book.setIdNum(rs.getInt("IDNUM"));
 						book.setISBN10(rs.getString("ISBN10"));
 						book.setISBN13(rs.getString("ISBN13"));
 						book.setName(rs.getString("NAME"));
-						
+
 						return book;
 					}
-					
+
 				}, new Object[] {});
 
 	}
