@@ -1,8 +1,5 @@
 package com.google.code.booktogether.web.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -10,8 +7,6 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import com.google.code.booktogether.web.domain.base.BaseObject;
 
-@Entity
-@Table(name="author")
 public class Zone extends BaseObject {
 
 	/**
@@ -38,42 +33,7 @@ public class Zone extends BaseObject {
 	 * 지역명 주소
 	 */
 	private String zoneName;
-	
-	
 
-	public String getZoneName() {
-		return zoneName;
-	}
-
-	public void setZoneName(String zoneName) {
-		this.zoneName = zoneName;
-	}
-
-	public Integer getZone() {
-		return zone;
-	}
-
-	public void setZone(Integer zone) {
-		this.zone = zone;
-	}
-
-	public Integer getUserIdNum() {
-		return userIdNum;
-	}
-
-	public void setUserIdNum(Integer userIdNum) {
-		this.userIdNum = userIdNum;
-	}
-
-	public Integer getIdNum() {
-		return idNum;
-	}
-
-	public void setIdNum(Integer idNum) {
-		this.idNum = idNum;
-	}
-
-	
 	@Override
 	public boolean equals(Object o) {
 
@@ -122,5 +82,37 @@ public class Zone extends BaseObject {
 		return tob.toString();
 
 	}
-	
+
+	public String getZoneName() {
+		return zoneName;
+	}
+
+	public void setZoneName(String zoneName) {
+		this.zoneName = zoneName;
+	}
+
+	public Integer getZone() {
+		return zone;
+	}
+
+	public void setZone(Integer zone) {
+		this.zone = zone;
+	}
+
+	public Integer getUserIdNum() {
+		return userIdNum;
+	}
+
+	public void setUserIdNum(Integer userIdNum) {
+		this.userIdNum = userIdNum;
+	}
+
+	public Integer getIdNum() {
+		return idNum;
+	}
+
+	public void setIdNum(Integer idNum) {
+		this.idNum = idNum;
+	}
+
 }

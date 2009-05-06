@@ -1,9 +1,5 @@
 package com.google.code.booktogether.web.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -11,8 +7,6 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import com.google.code.booktogether.web.domain.base.BaseObject;
 
-@Entity
-@Table(name="user")
 public class UserAddInfo extends BaseObject {
 
 	/**
@@ -23,28 +17,23 @@ public class UserAddInfo extends BaseObject {
 	/**
 	 * 일련번호
 	 */
-	@Column(name="idNum")
 	private Integer idNum;
 
 	/**
 	 * 사용자 일련번호
 	 */
-	@Column(name="idNum")
 	private Integer userIdNum;
 
 	/**
 	 * 블로그 주소
 	 */
-	@Column(name="idNum")
 	private String blog;
 
 	/**
 	 * 썸네일 이미지 파일명
 	 */
-	@Column(name="idNum")
 	private String thumnail;
 
-	
 	@Override
 	public boolean equals(Object o) {
 

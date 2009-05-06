@@ -1,0 +1,33 @@
+form label {
+	font-weight: bold;
+	padding-right: 5px;
+	width: 10px;
+}
+
+#goodWriter {
+	background-color: #e1f0f5;
+	width: 500px;
+	border: 1px #e1f0f5 solid;
+	margin-bottom: 20px;
+	padding: 0px 10px;
+}
+
+#bestsellers {
+	width: 500px;
+	border: 1px #e1f0f5 solid;
+	background-color: #e1f0f5;
+	margin-bottom: 20px;
+	padding: 0px 10px;
+}
+
+#recommendBook {
+	width: 500px;
+	border: 1px #e1f0f5 solid;
+	background-color: #e1f0f5;
+	margin-bottom: 20px;
+	padding: 0px 10px;
+}
+
+.book_info {
+	margin: 5px 0px;
+}

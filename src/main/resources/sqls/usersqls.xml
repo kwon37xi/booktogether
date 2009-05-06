@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sqls name="user">
+
+	<sql name="INSERT_USER_SQL">
+		<description>사용자 등록</description>
+		<query>
+            <![CDATA[
+             INSERT INTO USER(user_id, email, nickname, name, isdelete, input_date) 
+             VALUES (?, ?, ?, ?, 0, now())
+            ]]>
+		</query>
+	</sql>
+
+	<sql name="INSERT_USER_PW_SQL">
+		<description>사용자 비밀번호 인증키 등록(SALT)</description>
+		<query>
+            <![CDATA[
+             INSERT INTO USER_PW(user_idnum, pw, salt) 
+             VALUES(?, ?, ?) 
+            ]]>
+		</query>
+	</sql>
+
+	<sql name="INSERT_USERADDINFO_SQL">
+		<description>사용자 추가정보 등록</description>
+		<query>
+            <![CDATA[
+             INSERT INTO USERADDINFO(user_idnum, blog, thumnail) 
+             VALUES(?, ?, ?) 
+            ]]>
+		</query>
+	</sql>
+
+	<sql name="INSERT_ZONE_SQL">
+		<description>사용자 생활반경</description>
+		<query>
+            <![CDATA[
+             INSERT INTO ZONE(user_idnum, zone) 
+             VALUES(?, ?) 
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="GET_USER_SQL">
+		<description>사용자 정보 조회</description>
+		<query>
+            <![CDATA[
+             SELECT U.idnum as idnum
+                    ,U.user_id as user_id 
+                    ,U.email as email 
+                    ,U.nickname as nickname 
+                    ,U.name as name
+                    ,U.isdelete as isdelete 
+                    ,U.input_date as input_date
+                    ,UAI.idnum as uai_idnum 
+                    ,UAI.blog as blog 
+                    ,UAI.thumnail as thumnail  
+             FROM USER U, USERADDINFO UAI  
+             WHERE U.idnum=UAI.user_idnum  
+               AND U.idnum = ?  
+               AND U.isdelete = 0 
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="GET_ZONE_SQL">
+		<description>지역명 가지고 오기</description>
+		<query>
+            <![CDATA[
+             SELECT Z.idnum as idnum 
+             		,Z.user_idnum as user_idnum
+             		,Z.zone as zone
+             		,concat(ZC.sido ,' ',ZC.gugun, ' ',ZC.dong )as zone_name
+             FROM ZONE Z, ZIPCODE ZC 
+             WHERE Z.user_idnum=?
+               AND Z.zone=ZC.idnum 
+            ]]>
+		</query>
+	</sql>
+
+	<sql name="GET_USER_PW_SQL">
+		<description>사용자 암호 조회</description>
+		<query>
+            <![CDATA[
+             SELECT user_idnum
+                    , salt
+                    , pw 
+             FROM USER_PW 
+             WHERE user_idnum=?
+            ]]>
+		</query>
+	</sql>
+
+	<sql name="EXIST_USER_SQL">
+		<description>해당 사용자가 있는지 조회</description>
+		<query>
+            <![CDATA[
+             SELECT U.idnum as idnum
+                    ,U.user_id as user_id 
+                    ,U.email as email 
+                    ,U.nickname as nickname 
+                    ,U.name as name
+                    ,U.isdelete as isdelete 
+                    ,U.input_date as input_date
+                    ,UAI.idnum as uai_idnum 
+                    ,UAI.blog as blog 
+                    ,UAI.thumnail as thumnail  
+             FROM USER U, USERADDINFO UAI  
+             WHERE U.idnum=UAI.user_idnum  
+               AND U.user_id=?  
+               AND U.isdelete=0 
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="DUPLICATE_USER_ID_SQL">
+		<description>아이디 중복확인</description>
+		<query>
+            <![CDATA[
+             SELECT count(*)  
+               FROM USER 
+              WHERE isdelete=0 
+                AND user_id=? 
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="MODIFY_USER_SQL">
+		<description>사용자 정보 수정</description>
+		<query>
+            <![CDATA[
+             UPDATE USER 
+             SET email=? 
+	             ,nickname=? 
+	             ,name=? 
+	         WHERE idnum=? 
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="MODIFY_USERADDINFO_SQL">
+		<description>사용자 기본 정보 수정</description>
+		<query>
+            <![CDATA[
+             UPDATE USERADDINFO 
+             SET blog=? 
+	             ,thumnail=? 
+	         WHERE idnum=? 
+            ]]>
+		</query>
+	</sql>
+
+
+
+	<sql name="MODIFY_USER_PW_SQL">
+		<description>사용자 인증 정보 수정</description>
+		<query>
+            <![CDATA[
+             UPDATE USER_PW 
+             SET pw=?  
+	             ,salt=?  
+	         WHERE user_idnum=? 
+            ]]>
+		</query>
+	</sql>
+
+
+
+	<sql name="DELETE_USER_SQL">
+		<description>회원탈퇴</description>
+		<query>
+            <![CDATA[
+             UPDATE USER 
+             SET isdelete=1  
+             WHERE idnum= ? 
+            ]]>
+		</query>
+	</sql>
+
+
+
+	<sql name="DELETE_ZONE_SQL">
+		<description>지역명 삭제</description>
+		<query>
+            <![CDATA[
+            DELETE FROM ZONE 
+            WHERE idnum = ?
+              AND user_idnum = ?
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="DBCOUNT_USER_SQL">
+		<description>사용자 총 갯수</description>
+		<query>
+            <![CDATA[
+             SELECT count(*) 
+             FROM USER 
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="LIST_USER_SQL">
+		<description>사용자 목록</description>
+		<query>
+            <![CDATA[
+             SELECT idnum, user_id, email, nickname, name, isdelete, input_date 
+             FROM USER 
+             LIMIT ?, ?
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="LIST_ZIPCODE_SQL">
+		<description>주소찾기</description>
+		<query>
+            <![CDATA[
+             SELECT idnum
+             	    ,sido
+             	    ,gugun
+             	    ,dong
+               FROM ZIPCODE
+              WHERE sido  LIKE ?
+                 OR gugun LIKE ?
+                 OR dong  LIKE ?
+            ]]>
+		</query>
+	</sql>
+
+	<sql name="GET_LAST_NUM">
+		<description></description>
+		<query>
+            <![CDATA[
+             SELECT LAST_INSERT_ID() as last_num;
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="FIND_USER_ID_SQL">
+		<description>사용자 ID찾기</description>
+		<query>
+            <![CDATA[
+             SELECT user_id 
+             FROM USER 
+             WHERE name=?
+               AND email=? 
+               AND isdelete=0 
+            ]]>
+		</query>
+	</sql>
+
+
+	<sql name="FIND_USER_PW_SQL">
+		<description>사용자 PW찾기</description>
+		<query>
+            <![CDATA[
+             SELECT idnum, user_id, email, nickname, name, isdelete, input_date  
+             FROM USER 
+             WHERE user_id = ? 
+               AND name = ? 
+               AND email = ? 
+               AND isdelete = 0 
+            ]]>
+		</query>
+	</sql>
+	
+	
+	<sql name="LIST_ZONENAME_SQL">
+		<description>사용자 생활반경 주소 조회</description>
+		<query>
+            <![CDATA[
+           	SELECT concat(ZC.sido, ' ', ZC.gugun, ' ',ZC.dong, ' ',ZC.zipcode) as zone_name 
+           	  FROM ZONE Z, ZIPCODE ZC, USER U   
+           	 WHERE Z.zone=ZC.idNum 
+           	   AND Z.user_idNum = U.idNum 
+           	   AND U.user_Id = ? 
+           	   AND U.isdelete = 0 
+            ]]>
+		</query>
+	</sql>
+
+
+</sqls>

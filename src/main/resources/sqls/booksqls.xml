@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sqls name="book">
+  
+     <sql name="INSERT_BOOK_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             INSERT INTO BOOK(name, isbn10 , isbn13 , publish_comp, publish_date,  price, cover, category, description)  
+             VALUES (?, ?, ?, ?, ?, ?, ?, ? ,? ) 
+            ]]>
+        </query>
+    </sql>
+    
+
+    <sql name="MODIFY_BOOK_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             UPDATE BOOK 
+             SET name=?
+             	, isbn10 = ?
+             	, isbn13 = ?
+             	, publish_comp = ?
+             	, publish_date = ?
+             	, price = ?
+             	, cover = ?
+             	, category = ?
+             	, description = ? 
+             WHERE idNum = ?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="MODIFY_AUTHOR_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             UPDATE AUTHOR  
+             SET name = ?
+             	, author_div = ? 
+             WHERE idNum = ?
+            ]]> 
+        </query>
+    </sql>
+    
+    
+    <sql name="DBCOUNT_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+            SELECT count(*) 
+            FROM BOOK
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="LIST_BOOK_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+            SELECT * 
+            FROM BOOK 
+            LIMIT ?,?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    
+    <sql name="GET_AUTHORS_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+            SELECT * 
+            FROM AUTHOR 
+            WHERE book_idNum=?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="GET_AUTHOR_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+            SELECT * 
+            FROM AUTHOR 
+            WHERE idNum=?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    
+    <sql name="GET_BOOK_ID_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             SELECT * 
+             FROM BOOK 
+             WHERE idNum=?
+            ]]>
+        </query>
+    </sql>
+    
+    <sql name="GET_BOOK_ISBN_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             SELECT * 
+             FROM BOOK 
+             WHERE (ISBN10= ? || ISBN13= ?)
+            ]]>
+        </query>
+    </sql>
+    
+    <sql name="INSERT_AUTHOR_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             INSERT INTO AUTHOR(name,author_div,book_idNum) 
+             VALUES(?, ?, ?)
+            ]]>
+        </query>
+    </sql>
+
+
+    <sql name="GET_LAST_NUM">
+        <description></description>
+        <query>
+            <![CDATA[
+             SELECT LAST_INSERT_ID() as last_num;
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="DELETE_BOOK_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             DELETE FROM BOOK 
+             WHERE idNum=?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="DELETE_AUTHORBOOK_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+             DELETE FROM AUTHOR 
+             WHERE book_idNum=?
+            ]]>
+        </query>
+    </sql>
+    
+    
+    <sql name="DELETE_AUTHOR_SQL">
+        <description></description>
+        <query>
+            <![CDATA[
+     	      DELETE FROM AUTHOR 
+     	      WHERE idNum=?
+            ]]>
+        </query>
+    </sql>
+    
+    <sql name="LIST_BOOK_REF_BOOKMARK_SQL">
+        <description>내가 작성한 인용구에 대한 책 목록</description>
+        <query>
+            <![CDATA[
+            SELECT	distinct 
+            	    B.idNum as idnum
+                    ,B.name as name
+                    ,B.isbn10 as isbn10
+                    ,B.isbn13 as isbn13
+                    ,B.publish_comp as publish_comp
+                    ,B.publish_date as publish_date
+                    ,B.price as price 
+             		,B.cover as cover
+             		,B.category as category 
+               FROM BOOK B, BOOKMARK BM 
+              WHERE B.idNum = BM.book_idNum 
+                AND BM.user_idNum = ?
+              ORDER BY BM.input_date DESC  
+              LIMIT ?, ?
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="GET_DBCOUNT_BOOK_REF_BOOKMARK_SQL">
+        <description>내가 작성한 인용구에 대한 책 목록 갯수</description>
+        <query>
+            <![CDATA[
+            SELECT	COUNT(distinct(B.idNum)) 
+               FROM BOOK B, BOOKMARK BM 
+              WHERE B.idNum = BM.book_idNum 
+                AND BM.user_idNum = ? 
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="MODIFY_SEARCH_QUERY_RANK_SQL">
+        <description>검색수 수정</description>
+        <query>
+            <![CDATA[
+            UPDATE SEARCHQUERY
+               SET search_num=search_num+1 
+             WHERE query = ?
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="INSERT_QUERY_RANK_SQL">
+        <description>검색수 등록</description>
+        <query>
+            <![CDATA[
+            INSERT INTO SEARCHQUERY(query,search_num)
+            VALUES (?, 1) 
+            ]]>
+        </query>
+     </sql>
+     
+     <sql name="LIST_SEARCH_QUERY_RANK_SQL">
+        <description>검색수 목록</description>
+        <query>
+            <![CDATA[
+            SELECT query
+              FROM SEARCHQUERY
+             ORDER BY search_num DESC  
+             LIMIT 0,5
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="INSERT_BOOKHITS_SQL">
+        <description>책 조회수 등록</description>
+        <query>
+            <![CDATA[
+            INSERT INTO BOOKHITS (hits, book_idNum) 
+            VALUES(0, ?)
+            ]]>
+        </query>
+     </sql>
+     
+     
+     <sql name="MODIFY_BOOKHITS_SQL">
+        <description>책 조회수 수정</description>
+        <query>
+            <![CDATA[
+            UPDATE BOOKHITS 
+               SET hits=hits+1 
+             WHERE book_idNum = ?
+            ]]>
+        </query>
+     </sql>
+     
+     <sql name="LIST_TOPBOOKHITS_SQL">
+        <description>인기책 목록</description>
+        <query>
+            <![CDATA[
+            SELECT B.idNum as idNum
+                   ,B.isbn10 as isbn10
+                   ,B.isbn13 as isbn13
+                   ,B.name as name
+              FROM BOOKHITS BH, BOOK B
+             WHERE BH.book_idNum = B.idNum
+             ORDER BY BH.hits DESC
+             LIMIT 0,5 
+            ]]>
+        </query>
+     </sql>
+    
+
+    
+</sqls>

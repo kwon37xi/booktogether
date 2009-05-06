@@ -1,0 +1,24 @@
+body {
+	position: relative;
+	width: 770px;
+	margin: 0 auto;
+	text-align: left;
+	font: 12px ±¼¸²;
+	background: #e1f0f5 url(/images/common/bg.gif) 50% repeat-y;
+}
+
+html,body {
+	height: 100%;
+}
+
+img {
+	border: none;
+}
+
+.img_button {
+	cursor: pointer;
+}
+
+a {
+	text-decoration: none;
+}

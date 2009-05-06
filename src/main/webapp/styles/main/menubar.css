@@ -1,0 +1,41 @@
+/*------ Containters ------*/
+#menu{
+	width:400px;
+	height:35px;
+	margin:5px auto;
+	background:#ffffff;
+	overflow:hidden;	
+	font:normal 0.9em "Trebuchet MS";	
+}
+
+/*------ MENU ------*/
+#menu ul{
+	padding:1px;
+	margin:1px;
+	list-style:none;
+}
+
+#menu ul li{
+	display: block;
+	float: right;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+}
+
+#menu ul li a{
+	width:70px;
+	height:30px;
+	margin:0px;
+	padding:5px 0px 0px 2px;
+	margin:5px 0px 0px 2px;
+	display: block;
+	text-decoration:none;
+	font-size:1.2em;
+	color:#313131;
+	border-left:solid 1px #e1e1e1;
+}
+
+#menu ul li a:hover{
+	color:#7878ff;		
+}

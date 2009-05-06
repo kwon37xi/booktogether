@@ -1,11 +1,6 @@
 package com.google.code.booktogether.web.domain;
 
 import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -19,8 +14,7 @@ import com.google.code.booktogether.web.domain.base.BaseObject;
  * 
  * @author ParkHaeCheol
  */
-@Entity
-@Table(name="user")
+
 public class User extends BaseObject {
 
 	private static final long serialVersionUID = 1L;
@@ -28,56 +22,47 @@ public class User extends BaseObject {
 	/**
 	 * 사용자 일련번호
 	 */
-	@Column(name="idNum")
 	private Integer idNum;
 
 	/**
 	 * 사용자 ID
 	 */
-	@Column(name="idNum")
 	private String userId;
 
 	/**
 	 * 이메일
 	 */
-	@Column(name="idNum")
 	private String email;
 
 	/**
 	 * 별명
 	 */
-	@Column(name="idNum")
 	private String nickname;
 
 	/**
 	 * 이름
 	 */
-	@Column(name="idNum")
 	private String name;
 
 	/**
 	 * 등록날짜
 	 */
-	@Column(name="idNum")
 	private Date inputDate;
 
 	/**
 	 * 탈퇴유무
 	 */
-	@Column(name="idNum")
 	private Integer isDelete;
 
 	/**
 	 * 사용자 추가정보 클래스
 	 */
-	@Column(name="idNum")
 	private UserAddInfo userAddInfo;
 
 	/**
 	 * 내 생활 반경
 	 */
-	@Column(name="idNum")
-	private Set<Zone> zones;
+	private Zone[] zones;
 
 	@Override
 	public boolean equals(Object o) {
@@ -212,14 +197,12 @@ public class User extends BaseObject {
 		this.userAddInfo = userAddInfo;
 	}
 
-	
-	public Set<Zone> getZones() {
+	public Zone[] getZones() {
 		return zones;
 	}
 
-	public void setZones(Set<Zone> zones) {
+	public void setZones(Zone[] zones) {
 		this.zones = zones;
 	}
-	
-	
+
 }

@@ -1,0 +1,21 @@
+#main_layout td {
+	padding: 10px 10px 10px 10px;
+}
+
+form label {
+	font-weight: bold;
+	padding-right: 5px;
+	width: 10px;
+}
+
+#main_left_td {
+	width: 180px;
+}
+
+#main_right_td {
+	width: 550px;
+}
+
+.but_g1{
+	text-align: center;
+}

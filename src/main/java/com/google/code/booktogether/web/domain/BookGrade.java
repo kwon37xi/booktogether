@@ -23,19 +23,19 @@ public class BookGrade extends BaseObject {
 	private Integer idNum;
 
 	/**
-	 * 별점
-	 */
-	private Integer grade;
-	
-	/**
 	 * 사용자 정보
 	 */
-	private User user;
+	private User user = new User();
 
 	/**
 	 * 책 정보
 	 */
-	private Book book;
+	private Book book = new Book();
+
+	/**
+	 * 별점
+	 */
+	private Integer grade;
 
 	@Override
 	public boolean equals(Object o) {

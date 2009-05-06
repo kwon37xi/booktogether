@@ -1,0 +1,26 @@
+#searchResultTable td{
+	border:1px #e1f0f5 solid;
+	text-align: center;
+	padding:10px 5px;
+	width:200px;
+}
+
+#searchResultTable{
+	height:100%;
+	width:750px;
+}
+
+
+#page_div{
+	margin-top: 20px;
+	text-align: center;
+}
+
+#searchRank {
+	width:100%;
+	background-color : #6eaec9;
+}
+
+#searchRank td{
+	padding:0 10px;
+}
