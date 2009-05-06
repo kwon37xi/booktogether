@@ -1,0 +1,28 @@
+.join1 {
+	margin-left:100px;
+	width:600px;
+}
+
+hr {
+	border:1px #e1f0f5 dashed;
+}
+
+.join_label {
+	color:#c4dfe9;
+	text-align:center;
+	width:150px;
+	background-color: #6eaec9;
+}
+
+.join1 td{
+	border:3px #FFF solid;
+}
+
+.join1 thead td{
+	text-align:center;
+	height:40px;
+}
+
+.join1 tfoot td{
+	text-align:center;
+}

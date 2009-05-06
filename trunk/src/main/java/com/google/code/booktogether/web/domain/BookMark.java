@@ -25,6 +25,16 @@ public class BookMark extends BaseObject {
 	private Integer idNum;
 
 	/**
+	 * 사용자 정보
+	 */
+	private User user = new User();
+
+	/**
+	 * 책 정보
+	 */
+	private Book book = new Book();
+
+	/**
 	 * 페이지
 	 */
 	private Integer page;
@@ -43,16 +53,6 @@ public class BookMark extends BaseObject {
 	 * 인용구
 	 */
 	private String content;
-	
-	/**
-	 * 사용자 정보
-	 */
-	private User user;
-
-	/**
-	 * 책 정보
-	 */
-	private Book book;
 
 	@Override
 	public boolean equals(Object o) {

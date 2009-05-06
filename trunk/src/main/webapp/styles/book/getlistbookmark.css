@@ -1,0 +1,61 @@
+table {
+	margin-top: 10px;
+}
+
+table thead td {
+	height: 20px;
+	background-color: #e1f0f5;
+}
+
+.b_label {
+	padding: 5px 0;
+	text-align: center;
+	background-color: #e1f0f5;
+	width: 150px;
+}
+
+.b_label_c {
+	padding-left: 10px;
+	width: 400px;
+}
+
+#bookinfo {
+	width: 650px;
+	border: 1px #e1f0f5 dashed;
+	margin-left: 50px;
+}
+
+#bookinfo thead td {
+	padding: 10px 0;
+}
+
+.bookmark_list {
+	width: 650px;
+	border: 1px #e1f0f5 dashed;
+	margin-left: 50px;
+}
+
+.bookmark_list td {
+	padding: 5px 0;
+	padding-left: 2px;
+}
+
+.bookmark_list tfoot td {
+	text-align: center;
+}
+
+.page {
+	width:70px;
+}
+
+.content {
+	widith:400px;
+}
+
+.vibe {
+	width:100px;	
+}
+
+.func{
+	width:100px;
+}

@@ -2,9 +2,7 @@ package com.google.code.booktogether.service.impl;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -100,15 +98,9 @@ public class UserServiceImpl implements UserService {
 
 		List<Zone> zoneList = userJdbcDao.getZones(idNum);
 
-		for(Zone zone:zoneList){
-			
-			Set<Zone> zones=new HashSet<Zone>();
-			
-			zones.add(zone);
-			
-			user.setZones(zones);
-			
-		}
+		Zone[] zones = (Zone[]) zoneList.toArray(new Zone[zoneList.size()]);
+
+		user.setZones(zones);
 
 		return user;
 	}

@@ -1,0 +1,23 @@
+body {
+	position: relative;
+	width: 770px;
+	font: 12px ±¼¸²;
+	margin: 0 auto;
+	text-align: left;
+}
+
+html,body {
+	height: 100%;
+}
+
+img {
+	border: none;
+}
+
+.img_button {
+	cursor: pointer;
+}
+
+a {
+	text-decoration: none;
+}

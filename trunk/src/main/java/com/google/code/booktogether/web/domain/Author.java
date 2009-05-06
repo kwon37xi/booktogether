@@ -1,13 +1,5 @@
 package com.google.code.booktogether.web.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Column;
-import javax.persistence.Table;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -21,8 +13,6 @@ import com.google.code.booktogether.web.domain.base.BaseObject;
  * @author ParkHaeCheol
  * 
  */
-@Entity
-@Table(name="author")
 public class Author extends BaseObject {
 
 	private static final long serialVersionUID = 1L;
@@ -30,37 +20,19 @@ public class Author extends BaseObject {
 	/**
 	 * ID
 	 */
-	@Column(name="idNum")
 	private Integer idNum;
 
 	/**
 	 * 이름
 	 */
-	@Column(name="name")
 	private String name;
 
 	/**
 	 * 구분, 1: 지은이, 2: 옮김, 3: 원저자
 	 */
-	@Column(name="author_div")
+
 	private Integer authorDiv;
 
-	/**
-	 * 책 정보
-	 */
-	@ManyToOne
-	private Book book;
-
-	public Book getBook() {
-		return book;
-	}
-
-	public void setBook(Book book) {
-		this.book = book;
-	}
-
-	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
 	public Integer getIdNum() {
 		return idNum;
 	}
@@ -131,16 +103,16 @@ public class Author extends BaseObject {
 
 	@Override
 	public String toString() {
-
+		
 		// ToStringStyle은 출력 형태를 의미한다.
 		// TestObject가 BaseObject를 상속한 다른 클래스에서 상속 받았다면
 		// 맨 처음에 .appendSuper(super.toString())을 추가해준다.
-
+		
 		// ToStringBuilder에서 append("accountId", account.getId()) 처럼 다른 객체의 값을
 		// 출력할 때는
 		// 그 객체가 null인지 여부를 직접 검사한 뒤에 append해야 한다.
 		// 그렇지 않으면 toString()에서 NullPointerException이 발생할 수도 있다.
-
+		
 		ToStringBuilder tob = new ToStringBuilder(this,
 				ToStringStyle.MULTI_LINE_STYLE);
 
@@ -149,7 +121,7 @@ public class Author extends BaseObject {
 		tob.append("authorDiv", authorDiv);
 
 		return tob.toString();
-
+		
 	}
 
 }

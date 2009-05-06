@@ -1,9 +1,7 @@
 package com.google.code.booktogether.web.controller;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -90,12 +88,12 @@ public class UserController extends AbstractController {
 		// 이미지 만들기
 		String filename = userService.createImageResize(file, realPath);
 
-		Set<Zone> zones = null;
+		Zone[] zones = null;
 
 		// 지역명 세팅하기
 		if (zoneNames != null) {
 
-			zones = new HashSet<Zone>();
+			zones = new Zone[zoneNames.length];
 
 			for (int i = 0; i < zoneNames.length; i++) {
 
@@ -106,12 +104,12 @@ public class UserController extends AbstractController {
 					// 지역명은 숫자다.(일련번호)
 					zone.setZone(Integer.parseInt(zoneNames[i]));
 
-					zones.add(zone);
+					zones[i] = zone;
 				}
 
 			}
 		} else {
-			zones = new HashSet<Zone>();
+			zones = new Zone[0];
 		}
 
 		// 추가정보 빈에 세팅
@@ -363,12 +361,12 @@ public class UserController extends AbstractController {
 			}
 		}
 
-		Set<Zone> zones = null;
+		Zone[] zones = null;
 
 		if (zoneNames != null) {
 
 			// 지역명 가지고 오기
-			zones = new HashSet<Zone>();
+			zones = new Zone[zoneNames.length];
 
 			for (int i = 0; i < zoneNames.length; i++) {
 
@@ -379,13 +377,13 @@ public class UserController extends AbstractController {
 					zone.setUserIdNum(getLoginUserIdNum());
 					zone.setZone(Integer.parseInt(zoneNames[i]));
 
-					zones.add(zone);
+					zones[i] = zone;
 				}
 
 			}
 		} else {
 
-			zones = new HashSet<Zone>();
+			zones = new Zone[0];
 
 		}
 

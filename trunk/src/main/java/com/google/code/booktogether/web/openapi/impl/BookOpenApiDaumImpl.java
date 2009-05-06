@@ -7,9 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -178,23 +176,24 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 				book.setISBN13(isbn);
 			}
 
-			Set<Author> authors = new HashSet<Author>();
-
+			Author[] authors;
 			Author author = new Author();
 			author.setName(item.getChild("author").getText());
 			author.setAuthorDiv(0);
 
 			if (translator_name != null && !translator_name.equals("")) {
+				authors = new Author[2];
 
 				Author translator = new Author();
 				translator.setName(translator_name);
 				translator.setAuthorDiv(1);
 
-				authors.add(author);
-				authors.add(translator);
+				authors[0] = author;
+				authors[1] = translator;
 
 			} else {
-				authors.add(author);
+				authors = new Author[1];
+				authors[0] = author;
 			}
 
 			book.setAuthors(authors);
@@ -232,12 +231,12 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 			String isbn = item.getChild("isbn").getText();
 			book.setISBN10(isbn);
 
-			Set<Author> authors = new HashSet<Author>();
+			Author[] authors = new Author[1];
 
 			Author author = new Author();
 			author.setName(item.getChild("author").getText());
 			author.setAuthorDiv(0);
-			authors.add(author);
+			authors[0] = author;
 
 			book.setAuthors(authors);
 
@@ -252,7 +251,7 @@ public class BookOpenApiDaumImpl implements BookOpenApi {
 	private void xmlBookHeaderParse() {
 
 		Element child = xmldoc.getRootElement();
-
+		
 		header = new BookOpenApiHeader();
 		header.setTitle(child.getChildText("title"));
 		header.setTotalCount(child.getChildText("totalCount").trim());

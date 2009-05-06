@@ -1,9 +1,6 @@
 package com.google.code.booktogether.service.impl;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -74,20 +71,12 @@ public class BookServiceImpl implements BookService {
 			// 해당 책관련 지은이 가지고오기
 			List<Author> authorList = bookJdbcDao.getAuthor(book);
 
-			Set<Author> authors = new HashSet<Author>();
-
-			for (Author author : authorList) {
-
-				authors.add(author);
-
-			}
-
-			book.setAuthors(authors);
-
+			// List<Author> -> array로 변환
+			book.setAuthors((Author[]) authorList.toArray(new Author[authorList
+					.size()]));
 		}
 
 		return book;
-
 	}
 
 	@Override
@@ -96,7 +85,7 @@ public class BookServiceImpl implements BookService {
 
 		// 해당 책 있는지 체크
 		Book book = bookJdbcDao.getBook(isbn);
-
+		
 		// 해당책이 없을시
 		if (book == null) {
 
@@ -110,7 +99,7 @@ public class BookServiceImpl implements BookService {
 			book = bookJdbcDao.getBook(isbn);
 
 		} else {
-
+			
 			int count = bookJdbcDao.modifyBookHits(book.getIdNum());
 
 			if (count != 1) {
@@ -123,19 +112,11 @@ public class BookServiceImpl implements BookService {
 		List<Author> authorList = bookJdbcDao.getAuthor(book);
 
 		if (authorList != null) {
-
-			Set<Author> authors = new HashSet<Author>();
-
-			for (Author author : authorList) {
-				authors.add(author);
-			}
-
-			book.setAuthors(authors);
-
+			book.setAuthors((Author[]) authorList.toArray(new Author[authorList
+					.size()]));
 		}
 
 		return book;
-
 	}
 
 	@Override
@@ -173,14 +154,10 @@ public class BookServiceImpl implements BookService {
 				List<Author> authorList = bookJdbcDao
 						.getAuthor(bookList.get(i));
 
-				Set<Author> authors = new HashSet<Author>();
-
-				for (Author author : authorList) {
-					authors.add(author);
-				}
-
-				bookList.get(i).setAuthors(authors);
-
+				// List<Author> -> array로 변환
+				bookList.get(i).setAuthors(
+						(Author[]) authorList.toArray(new Author[authorList
+								.size()]));
 			}
 
 		}
