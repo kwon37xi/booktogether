@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<settings
+		cacheModelsEnabled="true"
+		enhancementEnabled="true"
+		lazyLoadingEnabled="true"
+		maxRequests="512"
+		maxSessions="128"
+		maxTransactions="32"
+		useStatementNamespaces="true"
+	/>
+	
+    <typeAlias alias="str" type="com.ens.common.ibatis.StrDomain"/>
+	<typeAlias alias="num" type="com.ens.common.ibatis.NumDomain"/>
+
+ 	<sqlMap resource="com/ens/sql/HospiMgt.xml"/>
+ 	<sqlMap resource="com/ens/sql/Common.xml"/>
+ 	<sqlMap resource="com/ens/sql/MemMgt.xml"/>
+ 	<sqlMap resource="com/ens/sql/PetMgt.xml"/>
+ 	<sqlMap resource="com/ens/sql/ReserMgt.xml"/>
+ 	<sqlMap resource="com/ens/sql/DiagMgt.xml"/>
+</sqlMapConfig>
