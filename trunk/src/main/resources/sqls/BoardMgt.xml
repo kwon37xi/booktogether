@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="COMMON">
+
+	<!-- 
+		BOARD Table infomation
+		Column_Name    ID      PK      Null?		DATA_TYPE     Default
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		seq			   1	   Y	   N			NUMBER(5)	  
+		title		   2			   N			VARCHAR2(40)   
+		pw		   	   3			   N			VARCHAR2(15)
+		ip	    	   4			   N			CHAR(15)   
+		insert_date	   5			   N			DATE   
+		hits		   6			   N			NUMBER(5)   
+		update_date    7			   N           	DATE			
+		t_level		   8		       N     		NUMBER(5)	 			
+		t_step		   9		       N     		NUMBER(2)		
+		t_ref		   10			   N       	    NUMBER(5)	
+		delete_y_n	   11			   N        	NUMBER(1)				
+		board_mgt_seq  12 		       N      		NUMBER(2)
+		writer		   13		       N    		NUMBER(5)				
+		contents	   14              N            LONG    	
+		
+		
+	 -->
+	 <!-- 
+		BOARD_MGT Table infomation
+		Column_Name    ID      PK      Null?		DATA_TYPE     Default
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		seq			   1	   Y	   N			NUMBER(2)	  
+		title		   2			   N			VARCHAR2(20)   
+		reply_y_n		   	   3			   N			NUMBER(1)
+	 -->
+	 
+	 <!-- 
+		ATTACH_DOWN_INFO Table infomation
+		Column_Name    ID      PK      Null?		DATA_TYPE     Default
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		seq			   1	   Y	   N			NUMBER(5)	  
+		down_date	   2			   N			DATE   
+		attachfile_seq 3		   	   N			NUMBER(5)
+		member_seq	   4			   N			NUMBER(5)   
+				
+	 -->
+	 <!-- 
+		BOARD_ATTACHFILE Table infomation
+		Column_Name    ID      PK      Null?		DATA_TYPE     Default
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		seq			   1	   Y	   N			NUMBER(5)	  
+		file_name	   2			   N			VARCHAR2(100)   
+		temp_file_name 3			   N			VARCHAR2(100)
+		download_num   4			   N			NUMBER(5)   
+		board_seq	   5			   N			NUMBER(5) 
+		
+	 -->
+	  <!-- 
+		NOTICE Table infomation
+		Column_Name    ID      PK      Null?		DATA_TYPE     Default
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		seq			   1	   Y	   N			NUMBER(5)	  
+		insert_date	   2			   N			DATE   
+		display_date1  3			   N			DATE
+		display_date2  4			   N			DATE  
+		grade    	   5			   N			CHAR(1) 
+		title          6               N            VARCHAR2(40)
+		contets        7               N            LONG
+		delete_y_n     8               N            NUMBER(1) 
+		hits	       9               N            NUMBER(5)
+	 -->
+
+
+	<typeAlias alias="ZipCodeDomain" type="com.ens.common.model.Zipcode"/>
+	
+	
+	<resultMap id="Zipcode" class="ZipCodeDomain">
+		<result property="seq"			column="seq"		 javaType="Integer"/>
+		<result property="zipcode"		column="zipcode"	 javaType="String" nullValue=""/>
+		<result property="sido"	 		column="sido"		 javaType="String" nullValue=""/>
+		<result property="gugun"		column="gugun"		 javaType="String" nullValue=""/>
+		<result property="dong"			column="dong" 		 javaType="String" nullValue=""/>
+		<result property="bunji"		column="bunji"		 javaType="String" nullValue=""/>
+	</resultMap>
+	
+	<!-- 우편번호 검색 -->
+	<select id="searchZipcode" parameterClass="java.lang.String" resultMap="Zipcode">
+		<![CDATA[
+			SELECT seq, zipcode, sido, gugun, dong, bunji 
+			FROM ZIPCODE  
+			WHERE gugun LIKE '%' || #word# || '%' or dong LIKE '%' || #word# || '%'
+		]]>
+	</select>
+	
+</sqlMap>
