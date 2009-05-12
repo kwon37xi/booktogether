@@ -8,7 +8,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko"> 
 	<head>
-		<title><decorator:title default="Java Spring 2.5 기반 책 함께보기" /></title>
+		<title><decorator:title default="차세대 교통정보 시스템 프로젝트" /></title>
 		<link href="/styles/common/popupdefault.css" rel="stylesheet" type="text/css"/>
 		
 		<script type="text/javascript" charset="utf-8" src="/scripts/common/jquery.js"></script>
