@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.google.code.booktogether.dao.LibraryBoardDao;
@@ -16,7 +17,7 @@ import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.LibraryBoard;
 
 @Repository("libraryBoardJdbcDao")
-public class LibraryBoardDaoJdbcImpl extends SimpleJdbcDaoSupport implements
+public class LibraryBoardDaoIbatisImpl extends SqlMapClientDaoSupport implements
 		LibraryBoardDao {
 
 	@Resource(name = "SqlParser")

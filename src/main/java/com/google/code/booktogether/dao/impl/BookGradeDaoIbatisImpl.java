@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.google.code.booktogether.dao.BookGradeDao;
@@ -15,7 +16,7 @@ import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.BookGrade;
 
 @Repository("bookGradeJdbcDao")
-public class BookGradeDaoJdbcImpl extends SimpleJdbcDaoSupport implements
+public class BookGradeDaoIbatisImpl extends SqlMapClientDaoSupport implements
 		BookGradeDao {
 
 	@Resource(name = "dataSource")

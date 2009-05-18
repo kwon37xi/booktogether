@@ -9,14 +9,15 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import com.google.code.booktogether.dao.RecoBookDao;
+import com.google.code.booktogether.dao.BestSellersDao;
 import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 
-@Repository("recoBookJdbcDao")
-public class RecoDaoJdbcImpl extends SimpleJdbcDaoSupport implements
-		RecoBookDao {
+@Repository("bestSellersJdbcDao")
+public class BestSellersDaoIbatisImpl extends SqlMapClientDaoSupport implements
+		BestSellersDao {
 
 	@Resource(name = "SqlParser")
 	SqlParserXmlImpl sqlparser;
@@ -27,9 +28,9 @@ public class RecoDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	}
 
 	@Override
-	public List<Integer> getListRecoBook() {
+	public List<Integer> getListBestSellers() {
 
-		String sql = sqlparser.getSQL("recobook", "LIST_RECOBOOK_SQL");
+		String sql = sqlparser.getSQL("bestsellers", "LIST_BESTSELLERS_SQL");
 
 		return getSimpleJdbcTemplate().query(sql,
 				new ParameterizedRowMapper<Integer>() {
@@ -43,9 +44,9 @@ public class RecoDaoJdbcImpl extends SimpleJdbcDaoSupport implements
 	}
 
 	@Override
-	public int insertRecoBook(Integer bookIdNum) {
+	public int insertBestSellers(Integer bookIdNum) {
 
-		String sql = sqlparser.getSQL("recobook", "INSERT_RECOBOOK_SQL");
+		String sql = sqlparser.getSQL("bestsellers", "INSERT_BESTSELLERS_SQL");
 
 		return getSimpleJdbcTemplate().update(sql, new Object[] { bookIdNum });
 	}

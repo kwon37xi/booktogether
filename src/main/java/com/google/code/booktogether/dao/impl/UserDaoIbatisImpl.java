@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.google.code.booktogether.dao.UserDao;
@@ -25,7 +26,7 @@ import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
 
 @Repository("userJdbcDao")
-public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
+public class UserDaoIbatisImpl extends SqlMapClientDaoSupport implements UserDao {
 
 	@Resource(name = "SqlParser")
 	SqlParserXmlImpl sqlparser;
@@ -38,9 +39,7 @@ public class UserDaoJdbcImpl extends SimpleJdbcDaoSupport implements UserDao {
 	@Override
 	public int deleteUser(int id) {
 
-		String sql = sqlparser.getSQL("user", "DELETE_USER_SQL");
-
-		return getSimpleJdbcTemplate().update(sql, new Object[] { id });
+		return (Integer)getSqlMapClientTemplate().update("COMMON.searchZipcode",id);
 	}
 
 	@Override

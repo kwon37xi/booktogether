@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.BookMarkDao;
 import com.google.code.booktogether.dao.rowmapper.BookMarkRowMapper;
@@ -16,7 +17,7 @@ import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.BookMark;
 
 @Repository("bookMarkJdbcDao")
-public class BookMarkDaoJdbcImpl extends SimpleJdbcDaoSupport implements
+public class BookMarkDaoIbatisImpl extends SqlMapClientDaoSupport implements
 		BookMarkDao {
 
 	@Resource(name = "dataSource")
