@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.google.code.booktogether.dao.BlogDao;
@@ -18,7 +19,7 @@ import com.google.code.booktogether.web.domain.ReviewBlogPost;
 import com.google.code.booktogether.web.domain.UserBlog;
 
 @Repository("blogJdbcDao")
-public class BlogDaoJdbcImpl extends SimpleJdbcDaoSupport implements BlogDao {
+public class BlogDaoIbatisImpl extends SqlMapClientDaoSupport implements BlogDao {
 
 	@Resource(name = "SqlParser")
 	SqlParserXmlImpl sqlparser;

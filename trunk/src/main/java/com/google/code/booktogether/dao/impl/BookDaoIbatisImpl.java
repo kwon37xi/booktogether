@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.BookDao;
 import com.google.code.booktogether.dao.rowmapper.AuthorRowMapper;
@@ -19,7 +20,7 @@ import com.google.code.booktogether.web.domain.Author;
 import com.google.code.booktogether.web.domain.Book;
 
 @Repository("bookJdbcDao")
-public class BookDaoJdbcImpl extends SimpleJdbcDaoSupport implements BookDao {
+public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao {
 
 	@Resource(name = "dataSource")
 	public void setJdbcDao(DataSource dataSource) {

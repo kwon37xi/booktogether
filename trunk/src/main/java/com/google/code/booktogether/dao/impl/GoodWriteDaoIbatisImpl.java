@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.google.code.booktogether.dao.GoodWriterDao;
@@ -16,7 +17,7 @@ import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.GoodWriter;
 
 @Repository("goodWriterJdbcDao")
-public class GoodWriteDaoJdbcImpl extends SimpleJdbcDaoSupport implements
+public class GoodWriteDaoIbatisImpl extends SqlMapClientDaoSupport implements
 		GoodWriterDao {
 
 	@Resource(name = "SqlParser")

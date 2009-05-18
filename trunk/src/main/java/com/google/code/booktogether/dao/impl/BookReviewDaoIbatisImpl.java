@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.BookReviewDao;
 import com.google.code.booktogether.dao.rowmapper.BookReviewDetailRowMapper;
@@ -14,7 +15,7 @@ import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.BookReview;
 
 @Repository("bookReviewJdbcDao")
-public class BookReviewDaoJdbcImpl extends SimpleJdbcDaoSupport implements
+public class BookReviewDaoIbatisImpl extends SqlMapClientDaoSupport implements
 		BookReviewDao {
 
 	@Resource(name = "dataSource")

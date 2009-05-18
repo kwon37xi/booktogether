@@ -17,10 +17,10 @@
     <typeAlias alias="str" type="com.ens.common.ibatis.StrDomain"/>
 	<typeAlias alias="num" type="com.ens.common.ibatis.NumDomain"/>
 
- 	<sqlMap resource="com/ens/sql/HospiMgt.xml"/>
- 	<sqlMap resource="com/ens/sql/Common.xml"/>
- 	<sqlMap resource="com/ens/sql/MemMgt.xml"/>
- 	<sqlMap resource="com/ens/sql/PetMgt.xml"/>
- 	<sqlMap resource="com/ens/sql/ReserMgt.xml"/>
- 	<sqlMap resource="com/ens/sql/DiagMgt.xml"/>
+ 	<sqlMap resource="sql/HospiMgt.xml"/>
+ 	<sqlMap resource="sql/Common.xml"/>
+ 	<sqlMap resource="sql/MemMgt.xml"/>
+ 	<sqlMap resource="sql/PetMgt.xml"/>
+ 	<sqlMap resource="sql/ReserMgt.xml"/>
+ 	<sqlMap resource="sql/DiagMgt.xml"/>
 </sqlMapConfig>
