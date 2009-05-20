@@ -22,22 +22,12 @@ import com.google.code.booktogether.web.domain.Book;
 @Repository("bookJdbcDao")
 public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao {
 
-	@Resource(name = "dataSource")
-	public void setJdbcDao(DataSource dataSource) {
-		setDataSource(dataSource);
-	}
-
-	@Resource(name = "SqlParser")
-	SqlParserXmlImpl sqlparser;
-
 	// 책 조회
 	@Override
 	public Book getBook(Integer bookIdNum) {
 
-		String sql = sqlparser.getSQL("book", "GET_BOOK_ID_SQL");
-
-		return (Book) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
-				.query(sql, new BookRowMapper(), new Object[] { bookIdNum }));
+		return (Book) getSqlMapClientTemplate()
+				.queryForObject("BOOKDAO.GET_BOOK_ID_SQL", bookIdNum);
 	}
 
 	// 책 등록
@@ -46,7 +36,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 
 		String sql = sqlparser.getSQL("book", "INSERT_BOOK_SQL");
 
-		return getSimpleJdbcTemplate().update(
+		return getSqlMapClientTemplate().update(
 				sql,
 				new Object[] { book.getName(), book.getISBN10(),
 						book.getISBN13(), book.getPublishComp(),
@@ -61,7 +51,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 
 		String sql = sqlparser.getSQL("book", "INSERT_AUTHOR_SQL");
 
-		return getSimpleJdbcTemplate().update(
+		return getSqlMapClientTemplate().update(
 				sql,
 				new Object[] { author.getName(), author.getAuthorDiv(),
 						userIdNum });
@@ -73,7 +63,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 
 		String sql = sqlparser.getSQL("book", "GET_AUTHORS_SQL");
 
-		return getSimpleJdbcTemplate().query(sql, new AuthorRowMapper(),
+		return getSqlMapClientTemplate().query(sql, new AuthorRowMapper(),
 				new Object[] { book.getIdNum() });
 	}
 
@@ -83,7 +73,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 
 		String sql = sqlparser.getSQL("book", "GET_BOOK_ISBN_SQL");
 
-		return (Book) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
+		return (Book) getSqlMapClientTemplate()
 				.query(sql, new BookRowMapper(), new Object[] { isbn, isbn }));
 	}
 
@@ -92,8 +82,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 
 		String sql = sqlparser.getSQL("book", "GET_AUTHOR_SQL");
 
-		return (Author) DataAccessUtils
-				.singleResult(getSimpleJdbcTemplate().query(sql,
+		return (Author)getSqlMapClientTemplate().query(sql,
 						new AuthorRowMapper(), new Object[] { authorIdNum }));
 
 	}
@@ -103,7 +92,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 
 		String sql = sqlparser.getSQL("book", "GET_LAST_NUM");
 
-		return getSimpleJdbcTemplate().queryForInt(sql);
+		return getSqlMapClientTemplate().queryForInt(sql);
 	}
 
 	@Override
@@ -112,7 +101,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 
 		String sql = sqlparser.getSQL("book", "LIST_BOOK_REF_BOOKMARK_SQL");
 
-		return getSimpleJdbcTemplate().query(sql, new BookSimpleRowMapper(),
+		return getSqlMapClientTemplate().query(sql, new BookSimpleRowMapper(),
 				new Object[] { userIdNum, startRow, endRow });
 	}
 
@@ -122,7 +111,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 		String sql = sqlparser.getSQL("book",
 				"GET_DBCOUNT_BOOK_REF_BOOKMARK_SQL");
 
-		return getSimpleJdbcTemplate().queryForInt(sql,
+		return getSqlMapClientTemplate().queryForInt(sql,
 				new Object[] { userIdNum });
 
 	}
@@ -131,15 +120,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 	public List<String> getListSearchRankQuery() {
 		String sql = sqlparser.getSQL("book", "LIST_SEARCH_QUERY_RANK_SQL");
 
-		List<String> libraryBoardList = getSimpleJdbcTemplate().query(sql,
-				new ParameterizedRowMapper<String>() {
-
-					@Override
-					public String mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-						return rs.getString("QUERY");
-					}
-				}, new Object[] {});
+		List<String> libraryBoardList = getSqlMapClientTemplate().queryForList(sql);
 
 		return libraryBoardList;
 	}
@@ -149,7 +130,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 
 		String sql = sqlparser.getSQL("book", "INSERT_QUERY_RANK_SQL");
 
-		return getSimpleJdbcTemplate().update(sql, new Object[] { query });
+		return getSqlMapClientTemplate().update(sql, new Object[] { query });
 	}
 
 	@Override
@@ -157,7 +138,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 
 		String sql = sqlparser.getSQL("book", "MODIFY_SEARCH_QUERY_RANK_SQL");
 
-		return getSimpleJdbcTemplate().update(sql, new Object[] { query });
+		return getSqlMapClientTemplate().update(sql, new Object[] { query });
 	}
 
 	@Override
@@ -165,7 +146,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 
 		String sql = sqlparser.getSQL("book", "INSERT_BOOKHITS_SQL");
 
-		return getSimpleJdbcTemplate().update(sql, new Object[] { bookIdNum });
+		return getSqlMapClientTemplate().update(sql, new Object[] { bookIdNum });
 
 	}
 
@@ -174,7 +155,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 		
 		String sql = sqlparser.getSQL("book", "MODIFY_BOOKHITS_SQL");
 
-		return getSimpleJdbcTemplate().update(sql, new Object[] { bookIdNum });
+		return getSqlMapClientTemplate().update(sql, new Object[] { bookIdNum });
 
 	}
 
@@ -183,7 +164,7 @@ public class BookDaoIbatisImpl extends SqlMapClientDaoSupport implements BookDao
 
 		String sql = sqlparser.getSQL("book", "LIST_TOPBOOKHITS_SQL");
 
-		return getSimpleJdbcTemplate().query(sql,
+		return getSqlMapClientTemplate().query(sql,
 				new ParameterizedRowMapper<Book>() {
 
 					@Override
