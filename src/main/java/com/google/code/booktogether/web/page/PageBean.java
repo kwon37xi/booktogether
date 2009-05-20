@@ -69,6 +69,14 @@ public class PageBean {
 	
 	
 	
+	public PageBean(){}
+	
+
+	public PageBean(Integer startRow,Integer endRow) {
+		super();
+		this.endRow = endRow;
+		this.startRow = startRow;
+	}
 
 	public void setPageNo(Integer pageNo) {
 		this.pageNo = pageNo;

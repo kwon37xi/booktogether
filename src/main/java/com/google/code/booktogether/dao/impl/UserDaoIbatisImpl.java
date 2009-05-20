@@ -1,172 +1,110 @@
 package com.google.code.booktogether.dao.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
-
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
-import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-import org.springframework.stereotype.Repository;
-
 import com.google.code.booktogether.dao.UserDao;
-import com.google.code.booktogether.dao.rowmapper.UserPwRowMapper;
-import com.google.code.booktogether.dao.rowmapper.UserRowMapper;
-import com.google.code.booktogether.dao.rowmapper.ZipcodeRowMapper;
-import com.google.code.booktogether.dao.rowmapper.ZoneRowMapper;
-import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.User;
 import com.google.code.booktogether.web.domain.UserAddInfo;
 import com.google.code.booktogether.web.domain.UserPw;
 import com.google.code.booktogether.web.domain.Zipcode;
 import com.google.code.booktogether.web.domain.Zone;
+import com.google.code.booktogether.web.page.PageBean;
 
-@Repository("userJdbcDao")
-public class UserDaoIbatisImpl extends SqlMapClientDaoSupport implements UserDao {
-
-	@Resource(name = "SqlParser")
-	SqlParserXmlImpl sqlparser;
-
-	@Resource(name = "dataSource")
-	public void setJdbcDao(DataSource dataSource) {
-		setDataSource(dataSource);
-	}
+public class UserDaoIbatisImpl extends SqlMapClientDaoSupport implements
+		UserDao {
 
 	@Override
 	public int deleteUser(int id) {
 
-		return (Integer)getSqlMapClientTemplate().update("COMMON.searchZipcode",id);
+		return (Integer) getSqlMapClientTemplate().update("USERDAO.deleteUser",
+				id);
 	}
 
 	@Override
 	public int getDbCount() {
 
-		String sql = sqlparser.getSQL("user", "DBCOUNT_USER_SQL");
-
-		return getSimpleJdbcTemplate().queryForInt(sql);
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"USERDAO.DBCOUNT_USER_SQL");
 
 	}
 
 	@Override
 	public int getLastNumIncrement() {
 
-		String sql = sqlparser.getSQL("user", "GET_LAST_NUM");
-
-		return getSimpleJdbcTemplate().queryForInt(sql);
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"USERDAO.GET_LAST_NUM");
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<User> getListUser(Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("user", "LIST_USER_SQL");
-
-		return getSimpleJdbcTemplate().query(sql, new UserRowMapper(),
-				new Object[] { startRow, endRow });
+		return (List<User>) getSqlMapClientTemplate().queryForList("USERDAO.LIST_USER_SQL",
+				new PageBean(startRow, endRow));
 	}
 
 	@Override
 	public User getUser(Integer userId) {
 
-		String sql = sqlparser.getSQL("user", "GET_USER_SQL");
-
-		return (User) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
-				.query(sql, new UserRowMapper(), new Object[] { userId }));
+		return (User) getSqlMapClientTemplate().queryForList("USERDAO.GET_USER_SQL", userId);
 
 	}
 
 	@Override
 	public int insertUser(User user) {
 
-		String sql = sqlparser.getSQL("user", "INSERT_USER_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { user.getUserId(), user.getEmail(),
-						user.getNickname(), user.getName() });
+		return (Integer) getSqlMapClientTemplate().update("USERDAO.INSERT_USER_SQL", user);
 
 	}
 
 	@Override
 	public int modifyUser(User user) {
 
-		String sql = sqlparser.getSQL("user", "MODIFY_USER_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { user.getEmail(), user.getNickname(),
-						user.getName(), user.getIdNum() });
+		return (Integer) getSqlMapClientTemplate().update("USERDAO.MODIFY_USER_SQL");
 
 	}
 
 	@Override
 	public int modifyUserAddInfo(UserAddInfo userAddInfo) {
 
-		String sql = sqlparser.getSQL("user", "MODIFY_USERADDINFO_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { userAddInfo.getBlog(),
-						userAddInfo.getThumnail(), userAddInfo.getIdNum() });
+		return (Integer) getSqlMapClientTemplate().update("USERDAO.MODIFY_USERADDINFO_SQL", userAddInfo);
 
 	}
 
 	@Override
 	public int modifyUserPw(UserPw userpw) {
 
-		String sql = sqlparser.getSQL("user", "MODIFY_USER_PW_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { userpw.getDigest(), userpw.getSalt(),
-						userpw.getUserIdNum() });
+		return (Integer) getSqlMapClientTemplate().update("USERDAO.MODIFY_USER_PW_SQL", userpw);
 
 	}
 
 	@Override
 	public int insertUserPw(UserPw userPw) {
 
-		String sql = sqlparser.getSQL("user", "INSERT_USER_PW_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { userPw.getUserIdNum(), userPw.getDigest(),
-						userPw.getSalt() });
+		return (Integer) getSqlMapClientTemplate().update("USERDAO.INSERT_USER_PW_SQL", userPw);
 	}
 
 	@Override
 	public UserPw getUserPw(Integer userIdNum) {
 
-		String sql = sqlparser.getSQL("user", "GET_USER_PW_SQL");
-
-		return (UserPw) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
-				.query(sql, new UserPwRowMapper(), new Object[] { userIdNum }));
+		return (UserPw) getSqlMapClientTemplate()
+				.queryForObject("USERDAO.GET_USER_PW_SQL", userIdNum);
 	}
 
 	@Override
 	public User isExistUser(String userId) {
 
-		String sql = sqlparser.getSQL("user", "EXIST_USER_SQL");
-
-		return (User) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
-				.query(sql, new UserRowMapper(), new Object[] { userId }));
+		return (User) getSqlMapClientTemplate().queryForObject("USERDAO.EXIST_USER_SQL", userId);
 	}
 
 	@Override
 	public String findId(User user) {
 
-		String sql = sqlparser.getSQL("user", "FIND_USER_ID_SQL");
-
-		Class<String> returnValue = null;
-
 		String userId = null;
 
 		try {
-			userId = getSimpleJdbcTemplate().queryForObject(sql, returnValue,
-					new Object[] { user.getName(), user.getEmail() });
+			userId = (String) getSqlMapClientTemplate().queryForObject("USERDAO.FIND_USER_ID_SQL",
+					user);
 		} catch (Exception e) {
 			return "";
 		}
@@ -182,90 +120,56 @@ public class UserDaoIbatisImpl extends SqlMapClientDaoSupport implements UserDao
 	@Override
 	public User findPw(User user) {
 
-		String sql = sqlparser.getSQL("user", "FIND_USER_PW_SQL");
-
-		return (User) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
-				.query(
-						sql,
-						new UserRowMapper(),
-						new Object[] { user.getUserId(), user.getName(),
-								user.getEmail() }));
+		return (User) getSqlMapClientTemplate().queryForObject("USERDAO.FIND_USER_PW_SQL", user);
 	}
 
 	@Override
 	public int insertUserAddInfo(UserAddInfo userAddInfo) {
 
-		String sql = sqlparser.getSQL("user", "INSERT_USERADDINFO_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { userAddInfo.getUserIdNum(),
-						userAddInfo.getBlog(), userAddInfo.getThumnail() });
+		return getSqlMapClientTemplate().update("USERDAO.INSERT_USERADDINFO_SQL", userAddInfo);
 	}
 
 	@Override
 	public int insertZone(Zone zone) {
 
-		String sql = sqlparser.getSQL("user", "INSERT_ZONE_SQL");
-
-		return getSimpleJdbcTemplate().update(sql,
-				new Object[] { zone.getUserIdNum(), zone.getZone() });
+		return getSqlMapClientTemplate().update("USERDAO.INSERT_ZONE_SQL", zone);
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Zone> getZones(Integer userIdNum) {
 
-		String sql = sqlparser.getSQL("user", "GET_ZONE_SQL");
-
-		return getSimpleJdbcTemplate().query(sql, new ZoneRowMapper(),
-				new Object[] { userIdNum });
+		return getSqlMapClientTemplate().queryForList("USERDAO.GET_ZONE_SQL", userIdNum);
 
 	}
 
 	@Override
+	// 여기 조금 봐야겠다.
 	public int deleteZone(Integer zoneIdNum, Integer userIdNum) {
 
-		String sql = sqlparser.getSQL("user", "DELETE_ZONE_SQL");
-
-		return getSimpleJdbcTemplate().update(sql,
+		return getSqlMapClientTemplate().update("USERDAO.DELETE_ZONE_SQL",
 				new Object[] { zoneIdNum, userIdNum });
 	}
 
 	@Override
 	public int duplicateUserId(String userId) {
 
-		String sql = sqlparser.getSQL("user", "DUPLICATE_USER_ID_SQL");
-
-		return getSimpleJdbcTemplate()
-				.queryForInt(sql, new Object[] { userId });
+		return (Integer) getSqlMapClientTemplate().queryForObject("USERDAO.DUPLICATE_USER_ID_SQL", userId);
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Zipcode> getListZipcode(String addr) {
 
-		String sql = sqlparser.getSQL("user", "LIST_ZIPCODE_SQL");
-
-		return getSimpleJdbcTemplate().query(
-				sql,
-				new ZipcodeRowMapper(),
-				new Object[] { "%" + addr + "%", "%" + addr + "%",
-						"%" + addr + "%" });
+		return getSqlMapClientTemplate().queryForList("USERDAO.LIST_ZIPCODE_SQL", "%" + addr + "%");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getListUserAddr(String userId) {
-		
-		String sql = sqlparser.getSQL("user", "LIST_ZONENAME_SQL");
 
-		return getSimpleJdbcTemplate().query(sql,
-				new ParameterizedRowMapper<String>() {
-					@Override
-					public String mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-
-						return rs.getString("zone_name");
-					}
-				}, new Object[] { userId });
+		return (List<String>) getSqlMapClientTemplate().queryForList("USERDAO.LIST_ZONENAME_SQL",
+				userId);
 	}
 
 }
