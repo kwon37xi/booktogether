@@ -1,29 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<sqls name="bestsellers">
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
+<sqlMap namespace="BESTSELLER">
 
-	<sql name="LIST_BESTSELLERS_SQL">
-		<description>베스트셀러 목록</description>
-		<query>
-            <![CDATA[
-             SELECT book_idNum as BIDNUM
+	<typeAlias alias="ZipCodeDomain" type="com.ens.common.model.Zipcode"/>
+	
+	
+	<resultMap id="Zipcode" class="ZipCodeDomain">
+		<result property="seq"			column="seq"		 javaType="Integer"/>
+		<result property="zipcode"		column="zipcode"	 javaType="String" nullValue=""/>
+		<result property="sido"	 		column="sido"		 javaType="String" nullValue=""/>
+		<result property="gugun"		column="gugun"		 javaType="String" nullValue=""/>
+		<result property="dong"			column="dong" 		 javaType="String" nullValue=""/>
+		<result property="bunji"		column="bunji"		 javaType="String" nullValue=""/>
+	</resultMap>
+	
+	<!-- 우편번호 검색 -->
+	<select id="LIST_BESTSELLERS_SQL" parameterClass="java.lang.String" resultMap="Zipcode">
+		<![CDATA[
+			SELECT book_idNum as BIDNUM
   			   FROM BESTSELLERS 
               WHERE MONTHNAME(input_date) = MONTHNAME(now())
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="INSERT_BESTSELLERS_SQL">
-		<description>베스트 셀러 등록</description>
-		<query>
-            <![CDATA[
-            INSERT INTO BESTSELLERS (input_date, book_idNum) 
+		]]>
+	</select>
+	
+	<select id="INSERT_BESTSELLERS_SQL" parameterClass="java.lang.String" resultMap="Zipcode">
+		<![CDATA[
+			 INSERT INTO BESTSELLERS (input_date, book_idNum) 
             VALUES(now(), ?)
-            ]]>
-		</query>
-	</sql>
-
-
-</sqls>
+		]]>
+	</select>
+	
+</sqlMap>

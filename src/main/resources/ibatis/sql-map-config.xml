@@ -14,13 +14,20 @@
 		useStatementNamespaces="true"
 	/>
 	
-    <typeAlias alias="str" type="com.ens.common.ibatis.StrDomain"/>
-	<typeAlias alias="num" type="com.ens.common.ibatis.NumDomain"/>
+    <typeAlias alias="str" type="com.google.code.booktogether.dao.ibatis.StrDomain"/>
+	<typeAlias alias="num" type="com.google.code.booktogether.dao.ibatis.NumDomain"/>
 
- 	<sqlMap resource="sql/HospiMgt.xml"/>
- 	<sqlMap resource="sql/Common.xml"/>
- 	<sqlMap resource="sql/MemMgt.xml"/>
- 	<sqlMap resource="sql/PetMgt.xml"/>
- 	<sqlMap resource="sql/ReserMgt.xml"/>
- 	<sqlMap resource="sql/DiagMgt.xml"/>
+ 	<sqlMap resource="bestsellerssqls.xml"/>
+ 	<sqlMap resource="blogsqls.xml"/>
+ 	<sqlMap resource="bookmarksqls.xml"/>
+ 	<sqlMap resource="booksqls.xml"/>
+ 	<sqlMap resource="goodwritersqls.xml"/>
+ 	<sqlMap resource="gradesqls.xml"/>
+ 	<sqlMap resource="librarybooksqls.xml"/>
+ 	<sqlMap resource="libraryboardsqls.xml"/>
+ 	<sqlMap resource="possessbooksqls.xml"/>
+ 	<sqlMap resource="recobooksqls.xml"/>
+ 	<sqlMap resource="reviewsqls.xml"/>
+ 	<sqlMap resource="usersqls.xml"/>
+ 	
 </sqlMapConfig>
