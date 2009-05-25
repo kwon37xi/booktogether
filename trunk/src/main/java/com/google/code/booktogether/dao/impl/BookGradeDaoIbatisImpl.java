@@ -1,110 +1,87 @@
 package com.google.code.booktogether.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
-
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import java.util.Map;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-import org.springframework.stereotype.Repository;
-
 import com.google.code.booktogether.dao.BookGradeDao;
-import com.google.code.booktogether.dao.rowmapper.BookGradeRowMapper;
-import com.google.code.booktogether.dao.rowmapper.MyBookGradeRowMapper;
-import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.BookGrade;
 
-@Repository("bookGradeJdbcDao")
 public class BookGradeDaoIbatisImpl extends SqlMapClientDaoSupport implements
 		BookGradeDao {
-
-	@Resource(name = "dataSource")
-	public void setJdbcDao(DataSource dataSource) {
-		setDataSource(dataSource);
-	}
-
-	@Resource(name = "SqlParser")
-	SqlParserXmlImpl sqlparser;
 
 	@Override
 	public int insertGrade(BookGrade bookGrade) {
 
-		String sql = sqlparser.getSQL("bookGrade", "INSERT_BOOKGRADE_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { bookGrade.getBook().getIdNum(),
-						bookGrade.getUser().getIdNum(), bookGrade.getGrade() });
+		return getSqlMapClientTemplate().update(
+				"BOOKGRADEDAO.INSERT_BOOKGRADE_SQL", bookGrade);
 	}
 
 	@Override
 	public int modifyGrade(BookGrade bookGrade) {
 
-		String sql = sqlparser.getSQL("bookgGade", "MODIFY_BOOKGRADE_SQL");
-
-		return getSimpleJdbcTemplate().update(sql,
-				new Object[] { bookGrade.getGrade(), bookGrade.getIdNum() });
+		return getSqlMapClientTemplate().update(
+				"BOOKGRADEDAO.MODIFY_BOOKGRADE_SQL", bookGrade);
 	}
 
 	@Override
 	public int deleteGrade(BookGrade bookGrade) {
 
-		String sql = sqlparser.getSQL("bookGrade", "DELETE_BOOKGRADE_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { bookGrade.getIdNum(),
-						bookGrade.getBook().getIdNum(),
-						bookGrade.getUser().getIdNum() });
+		return getSqlMapClientTemplate().update(
+				"BOOKGRADEDAO.DELETE_BOOKGRADE_SQL", bookGrade);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<BookGrade> getListBookGrade(Integer bookIdNum,
 			Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("bookGrade", "LIST_BOOKGRADE_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bookIdNum", bookIdNum);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 
-		return getSimpleJdbcTemplate().query(sql, new BookGradeRowMapper(),
-				new Object[] { bookIdNum, startRow, endRow });
+		return (List<BookGrade>) getSqlMapClientTemplate().queryForList(
+				"BOOKGRADEDAO.LIST_BOOKGRADE_SQL", map);
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<BookGrade> getListMyBookGrade(Integer userIdNum,
 			Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("bookGrade", "LIST_MYBOOKGRADE_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userIdNum", userIdNum);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 
-		return getSimpleJdbcTemplate().query(sql, new MyBookGradeRowMapper(),
-				new Object[] { userIdNum, startRow, endRow });
+		return (List<BookGrade>) getSqlMapClientTemplate().queryForList(
+				"BOOKGRADEDAO.LIST_MYBOOKGRADE_SQL", map);
 	}
 
 	@Override
 	public int isExistGrade(Integer bookIdNum, Integer userIdNum) {
 
-		String sql = sqlparser.getSQL("bookGrade", "EXIST_MYBOOKGRADE_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bookIdNum", bookIdNum);
+		map.put("userIdNum", userIdNum);
 
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { bookIdNum, userIdNum });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"BOOKGRADEDAO.EXIST_MYBOOKGRADE_SQL", map);
 	}
 
 	@Override
 	public int getDbCountBookGrade(Integer bookIdNum) {
-		
-		String sql = sqlparser.getSQL("bookGrade", "GET_DBCOUNT_BOOKGRADE_SQL");
 
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { bookIdNum });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"BOOKGRADEDAO.GET_DBCOUNT_BOOKGRADE_SQL", bookIdNum);
 	}
 
 	@Override
 	public int getDbCountMyBookGrade(Integer userIdNum) {
-		
-		String sql = sqlparser.getSQL("bookGrade",
-				"GET_DBCOUNT_MYBOOKGRADE_SQL");
 
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { userIdNum });
+		return (Integer)getSqlMapClientTemplate().queryForObject(
+				"BOOKGRADEDAO.GET_DBCOUNT_MYBOOKGRADE_SQL", userIdNum);
 	}
 
 }
