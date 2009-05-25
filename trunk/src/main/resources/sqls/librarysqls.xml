@@ -1,12 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<sqls name="library">
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
-	<sql name="GET_LIBRARY_SQL">
-		<description>서재 정보 가지고 오기</description>
-		<query>
-            <![CDATA[
-             SELECT L.idNUm as idNum
+<sqlMap namespace="BESTSELLER">
+
+	<typeAlias alias="ZipCodeDomain" type="com.ens.common.model.Zipcode" />
+
+	<resultMap id="Zipcode" class="ZipCodeDomain">
+		<result property="seq" column="seq" javaType="Integer" />
+		<result property="zipcode" column="zipcode" javaType="String"
+			nullValue="" />
+		<result property="sido" column="sido" javaType="String"
+			nullValue="" />
+		<result property="gugun" column="gugun" javaType="String"
+			nullValue="" />
+		<result property="dong" column="dong" javaType="String"
+			nullValue="" />
+		<result property="bunji" column="bunji" javaType="String"
+			nullValue="" />
+	</resultMap>
+
+	<!-- 우편번호 검색 -->
+	<select id="GET_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT L.idNUm as idNum
                     ,L.notice as notice
                     ,L.isOpen as isOpen
                     ,U.idNum as uidNum
@@ -19,16 +37,13 @@
               	AND U.user_id = ? 
                 AND U.isdelete = 0 
                 AND U.idNum = UAI.user_idNum 
-            ]]>
-		</query>
-	</sql>
+		]]>
+	</select>
 
-
-	<sql name="GET_LIBRARY_IDNUM_SQL">
-		<description>서재 정보 가지고 오기</description>
-		<query>
-            <![CDATA[
-             SELECT L.idNUm as idNum
+	<select id="GET_LIBRARY_IDNUM_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			SELECT L.idNUm as idNum
                     ,L.notice as notice
                     ,L.isOpen as isOpen
                     ,U.idNum as uidNum
@@ -41,40 +56,31 @@
               	AND L.idNum = ? 
                 AND U.isdelete = 0 
                 AND U.idNum = UAI.user_idNum 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="MODIFY_LIBRARY_SQL">
-		<description>내서재 정보 수정하기</description>
-		<query>
-            <![CDATA[
-             UPDATE LIBRARY 
+		]]>
+	</select>
+	<select id="MODIFY_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 UPDATE LIBRARY 
                 SET notice = ?
                     ,isOpen = ? 
               WHERE user_IdNum=? 
                 AND idNum = ?  
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="INSERT_LIBRARY_SQL">
-		<description>내서재 정보 등록</description>
-		<query>
-            <![CDATA[
-             INSERT INTO LIBRARY(user_idNum, notice, isOpen)  
+		]]>
+	</select>
+	<select id="INSERT_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 INSERT INTO LIBRARY(user_idNum, notice, isOpen)  
              VALUES (?, ?, ?) 
-            ]]>
-		</query>
-	</sql>
+		]]>
+	</select>
 
-	<sql name="LIST_SEARCH_LIBRARY_SQL">
-		<description>서재 검색</description>
-		<query>
-            <![CDATA[
-             SELECT U.idNum as idnum
+
+	<select id="LIST_SEARCH_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT U.idNum as idnum
              		,U.user_id as user_id
              		,U.email as email
              		,U.nickname as nickname
@@ -94,16 +100,12 @@
                     )
                 AND L.isopen=0
               ORDER BY U.input_date DESC
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="INSERT_RANK_LIBRARY_SQL">
-		<description>서재 순위 (1~10)</description>
-		<query>
-            <![CDATA[
-    	        INSERT INTO libraryrank (idNum, user_id, email, nickname, name,total)
+		]]>
+	</select>
+	<select id="INSERT_RANK_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			INSERT INTO libraryrank (idNum, user_id, email, nickname, name,total)
 				SELECT U.idNum,U.user_id, U.email, U.nickname, U.name, RESULT.total
 				  FROM USER U, LIBRARY L,
 					(SELECT idNum, (grade+bookmark+bookreview+possessbook+recommend+vibe) as total
@@ -144,52 +146,28 @@
 				   AND U.idNum=L.user_IdNum
 				   AND L.isopen=0 
 				 ORDER BY total DESC
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="LIST_RANK_LIBRARY_SQL">
-		<description>서재 순위 (1~10) 목록</description>
-		<query>
-            <![CDATA[
-    	        SELECT idNum, user_id, email, nickname, name 
+		]]>
+	</select>
+	<select id="LIST_RANK_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			SELECT idNum, user_id, email, nickname, name 
     	          FROM LIBRARYRANK
     	      ORDER BY total DESC
     	         LIMIT 0,5 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="INSERT_INTEREST_LIBRARY_SQL">
-		<description>관심 서재 등록</description>
-		<query>
-            <![CDATA[
-    	        INSERT INTO INTERESTLIBRARY(standard, target) 
+		]]>
+	</select>
+	<select id="INSERT_INTEREST_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			INSERT INTO INTERESTLIBRARY(standard, target) 
     	        VALUES (?, ?)
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="DELETE_INTEREST_LIBRARY_SQL">
-		<description>관심 서재 삭제</description>
-		<query>
-            <![CDATA[
-    	        DELETE FROM INTERESTLIBRARY 
-    	         WHERE target = ?
-    	           AND standard = ? 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="LIST_INTEREST_LIBRARY_SQL">
-		<description>관심 서재 목록</description>
-		<query>
-            <![CDATA[
-    	       SELECT U.idNum
+		]]>
+	</select>
+	<select id="LIST_INTEREST_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			SELECT U.idNum
     	       		  , U.user_id
     	       		  , U.email
     	       		  , U.nickname
@@ -197,29 +175,29 @@
     	         FROM INTERESTLIBRARY IRL, USER U
     	        WHERE IRL.target=U.idNum
     	          AND IRL.standard = ?    	 
-            ]]>
-		</query>
-	</sql>
-	
-	
-	<sql name="DBCOUNT_INTEREST_LIBRARY_SQL">
-		<description>관심 서재 목록</description>
-		<query>
-            <![CDATA[
-    	       SELECT count(*) as count 
+		]]>
+	</select>
+	<select id="DELETE_INTEREST_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			DELETE FROM INTERESTLIBRARY 
+    	         WHERE target = ?
+    	           AND standard = ? 
+		]]>
+	</select>
+	<select id="DBCOUNT_INTEREST_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT count(*) as count 
     	         FROM INTERESTLIBRARY IRL, USER U
     	        WHERE IRL.target=U.idNum
-    	          AND IRL.standard = ?    	 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="LIST_LIMIT_INTEREST_LIBRARY_SQL">
-		<description>관심 서재 목록</description>
-		<query>
-            <![CDATA[
-    	       SELECT U.idNum
+    	          AND IRL.standard = ?   
+		]]>
+	</select>
+	<select id="LIST_LIMIT_INTEREST_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT U.idNum
     	       		  , U.user_id
     	       		  , U.email
     	       		  , U.nickname
@@ -228,41 +206,23 @@
     	        WHERE IRL.target=U.idNum
     	          AND IRL.standard = ?
     	        LIMIT ?, ?	 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="DUPLICATE_INTEREST_LIBRARY_SQL">
-		<description>관심 서재 등록 여부 검사</description>
-		<query>
-            <![CDATA[
-    	       SELECT COUNT(*)
+		]]>
+	</select>
+	<select id="DUPLICATE_INTEREST_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT COUNT(*)
     	         FROM INTERESTLIBRARY IRL
     	        WHERE IRL.target = ?
-    	          AND IRL.standard = ?    	 
-            ]]>
-		</query>
-	</sql>
+    	          AND IRL.standard = ? 
+		]]>
+	</select>
+	<select id="DELETE_LIBRARYRANK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 DELETE FROM LIBRARYRANK  
+		]]>
+	</select>
 
+</sqlMap>
 
-	<sql name="DELETE_LIBRARYRANK_SQL">
-		<description>서재 목록 삭제</description>
-		<query>
-            <![CDATA[
-    	       DELETE FROM LIBRARYRANK    	 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="DELETE_LIBRARYRANK_SQL">
-		<description>서재 목록 삭제</description>
-		<query>
-            <![CDATA[
-    	       DELETE FROM LIBRARYRANK    	 
-            ]]>
-		</query>
-	</sql>
-
-</sqls>

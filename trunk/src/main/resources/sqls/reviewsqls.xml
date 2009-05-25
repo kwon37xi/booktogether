@@ -1,71 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<sqls name="bookReview">
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
-	<sql name="INSERT_BOOKREVIEW_SQL">
-		<description>책 리뷰 등록</description>
-		<query>
-            <![CDATA[
-             INSERT INTO BOOKREVIEW(book_idNum, user_idNum, recommend, title, review)  
+<sqlMap namespace="BESTSELLER">
+
+	<typeAlias alias="ZipCodeDomain" type="com.ens.common.model.Zipcode" />
+
+	<resultMap id="Zipcode" class="ZipCodeDomain">
+		<result property="seq" column="seq" javaType="Integer" />
+		<result property="zipcode" column="zipcode" javaType="String"
+			nullValue="" />
+		<result property="sido" column="sido" javaType="String"
+			nullValue="" />
+		<result property="gugun" column="gugun" javaType="String"
+			nullValue="" />
+		<result property="dong" column="dong" javaType="String"
+			nullValue="" />
+		<result property="bunji" column="bunji" javaType="String"
+			nullValue="" />
+	</resultMap>
+
+	<!-- 우편번호 검색 -->
+	<select id="INSERT_BOOKREVIEW_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 INSERT INTO BOOKREVIEW(book_idNum, user_idNum, recommend, title, review)  
              VALUES (?, ?, ?, ?, ?)
-            ]]>
-		</query>
-	</sql>
+		]]>
+	</select>
 
-
-	<sql name="INSERT_RECOMMEND_SQL">
-		<description>추천인 등록</description>
-		<query>
-            <![CDATA[
-             INSERT INTO RECOMMEND(user_idNum, review_idNum)   
+	<select id="INSERT_RECOMMEND_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			  INSERT INTO RECOMMEND(user_idNum, review_idNum)   
              VALUES (?, ?)
-            ]]>
-		</query>
-	</sql>
-
-	<sql name="MODIFY_BOOKREVIEW_SQL">
-		<description>책 리뷰 수정하기</description>
-		<query>
-            <![CDATA[
-             UPDATE BOOKREVIEW 
+		]]>
+	</select>
+	<select id="MODIFY_BOOKREVIEW_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 UPDATE BOOKREVIEW 
              	SET TITLE = ? 
              	    ,REVIEW = ?
               WHERE idNum=?
                 AND user_idNum=? 
                 AND book_idNum=?
-            ]]>
-		</query>
-	</sql>
-
-	<sql name="MODIFY_REVIEWRECOMMEND_SQL">
-		<description>책 리뷰 추천수 증가</description>
-		<query>
-            <![CDATA[
-             UPDATE BOOKREVIEW 
+		]]>
+	</select>
+	<select id="MODIFY_REVIEWRECOMMEND_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			UPDATE BOOKREVIEW 
              	SET recommend=recommend+1 
               WHERE idNum=? 
                 AND book_idNum=?
-            ]]>
-		</query>
-	</sql>
-
-	<sql name="DELETE_BOOKREVIEW_SQL">
-		<description>책 리뷰 삭제</description>
-		<query>
-            <![CDATA[
-             DELETE FROM BOOKREVIEW 
+		]]>
+	</select>
+	<select id="DELETE_BOOKREVIEW_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 DELETE FROM BOOKREVIEW 
              WHERE book_idNum=? 
                AND user_idNum=? 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="LIST_BOOKREVIEW_SQL">
-		<description>책 리뷰 목록(책조회시)</description>
-		<query>
-            <![CDATA[
-             SELECT U.idNum as uidNum
+		]]>
+	</select>
+	<select id="LIST_BOOKREVIEW_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT U.idNum as uidNum
              	    ,U.user_id as user_id 
              	    ,U.name as user_name 
              	    ,U.nickname as user_nickname
@@ -78,29 +80,22 @@
                AND U.isdelete=0
              ORDER BY BR.idNum DESC   
              LIMIT ?,? 
-            ]]>
-		</query>
-	</sql>
-	
-	<sql name="GET_DBCOUNT_BOOKREVIEW_SQL">
-		<description>책 리뷰 목록 갯수(책조회시)</description>
-		<query>
-            <![CDATA[
-             SELECT COUNT(BR.idNum) 
+		]]>
+	</select>
+	<select id="GET_DBCOUNT_BOOKREVIEW_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT COUNT(BR.idNum) 
              FROM USER U, BOOKREVIEW BR  
              WHERE BR.book_idNum=? 
                AND BR.user_idNum=U.idNum 
                AND U.isdelete=0  
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="LIST_MYBOOKREVIEW_SQL">
-		<description>내가 작성한 책 리뷰 목록</description>
-		<query>
-            <![CDATA[
-             SELECT BR.idNum as idNum
+		]]>
+	</select>
+	<select id="LIST_MYBOOKREVIEW_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT BR.idNum as idNum
              		,BR.recommend as recommend 
              		,BR.title as title 
              		,BR.book_idNum as bidNum
@@ -111,30 +106,22 @@
                AND U.isdelete=0
              ORDER BY BR.idNum DESC  
              LIMIT ?,? 
-            ]]>
-		</query>
-	</sql>
-	
-	
-	<sql name="GET_DBCOUNT_MYBOOKREVIEW_SQL">
-		<description>내가 작성한 책 리뷰 목록 갯수</description>
-		<query>
-            <![CDATA[
-             SELECT COUNT(BR.idNum)  
+		]]>
+	</select>
+	<select id="GET_DBCOUNT_MYBOOKREVIEW_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			SELECT COUNT(BR.idNum)  
              FROM USER U, BOOKREVIEW BR  
              WHERE BR.user_idNum = ?  
                AND BR.user_idNum=U.idNum 
                AND U.isdelete=0 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="GET_MY_BOOKREVIEW_SQL">
-		<description>책 리뷰(내가쓴 리뷰)</description>
-		<query>
-            <![CDATA[
-             SELECT U.idNum as uidNum
+		]]>
+	</select>
+	<select id="GET_MY_BOOKREVIEW_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT U.idNum as uidNum
              	    ,U.user_id as user_id 
              	    ,U.name as user_name 
              	    ,U.nickname as user_nickname
@@ -148,15 +135,12 @@
                AND BR.user_idNum = ?  
                AND BR.user_idNum = U.idNum 
                AND U.isdelete = 0  
-            ]]>
-		</query>
-	</sql>
-
-	<sql name="GET_BOOKREVIEW_SQL">
-		<description>책 리뷰</description>
-		<query>
-            <![CDATA[
-             SELECT U.idNum as uidNum
+		]]>
+	</select>
+	<select id="GET_BOOKREVIEW_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT U.idNum as uidNum
              	    ,U.user_id as user_id 
              	    ,U.name as user_name 
              	    ,U.nickname as user_nickname
@@ -169,36 +153,28 @@
              WHERE BR.idNum = ? 
                AND BR.user_idNum = U.idNum 
                AND BR.book_idNum = B.idNum  
-               AND U.isdelete = 0    
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="EXIST_MYBOOKREVIEW_SQL">
-		<description>내가 작성한 책 리뷰가 있는지 체크</description>
-		<query>
-            <![CDATA[
-             SELECT count(BR.idNum) as count 
+               AND U.isdelete = 0   
+		]]>
+	</select>
+	<select id="EXIST_MYBOOKREVIEW_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT count(BR.idNum) as count 
              FROM BOOKREVIEW BR, USER U 
              WHERE BR.book_idNum = ? 
                AND BR.user_idNum = ? 
                AND BR.user_idNum = U.idNum 
                AND U.isdelete=0  
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="EXIST_RECOMMEND_SQL">
-		<description>내가 추천한 기록이 있는지 체크</description>
-		<query>
-            <![CDATA[
-             SELECT count(*) as count 
+		]]>
+	</select>
+	<select id="EXIST_RECOMMEND_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT count(*) as count 
              FROM RECOMMEND 
              WHERE review_idNum = ? 
-               AND user_idNum = ? 
-            ]]>
-		</query>
-	</sql>
-</sqls>
+               AND user_idNum = ?  
+		]]>
+	</select>
+
+</sqlMap>

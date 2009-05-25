@@ -1,37 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<sqls name="goodwriter">
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
+<sqlMap namespace="BESTSELLER">
 
-	<sql name="DELETE_GOODWRITER_SQL">
-		<description>좋은글 삭제</description>
-		<query>
-            <![CDATA[
-            ]]>
-		</query>
-	</sql>
+	<typeAlias alias="ZipCodeDomain" type="com.ens.common.model.Zipcode" />
 
-	<sql name="GET_GOODWRITER_SQL">
-		<description>좋은글 조회</description>
-		<query>
-            <![CDATA[
-             SELECT * 
+	<resultMap id="Zipcode" class="ZipCodeDomain">
+		<result property="seq" column="seq" javaType="Integer" />
+		<result property="zipcode" column="zipcode" javaType="String"
+			nullValue="" />
+		<result property="sido" column="sido" javaType="String"
+			nullValue="" />
+		<result property="gugun" column="gugun" javaType="String"
+			nullValue="" />
+		<result property="dong" column="dong" javaType="String"
+			nullValue="" />
+		<result property="bunji" column="bunji" javaType="String"
+			nullValue="" />
+	</resultMap>
+
+	<!-- 우편번호 검색 -->
+	<select id="DELETE_GOODWRITER_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			INSERT INTO BOOKGRADE(book_idNum, user_idNum, grade)  
+             VALUES (?, ?, ?)
+		]]>
+	</select>
+
+	<select id="GET_GOODWRITER_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			SELECT * 
   			   FROM GOODWRITER 
               WHERE WEEK(input_date,1) = WEEK(now(),1)
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="INSERT_GOODWRITER_SQL">
-		<description>좋은글 등록</description>
-		<query>
-            <![CDATA[
-            INSERT INTO GOODWRITER (input_date, content) 
+		]]>
+	</select>
+	<select id="INSERT_GOODWRITER_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+		INSERT INTO GOODWRITER (input_date, content) 
             VALUES(now(), ?)
-            ]]>
-		</query>
-	</sql>
+		]]>
+	</select>
 
 
-</sqls>
+
+</sqlMap>

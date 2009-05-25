@@ -1,12 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<sqls name="possessBook">
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
-	<sql name="GET_B_U_POSSESSBOOK_SQL">
-		<description>서재에 해당책 조회(사용자, 책 일련번호)</description>
-		<query>
-            <![CDATA[
-             SELECT POS.idNum as idNum
+<sqlMap namespace="BESTSELLER">
+
+	<typeAlias alias="ZipCodeDomain" type="com.ens.common.model.Zipcode" />
+
+	<resultMap id="Zipcode" class="ZipCodeDomain">
+		<result property="seq" column="seq" javaType="Integer" />
+		<result property="zipcode" column="zipcode" javaType="String"
+			nullValue="" />
+		<result property="sido" column="sido" javaType="String"
+			nullValue="" />
+		<result property="gugun" column="gugun" javaType="String"
+			nullValue="" />
+		<result property="dong" column="dong" javaType="String"
+			nullValue="" />
+		<result property="bunji" column="bunji" javaType="String"
+			nullValue="" />
+	</resultMap>
+
+	<!-- 우편번호 검색 -->
+	<select id="GET_B_U_POSSESSBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT POS.idNum as idNum
                     ,POS.user_idNum as uidNum
                     ,POS.purchase_Date as pdate
                     ,POS.purchase_Price as price
@@ -31,16 +49,14 @@
 				AND A.author_div = 0
                 AND U.idNum = POS.user_idNum
                 AND POS.user_idNum = ?
-                AND POS.book_idNum = ?  
-            ]]>
-		</query>
-	</sql>
+                AND POS.book_idNum = ? 
+		]]>
+	</select>
 
-	<sql name="INSERT_POSSESSBOOK_SQL">
-		<description>내가 소유한 책 등록</description>
-		<query>
-            <![CDATA[
-             INSERT INTO POSSESSBOOK(book_idNum
+	<select id="INSERT_POSSESSBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 INSERT INTO POSSESSBOOK(book_idNum
              						 , user_idNum
              						 , purchase_date
              						 , purchase_price
@@ -49,15 +65,12 @@
              						 , quality
              						 , state)   
              VALUES(?, ?, ?, ?, ?, ?, ?, ?)
-            ]]>
-		</query>
-	</sql>
-
-	<sql name="LIST_POSSESSBOOK_SQL">
-		<description>내가 소유한 책 목록</description>
-		<query>
-            <![CDATA[
-             SELECT POS.idNum as idNum
+		]]>
+	</select>
+	<select id="LIST_POSSESSBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			SELECT POS.idNum as idNum
                     ,POS.user_idNum as uidNum
                     ,POS.purchase_Date as pdate
                     ,POS.purchase_Price as price
@@ -84,16 +97,14 @@
                 AND U.idNum = POS.user_idNum
               ORDER BY POS.idNum DESC  
               LIMIT ?, ?
-            ]]>
-		</query>
-	</sql>
-	
-	
-	<sql name="LIST_POSSESSBOOK_BOOKIDNUM_SQL">
-		<description>내가 소유한 책 목록</description>
-		<query>
-            <![CDATA[
-             SELECT POS.idNum as idNum
+		]]>
+	</select>
+
+
+	<select id="LIST_POSSESSBOOK_BOOKIDNUM_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT POS.idNum as idNum
                     ,POS.user_idNum as user_idNum
                     ,POS.book_idNum as book_idNum
 				    ,U.user_id as user_id
@@ -105,44 +116,35 @@
                 AND U.isdelete = 0
               ORDER BY POS.idNum DESC  
               LIMIT ?, ?
-            ]]>
-		</query>
-	</sql>
+		]]>
+	</select>
 
 
-	<sql name="DBCOUNT_POSSESSBOOK_BOOKIDNUM_SQL">
-		<description>내가 소유한 책 목록 갯수</description>
-		<query>
-            <![CDATA[
-             SELECT count(*) as count 
+	<select id="DBCOUNT_POSSESSBOOK_BOOKIDNUM_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			  SELECT count(*) as count 
                FROM POSSESSBOOK POS, USER U, USERADDINFO UAI 
               WHERE POS.book_idNum = ? 
                 AND U.idNum = POS.user_idNum
                 AND U.idNUm = UAI.user_idNum 
                 AND U.isdelete = 0
-            ]]>
-		</query>
-	</sql>
-	
-	<sql name="GET_DBCOUNT_POSSESSBOOK_SQL">
-		<description>내가 소유한 책 목록 갯수</description>
-		<query>
-            <![CDATA[
-             SELECT COUNT(POS.idNum) 
+		]]>
+	</select>
+	<select id="GET_DBCOUNT_POSSESSBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			SELECT COUNT(POS.idNum) 
                FROM POSSESSBOOK POS, USER U  
               WHERE U.user_id = ? 
                 AND U.isdelete = 0
                 AND U.idNum = POS.user_idNum 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="MODIFY_POSSESSBOOK_SQL">
-		<description>내가 소유한 책 수정</description>
-		<query>
-            <![CDATA[
-             UPDATE POSSESSBOOK 
+		]]>
+	</select>
+	<select id="MODIFY_POSSESSBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			UPDATE POSSESSBOOK 
                 SET purchase_date = ?
                 	,purchase_price = ?
                     , begin_read = ?
@@ -150,16 +152,14 @@
                     , quality = ?
                     , state = ?
               WHERE idnum = ? 
-            ]]>
-		</query>
-	</sql>
+		]]>
+	</select>
 
 
-	<sql name="GET_POSSESSBOOK_SQL">
-		<description>내가 소유한 책 조회</description>
-		<query>
-            <![CDATA[
-             SELECT POS.idNum as idNum
+	<select id="GET_POSSESSBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT POS.idNum as idNum
                     , POS.book_idNum as bidNum
                     , POS.user_idNum as uidNum
                     , POS.purchase_Date as pdate
@@ -183,26 +183,21 @@
                 AND POS.book_idNum = B.idNum
 				AND B.idNum = A.book_idNum
 				AND A.author_div = 0 
-            ]]>
-		</query>
-	</sql>
-
-	<sql name="DELETE_POSSESSBOOK_SQL">
-		<description>내가 소유한 책 삭제</description>
-		<query>
-            <![CDATA[
-             DELETE FROM POSSESSBOOK
-              WHERE idNum = ?
-            ]]>
-		</query>
-	</sql>
+		]]>
+	</select>
 
 
-	<sql name="GET_LIST_ZONEBOOK_SQL">
-		<description>내 생활반경의 소유책 목록</description>
-		<query>
-            <![CDATA[
-             SELECT POS.idNum as idNum 
+	<select id="DELETE_POSSESSBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			DELETE FROM POSSESSBOOK
+              WHERE idNum = ? 
+		]]>
+	</select>
+	<select id="GET_LIST_ZONEBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			SELECT POS.idNum as idNum 
 			      , POS.state as state
 			      , B.idNum as bidNum
 			      , B.cover as bcover
@@ -227,17 +222,16 @@
 			   AND U.user_id <> ?
 			 ORDER BY POS.idNum DESC 
 			 LIMIT ?, ?
-            ]]>
-		</query>
-	</sql>
+		]]>
+	</select>
 
 
 
-	<sql name="GET_DBCOUNT_ZONEBOOK_SQL">
-		<description>내 생활반경의 소유책 목록 갯수</description>
-		<query>
-            <![CDATA[
-             SELECT COUNT(POS.idNum) 
+
+	<select id="GET_DBCOUNT_ZONEBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT COUNT(POS.idNum) 
 			   FROM POSSESSBOOK POS, USER U, BOOK B,ZIPCODE ZC, (SELECT distinct Z.user_idNum, Z.zone
 			 					   FROM ZONE Z 
 								  WHERE zone in (
@@ -251,16 +245,14 @@
 			   AND POS.user_idNum=ZU.user_idNum 
 			   AND U.idNUm= POS.user_idNum
 			   AND ZC.idNum=ZU.zone 
-			   AND U.user_id <> ?
-            ]]>
-		</query>
-	</sql>
+			   AND U.user_id <> ? 
+		]]>
+	</select>
 
-	<sql name="LIST_SEARCH_POSSESSBOOK_SQL">
-		<description>서재 검색(소유책)</description>
-		<query>
-            <![CDATA[
-				SELECT POS.idNum as idNum
+	<select id="LIST_SEARCH_POSSESSBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT POS.idNum as idNum
 				       , POS.purchase_Date as pdate
 				       , POS.purchase_Price as price
 				       , POS.begin_read as bread 
@@ -291,16 +283,14 @@
 				   AND A.author_div = 0
 				 ORDER BY POS.idNum DESC   
 				 LIMIT ?, ?
-            ]]>
-		</query>
-	</sql>
+		]]>
+	</select>
 
 
-	<sql name="LIST_DBCOUNT_SEARCH_POSSESSBOOK_SQL">
-		<description>서재 검색(소유책) 갯수</description>
-		<query>
-            <![CDATA[
-				SELECT COUNT(POS.idNum) 
+	<select id="LIST_DBCOUNT_SEARCH_POSSESSBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			SELECT COUNT(POS.idNum) 
 				  FROM POSSESSBOOK POS ,(
 										 SELECT *
 										   FROM BOOK 
@@ -310,8 +300,8 @@
 				 WHERE POS.book_idNum=B.idNum 
 				   AND POS.user_idNum = L.user_idNum
 				   AND L.idNum = ?
-            ]]>
-		</query>
-	</sql>
+		]]>
+	</select>
 
-</sqls>
+</sqlMap>
+

@@ -1,26 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<sqls name="libraryBook">
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
-	<sql name="INSERT_LIBRARYBOOK_SQL">
-		<description>서재에 책 등록</description>
-		<query>
-            <![CDATA[
-             INSERT INTO LIBRARYBOOK(book_idNum
+<sqlMap namespace="BESTSELLER">
+
+	<typeAlias alias="ZipCodeDomain" type="com.ens.common.model.Zipcode" />
+
+	<resultMap id="Zipcode" class="ZipCodeDomain">
+		<result property="seq" column="seq" javaType="Integer" />
+		<result property="zipcode" column="zipcode" javaType="String"
+			nullValue="" />
+		<result property="sido" column="sido" javaType="String"
+			nullValue="" />
+		<result property="gugun" column="gugun" javaType="String"
+			nullValue="" />
+		<result property="dong" column="dong" javaType="String"
+			nullValue="" />
+		<result property="bunji" column="bunji" javaType="String"
+			nullValue="" />
+	</resultMap>
+
+	<!-- 우편번호 검색 -->
+	<select id="INSERT_LIBRARYBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 INSERT INTO LIBRARYBOOK(book_idNum
              						 , library_idNum
              						 , read_Date
              						 , state)   
              VALUES (?, ?, ?, ?) 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="LIST_LIBRARYBOOK_SQL">
-		<description>서재에 책 목록</description>
-		<query>
-            <![CDATA[
-             SELECT LB.idnum as idNum 
+		]]>
+	</select>
+	<select id="LIST_LIBRARYBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT LB.idnum as idNum 
                     ,LB.read_date as read_date 
                     ,LB.state as state 
                     ,LB.book_idNum as bidnum 
@@ -45,57 +59,41 @@
 				AND A.author_div = 0
 			  ORDER BY LB.idNum DESC 
               LIMIT ?, ?
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="GET_DBCOUNT_LIBRARYBOOK_SQL">
-		<description>서재에 책 목록 갯수</description>
-		<query>
-            <![CDATA[
-             SELECT COUNT(*) 
+		]]>
+	</select>
+	<select id="GET_DBCOUNT_LIBRARYBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT COUNT(*) 
                FROM LIBRARYBOOK 
               WHERE state = ?
-                AND library_idNum = ?   
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="GET_DUPLICATE_LIBRARYBOOK_SQL">
-		<description>서재에 해당책이 있는지 검사</description>
-		<query>
-            <![CDATA[
-             SELECT COUNT(*) as count 
+                AND library_idNum = ?  
+		]]>
+	</select>
+	<select id="GET_DUPLICATE_LIBRARYBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT COUNT(*) as count 
                FROM LIBRARYBOOK 
               WHERE library_IdNum= ? 
                 AND book_IdNum = ? 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="MODIFY_LIBRARYBOOK_SQL">
-		<description>서재에 해당책 수정하기</description>
-		<query>
-            <![CDATA[
-             UPDATE LIBRARYBOOK 
+		]]>
+	</select>
+	<select id="MODIFY_LIBRARYBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 UPDATE LIBRARYBOOK 
                 SET state = ? 
                     ,read_date = ?
               WHERE library_idNum = ?
                 AND book_idNum = ?
                 AND idNum = ? 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="GET_LIBRARYBOOK_SQL">
-		<description>서재에 해당책 조회</description>
-		<query>
-            <![CDATA[
-             SELECT LB.idnum as idNum 
+		]]>
+	</select>
+	<select id="GET_LIBRARYBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			SELECT LB.idnum as idNum 
                     ,LB.read_date as read_date 
                     ,LB.state as state 
                     ,LB.book_idNum as bidnum 
@@ -118,62 +116,43 @@
 				AND B.idNum = A.book_idNum
 				AND A.author_div = 0
                 AND LB.library_idNum = L.idNum  
-            ]]>
-		</query>
-	</sql>
-
-	<sql name="DELETE_LIBRARYBOOK_SQL">
-		<description>서재에 해당책 삭제</description>
-		<query>
-            <![CDATA[
-             DELETE FROM LIBRARYBOOK  
+		]]>
+	</select>
+	<select id="DELETE_LIBRARYBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			DELETE FROM LIBRARYBOOK  
               WHERE idNum = ? 
-            ]]>
-		</query>
-	</sql>
-
-
-
-	<sql name="IS_OPEN_LIBIDNUM_LIBRARY_SQL">
-		<description>서재 공개 여부(서재 일련번호로 조회)</description>
-		<query>
-            <![CDATA[
-             SELECT isopen
+		]]>
+	</select>
+	<select id="IS_OPEN_LIBIDNUM_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT isopen
                FROM LIBRARY 
               WHERE idNum = ? 
-            ]]>
-		</query>
-	</sql>
-
-	<sql name="IS_OPEN_USERID_LIBRARY_SQL">
-		<description>서재 공개 여부(서재 주인 아이디로 조회)</description>
-		<query>
-            <![CDATA[
-             SELECT isopen
+		]]>
+	</select>
+	<select id="IS_OPEN_USERID_LIBRARY_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			  SELECT isopen
                FROM LIBRARY L, USER U 
               WHERE U.user_id = ?
                 AND L.user_idNum= U.idNum 
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="DELETE_POSSESSBOOK_SQL">
-		<description>내가 소유한 책 삭제</description>
-		<query>
-            <![CDATA[
-             DELETE FROM POSSESSBOOK
+		]]>
+	</select>
+	<select id="DELETE_POSSESSBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 DELETE FROM POSSESSBOOK
               WHERE idNum = ?
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="LIST_SEARCH_LIBRARYBOOK_SQL">
-		<description>서재 검색(읽고싶은책, 읽은책, 읽고 있는 책)</description>
-		<query>
-            <![CDATA[
-				SELECT LB.idNum as idNum
+		]]>
+	</select>
+	<select id="LIST_SEARCH_LIBRARYBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT LB.idNum as idNum
 				       , LB.read_date as read_date
 				       , LB.state as state
 				       , LB.library_idnum as lidnum
@@ -201,16 +180,12 @@
 				   AND A.author_div = 0
 				 ORDER BY LB.idNum DESC   
 				 LIMIT ? , ?
-            ]]>
-		</query>
-	</sql>
-
-
-	<sql name="LIST_DBCOUNT_SEARCH_LIBRARYBOOK_SQL">
-		<description>서재 검색(읽고싶은책, 읽은책, 읽고 있는 책) 갯수</description>
-		<query>
-            <![CDATA[
-				SELECT COUNT(LB.idNum) 
+		]]>
+	</select>
+	<select id="LIST_DBCOUNT_SEARCH_LIBRARYBOOK_SQL" parameterClass="java.lang.String"
+		resultMap="Zipcode">
+		<![CDATA[
+			 SELECT COUNT(LB.idNum) 
 				  FROM LIBRARYBOOK LB ,(
 										 SELECT *
 										   FROM BOOK 
@@ -220,8 +195,9 @@
 				 WHERE B.idNum = LB.book_idNum
 				   AND LB.library_idNum = ? 
 				   AND LB.library_idNum = L.idNum 
-            ]]>
-		</query>
-	</sql>
+		]]>
+	</select>
 
-</sqls>
+
+</sqlMap>
+
