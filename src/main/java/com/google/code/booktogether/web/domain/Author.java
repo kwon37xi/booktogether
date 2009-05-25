@@ -32,7 +32,7 @@ public class Author extends BaseObject {
 	 */
 
 	private Integer authorDiv;
-
+	
 	public Integer getIdNum() {
 		return idNum;
 	}

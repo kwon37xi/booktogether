@@ -1,350 +1,258 @@
 package com.google.code.booktogether.dao.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
-import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-import org.springframework.stereotype.Repository;
-
 import com.google.code.booktogether.dao.LibraryDao;
-import com.google.code.booktogether.dao.rowmapper.LibraryBookRowMapper;
-import com.google.code.booktogether.dao.rowmapper.LibraryRowMapper;
-import com.google.code.booktogether.dao.rowmapper.PossessBookRowMapper;
-import com.google.code.booktogether.dao.rowmapper.UserRowMapper;
-import com.google.code.booktogether.dao.rowmapper.ZoneBookRowMapper;
-import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.Library;
 import com.google.code.booktogether.web.domain.LibraryBook;
 import com.google.code.booktogether.web.domain.PossessBook;
 import com.google.code.booktogether.web.domain.User;
-import com.google.code.booktogether.web.domain.UserAddInfo;
 
-@Repository("libraryJdbcDao")
 public class LibraryDaoIbatisImpl extends SqlMapClientDaoSupport implements
 		LibraryDao {
-
-	@Resource(name = "SqlParser")
-	SqlParserXmlImpl sqlparser;
-
-	@Resource(name = "dataSource")
-	public void setJdbcDao(DataSource dataSource) {
-		setDataSource(dataSource);
-	}
 
 	@Override
 	public Library getLibrary(String userId) {
 
-		String sql = sqlparser.getSQL("library", "GET_LIBRARY_SQL");
-
-		return (Library) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
-				.query(sql, new LibraryRowMapper(), new Object[] { userId }));
+		return (Library) getSqlMapClientTemplate().queryForObject(
+				"LIBRARYDAO.GET_LIBRARY_SQL", userId);
 	}
 
 	@Override
 	public Library getLibrary(Integer libraryIdNum) {
 
-		String sql = sqlparser.getSQL("library", "GET_LIBRARY_IDNUM_SQL");
-
-		return (Library) DataAccessUtils.singleResult(getSimpleJdbcTemplate()
-				.query(sql, new LibraryRowMapper(),
-						new Object[] { libraryIdNum }));
+		return (Library) getSqlMapClientTemplate().queryForObject(
+				"LIBRARYDAO.GET_LIBRARY_IDNUM_SQL", libraryIdNum);
 
 	}
 
 	@Override
 	public int modifyLibrary(Library library) {
 
-		String sql = sqlparser.getSQL("library", "MODIFY_LIBRARY_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { library.getNotice(), library.getIsOpen(),
-						library.getUser().getIdNum(), library.getIdNum() });
+		return getSqlMapClientTemplate().update(
+				"LIBRARYDAO.MODIFY_LIBRARY_SQL", library);
 	}
 
 	@Override
 	public int insertLibrary(Library library) {
 
-		String sql = sqlparser.getSQL("library", "INSERT_LIBRARY_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { library.getUser().getIdNum(),
-						library.getNotice(), library.getIsOpen() });
+		return getSqlMapClientTemplate().update(
+				"LIBRARYDAO.INSERT_LIBRARY_SQL", library);
 	}
 
 	@Override
 	public int insertLibraryBook(LibraryBook libraryBook) {
 
-		String sql = sqlparser.getSQL("libraryBook", "INSERT_LIBRARYBOOK_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { libraryBook.getBook().getIdNum(),
-						libraryBook.getLibrary().getIdNum(),
-						libraryBook.getReadDate(), libraryBook.getState() });
+		return getSqlMapClientTemplate().update(
+				"LIBRARYBOOKDAO.INSERT_LIBRARYBOOK_SQL", libraryBook);
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<LibraryBook> getListLibraryBook(LibraryBook libraryBook,
 			Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("libraryBook", "LIST_LIBRARYBOOK_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("state", libraryBook.getState());
+		map.put("libraryIdNum", libraryBook.getLibrary().getIdNum());
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 
-		return getSimpleJdbcTemplate()
-				.query(
-						sql,
-						new LibraryBookRowMapper(),
-						new Object[] { libraryBook.getState(),
-								libraryBook.getLibrary().getIdNum(), startRow,
-								endRow });
+		return (List<LibraryBook>) getSqlMapClientTemplate().queryForList(
+				"LIBRARYBOOKDAO.LIST_LIBRARYBOOK_SQL", map);
 	}
 
 	@Override
 	public int duplicateLibraryBook(Integer libraryIdNum, Integer bookIdNum) {
 
-		String sql = sqlparser.getSQL("libraryBook",
-				"GET_DUPLICATE_LIBRARYBOOK_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("libraryIdNum", libraryIdNum);
+		map.put("bookIdNum", bookIdNum);
 
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { libraryIdNum, bookIdNum });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"LIBRARYBOOKDAO.GET_DUPLICATE_LIBRARYBOOK_SQL", map);
 	}
 
 	@Override
 	public int modifyLibraryBook(LibraryBook libraryBook) {
 
-		String sql = sqlparser.getSQL("libraryBook", "MODIFY_LIBRARYBOOK_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { libraryBook.getState(),
-						libraryBook.getReadDate(),
-						libraryBook.getLibrary().getIdNum(),
-						libraryBook.getBook().getIdNum(),
-						libraryBook.getIdNum() });
+		return getSqlMapClientTemplate().update(
+				"LIBRARYBOOKDAO.MODIFY_LIBRARYBOOK_SQL", libraryBook);
 
 	}
 
 	@Override
 	public LibraryBook getLibraryBook(Integer librarBookIdNum) {
 
-		String sql = sqlparser.getSQL("libraryBook", "GET_LIBRARYBOOK_SQL");
-
-		return (LibraryBook) DataAccessUtils
-				.singleResult(getSimpleJdbcTemplate().query(sql,
-						new LibraryBookRowMapper(),
-						new Object[] { librarBookIdNum }));
+		return (LibraryBook) getSqlMapClientTemplate().queryForObject(
+				"LIBRARYBOOKDAO.GET_LIBRARYBOOK_SQL", librarBookIdNum);
 	}
 
 	@Override
 	public int deleteLibraryBook(Integer libraryBookIdNum) {
 
-		String sql = sqlparser.getSQL("libraryBook", "DELETE_LIBRARYBOOK_SQL");
-
-		return getSimpleJdbcTemplate().update(sql,
-				new Object[] { libraryBookIdNum });
+		return getSqlMapClientTemplate().update(
+				"LIBRARYBOOKDAO.DELETE_LIBRARYBOOK_SQL");
 	}
 
 	@Override
 	public int insertPossessBook(PossessBook possessBook) {
 
-		String sql = sqlparser.getSQL("possessBook", "INSERT_POSSESSBOOK_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { possessBook.getBook().getIdNum(),
-						possessBook.getUser().getIdNum(),
-						possessBook.getPurchaseDate(),
-						possessBook.getPurchasePrice(),
-						possessBook.getBeginRead(), possessBook.getEndRead(),
-						possessBook.getQuality(), possessBook.getState() });
+		return getSqlMapClientTemplate().update(
+				"POSSESSBOOKDAO.INSERT_POSSESSBOOK_SQL", possessBook);
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<PossessBook> getListPossessBook(String userId,
 			Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("possessBook", "LIST_POSSESSBOOK_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 
-		return getSimpleJdbcTemplate().query(sql, new PossessBookRowMapper(),
-				new Object[] { userId, startRow, endRow });
+		return (List<PossessBook>) getSqlMapClientTemplate().queryForList(
+				"POSSESSBOOKDAO.LIST_POSSESSBOOK_SQL", map);
 	}
 
 	@Override
 	public int modifyPossessBook(PossessBook possessBook) {
 
-		String sql = sqlparser.getSQL("possessBook", "MODIFY_POSSESSBOOK_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { possessBook.getPurchaseDate(),
-						possessBook.getPurchasePrice(),
-						possessBook.getBeginRead(), possessBook.getEndRead(),
-						possessBook.getQuality(), possessBook.getState(),
-						possessBook.getIdNum() });
+		return getSqlMapClientTemplate().update(
+				"POSSESSBOOKDAO.MODIFY_POSSESSBOOK_SQL", possessBook);
 	}
 
 	@Override
 	public PossessBook getPossessBook(Integer possessBookIdNum) {
 
-		String sql = sqlparser.getSQL("possessBook", "GET_POSSESSBOOK_SQL");
-
-		return (PossessBook) DataAccessUtils
-				.singleResult(getSimpleJdbcTemplate().query(sql,
-						new PossessBookRowMapper(),
-						new Object[] { possessBookIdNum }));
+		return (PossessBook) getSqlMapClientTemplate().queryForObject(
+				"POSSESSBOOKDAO.GET_POSSESSBOOK_SQL", possessBookIdNum);
 	}
 
 	@Override
 	public int deletePossessBook(Integer possessBookIdNum) {
 
-		String sql = sqlparser.getSQL("possessBook", "DELETE_POSSESSBOOK_SQL");
-
-		return getSimpleJdbcTemplate().update(sql,
-				new Object[] { possessBookIdNum });
+		return getSqlMapClientTemplate().update(
+				"POSSESSBOOKDAO.DELETE_POSSESSBOOK_SQL", possessBookIdNum);
 	}
 
 	@Override
 	public int getDbCountLibraryBook(LibraryBook libraryBook) {
 
-		String sql = sqlparser.getSQL("libraryBook",
-				"GET_DBCOUNT_LIBRARYBOOK_SQL");
-
-		return getSimpleJdbcTemplate().queryForInt(
-				sql,
-				new Object[] { libraryBook.getState(),
-						libraryBook.getLibrary().getIdNum() });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"LIBRARYBOOKDAO.GET_DBCOUNT_LIBRARYBOOK_SQL", libraryBook);
 	}
 
 	@Override
 	public int getDbCountPossessBook(String userId) {
 
-		String sql = sqlparser.getSQL("possessBook",
-				"GET_DBCOUNT_POSSESSBOOK_SQL");
-
-		return getSimpleJdbcTemplate()
-				.queryForInt(sql, new Object[] { userId });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"POSSESSBOOKDAO.GET_DBCOUNT_POSSESSBOOK_SQL", userId);
 	}
 
 	@Override
 	public int getDbCountListZoneBook(String userId) {
 
-		String sql = sqlparser
-				.getSQL("possessBook", "GET_DBCOUNT_ZONEBOOK_SQL");
-
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { userId, userId });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"POSSESSBOOKDAO.GET_DBCOUNT_ZONEBOOK_SQL", userId);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<PossessBook> getListZoneBook(String userId, Integer startRow,
 			Integer endRow) {
 
-		String sql = sqlparser.getSQL("possessBook", "GET_LIST_ZONEBOOK_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 
-		return getSimpleJdbcTemplate().query(sql, new ZoneBookRowMapper(),
-				new Object[] { userId, userId, startRow, endRow });
+		return (List<PossessBook>) getSqlMapClientTemplate().queryForList(
+				"POSSESSBOOKDAO.GET_LIST_ZONEBOOK_SQL", map);
 
 	}
 
 	@Override
 	public PossessBook getPossessBook(Integer bookIdNum, Integer userIdNum) {
 
-		String sql = sqlparser.getSQL("possessBook", "GET_B_U_POSSESSBOOK_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userIdNum", userIdNum);
+		map.put("bookIdNum", bookIdNum);
 
-		return (PossessBook) DataAccessUtils
-				.singleResult(getSimpleJdbcTemplate().query(sql,
-						new PossessBookRowMapper(),
-						new Object[] { userIdNum, bookIdNum }));
+		return (PossessBook) getSqlMapClientTemplate().queryForObject(
+				"POSSESSBOOKDAO.GET_B_U_POSSESSBOOK_SQL", map);
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<User> getListSearchLibrary(String query) {
 
-		String sql = sqlparser.getSQL("library", "LIST_SEARCH_LIBRARY_SQL");
-
-		return getSimpleJdbcTemplate().query(sql, new UserRowMapper(),
-				new Object[] { query, query, query });
+		return (List<User>) getSqlMapClientTemplate().queryForList(
+				"LIBRARYDAO.LIST_SEARCH_LIBRARY_SQL", query);
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<LibraryBook> getListLibraryBook(Integer libraryIdNum,
 			String bookName, Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("libraryBook",
-				"LIST_SEARCH_LIBRARYBOOK_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bookName", "%" + bookName + "%");
+		map.put("libraryIdNum", libraryIdNum);
+		map.put("startRow", libraryIdNum);
+		map.put("endRow", endRow);
 
-		return getSimpleJdbcTemplate().query(
-				sql,
-				new LibraryBookRowMapper(),
-				new Object[] { "%" + bookName + "%", libraryIdNum, startRow,
-						endRow });
+		return (List<LibraryBook>) getSqlMapClientTemplate().queryForList(
+				"LIBRARYBOOKDAO.LIST_SEARCH_LIBRARYBOOK_SQL", map);
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<PossessBook> getListPossessBook(Integer libraryIdNum,
 			String bookName, Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("possessBook",
-				"LIST_SEARCH_POSSESSBOOK_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bookName", "%" + bookName + "%");
+		map.put("libraryIdNum", libraryIdNum);
+		map.put("startRow", libraryIdNum);
+		map.put("endRow", endRow);
 
-		return getSimpleJdbcTemplate().query(
-				sql,
-				new PossessBookRowMapper(),
-				new Object[] { "%" + bookName + "%", libraryIdNum, startRow,
-						endRow });
+		return (List<PossessBook>) getSqlMapClientTemplate().queryForList(
+				"POSSESSBOOKDAO.LIST_SEARCH_POSSESSBOOK_SQL", map);
 	}
 
 	@Override
 	public int getDbCountListLibraryBook(Integer libraryIdNum, String bookName) {
 
-		String sql = sqlparser.getSQL("libraryBook",
-				"LIST_DBCOUNT_SEARCH_LIBRARYBOOK_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bookName", "%" + bookName + "%");
+		map.put("libraryIdNum", libraryIdNum);
 
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { "%" + bookName + "%", libraryIdNum });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"POSSESSBOOKDAO.LIST_DBCOUNT_SEARCH_LIBRARYBOOK_SQL", map);
 	}
 
 	@Override
 	public int getDbCountListPossessBook(Integer libraryIdNum, String bookName) {
 
-		String sql = sqlparser.getSQL("libraryBook",
-				"LIST_DBCOUNT_SEARCH_LIBRARYBOOK_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bookName", "%" + bookName + "%");
+		map.put("libraryIdNum", libraryIdNum);
 
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { "%" + bookName + "%", libraryIdNum });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"LIBRARYBOOKDAO.LIST_DBCOUNT_SEARCH_LIBRARYBOOK_SQL", map);
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<User> getLibraryRank() {
-		String sql = sqlparser.getSQL("library", "LIST_RANK_LIBRARY_SQL");
 
-		List<User> libraryRankList = getSimpleJdbcTemplate().query(sql,
-				new ParameterizedRowMapper<User>() {
-
-					@Override
-					public User mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-
-						User user = new User();
-						user.setUserAddInfo(new UserAddInfo());
-
-						user.setIdNum(rs.getInt("IDNUM"));
-						user.setUserId(rs.getString("USER_ID"));
-						user.setEmail(rs.getString("EMAIL"));
-						user.setNickname(rs.getString("NICKNAME"));
-						user.setName(rs.getString("NAME"));
-
-						return user;
-					}
-				}, new Object[] {});
+		List<User> libraryRankList = getSqlMapClientTemplate().queryForList(
+				"LIBRARYDAO.LIST_RANK_LIBRARY_SQL");
 
 		return libraryRankList;
 	}
@@ -352,37 +260,22 @@ public class LibraryDaoIbatisImpl extends SqlMapClientDaoSupport implements
 	@Override
 	public int deleteInterestLibrary(Integer target, Integer userIdNum) {
 
-		String sql = sqlparser.getSQL("library", "DELETE_INTEREST_LIBRARY_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("userIdNum", userIdNum);
 
-		return getSimpleJdbcTemplate().update(sql,
+		return getSqlMapClientTemplate().update(
+				"LIBRARYDAO.DELETE_INTEREST_LIBRARY_SQL",
 				new Object[] { target, userIdNum });
 
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<User> getListInterestLibrary(Integer userIdNum) {
 
-		String sql = sqlparser.getSQL("library", "LIST_INTEREST_LIBRARY_SQL");
-
-		List<User> interestLibraryList = getSimpleJdbcTemplate().query(sql,
-				new ParameterizedRowMapper<User>() {
-
-					@Override
-					public User mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-
-						User user = new User();
-						user.setUserAddInfo(new UserAddInfo());
-
-						user.setIdNum(rs.getInt("IDNUM"));
-						user.setUserId(rs.getString("USER_ID"));
-						user.setEmail(rs.getString("EMAIL"));
-						user.setNickname(rs.getString("NICKNAME"));
-						user.setName(rs.getString("NAME"));
-
-						return user;
-					}
-				}, new Object[] { userIdNum });
+		List<User> interestLibraryList = (List<User>) getSqlMapClientTemplate()
+				.queryForList("LIBRARYDAO.LIST_INTEREST_LIBRARY_SQL", userIdNum);
 
 		return interestLibraryList;
 	}
@@ -390,114 +283,78 @@ public class LibraryDaoIbatisImpl extends SqlMapClientDaoSupport implements
 	@Override
 	public int insertInterestLibrary(Integer target, Integer userIdNum) {
 
-		String sql = sqlparser.getSQL("library", "INSERT_INTEREST_LIBRARY_SQL");
-
-		return getSimpleJdbcTemplate().update(sql,
+		return getSqlMapClientTemplate().update(
+				"LIBRARYDAO.INSERT_INTEREST_LIBRARY_SQL",
 				new Object[] { target, userIdNum });
 	}
 
 	@Override
 	public int duplicateInterestLibrary(Integer target, Integer userIdNum) {
-		String sql = sqlparser.getSQL("library",
-				"DUPLICATE_INTEREST_LIBRARY_SQL");
 
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { target, userIdNum });
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("userIdNum", userIdNum);
+
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"LIBRARYDAO.DUPLICATE_INTEREST_LIBRARY_SQL", map);
 	}
 
 	@Override
 	public int deleteLibraryRank() {
 
-		String sql = sqlparser.getSQL("library", "DELETE_LIBRARYRANK_SQL");
-
-		return getSimpleJdbcTemplate().update(sql, new Object[] {});
+		return getSqlMapClientTemplate().update(
+				"LIBRARYDAO.DELETE_LIBRARYRANK_SQL");
 	}
 
 	@Override
 	public int refeshLibraryRank() {
 
-		String sql = sqlparser.getSQL("library", "INSERT_RANK_LIBRARY_SQL");
-
-		return getSimpleJdbcTemplate().update(sql, new Object[] {});
+		return getSqlMapClientTemplate().update(
+				"LIBRARYDAO.INSERT_RANK_LIBRARY_SQL");
 	}
 
 	@Override
 	public int getDbCountPossessBook(Integer bookIdNum) {
 
-		String sql = sqlparser.getSQL("possessBook",
-				"DBCOUNT_POSSESSBOOK_BOOKIDNUM_SQL");
-
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { bookIdNum });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"POSSESSBOOKDAO.DBCOUNT_POSSESSBOOK_BOOKIDNUM_SQL", bookIdNum);
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<PossessBook> getListPossessBook(Integer bookIdNum,
 			Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("possessBook",
-				"LIST_POSSESSBOOK_BOOKIDNUM_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bookIdNum", bookIdNum);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 
-		return getSimpleJdbcTemplate().query(sql,
-				new ParameterizedRowMapper<PossessBook>() {
-
-					@Override
-					public PossessBook mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-
-						PossessBook possessBook = new PossessBook();
-						possessBook.setIdNum(rs.getInt("idNum"));
-						possessBook.getBook().setIdNum(rs.getInt("book_idNum"));
-						possessBook.getUser().setIdNum(rs.getInt("user_idNum"));
-						// thumnail은 UserAddInfo 도메인에 있는데
-						// thumanil의 정보를 넣기 위해 객체를 생성하기 보다는
-						// 사용하지 않는 Name에 등록함
-						possessBook.getUser().setName(rs.getString("thumnail"));
-						possessBook.getUser()
-								.setUserId(rs.getString("user_id"));
-
-						return possessBook;
-					}
-				}, new Object[] { bookIdNum, startRow, endRow });
+		return (List<PossessBook>) getSqlMapClientTemplate().queryForList(
+				"POSSESSBOOKDAO.LIST_POSSESSBOOK_BOOKIDNUM_SQL", map);
 	}
 
 	@Override
 	public int getDbcountInterestLibrary(Integer userIdNum) {
 
-		String sql = sqlparser
-				.getSQL("library", "DBCOUNT_INTEREST_LIBRARY_SQL");
-
-		return getSimpleJdbcTemplate().queryForInt(sql,
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"LIBRARYDAO.DBCOUNT_INTEREST_LIBRARY_SQL",
 				new Object[] { userIdNum });
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getListInterestLibrary(Integer userIdNum,
 			Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("library",
-				"LIST_LIMIT_INTEREST_LIBRARY_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userIdNum", userIdNum);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 
-		List<User> interestLibraryList = getSimpleJdbcTemplate().query(sql,
-				new ParameterizedRowMapper<User>() {
-
-					@Override
-					public User mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-
-						User user = new User();
-						user.setIdNum(rs.getInt("IDNUM"));
-						user.setUserId(rs.getString("USER_ID"));
-						user.setEmail(rs.getString("EMAIL"));
-						user.setNickname(rs.getString("NICKNAME"));
-						user.setName(rs.getString("NAME"));
-
-						return user;
-					}
-				}, new Object[] { userIdNum, startRow, endRow });
-
-		return interestLibraryList;
+		return (List<User>) getSqlMapClientTemplate().queryForList(
+				"LIBRARYDAO.LIST_LIMIT_INTEREST_LIBRARY_SQL", map);
 
 	}
 }

@@ -1,176 +1,127 @@
 package com.google.code.booktogether.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import java.util.Map;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-import org.springframework.stereotype.Repository;
 import com.google.code.booktogether.dao.BookReviewDao;
-import com.google.code.booktogether.dao.rowmapper.BookReviewDetailRowMapper;
-import com.google.code.booktogether.dao.rowmapper.BookReviewRowMapper;
-import com.google.code.booktogether.dao.rowmapper.MyBookReviewRowMapper;
-import com.google.code.booktogether.dao.sqlparser.impl.SqlParserXmlImpl;
 import com.google.code.booktogether.web.domain.BookReview;
 
-@Repository("bookReviewJdbcDao")
 public class BookReviewDaoIbatisImpl extends SqlMapClientDaoSupport implements
 		BookReviewDao {
-
-	@Resource(name = "dataSource")
-	public void setJdbcDao(DataSource dataSource) {
-		setDataSource(dataSource);
-	}
-
-	@Resource(name = "SqlParser")
-	SqlParserXmlImpl sqlparser;
 
 	@Override
 	public int insertReview(BookReview bookReview) {
 
-		String sql = sqlparser.getSQL("bookReview", "INSERT_BOOKREVIEW_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { bookReview.getBook().getIdNum(),
-						bookReview.getUser().getIdNum(),
-						bookReview.getRecommend(), bookReview.getTitle(),
-						bookReview.getReview() });
+		return getSqlMapClientTemplate().update(
+				"BOOKREVIEWDAO.INSERT_BOOKREVIEW_SQL", bookReview.getBook());
 	}
 
 	@Override
 	public int modifyReview(BookReview bookReview) {
 
-		String sql = sqlparser.getSQL("bookReview", "MODIFY_BOOKREVIEW_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { bookReview.getTitle(), bookReview.getReview(),
-						bookReview.getIdNum(), bookReview.getUser().getIdNum(),
-						bookReview.getBook().getIdNum() });
+		return getSqlMapClientTemplate().update(
+				"BOOKREVIEWDAO.MODIFY_BOOKREVIEW_SQL", bookReview);
 	}
 
 	@Override
 	public int deleteReview(BookReview bookReview) {
 
-		String sql = sqlparser.getSQL("bookReview", "DELETE_BOOKREVIEW_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { bookReview.getBook().getIdNum(),
-						bookReview.getUser().getIdNum() });
+		return getSqlMapClientTemplate().update(
+				"BOOKREVIEWDAO.DELETE_BOOKREVIEW_SQL", bookReview);
 
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<BookReview> getListBookReview(Integer bookIdNum,
 			Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("bookReview", "LIST_BOOKREVIEW_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bookIdNum", bookIdNum);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 
-		return getSimpleJdbcTemplate().query(sql, new BookReviewRowMapper(),
-				new Object[] { bookIdNum, startRow, endRow });
+		return (List<BookReview>) getSqlMapClientTemplate().queryForList(
+
+		"BOOKREVIEWDAO.LIST_BOOKREVIEW_SQL", map);
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<BookReview> getListMyBookReview(Integer userIdNum,
 			Integer startRow, Integer endRow) {
 
-		String sql = sqlparser.getSQL("bookReview", "LIST_MYBOOKREVIEW_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userIdNum", userIdNum);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 
-		return getSimpleJdbcTemplate().query(sql, new MyBookReviewRowMapper(),
-				new Object[] { userIdNum, startRow, endRow });
+		return (List<BookReview>) getSqlMapClientTemplate().queryForList(
+				"BOOKREVIEWDAO.LIST_MYBOOKREVIEW_SQL", map);
 	}
 
 	@Override
 	public int isExistReview(Integer bookIdNum, Integer userIdNum) {
 
-		String sql = sqlparser.getSQL("bookReview", "EXIST_MYBOOKREVIEW_SQL");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bookIdNum", bookIdNum);
+		map.put("userIdNum", userIdNum);
 
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { bookIdNum, userIdNum });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"BOOKREVIEWDAO.EXIST_MYBOOKREVIEW_SQL", map);
 
 	}
 
 	@Override
 	public BookReview getReview(BookReview bookReview) {
 
-		String sql = sqlparser.getSQL("bookReview", "GET_MY_BOOKREVIEW_SQL");
-
-		return (BookReview) DataAccessUtils
-				.singleResult(getSimpleJdbcTemplate().query(
-						sql,
-						new BookReviewDetailRowMapper(),
-						new Object[] { bookReview.getBook().getIdNum(),
-								bookReview.getUser().getIdNum() }));
+		return (BookReview) getSqlMapClientTemplate().queryForObject(
+				"BOOKREVIEWDAO.GET_MY_BOOKREVIEW_SQL", bookReview);
 
 	}
 
 	@Override
 	public BookReview getReview(Integer bookReviewIdNum) {
 
-		String sql = sqlparser.getSQL("bookReview", "GET_BOOKREVIEW_SQL");
-
-		return (BookReview) DataAccessUtils
-				.singleResult(getSimpleJdbcTemplate().query(sql,
-						new BookReviewDetailRowMapper(),
-						new Object[] { bookReviewIdNum }));
+		return (BookReview) getSqlMapClientTemplate().queryForObject(
+				"BOOKREVIEWDAO.GET_BOOKREVIEW_SQL", bookReviewIdNum);
 
 	}
 
 	@Override
 	public int insertRecommend(BookReview bookReview) {
 
-		String sql = sqlparser.getSQL("bookReview", "INSERT_RECOMMEND_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { bookReview.getUser().getIdNum(),
-						bookReview.getIdNum() });
+		return getSqlMapClientTemplate().update(
+				"BOOKREVIEWDAO.INSERT_RECOMMEND_SQL", bookReview);
 	}
 
 	@Override
 	public int modifyReviewRecommend(BookReview bookReview) {
 
-		String sql = sqlparser.getSQL("bookReview",
-				"MODIFY_REVIEWRECOMMEND_SQL");
-
-		return getSimpleJdbcTemplate().update(
-				sql,
-				new Object[] { bookReview.getIdNum(),
-						bookReview.getBook().getIdNum() });
+		return getSqlMapClientTemplate().update(
+				"BOOKREVIEWDAO.MODIFY_REVIEWRECOMMEND_SQL", bookReview);
 	}
 
 	@Override
 	public int isExistRecommend(BookReview bookReview) {
 
-		String sql = sqlparser.getSQL("bookReview", "EXIST_RECOMMEND_SQL");
-
-		return getSimpleJdbcTemplate().queryForInt(
-				sql,
-				new Object[] { bookReview.getIdNum(),
-						bookReview.getUser().getIdNum() });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"BOOKREVIEWDAO.EXIST_RECOMMEND_SQL", bookReview);
 	}
 
 	@Override
 	public int getDbcountMyBookReview(Integer userIdNum) {
 
-		String sql = sqlparser.getSQL("bookReview",
-				"GET_DBCOUNT_MYBOOKREVIEW_SQL");
-
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { userIdNum });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"BOOKREVIEWDAO.GET_DBCOUNT_MYBOOKREVIEW_SQL", userIdNum);
 	}
 
 	@Override
 	public int getDbcountBookReview(Integer bookIdNum) {
 
-		String sql = sqlparser.getSQL("bookReview",
-				"GET_DBCOUNT_BOOKREVIEW_SQL");
-
-		return getSimpleJdbcTemplate().queryForInt(sql,
-				new Object[] { bookIdNum });
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"BOOKREVIEWDAO.GET_DBCOUNT_BOOKREVIEW_SQL", bookIdNum);
 	}
 
 }
